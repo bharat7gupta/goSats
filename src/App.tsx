@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {
 	StatusBar,
 	View,
+	Text,
 } from 'react-native';
 
 import Button from './components/common/Button';
@@ -25,11 +26,18 @@ class App extends Component<{}, AppState> {
 		this.setState({ isVisible: false });
 	}
 
+	getMessages = () => {
+		return [
+			'20% satsback will be added to your wallet.',
+			'keep shopping & win more sats.',
+		];
+	}
+
 	render(): React.ReactNode {
 		const { isVisible } = this.state;
 
 		return (
-			<View style={{ fontFamily: 'Roboto' }}>
+			<View>
 				<StatusBar barStyle="dark-content" />
 				<Button
 					onClick={this.onButtonPress}
@@ -38,7 +46,10 @@ class App extends Component<{}, AppState> {
 
 				<Reward
 					isVisible={isVisible}
+					messages={this.getMessages()}
 					onContinue={this.onContinue}
+					winAmount={20000}
+					currency={'sats'}
 				/>
 			</View>
 		);

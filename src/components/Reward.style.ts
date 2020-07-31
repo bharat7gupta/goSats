@@ -12,35 +12,51 @@ const RewardStyles = StyleSheet.create({
 		textAlign: 'center',
 		color: CommonColors.white,
 		fontSize: 20,
-		fontFamily: 'Poppins-Regular',
+		lineHeight: 24,
+		fontFamily: 'Roboto-Bold',
 		paddingTop: 30,
-		marginBottom: 16,
+		marginBottom: 8,
 	},
 	medalLogoContainer: {
 		justifyContent: 'center',
 		alignItems: 'center',
 	},
 	medalLogo: {
-		width: 102,
-		height: 108,
+		width: 86,
+		height: 102,
+	},
+	winAmount: {
+		textAlign: 'center',
+		marginTop: 8,
+		flexDirection: 'row',
+		justifyContent: 'center',
 	},
 	win: {
+		fontSize: 26,
+		fontFamily: 'Roboto-Bold',
 		color: CommonColors.cyan,
-		fontSize: 20,
-		fontWeight: 'bold',
-		textAlign: 'center',
-		marginTop: 20,
+		marginBottom: -2,
+	},
+	currency: {
+		fontSize: 16,
+		fontFamily: 'Roboto-Bold',
+		color: CommonColors.cyan,
+		alignSelf: 'flex-end',
 	},
 	message: {
 		color: CommonColors.white,
 		fontSize: 12,
-		fontWeight: 'bold',
+		fontFamily: 'Roboto-Regular',
 		textAlign: 'center',
 		marginVertical: 12,
 	},
-	continueButtonStyle: {
+	continueButtonContainerStyle: {
 		borderRadius: 8,
-		marginTop: 20,
+		marginVertical: 16,
+	},
+	continueButtonStyle: {
+		fontSize: 16,
+		fontFamily: 'Roboto-Bold',
 	},
 });
 

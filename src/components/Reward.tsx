@@ -7,13 +7,32 @@ import styles from './Reward.style';
 
 interface IRewardProps {
 	isVisible: boolean;
+	messages: string[];
+	winAmount: number;
+	currency: string;
 	onContinue: () => void;
 }
 
 export default class Reward extends Component<IRewardProps> {
 
+	getWinAmount = () => {
+		const { winAmount, currency } = this.props;
+
+		if (winAmount && winAmount > 0) {
+			const formattedWinAmount = winAmount.toLocaleString();
+			return (
+				<View style={styles.winAmount}>
+					<Text style={styles.win}>{formattedWinAmount}</Text>
+					<Text style={styles.currency}>{currency}</Text>
+				</View>
+			);
+		}
+
+		return null;
+	}
+
 	render(): React.ReactNode {
-		const { isVisible, onContinue } = this.props;
+		const { isVisible, messages, winAmount, onContinue } = this.props;
 
 		return (
 			<Modal
@@ -30,12 +49,14 @@ export default class Reward extends Component<IRewardProps> {
 						/>
 					</View>
 
-					<Text style={styles.win}>20,000 sats</Text>
-					<Text style={styles.message}>Keep shopping &amp; win more bitcoin.</Text>
+					{this.getWinAmount()}
+
+					<Text style={styles.message}>{messages.join('\n')}</Text>
 
 					<Button
 						onClick={onContinue}
 						content="Continue"
+						btnContainerStyle={styles.continueButtonContainerStyle}
 						btnStyle={styles.continueButtonStyle}
 					/>
 				</View>
