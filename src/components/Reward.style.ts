@@ -3,10 +3,25 @@ import { CommonColors } from '../Colors';
 
 const RewardStyles = StyleSheet.create({
 	contentStyle: {
+		zIndex: 2,
+		elevation: 2,
+		position: 'relative',
 		paddingVertical: 20,
 		paddingHorizontal: 30,
 		backgroundColor: CommonColors.purple,
 		borderRadius: 8,
+	},
+	confettiContainer: {
+		zIndex: 1,
+		elevation: 1,
+		position: 'absolute',
+		top: 0,
+		left: 0,
+		right: 0,
+		bottom: 120,
+		flex: 1,
+		overflow: 'hidden',
+		backgroundColor: 'transparent',
 	},
 	heading: {
 		textAlign: 'center',

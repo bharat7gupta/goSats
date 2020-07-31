@@ -44,13 +44,14 @@ class App extends Component<{}, AppState> {
 					content={'Click!'}
 				/>
 
-				<Reward
-					isVisible={isVisible}
-					messages={this.getMessages()}
-					onContinue={this.onContinue}
-					winAmount={20000}
-					currency={'sats'}
-				/>
+				{isVisible && (
+					<Reward
+						messages={this.getMessages()}
+						onContinue={this.onContinue}
+						winAmount={20000}
+						currency={'sats'}
+					/>
+				)}
 			</View>
 		);
 	}
