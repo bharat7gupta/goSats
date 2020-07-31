@@ -1,28 +1,48 @@
 import React, { Component } from 'react';
 import {
-  Pressable,
-  StatusBar,
-  Text,
+	StatusBar,
+	View,
 } from 'react-native';
 
-class App extends Component {
+import Button from './components/common/Button';
+import Reward from './components/Reward';
 
-  render(): React.ReactNode {
-    return (
-      <>
-        <StatusBar barStyle="dark-content" />
-        <Pressable
-          style={{paddingVertical: 20, backgroundColor: '#841584'}}
-          accessibilityLabel="Learn more about this purple button"
-          android_ripple={{ color: 'rgba(255, 255, 255, 0.3)', radius: 0 }}
-        >
-          <Text>
-            Click!
-          </Text>
-        </Pressable>
-      </>
-    );
-  }
+interface AppState {
+	isVisible: boolean;
+}
+
+class App extends Component<{}, AppState> {
+
+	state = {
+		isVisible: false,
+	};
+
+	onButtonPress = () => {
+		this.setState({ isVisible: true });
+	}
+
+	onContinue = () => {
+		this.setState({ isVisible: false });
+	}
+
+	render(): React.ReactNode {
+		const { isVisible } = this.state;
+
+		return (
+			<View style={{ fontFamily: 'Roboto' }}>
+				<StatusBar barStyle="dark-content" />
+				<Button
+					onClick={this.onButtonPress}
+					content={'Click!'}
+				/>
+
+				<Reward
+					isVisible={isVisible}
+					onContinue={this.onContinue}
+				/>
+			</View>
+		);
+	}
 }
 
 export default App;

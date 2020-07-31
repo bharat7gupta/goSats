@@ -108,8 +108,8 @@
 		],
 		"indent": [
 			true,
-			"spaces",
-			2
+			"tabs",
+			4
 		],
 		"trailing-comma": [
 			true,
