@@ -42,8 +42,8 @@ class Confetti extends Component<IConfettiProps> {
 		const yRotationOutput = this.randomValue(-220, 220) + 'deg';
 
 		this.yRotateAnimation = this.yAnimation.interpolate({
-			inputRange: [-100, 0, windowHeight / 2, windowHeight],
-			outputRange: ['-30deg', '0deg', yRotationOutput, yRotationOutput],
+			inputRange: [0, windowHeight / 2, windowHeight],
+			outputRange: ['0deg', yRotationOutput, yRotationOutput],
 		});
 
 		// maximum allowed distance along x axis - one third of screen width
@@ -56,7 +56,7 @@ class Confetti extends Component<IConfettiProps> {
 		});
 
 		this.xRotateAnimation = this.yAnimation.interpolate({
-			inputRange: [0, windowHeight / 2, windowHeight],
+			inputRange: [0, windowWidth / 2, windowWidth],
 			outputRange: ['0deg', xRotationOutput, xRotationOutput],
 		});
 	}
