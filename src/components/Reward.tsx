@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Modal from 'react-native-modal';
 import { View, Text, Image } from 'react-native';
-import Confetti from 'react-native-confetti';
+import Confetti from './common/Confetti/ConfettiView';
 import Button from './common/Button';
 
 import styles from './Reward.style';
@@ -14,11 +14,11 @@ interface IRewardProps {
 }
 
 export default class Reward extends Component<IRewardProps> {
-	private _confettiView: any;
+	private confettiView: any;
 
 	componentDidMount(): void {
-		if (this._confettiView) {
-		   this._confettiView.startConfetti();
+		if (this.confettiView) {
+		   this.confettiView.startConfetti();
 		}
 	}
 
@@ -39,7 +39,7 @@ export default class Reward extends Component<IRewardProps> {
 	}
 
 	onContinue = () => {
-		this._confettiView.stopConfetti();
+		this.confettiView.stopConfetti();
 		this.props.onContinue();
 	}
 
@@ -74,11 +74,10 @@ export default class Reward extends Component<IRewardProps> {
 
 					<View style={styles.confettiContainer}>
 						<Confetti
-							ref={node => this._confettiView = node}
+							ref={node => this.confettiView = node}
 							colors={['#ED302F', '#5475B9', '#FFD330']}
-							confettiCount={300}
+							confettiCount={60}
 							timeout={0}
-							bsize={0.1}
 						/>
 					</View>
 				</View>
