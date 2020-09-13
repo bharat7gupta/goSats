@@ -1,9 +1,11 @@
 import React, { Component, useState } from 'react';
 import { StyleSheet, View, Text, ViewStyle } from 'react-native';
 import colorConstants from '../../constants/color';
-import { NeomorphFlex } from 'react-native-neomorph-shadows';
+import { NeomorphFlex, Neomorph } from 'react-native-neomorph-shadows';
+import styleConstants from '../../constants/style';
 import NeoButton from './NeoButton';
 import Star from './icons/ShiningStar';
+import FavouriteButton from './FavouriteButton';
 
 interface NeoTileProps {
 	text: string;
@@ -12,8 +14,9 @@ interface NeoTileProps {
 	onClick?: () => void;
 }
 
-function NeoTile(props: NeoTileProps) {
+export default function NeoTile(props: NeoTileProps) {
 	const [ pressed, setPressed ] = useState(false);
+	const [ isFavourite, setFavourite ] = useState(false);
 
 	const handleTouchStart = () => {
 		setPressed(true);
@@ -25,6 +28,10 @@ function NeoTile(props: NeoTileProps) {
 		if (props.onClick) {
 			props.onClick();
 		}
+	};
+
+	const handleFavouriteClick = () => {
+		setFavourite(!isFavourite);
 	};
 
 	const buttonTextStyle = {
@@ -41,7 +48,7 @@ function NeoTile(props: NeoTileProps) {
 			>
 				<NeomorphFlex
 					inner={pressed}
-					style={styles.shadow}
+					style={styleConstants.shadowStyles}
 					darkShadowColor={colorConstants.SHADOW_DARK}
 					lightShadowColor={colorConstants.SHADOW_LIGHT}
 				>
@@ -49,6 +56,12 @@ function NeoTile(props: NeoTileProps) {
 					<Text style={buttonTextStyle}>{props.text}</Text>
 				</NeomorphFlex>
 			</View>
+
+			<FavouriteButton
+				isSelected={isFavourite}
+				style={styles.favourite}
+				onClick={handleFavouriteClick}
+			/>
 		</View>
 	);
 }
@@ -64,15 +77,6 @@ const styles = StyleSheet.create({
 	container: {
 		flex: 1,
 	},
-	shadow: {
-		shadowRadius: 6,
-		borderRadius: 10,
-		backgroundColor: colorConstants.PRIMARY,
-		flex: 1,
-		flexDirection: 'row',
-		justifyContent: 'center',
-		alignItems: 'center',
-	},
 	buttonTextStyle: {
 		color: colorConstants.FONT_COLOR,
 		fontFamily: 'Gilroy-Bold',
@@ -81,6 +85,9 @@ const styles = StyleSheet.create({
 		marginLeft: 10,
 		paddingTop: 4,
 	},
+	favourite: {
+		position: 'absolute',
+		top: 20,
+		right: 20,
+	},
 });
-
-export default NeoTile;

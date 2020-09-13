@@ -1,7 +1,8 @@
 import React, { Component, useState } from 'react';
 import { StyleSheet, View, Text, ViewStyle } from 'react-native';
-import colorConstants from '../../constants/color';
 import { NeomorphFlex } from 'react-native-neomorph-shadows';
+import styleConstants from '../../constants/style';
+import colorConstants from '../../constants/color';
 
 interface NeoButtonProps {
 	text: string;
@@ -28,7 +29,7 @@ function NeoButton(props: NeoButtonProps) {
 	};
 
 	const buttonContentStyle = {
-		...styles.shadow,
+		...styleConstants.shadowStyles,
 		...props.buttonContentStyle,
 	};
 
@@ -51,7 +52,9 @@ function NeoButton(props: NeoButtonProps) {
 					darkShadowColor={colorConstants.SHADOW_DARK}
 					lightShadowColor={colorConstants.SHADOW_LIGHT}
 				>
-					{props.icon}
+					{props.icon && (
+						<View style={{ marginRight: 10 }}>{props.icon}</View>
+					)}
 					<Text style={buttonTextStyle}>{props.text}</Text>
 				</NeomorphFlex>
 			</View>
@@ -68,21 +71,11 @@ const styles = StyleSheet.create({
 	container: {
 		flex: 1,
 	},
-	shadow: {
-		shadowRadius: 6,
-		borderRadius: 10,
-		backgroundColor: colorConstants.PRIMARY,
-		flex: 1,
-		flexDirection: 'row',
-		justifyContent: 'center',
-		alignItems: 'center',
-	},
 	buttonTextStyle: {
 		color: colorConstants.FONT_COLOR,
 		fontFamily: 'Gilroy-Bold',
 		fontSize: 16,
 		lineHeight: 18,
-		marginLeft: 10,
 		paddingTop: 4,
 	},
 });
