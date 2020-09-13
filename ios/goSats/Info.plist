@@ -55,10 +55,7 @@
 	<false/>
 	<key>UIAppFonts</key>
 	<array>
-		<string>Poppins-Bold.ttf</string>
-		<string>Poppins-Regular.ttf</string>
-		<string>Roboto-Bold.ttf</string>
-		<string>Roboto-Regular.ttf</string>
+		<string>Gilroy-Bold.ttf</string>
 	</array>
 </dict>
 </plist>

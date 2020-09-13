@@ -3,20 +3,22 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "android": "react-native run-android",
-    "ios": "react-native run-ios",
-    "start": "react-native start",
+    "android": "react-native run-android --port=8088",
+    "ios": "react-native run-ios --port=8088",
+    "start": "react-native start --port=8088",
     "test": "jest",
     "lint": "eslint .",
     "lint-ts": "tslint -c tslint.json 'src/**/*.{ts,tsx}' --fix",
     "link": "react-native link"
   },
   "dependencies": {
+    "@react-native-community/art": "1.2.0",
     "@types/react": "16.9.43",
     "@types/react-native": "0.63.2",
     "react": "16.13.1",
     "react-native": "0.63.2",
     "react-native-modal": "11.5.6",
+    "react-native-neomorph-shadows": "1.1.2",
     "react-native-svg": "12.1.0"
   },
   "devDependencies": {
@@ -37,5 +39,8 @@
   },
   "jest": {
     "preset": "react-native"
+  },
+  "rnpm": {
+    "assets": [ "./src/assets/fonts" ]
   }
 }

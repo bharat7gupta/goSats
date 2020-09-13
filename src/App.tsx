@@ -3,56 +3,43 @@ import {
 	StatusBar,
 	View,
 	Text,
+	StyleSheet,
+	ScrollView,
 } from 'react-native';
+import { Shadow, Neomorph, NeomorphFlex } from 'react-native-neomorph-shadows';
 
-import Button from './components/common/Button';
-import Reward from './components/Reward';
+import colorConstants from './constants/color';
+import NeuButton from './components/common/NeoButton';
+import NeoButton from './components/common/NeoButton';
+import ShoppingBag from './components/common/icons/ShoppingBag';
+import Star from './components/common/icons/Star';
 
-interface AppState {
-	isVisible: boolean;
-}
+const styles = StyleSheet.create({
+	root: {
+		flex: 1,
+		backgroundColor: colorConstants.PRIMARY,
+	},
+	content: {
+		flexDirection: 'row',
+		flexWrap: 'wrap',
+		padding: 20,
+	},
+	buttonStyle: {
+		flexBasis: '50%',
+	},
+});
 
-class App extends Component<{}, AppState> {
-
-	state = {
-		isVisible: false,
-	};
-
-	onButtonPress = () => {
-		this.setState({ isVisible: true });
-	}
-
-	onContinue = () => {
-		this.setState({ isVisible: false });
-	}
-
-	getMessages = () => {
-		return [
-			'20% satsback will be added to your wallet.',
-			'keep shopping & win more sats.',
-		];
-	}
-
+class App extends Component {
 	render(): React.ReactNode {
-		const { isVisible } = this.state;
-
 		return (
-			<View>
-				<StatusBar barStyle="dark-content" />
-				<Button
-					onClick={this.onButtonPress}
-					content={'Click!'}
-				/>
+			<ScrollView style={styles.root}>
+				<StatusBar barStyle="dark-content" backgroundColor={colorConstants.PRIMARY_DARK} />
 
-				{isVisible && (
-					<Reward
-						messages={this.getMessages()}
-						onContinue={this.onContinue}
-						winAmount={20000}
-						currency={'sats'}
-					/>
-				)}
-			</View>
+				<View style={styles.content}>
+					<NeoButton style={styles.buttonStyle} text="Categories" icon={<ShoppingBag />} />
+					<NeoButton style={styles.buttonStyle} text="Favourites" icon={<Star />} />
+				</View>
+			</ScrollView>
 		);
 	}
 }

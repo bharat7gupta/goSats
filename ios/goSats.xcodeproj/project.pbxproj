@@ -24,6 +24,12 @@
 		A9AB1C4BC93E447D8B363954 /* Poppins-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2E41208F606A4F7A8708E12A /* Poppins-Regular.ttf */; };
 		F2251B9E7E104A3188B77992 /* Roboto-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E109474C8B2E4FD1AE68E75D /* Roboto-Bold.ttf */; };
 		B9AF895ADBE441468239A528 /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D44A242DB59A4F35B5B68CA4 /* Roboto-Regular.ttf */; };
+		F5451E2CBB724487BCBFF76A /* Gilroy-Bold.woff in Resources */ = {isa = PBXBuildFile; fileRef = 3CB4D33C9A7C423CAE8C8D73 /* Gilroy-Bold.woff */; };
+		AEA72F2358B3405C90025E70 /* Gilroy-Heavy.woff in Resources */ = {isa = PBXBuildFile; fileRef = 9D3D194D49DD4F4F8CA67965 /* Gilroy-Heavy.woff */; };
+		9F69AB3DD2234DD397D0C3DA /* Gilroy-Light.woff in Resources */ = {isa = PBXBuildFile; fileRef = 31C0E6E069CF4A919492EFEC /* Gilroy-Light.woff */; };
+		EAA1AD4269614A0FBA8EE908 /* Gilroy-Medium.woff in Resources */ = {isa = PBXBuildFile; fileRef = 9FD8DBA4BC2D4C949905A961 /* Gilroy-Medium.woff */; };
+		0BA25DDEFE0C4102A1D9F455 /* Gilroy-Regular.woff in Resources */ = {isa = PBXBuildFile; fileRef = B7C8AA57E8C349F29E779EEA /* Gilroy-Regular.woff */; };
+		6F07064CBC724F539CBB7B1E /* Gilroy-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6498224491C0448FA65E0445 /* Gilroy-Bold.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -75,6 +81,12 @@
 		2E41208F606A4F7A8708E12A /* Poppins-Regular.ttf */ = {isa = PBXFileReference; name = "Poppins-Regular.ttf"; path = "../src/assets/fonts/Poppins-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		E109474C8B2E4FD1AE68E75D /* Roboto-Bold.ttf */ = {isa = PBXFileReference; name = "Roboto-Bold.ttf"; path = "../src/assets/fonts/Roboto-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		D44A242DB59A4F35B5B68CA4 /* Roboto-Regular.ttf */ = {isa = PBXFileReference; name = "Roboto-Regular.ttf"; path = "../src/assets/fonts/Roboto-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		3CB4D33C9A7C423CAE8C8D73 /* Gilroy-Bold.woff */ = {isa = PBXFileReference; name = "Gilroy-Bold.woff"; path = "../src/assets/fonts/Gilroy-Bold.woff"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		9D3D194D49DD4F4F8CA67965 /* Gilroy-Heavy.woff */ = {isa = PBXFileReference; name = "Gilroy-Heavy.woff"; path = "../src/assets/fonts/Gilroy-Heavy.woff"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		31C0E6E069CF4A919492EFEC /* Gilroy-Light.woff */ = {isa = PBXFileReference; name = "Gilroy-Light.woff"; path = "../src/assets/fonts/Gilroy-Light.woff"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		9FD8DBA4BC2D4C949905A961 /* Gilroy-Medium.woff */ = {isa = PBXFileReference; name = "Gilroy-Medium.woff"; path = "../src/assets/fonts/Gilroy-Medium.woff"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		B7C8AA57E8C349F29E779EEA /* Gilroy-Regular.woff */ = {isa = PBXFileReference; name = "Gilroy-Regular.woff"; path = "../src/assets/fonts/Gilroy-Regular.woff"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		6498224491C0448FA65E0445 /* Gilroy-Bold.ttf */ = {isa = PBXFileReference; name = "Gilroy-Bold.ttf"; path = "../src/assets/fonts/Gilroy-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -214,6 +226,12 @@
 				2E41208F606A4F7A8708E12A /* Poppins-Regular.ttf */,
 				E109474C8B2E4FD1AE68E75D /* Roboto-Bold.ttf */,
 				D44A242DB59A4F35B5B68CA4 /* Roboto-Regular.ttf */,
+				3CB4D33C9A7C423CAE8C8D73 /* Gilroy-Bold.woff */,
+				9D3D194D49DD4F4F8CA67965 /* Gilroy-Heavy.woff */,
+				31C0E6E069CF4A919492EFEC /* Gilroy-Light.woff */,
+				9FD8DBA4BC2D4C949905A961 /* Gilroy-Medium.woff */,
+				B7C8AA57E8C349F29E779EEA /* Gilroy-Regular.woff */,
+				6498224491C0448FA65E0445 /* Gilroy-Bold.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -367,6 +385,12 @@
 				A9AB1C4BC93E447D8B363954 /* Poppins-Regular.ttf in Resources */,
 				F2251B9E7E104A3188B77992 /* Roboto-Bold.ttf in Resources */,
 				B9AF895ADBE441468239A528 /* Roboto-Regular.ttf in Resources */,
+				F5451E2CBB724487BCBFF76A /* Gilroy-Bold.woff in Resources */,
+				AEA72F2358B3405C90025E70 /* Gilroy-Heavy.woff in Resources */,
+				9F69AB3DD2234DD397D0C3DA /* Gilroy-Light.woff in Resources */,
+				EAA1AD4269614A0FBA8EE908 /* Gilroy-Medium.woff in Resources */,
+				0BA25DDEFE0C4102A1D9F455 /* Gilroy-Regular.woff in Resources */,
+				6F07064CBC724F539CBB7B1E /* Gilroy-Bold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
