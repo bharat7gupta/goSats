@@ -30,26 +30,50 @@ const styles = StyleSheet.create({
 	},
 });
 
-interface NeuButtonProps {
+interface NeoButtonProps {
 	text: string;
 	icon?: JSX.Element;
 	style?: ViewStyle;
 }
 
-class NeoButton extends Component<NeuButtonProps> {
+interface NeoButtonState {
+	pressed: boolean;
+}
+
+class NeoButton extends Component<NeoButtonProps> {
+	state = {
+		pressed: false,
+	};
+
+	handleTouchStart = () => {
+		this.setState({ pressed: true });
+	}
+
+	handleTouchEnd = () => {
+		this.setState({ pressed: false });
+	}
+
 	render (): JSX.Element {
 		const { text, icon, style } = this.props;
+		const { pressed } = this.state;
+		const buttonTextStyle = {
+			...styles.buttonTextStyle,
+			color: pressed ? colorConstants.LIGHT_GREY : colorConstants.FONT_COLOR,
+		};
 
 		return (
 			<View style={[styles.root, style]}>
-				<NeomorphFlex
-					style={styles.shadow}
-					darkShadowColor={colorConstants.SHADOW_DARK}
-					lightShadowColor={colorConstants.SHADOW_LIGHT}
-				>
-					{icon}
-					<Text style={styles.buttonTextStyle}>{text}</Text>
-				</NeomorphFlex>
+				<View onTouchStart={this.handleTouchStart} onTouchEnd={this.handleTouchEnd}>
+					<NeomorphFlex
+						inner={pressed}
+						style={styles.shadow}
+						darkShadowColor={colorConstants.SHADOW_DARK}
+						lightShadowColor={colorConstants.SHADOW_LIGHT}
+					>
+						{icon}
+						<Text style={buttonTextStyle}>{text}</Text>
+					</NeomorphFlex>
+				</View>
 			</View>
 		);
 	}

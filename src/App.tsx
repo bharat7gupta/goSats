@@ -2,14 +2,11 @@ import React, { Component } from 'react';
 import {
 	StatusBar,
 	View,
-	Text,
 	StyleSheet,
 	ScrollView,
 } from 'react-native';
-import { Shadow, Neomorph, NeomorphFlex } from 'react-native-neomorph-shadows';
 
 import colorConstants from './constants/color';
-import NeuButton from './components/common/NeoButton';
 import NeoButton from './components/common/NeoButton';
 import ShoppingBag from './components/common/icons/ShoppingBag';
 import Star from './components/common/icons/Star';
