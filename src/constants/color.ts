@@ -7,7 +7,7 @@ enum Colors {
 	FONT_COLOR = '#FFFFFF',
 	SHADOW_LIGHT = '#FFFFFF',
 	SHADOW_DARK = '#000000',
-	LIGHT_GREY = '#BBBBBB',
+	LIGHT_GREY = '#AAAAAA',
 }
 
 export default Colors;

@@ -2,17 +2,17 @@ import React, { Component, useState } from 'react';
 import { StyleSheet, View, Text, ViewStyle } from 'react-native';
 import colorConstants from '../../constants/color';
 import { NeomorphFlex } from 'react-native-neomorph-shadows';
+import NeoButton from './NeoButton';
+import Star from './icons/ShiningStar';
 
-interface NeoButtonProps {
+interface NeoTileProps {
 	text: string;
 	icon?: JSX.Element;
 	style?: ViewStyle;
-	buttonContentStyle?: ViewStyle;
-	buttonTextStyle?: ViewStyle;
 	onClick?: () => void;
 }
 
-function NeoButton(props: NeoButtonProps) {
+function NeoTile(props: NeoTileProps) {
 	const [ pressed, setPressed ] = useState(false);
 
 	const handleTouchStart = () => {
@@ -27,13 +27,7 @@ function NeoButton(props: NeoButtonProps) {
 		}
 	};
 
-	const buttonContentStyle = {
-		...styles.shadow,
-		...props.buttonContentStyle,
-	};
-
 	const buttonTextStyle = {
-		...props.buttonTextStyle,
 		...styles.buttonTextStyle,
 		color: pressed ? colorConstants.LIGHT_GREY : colorConstants.FONT_COLOR,
 	};
@@ -47,7 +41,7 @@ function NeoButton(props: NeoButtonProps) {
 			>
 				<NeomorphFlex
 					inner={pressed}
-					style={buttonContentStyle}
+					style={styles.shadow}
 					darkShadowColor={colorConstants.SHADOW_DARK}
 					lightShadowColor={colorConstants.SHADOW_LIGHT}
 				>
@@ -61,9 +55,11 @@ function NeoButton(props: NeoButtonProps) {
 
 const styles = StyleSheet.create({
 	root: {
+		position: 'relative',
 		padding: 10,
 		flexDirection: 'row',
 		flex: 1,
+		minHeight: 130,
 	},
 	container: {
 		flex: 1,
@@ -87,4 +83,4 @@ const styles = StyleSheet.create({
 	},
 });
 
-export default NeoButton;
+export default NeoTile;
