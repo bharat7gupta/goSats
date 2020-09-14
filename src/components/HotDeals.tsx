@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
 		lineHeight: 28,
 		color: colorConstants.FONT_COLOR,
 		paddingHorizontal: 13,
-		marginLeft: 12,
+		marginLeft: 9,
 		marginTop: 16,
 		marginBottom: 8,
 	},
