@@ -3,7 +3,8 @@ import colorConstants from './color';
 
 const styles = StyleSheet.create({
 	shadowStyles: {
-		shadowRadius: 3,
+		shadowRadius: 20,
+		shadowOpacity: 0.8,
 		borderRadius: 10,
 		backgroundColor: colorConstants.PRIMARY,
 		flex: 1,
@@ -12,7 +13,8 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 	},
 	smallButtonShadowStyles: {
-		shadowRadius: 6,
+		shadowRadius: 2,
+		shadowOpacity: 0.8,
 		borderRadius: 28/2,
 		backgroundColor: colorConstants.PRIMARY,
 		width: 28,
