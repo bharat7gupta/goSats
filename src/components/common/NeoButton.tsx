@@ -36,7 +36,7 @@ function NeoButton(props: NeoButtonProps) {
 	const buttonTextStyle = {
 		...props.buttonTextStyle,
 		...styles.buttonTextStyle,
-		color: pressed ? colorConstants.LIGHT_GREY : colorConstants.FONT_COLOR,
+		color: pressed ? colorConstants.WARM_GREY : colorConstants.FONT_COLOR,
 	};
 
 	return (
