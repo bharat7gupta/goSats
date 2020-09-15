@@ -3,7 +3,7 @@ import colorConstants from './color';
 
 const styles = StyleSheet.create({
 	shadowStyles: {
-		shadowRadius: 20,
+		shadowRadius: 6,
 		shadowOpacity: 0.8,
 		borderRadius: 10,
 		backgroundColor: colorConstants.PRIMARY,
