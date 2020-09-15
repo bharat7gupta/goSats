@@ -11,7 +11,7 @@ import colorConstants from './constants/color';
 class App extends Component {
 	render(): React.ReactNode {
 		return (
-			<ScrollView style={styles.root}>
+			<ScrollView style={styles.root} contentContainerStyle={{flexGrow: 1}}>
 				<StatusBar barStyle="dark-content" backgroundColor={colorConstants.PRIMARY_DARK} />
 				<Home />
 			</ScrollView>

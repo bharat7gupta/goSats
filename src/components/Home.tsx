@@ -1,15 +1,17 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View } from 'react-native';
 
 import HotDeals from './HotDeals';
 import HomePageActions from './HomePageActions';
+import BottomMenu from './common/BottomMenu';
 
 export default function Home() {
 
 	return (
-		<React.Fragment>
+		<View style={{ flex: 1 }}>
 			<HomePageActions />
 			<HotDeals />
-		</React.Fragment>
+			<BottomMenu />
+		</View>
 	);
 }

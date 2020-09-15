@@ -2,7 +2,7 @@ import React from 'react';
 import { ViewStyle, View } from 'react-native';
 import { Neomorph } from 'react-native-neomorph-shadows';
 
-import Star from './icons/ShiningStarSmall';
+import Star from './icons/ShiningStar';
 import DimStar from './icons/DimStar';
 
 import styleConstants from '../../constants/style';
@@ -23,7 +23,7 @@ export default function FavouriteButton(props) {
 				darkShadowColor={colorConstants.SHADOW_DARK}
 				lightShadowColor={colorConstants.SHADOW_LIGHT}
 			>
-				{props.isSelected && <Star />}
+				{props.isSelected && <Star size={12} />}
 				{!props.isSelected && <DimStar />}
 			</Neomorph>
 		</View>

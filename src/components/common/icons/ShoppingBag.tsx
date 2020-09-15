@@ -1,9 +1,16 @@
 import React from 'react';
 import Svg, { Path } from 'react-native-svg';
 
-export default function ShoppingBag() {
+interface ShoppingBagProps {
+	width?: number;
+	height?: number;
+}
+
+export default function ShoppingBag(props: ShoppingBagProps) {
+	const { width = 16, height = 18 } = props;
+
 	return (
-		<Svg width="16" height="18" viewBox="0 0 16 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+		<Svg width={width} height={height} viewBox="0 0 16 18" fill="none">
 			<Path d="M1.12669 3.8147e-06H14.6267V5.0625H1.12669V3.8147e-06Z" fill="#27649D"/>
 			<Path d="M15.7523 3.9375V16.875C15.7523 17.496 15.2483 18 14.6273 18H1.12727C0.506274 18 0.00227356 17.496 0.00227356 16.875V3.9375H15.7523Z" fill="#55A9F8"/>
 			<Path d="M1.12671 4.48257H2.80689L2.80802 1.69875L1.12614 3.8147e-06L1.12671 4.48257ZM12.9538 1.67288L12.9364 4.5H14.6273V3.8147e-06L12.9538 1.67288Z" fill="#55A9F8"/>

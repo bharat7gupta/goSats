@@ -1,9 +1,15 @@
 import React from 'react';
-import Svg, { G, Path, Defs, Filter } from 'react-native-svg';
+import Svg, { G, Path, Defs } from 'react-native-svg';
 
-export default function DimStar() {
+interface DimStarProps {
+	size?: number;
+}
+
+export default function DimStar(props: DimStarProps) {
+	const { size = 12 } = props;
+
 	return (
-		<Svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+		<Svg width={size} height={size} viewBox="0 0 12 12" fill="none">
 			<G filter="url(#filter0_i)">
 				<Path d="M0.0172338 4.55671C0.0585775 4.42328 0.16857 4.32603 0.300991 4.30588L4.02105 3.73919L5.68476 0.205426C5.74396 0.0796298 5.86618 0 5.99999 0C6.13382 0 6.25602 0.0796298 6.31525 0.205426L7.97902 3.73919L11.699 4.30588C11.8314 4.32603 11.9414 4.42328 11.9828 4.55669C12.0242 4.69012 11.9897 4.83658 11.8938 4.93449L9.20208 7.68515L9.83742 11.5692C9.86006 11.7075 9.80583 11.8472 9.69757 11.9296C9.63633 11.9763 9.56379 12 9.4909 12C9.43493 12 9.37877 11.986 9.32735 11.9577L6.00001 10.1238L2.67281 11.9576C2.55433 12.0229 2.41083 12.0121 2.30257 11.9296C2.19431 11.8472 2.14006 11.7074 2.16267 11.5691L2.79823 7.68515L0.106179 4.93447C0.0103674 4.83658 -0.0241566 4.69012 0.0172338 4.55671Z" fill="#828282" fill-opacity="0.2"/>
 			</G>
@@ -21,5 +27,5 @@ export default function DimStar() {
 				</Filter>
 			</Defs> */}
 		</Svg>
-	)
+	);
 }

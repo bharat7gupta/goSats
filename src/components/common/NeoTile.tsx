@@ -3,8 +3,6 @@ import { StyleSheet, View, Text, ViewStyle } from 'react-native';
 import colorConstants from '../../constants/color';
 import { NeomorphFlex, Neomorph } from 'react-native-neomorph-shadows';
 import styleConstants from '../../constants/style';
-import NeoButton from './NeoButton';
-import Star from './icons/ShiningStar';
 import FavouriteButton from './FavouriteButton';
 
 interface NeoTileProps {
