@@ -4,26 +4,31 @@ import {
 	StyleSheet,
 	ScrollView,
 } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 
 import Home from './components/Home';
+import Categories from './components/Categories';
 import colorConstants from './constants/color';
 
+const Stack = createStackNavigator();
+
 class App extends Component {
-	render(): React.ReactNode {
+	render(): JSX.Element {
 		return (
-			<ScrollView style={styles.root} contentContainerStyle={{flexGrow: 1}}>
+			<NavigationContainer>
+				<Stack.Navigator
+					initialRouteName="Home"
+					screenOptions={{ header: () => null }}
+				>
+					<Stack.Screen name="Home" component={Home} />
+					<Stack.Screen name="Categories" component={Categories} />
+				</Stack.Navigator>
+
 				<StatusBar barStyle="dark-content" backgroundColor={colorConstants.PRIMARY_DARK} />
-				<Home />
-			</ScrollView>
+			</NavigationContainer>
 		);
 	}
 }
-
-const styles = StyleSheet.create({
-	root: {
-		flex: 1,
-		backgroundColor: colorConstants.PRIMARY,
-	},
-});
 
 export default App;

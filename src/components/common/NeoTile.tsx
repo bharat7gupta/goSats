@@ -28,6 +28,10 @@ export default function NeoTile(props: NeoTileProps) {
 		}
 	};
 
+	const handleTouchCancel = () => {
+		setPressed(false);
+	};
+
 	const handleFavouriteClick = () => {
 		setFavourite(!isFavourite);
 	};
@@ -43,6 +47,7 @@ export default function NeoTile(props: NeoTileProps) {
 				style={styles.container}
 				onTouchStart={handleTouchStart}
 				onTouchEnd={handleTouchEnd}
+				onTouchCancel={handleTouchCancel}
 			>
 				<NeomorphFlex
 					inner={pressed}
@@ -80,7 +85,6 @@ const styles = StyleSheet.create({
 		fontFamily: 'Gilroy-Bold',
 		fontSize: 16,
 		lineHeight: 18,
-		marginLeft: 10,
 		paddingTop: 4,
 	},
 	favourite: {

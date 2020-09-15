@@ -13,6 +13,11 @@ export default function HotDeals() {
 				<NeoTile style={styles.tileStyle} text="Flipkart" />
 				<NeoTile style={styles.tileStyle} text="Starbucks" />
 				<NeoTile style={styles.tileStyle} text="Baskin Robbins" />
+				<NeoTile style={styles.tileStyle} text="Jio" />
+				<NeoTile style={styles.tileStyle} text="D-Mart" />
+				<NeoTile style={styles.tileStyle} text="Airtel" />
+				<NeoTile style={styles.tileStyle} text="Vodafone" />
+				<NeoTile style={styles.tileStyle} text="Idea" />
 			</View>
 		</View>
 	);

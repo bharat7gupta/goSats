@@ -4,22 +4,19 @@ import NeoButton from './common/NeoButton';
 import ShoppingBag from './common/icons/ShoppingBag';
 import Star from './common/icons/ShiningStar';
 
-export default function HomePageActions() {
-	const handleCategoryCLick = () => {
+interface HomePageActionsProps {
+	onCategoriesClick: () => void;
+	onFavouritesClick: () => void;
+}
 
-	};
-
-	const handleFavouritesClick = () => {
-
-	};
-
+export default function HomePageActions(props: HomePageActionsProps) {
 	return (
 		<View style={styles.content}>
 			<NeoButton
 				icon={<ShoppingBag />}
 				text="Categories"
 				style={styles.buttonStyle}
-				onClick={handleCategoryCLick}
+				onClick={props.onCategoriesClick}
 			/>
 
 			<NeoButton
@@ -27,7 +24,7 @@ export default function HomePageActions() {
 				text="Favourites"
 				style={styles.buttonStyle}
 				buttonContentStyle={styles.buttonContentStyle}
-				onClick={handleFavouritesClick}
+				onClick={props.onFavouritesClick}
 			/>
 		</View>
 	);

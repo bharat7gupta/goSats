@@ -28,6 +28,10 @@ function NeoButton(props: NeoButtonProps) {
 		}
 	};
 
+	const handleTouchCancel = () => {
+		setPressed(false);
+	};
+
 	const buttonContentStyle = {
 		...styleConstants.shadowStyles,
 		...props.buttonContentStyle,
@@ -45,6 +49,7 @@ function NeoButton(props: NeoButtonProps) {
 				style={styles.container}
 				onTouchStart={handleTouchStart}
 				onTouchEnd={handleTouchEnd}
+				onTouchCancel={handleTouchCancel}
 			>
 				<NeomorphFlex
 					inner={pressed}
