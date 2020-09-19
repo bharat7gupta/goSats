@@ -1,6 +1,6 @@
 {
-    "error": false,
-    "message": "List of Merchants are",
+    "error": true,
+    "message": "Some error occured. Please try again",
     "data": [
         {
             "active": true,

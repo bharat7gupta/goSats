@@ -35,7 +35,7 @@ export default function PageLoader(props: PageLoaderProps) {
 
 	return (
 		<View style={styles.root}>
-			<Animated.View style={{ ...styles.loader, transform: [{rotate: spin}] }}>
+			<Animated.View style={{ transform: [{rotate: spin}] }}>
 				<Loader />
 			</Animated.View>
 		</View>
@@ -53,8 +53,5 @@ const styles = StyleSheet.create({
 		backgroundColor: colorConstants.OVERLAY,
 		justifyContent: 'center',
 		alignItems: 'center',
-	},
-	loader: {
-		opacity: 1,
 	},
 });

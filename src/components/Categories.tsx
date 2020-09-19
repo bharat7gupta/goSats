@@ -7,6 +7,7 @@ import BackButton from './common/BackButton';
 import Merchant from '../types/Merchant';
 import NeoTile from './common/NeoTile';
 import PageLoader from './common/PageLoader';
+import ErrorModal from './common/ErrorModal';
 // import merchantList from '../mock_jsons/merchant-list.json';
 
 export default function Categories(props) {
@@ -14,6 +15,8 @@ export default function Categories(props) {
 	const [ categories, setCategories ] = useState<string[]>([]);
 	const [ currentCategory, setCurrentCategory ] = useState<string>(null);
 	const [ loading, setLoading ] = useState<boolean>(false);
+	const [ showError, setShowError ] = useState<boolean>(false);
+	const [ errorMessage, setErrorMessage ] = useState<string>('');
 
 	useEffect(() => {
 		fetchMerchants();
@@ -31,12 +34,13 @@ export default function Categories(props) {
 	};
 
 	const processData = (data) => {
+		// data = merchantList;
 		if (data.error) {
-			// TODO: Show toast here
+			setShowError(data.error);
+			setErrorMessage(data.message);
 			return;
 		}
 
-		// const merchants = merchantList.data;
 		const merchants = data.data;
 		const transformedData = merchants.reduce((result, current) => {
 			if (current.category) {
@@ -59,6 +63,12 @@ export default function Categories(props) {
 	const handleBackButtonClick = () => {
 		props.navigation.goBack();
 	};
+
+	const handleDismissError = () => {
+		setShowError(false);
+		setErrorMessage('');
+		props.navigation.goBack();
+	}
 
 	const currentMerchants = merchantData[currentCategory];
 
@@ -105,6 +115,12 @@ export default function Categories(props) {
 
 				<PageLoader showLoader={loading} />
 			</View>
+
+			<ErrorModal
+				showError={showError}
+				errorMessage={errorMessage}
+				onDismissError={handleDismissError}
+			/>
 		</View>
 	);
 }
@@ -113,6 +129,7 @@ const styles = StyleSheet.create({
 	root: {
 		flex: 1,
 		backgroundColor: colorConstants.PRIMARY,
+		position: 'relative',
 	},
 	header: {
 		flexDirection: 'row',
