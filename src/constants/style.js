@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 	},
 	smallButtonShadowStyles: {
-		shadowRadius: 2,
+		shadowRadius: 3,
 		shadowOpacity: 0.8,
 		borderRadius: 28/2,
 		backgroundColor: colorConstants.PRIMARY,

@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import colorConstants from '../constants/color';
 import NeoTile from './common/NeoTile';
+import merchantList from '../mock_jsons/merchant-list.json';
 
 export default function HotDeals() {
 	return (
@@ -9,15 +10,13 @@ export default function HotDeals() {
 			<Text style={styles.title}>Hot Deals</Text>
 
 			<View style={styles.content}>
-				<NeoTile style={styles.tileStyle} text="Amazon" />
-				<NeoTile style={styles.tileStyle} text="Flipkart" />
-				<NeoTile style={styles.tileStyle} text="Starbucks" />
-				<NeoTile style={styles.tileStyle} text="Baskin Robbins" />
-				<NeoTile style={styles.tileStyle} text="Jio" />
-				<NeoTile style={styles.tileStyle} text="D-Mart" />
-				<NeoTile style={styles.tileStyle} text="Airtel" />
-				<NeoTile style={styles.tileStyle} text="Vodafone" />
-				<NeoTile style={styles.tileStyle} text="Idea" />
+				{merchantList.data.map(merchant => (
+					<NeoTile
+						key={merchant.id}
+						merchant={merchant}
+						style={styles.tileStyle}
+					/>
+				))}
 			</View>
 		</View>
 	);
@@ -28,6 +27,7 @@ const styles = StyleSheet.create({
 		flexDirection: 'row',
 		flexWrap: 'wrap',
 		paddingHorizontal: 10,
+		paddingVertical: 10,
 	},
 	title: {
 		fontFamily: 'Gilroy-Bold',
@@ -41,5 +41,7 @@ const styles = StyleSheet.create({
 	},
 	tileStyle: {
 		flexBasis: '50%',
+		flex: 0,
+		marginBottom: 20,
 	},
 });

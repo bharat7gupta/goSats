@@ -14,7 +14,7 @@ interface FavouriteButtonProps {
 	onClick: () => void;
 }
 
-export default function FavouriteButton(props) {
+export default function FavouriteButton(props: FavouriteButtonProps) {
 	return (
 		<View style={props.style} onTouchEnd={props.onClick}>
 			<Neomorph

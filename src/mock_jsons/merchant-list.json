@@ -1,0 +1,64 @@
+{
+    "error": false,
+    "message": "List of Merchants are",
+    "data": [
+        {
+            "active": true,
+            "image": "https://cdn0.cuelinks.com/campaigns/1/thumb/Flipkart_logo.jpg?1433139772",
+            "category": [
+                "Food & Grocery",
+				"Electronics",
+				"Fashion"
+            ],
+            "id": "GSMER6205",
+            "name": "Flipkart",
+            "reward": "6.08%",
+            "type": "merchant"
+        },
+        {
+            "active": true,
+            "image": "https://cdn0.cuelinks.com/campaigns/2194/thumb/Swiggy.png?1490352043",
+            "category": [
+                "Food & Grocery"
+            ],
+            "id": "GSMER5965",
+            "name": "Swiggy",
+            "reward": "₹ 9.38",
+            "type": "merchant"
+        },
+        {
+            "active": true,
+            "image": "https://cdn0.cuelinks.com/campaigns/39/thumb/Dominos.png?1489137591",
+            "category": [
+                "Food & Grocery"
+            ],
+            "id": "GSMERDom101",
+            "name": "Dominos",
+            "reward": "₹ 11.25",
+            "type": "merchant"
+        },
+        {
+            "active": true,
+            "image": "https://i.pinimg.com/originals/ba/a8/67/baa867c146c04d0b329fd6b0bf70281e.png",
+            "category": [
+                "Food & Grocery"
+            ],
+            "id": "GSGC2739",
+            "name": "API TESTING - CN & PIN",
+            "reward": "5.00%",
+            "type": "giftcard"
+        },
+        {
+            "active": true,
+            "image": "https://i.pinimg.com/originals/ba/a8/67/baa867c146c04d0b329fd6b0bf70281e.png",
+            "category": [
+                "Food & Grocery",
+				"Fashion"
+            ],
+            "id": "GSGC6549",
+            "name": "Starbucks eGift Card - Starbucks",
+            "reward": "2.50%",
+            "type": "giftcard"
+        }
+    ]
+}
