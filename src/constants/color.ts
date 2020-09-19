@@ -12,6 +12,7 @@ enum Colors {
 	DARK_GREY = '#A7ACB3',
 	DARK_BLACK = '#0B0B0B',
 	ORANGE = 'rgba(227, 133, 81, 0.87)',
+	OVERLAY = 'rgba(15, 15, 15, 0.2)',
 }
 
 export default Colors;

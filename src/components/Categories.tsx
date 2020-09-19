@@ -6,20 +6,28 @@ import colorConstants from '../constants/color';
 import BackButton from './common/BackButton';
 import Merchant from '../types/Merchant';
 import NeoTile from './common/NeoTile';
-import merchantList from '../mock_jsons/merchant-list.json';
+import PageLoader from './common/PageLoader';
+// import merchantList from '../mock_jsons/merchant-list.json';
 
 export default function Categories(props) {
 	const [ merchantData, setMerchantData ] = useState<{key?: Merchant[]}>({});
 	const [ categories, setCategories ] = useState<string[]>([]);
 	const [ currentCategory, setCurrentCategory ] = useState<string>(null);
+	const [ loading, setLoading ] = useState<boolean>(false);
 
 	useEffect(() => {
 		fetchMerchants();
 	}, []);
 
 	const fetchMerchants = async () => {
-		const data = await ApiHelper.fetchMerchants();
-		processData(data);
+		try {
+			setLoading(true);
+			const data = await ApiHelper.fetchMerchants();
+			processData(data);
+			setLoading(false);
+		} catch (e) {
+			setLoading(false);
+		}
 	};
 
 	const processData = (data) => {
@@ -28,8 +36,8 @@ export default function Categories(props) {
 			return;
 		}
 
-		const merchants = merchantList.data;
-		// const merchants = data.data;
+		// const merchants = merchantList.data;
+		const merchants = data.data;
 		const transformedData = merchants.reduce((result, current) => {
 			if (current.category) {
 				current.category.forEach(c => {
@@ -94,6 +102,8 @@ export default function Categories(props) {
 						))}
 					</ScrollView>
 				</View>
+
+				<PageLoader showLoader={loading} />
 			</View>
 		</View>
 	);
@@ -119,6 +129,8 @@ const styles = StyleSheet.create({
 		marginTop: 10,
 	},
 	container: {
+		flex: 1,
+		position: 'relative',
 		flexDirection: 'row',
 	},
 	categoryList: {

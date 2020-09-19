@@ -37,11 +37,6 @@ export default function NeoTile(props: NeoTileProps) {
 		setFavourite(!isFavourite);
 	};
 
-	const buttonTextStyle = {
-		...styles.buttonTextStyle,
-		color: pressed ? colorConstants.WARM_GREY : colorConstants.FONT_COLOR,
-	};
-
 	const { merchant, style } = props;
 
 	if (!merchant) {
