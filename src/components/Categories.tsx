@@ -64,11 +64,15 @@ export default function Categories(props) {
 		props.navigation.goBack();
 	};
 
+	const handleProductClick = (merchant: Merchant) => {
+		props.navigation.navigate('ProductDetail', { merchant });
+	};
+
 	const handleDismissError = () => {
 		setShowError(false);
 		setErrorMessage('');
 		props.navigation.goBack();
-	}
+	};
 
 	const currentMerchants = merchantData[currentCategory];
 
@@ -101,7 +105,7 @@ export default function Categories(props) {
 				<View style={styles.itemsList}>
 					<ScrollView contentContainerStyle={{ flexGrow: 1 }}>
 						{currentMerchants && currentMerchants.map((merchant, index: number) => (
-							<View key={merchant.id}>
+							<View key={merchant.id} onTouchEnd={() => handleProductClick(merchant)}>
 								{index === 0 && <View style={{ paddingTop: 10 }} />}
 								<NeoTile
 									merchant={merchant}

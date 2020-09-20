@@ -1,3 +1,8 @@
+export enum MerchantType {
+	GIFTCARD = 'giftcard',
+	MERCHANT = 'merchant',
+}
+
 interface Merchant {
 	id: string;
 	active: boolean;
@@ -5,7 +10,7 @@ interface Merchant {
 	image: string;
 	name: string;
 	reward: string;
-	type: string;
+	type: MerchantType;
 }
 
 export default Merchant;

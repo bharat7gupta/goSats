@@ -1,0 +1,28 @@
+{
+	"error": true,
+	"message": "Some error occured. Please try again",
+	"data": [
+		{
+			"active": true,
+			"image": "https://i.pinimg.com/originals/ba/a8/67/baa867c146c04d0b329fd6b0bf70281e.png",
+			"category": [
+				"Food & Grocery"
+			],
+			"details": "This voucher can be redeemed online as well as at your ",
+			"id": "GSGC6549",
+			"price": {
+				"denominations": [
+					"100",
+					"200",
+					"300",
+					"500",
+					"5000"
+				]
+			},
+			"name": "Starbucks eGift Card - Starbucks",
+			"sku": "SBCEGC001",
+			"title": "Choose Voucher Amount",
+			"reward": "2.00%"
+		}
+	]
+}

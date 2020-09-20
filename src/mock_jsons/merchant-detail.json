@@ -1,0 +1,40 @@
+{
+	"error": true,
+	"message": "Some error occured. Please try again",
+	"data": {
+		"name": "Flipkart",
+		"image": "https://cdn0.cuelinks.com/campaigns/1/thumb/Flipkart_logo.jpg?1433139772",
+		"reward": 6.08,
+		"reward_type": "Per Sale(%)",
+		"title": "Your friendly online store",
+		"subText": "Flipkart is one the largest online stores in India with its massive range of products and services.",
+		"details": [
+			"0.00% Payout for New User (Desktop / Mobile Website / Mobile App)",
+			"6.08% Grocery- Flipkart Supermart (Live in Delhi, Mumbai, Chennai, Hyderabad & Bengaluru)\t",
+			"3.38% Furniture",
+			"1.69% Books & General Merchandise (Auto Accessory, Toys, Personal Care, Books & Media, Baby Care, Sports)",
+			"1.69% Home (Home Decor ,Home Furnishing ,Home Improvement ,Household Supplies ,Kitchen & Dining ,Kitchen, Cookware, Pet Supplies ,Tools & Hardware)\t",
+			"₹ 506.25 Large Appliances ( Television-Exception(Mi TV), Refrigerators, Washing Machines & Air Conditioner)",
+			"0.00% Payout for Existing User (Desktop / Mobile Website / Mobile App)",
+			"1.01% Grocery- Flipkart Supermart (Live in Delhi, Mumbai, Chennai, Hyderabad & Bengaluru)\t",
+			"2.70% Furniture",
+			"1.35% Books & General Merchandise (Auto Accessory, Toys, Personal Care, Books & Media, Baby Care, Sports)",
+			"1.35% Home (Home Decor ,Home Furnishing ,Home Improvement ,Household Supplies ,Kitchen & Dining ,Kitchen, Cookware, Pet Supplies ,Tools & Hardware)\t",
+			"₹ 337.50 Large Appliances ( Television-Exception(Mi TV), Refrigerators, Washing Machines & Air Conditioner)",
+			"0.00% Payout for New & Existing User (Desktop / Mobile Website / Mobile App)",
+			"2.70% Fashion & Lifestyle Categories (Bags, Wallets & Belts, Clothing, Eyewear, Footwear , Kids Accessories, Sunglasses, Watches, Men's Clothing, Women's Clothing, Kids' Clothing, Women's Footwear, Kids' & Infant Footwear, Men's Footwear, Women Ethnic Wear, Women Western Wear, Women Lingerie, Sleep & Swimwear, Women Sports & Gym Wear, Women Accessories, Maternity Wear, Men Accessories & Artificial Jewellery)",
+			"1.35% Electronic Devices Audio, Camera, Gaming, Desktop, Personal Health Care, Tablet",
+			"1.35% Electronic Accessories IOT, ITAccessory, ITPeripherals, Mobile Protection, Power Bank, Rest Of Mobile Accessory, Storage\t",
+			"2.70% Small Home Appliances\t",
+			"₹ 0.00 Payout for New User & Existing User (Desktop / Mobile Website / Mobile App) Mobile Phones [Refer below] ",
+			"0.34% Type A Mobiles - iPhone 11 series, 1000.0\r\niPhone XS (64GB),\r\niPhone XR,\r\nAsus ROG Phone 3,\r\nGionee Max,\r\nHonor 9S,\r\nItel Vision 1,\r\nPOCO X2,\r\nRealme 5i,\r\nRedmi 8,\r\nrealme 6,\r\nrealme 6 Pro,\r\nRealme C3,\r\nrealme X2 Pro,\r\nrealme X50 Pro,\r\nrealme X3 series,\r\nrealme 6i,\r\nTecno Spark Power 2",
+			"0.04% Type B Mobiles - Infinix Hot 9\r\nInfinix Smart 4 Plus,\r\nmoto g8 Power Lite,\r\nmoto One Fusion+,\r\nMoto G9,\r\nPOCO M2 Pro",
+			"₹ 0.00 Type C Mobiles -\r\nInfinix Hot 9 Pro,\r\nrealme C12,\r\nRealme C15,\r\nRealme Narzo 10,\r\nRealme Narzo 10a,\r\nRealme C11",
+			"0.84% Mobile Phones Under 7K",
+			"0.84% All Other Mobile Phones",
+			"0.04% Gemstones, Gold & Silver Coins\t",
+			"0.04% Mi Televisions (Mi LED Smart TV 4A PRO 80 cm 32with Android,\r\nMi LED Smart TV 4A Pro 108 cm 43with Android,\r\nMi LED Smart TV 4X Pro 138.8 cm 55with Android,\r\nMi LED Smart TV 4A Pro 123.2 cm 49with Android,\r\nMi LED Smart TV 4 Pro 138.8 cm 55,\r\nMi LED Smart TV 4A 80 cm 32,\r\nMi LED Smart TV 4A 108 cm 43)",
+			"₹ 0.00 Flipkart Gift Card\t"
+		]
+	}
+}

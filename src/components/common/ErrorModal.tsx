@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, Modal } from 'react-native';
 import colorConstants from '../../constants/color';
 import Exclamation from './icons/Exclamation';
+import Button from './Button';
 
 interface ErrorModalProps {
 	showError: boolean;
@@ -23,9 +24,7 @@ export default function ErrorModal(props: ErrorModalProps) {
 
 					<View><Text style={styles.headerText}>Uh-oh!</Text></View>
 					<View><Text style={styles.errorMessage}>{props.errorMessage}</Text></View>
-					<View style={styles.actionButton} onTouchEnd={props.onDismissError}>
-						<Text style={styles.actionButtonText}>OKAY</Text>
-					</View>
+					<Button btnText="OKAY" onClick={props.onDismissError} />
 				</View>
 			</View>
 		</View>

@@ -18,3 +18,29 @@ export async function fetchMerchants() {
 		// TODO: Show toast here
 	}
 }
+
+export async function fetchMerchantDetail(merchantId: string) {
+	const apiUrl = `${API_ROOT}${API_URLS.GET_MERCHANT_DETAIL}${merchantId}`;
+
+	try {
+		const response = await fetch(apiUrl);
+		const json = await response.json();
+
+		return json;
+	} catch (e) {
+		// TODO: Show toast here
+	}
+}
+
+export async function fetchGiftCardDetail(giftCardId: string) {
+	const apiUrl = `${API_ROOT}${API_URLS.GET_GIFTCARD_DETAIL}${giftCardId}`;
+
+	try {
+		const response = await fetch(apiUrl);
+		const json = await response.json();
+
+		return json;
+	} catch (e) {
+		// TODO: Show toast here
+	}
+}
