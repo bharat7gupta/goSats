@@ -22,7 +22,7 @@ export default function Home(props) {
 					onCategoriesClick={handleCategoryCLick}
 					onFavouritesClick={handleFavouritesClick}
 				/>
-				{/* <HotDeals /> */}
+				<HotDeals />
 			</ScrollView>
 
 			<BottomMenu />
