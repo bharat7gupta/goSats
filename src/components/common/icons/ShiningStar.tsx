@@ -1,11 +1,11 @@
 import React from 'react';
 import Svg, { Path } from 'react-native-svg';
 
-interface ShinningStar {
+interface ShinningStarProps {
 	size?: number;
 }
 
-export default function ShinningStar(props: ShinningStar) {
+export default function ShinningStar(props: ShinningStarProps) {
 	const { size = 17 } = props;
 
 	return (

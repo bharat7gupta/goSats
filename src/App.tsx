@@ -10,7 +10,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import Home from './components/Home';
 import Categories from './components/Categories';
 import colorConstants from './constants/color';
-import ProductDetail from './components/ProductDetail';
+import BrandDetail from './components/BrandDetail';
 
 const Stack = createStackNavigator();
 
@@ -24,7 +24,7 @@ class App extends Component {
 				>
 					<Stack.Screen name="Home" component={Home} />
 					<Stack.Screen name="Categories" component={Categories} />
-					<Stack.Screen name="ProductDetail" component={ProductDetail} />
+					<Stack.Screen name="BrandDetail" component={BrandDetail} />
 				</Stack.Navigator>
 
 				<StatusBar barStyle="dark-content" backgroundColor={colorConstants.PRIMARY_DARK} />

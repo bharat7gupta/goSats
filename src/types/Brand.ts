@@ -1,16 +1,16 @@
-export enum MerchantType {
+export enum BrandType {
 	GIFTCARD = 'giftcard',
 	MERCHANT = 'merchant',
 }
 
-interface Merchant {
+interface Brand {
 	id: string;
 	active: boolean;
 	category: string[];
 	image: string;
 	name: string;
 	reward: string;
-	type: MerchantType;
+	type: BrandType | string;
 }
 
-export default Merchant;
+export default Brand;

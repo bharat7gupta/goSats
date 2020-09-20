@@ -5,47 +5,55 @@ import * as ApiHelper from '../ApiHelper';
 import colorConstants from '../constants/color';
 import styleConstants from '../constants/style';
 import BackButton from './common/BackButton';
-import Merchant, { MerchantType } from '../types/Merchant';
+import Brand, { BrandType } from '../types/Brand';
 import PageLoader from './common/PageLoader';
 import ErrorModal from './common/ErrorModal';
 import { NeomorphFlex } from 'react-native-neomorph-shadows';
 import Button from './common/Button';
+import MerchantDetail from '../types/MerchantDetail';
+import GiftCardDetail from '../types/GiftCardDetail';
 import merchantDetail from '../mock_jsons/merchant-detail.json';
 import giftCardDetail from '../mock_jsons/giftcard-detail.json';
 
-export default function ProductDetail(props) {
+export default function BrandDetail(props) {
 	const { route } = props;
-	const { merchant }: { merchant: Merchant } = route.params;
+	const { brand }: { brand: Brand } = route.params;
 	const [ loading, setLoading ] = useState<boolean>(false);
 	const [ showError, setShowError ] = useState<boolean>(false);
 	const [ errorMessage, setErrorMessage ] = useState<string>('');
-	const [ productData, setProductData ] = useState();
+	const [ productData, setProductData ] = useState<MerchantDetail | GiftCardDetail>();
 
 	useEffect(() => {
-		fetchProductDetails(merchant.id);
+		fetchBrandDetails(brand.id);
 	}, []);
 
-	const fetchProductDetails = async (id: string) => {
-		let data;
+	const fetchBrandDetails = async (id: string) => {
+		let responseData;
+		let data: MerchantDetail | GiftCardDetail;
 		setLoading(true);
 
-		if (merchant.type === MerchantType.MERCHANT) {
-			data = await ApiHelper.fetchMerchantDetail(id);
-		} else if (merchant.type === MerchantType.GIFTCARD) {
-			data = await ApiHelper.fetchGiftCardDetail(id);
+		try {
+			if (brand.type === BrandType.MERCHANT) {
+				responseData = await ApiHelper.fetchMerchantDetail(id);
+				data = responseData.data;
+			} else if (brand.type === BrandType.GIFTCARD) {
+				responseData = await ApiHelper.fetchGiftCardDetail(id);
+				data = responseData.data[0];
+			}
+
+			if (responseData.error) {
+				setShowError(responseData.error);
+				setErrorMessage(responseData.message);
+				return;
+			}
+
+			setProductData(data);
+			setLoading(false);
+		} catch (e) {
+			setLoading(false);
+			setShowError(true);
+			setErrorMessage('Something went wrong. Please try again!');
 		}
-
-		// data = merchantDetail;
-		// data = giftCardDetail;
-
-		if (data.error) {
-			setShowError(data.error);
-			setErrorMessage(data.message);
-			return;
-		}
-
-		setProductData(data.data);
-		setLoading(false);
 	};
 
 	const handleBackButtonClick = () => {
@@ -59,7 +67,7 @@ export default function ProductDetail(props) {
 	};
 
 	const getButtonText = () => {
-		return merchant && merchant.type === MerchantType.GIFTCARD ? 'Buy Voucher' : 'Shop Now';
+		return brand && brand.type === BrandType.GIFTCARD ? 'Buy Voucher' : 'Shop Now';
 	};
 
 	const onPurchanseClick = () => {
@@ -73,7 +81,7 @@ export default function ProductDetail(props) {
 				<Text style={styles.headerText}>Details</Text>
 			</View>
 
-			{merchant && productData && (
+			{brand && productData && (
 				<View style={styles.container}>
 					<View style={styles.content}>
 						<NeomorphFlex
@@ -88,7 +96,7 @@ export default function ProductDetail(props) {
 									darkShadowColor={colorConstants.SHADOW_DARK}
 									lightShadowColor={colorConstants.SHADOW_LIGHT}
 								>
-									<Image source={{ uri: merchant.image }} style={styles.image}/>
+									<Image source={{ uri: brand.image }} style={styles.image}/>
 								</NeomorphFlex>
 							</View>
 						</NeomorphFlex>

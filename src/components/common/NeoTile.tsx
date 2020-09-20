@@ -4,11 +4,11 @@ import colorConstants from '../../constants/color';
 import { NeomorphFlex, Neomorph } from 'react-native-neomorph-shadows';
 import styleConstants from '../../constants/style';
 import FavouriteButton from './FavouriteButton';
-import Merchant from '../../types/Merchant';
-import Reward from './icons/Reward';
+import Brand from '../../types/Brand';
+import BitcoinOffer from './icons/BitcoinOffer';
 
 interface NeoTileProps {
-	merchant: Merchant;
+	brand: Brand;
 	style?: ViewStyle;
 	onClick?: () => void;
 }
@@ -37,9 +37,9 @@ export default function NeoTile(props: NeoTileProps) {
 		setFavourite(!isFavourite);
 	};
 
-	const { merchant, style } = props;
+	const { brand, style } = props;
 
-	if (!merchant) {
+	if (!brand) {
 		return null;
 	}
 
@@ -58,15 +58,15 @@ export default function NeoTile(props: NeoTileProps) {
 						darkShadowColor={colorConstants.SHADOW_DARK}
 						lightShadowColor={colorConstants.SHADOW_LIGHT}
 					>
-						<Image source={{ uri: merchant.image }} style={styles.image}/>
+						<Image source={{ uri: brand.image }} style={styles.image}/>
 					</NeomorphFlex>
 				</View>
 
-				<Text style={styles.name}>{merchant.name}</Text>
+				<Text style={styles.name}>{brand.name}</Text>
 
 				<View style={styles.rewardLine}>
-					<Reward />
-					<Text style={styles.rewardLineText}>{merchant.reward}</Text>
+					<BitcoinOffer />
+					<Text style={styles.rewardLineText}>{brand.reward}</Text>
 				</View>
 			</View>
 

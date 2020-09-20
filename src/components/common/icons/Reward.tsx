@@ -1,11 +1,11 @@
 import React from 'react';
 import { Svg, Path } from 'react-native-svg';
 
-interface BitcoinProps {
+interface RewardProps {
 	size?: number;
 }
 
-export default function Reward(props: BitcoinProps) {
+export default function Reward(props: RewardProps) {
 	const { size = 12 } = props;
 
 	return (

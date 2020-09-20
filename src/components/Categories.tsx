@@ -4,14 +4,14 @@ import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import * as ApiHelper from '../../src/ApiHelper';
 import colorConstants from '../constants/color';
 import BackButton from './common/BackButton';
-import Merchant from '../types/Merchant';
+import Brand from '../types/Brand';
 import NeoTile from './common/NeoTile';
 import PageLoader from './common/PageLoader';
 import ErrorModal from './common/ErrorModal';
-// import merchantList from '../mock_jsons/merchant-list.json';
+// import brandList from '../mock_jsons/brand-list.json';
 
 export default function Categories(props) {
-	const [ merchantData, setMerchantData ] = useState<{key?: Merchant[]}>({});
+	const [ brandData, setBrandData ] = useState<{key?: Brand[]}>({});
 	const [ categories, setCategories ] = useState<string[]>([]);
 	const [ currentCategory, setCurrentCategory ] = useState<string>(null);
 	const [ loading, setLoading ] = useState<boolean>(false);
@@ -19,30 +19,32 @@ export default function Categories(props) {
 	const [ errorMessage, setErrorMessage ] = useState<string>('');
 
 	useEffect(() => {
-		fetchMerchants();
+		fetchBrands();
 	}, []);
 
-	const fetchMerchants = async () => {
+	const fetchBrands = async () => {
 		try {
 			setLoading(true);
-			const data = await ApiHelper.fetchMerchants();
+			const data = await ApiHelper.fetchBrands();
 			processData(data);
 			setLoading(false);
 		} catch (e) {
 			setLoading(false);
+			setShowError(true);
+			setErrorMessage('Something went wrong. Please try again!');
 		}
 	};
 
 	const processData = (data) => {
-		// data = merchantList;
+		// data = brandList;
 		if (data.error) {
 			setShowError(data.error);
 			setErrorMessage(data.message);
 			return;
 		}
 
-		const merchants = data.data;
-		const transformedData = merchants.reduce((result, current) => {
+		const brands = data.data;
+		const transformedData = brands.reduce((result, current) => {
 			if (current.category) {
 				current.category.forEach(c => {
 					result[c] = result[c] || [];
@@ -55,7 +57,7 @@ export default function Categories(props) {
 
 		const categoriesList = Object.keys(transformedData);
 		setCategories(categoriesList);
-		setMerchantData(transformedData);
+		setBrandData(transformedData);
 		setCurrentCategory(categoriesList[0]);
 		// console.log(transformedData);
 	};
@@ -64,8 +66,8 @@ export default function Categories(props) {
 		props.navigation.goBack();
 	};
 
-	const handleProductClick = (merchant: Merchant) => {
-		props.navigation.navigate('ProductDetail', { merchant });
+	const handleProductClick = (brand: Brand) => {
+		props.navigation.navigate('BrandDetail', { brand });
 	};
 
 	const handleDismissError = () => {
@@ -74,7 +76,7 @@ export default function Categories(props) {
 		props.navigation.goBack();
 	};
 
-	const currentMerchants = merchantData[currentCategory];
+	const currentBrands = brandData[currentCategory];
 
 	return (
 		<View style={styles.root}>
@@ -104,14 +106,14 @@ export default function Categories(props) {
 
 				<View style={styles.itemsList}>
 					<ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-						{currentMerchants && currentMerchants.map((merchant, index: number) => (
-							<View key={merchant.id} onTouchEnd={() => handleProductClick(merchant)}>
+						{currentBrands && currentBrands.map((brand, index: number) => (
+							<View key={brand.id} onTouchEnd={() => handleProductClick(brand)}>
 								{index === 0 && <View style={{ paddingTop: 10 }} />}
 								<NeoTile
-									merchant={merchant}
+									brand={brand}
 									style={{ margin: 10 }}
 								/>
-								{(index === currentMerchants.length - 1) && <View style={{ marginBottom: 100 }} />}
+								{(index === currentBrands.length - 1) && <View style={{ marginBottom: 100 }} />}
 							</View>
 						))}
 					</ScrollView>

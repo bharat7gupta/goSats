@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import colorConstants from '../constants/color';
 import NeoTile from './common/NeoTile';
-import merchantList from '../mock_jsons/merchant-list.json';
+import brandList from '../mock_jsons/brand-list.json';
 
 export default function HotDeals() {
 	return (
@@ -10,10 +10,10 @@ export default function HotDeals() {
 			<Text style={styles.title}>Hot Deals</Text>
 
 			<View style={styles.content}>
-				{merchantList.data.map(merchant => (
+				{brandList.data.map(brand => (
 					<NeoTile
-						key={merchant.id}
-						merchant={merchant}
+						key={brand.id}
+						brand={brand}
 						style={styles.tileStyle}
 					/>
 				))}

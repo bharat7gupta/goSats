@@ -6,7 +6,7 @@ const API_URLS = {
 	GET_GIFTCARD_DETAIL: '/gifts/get/',
 };
 
-export async function fetchMerchants() {
+export async function fetchBrands() {
 	const apiUrl = `${API_ROOT}${API_URLS.GET_MERCHANTS}`;
 
 	try {

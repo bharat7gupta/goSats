@@ -1,11 +1,11 @@
 import React from 'react';
 import { Svg, Path, G } from 'react-native-svg';
 
-interface BitcoinProps {
+interface ExclamationProps {
 	size?: number;
 }
 
-export default function Exclamation(props: BitcoinProps) {
+export default function Exclamation(props: ExclamationProps) {
 	const { size = 50 } = props;
 
 	return (

@@ -1,11 +1,11 @@
 import React from 'react';
 import { Svg, Path } from 'react-native-svg';
 
-interface BitcoinProps {
+interface ChevronLeftProps {
 	size?: number;
 }
 
-export default function ChevronLeft(props: BitcoinProps) {
+export default function ChevronLeft(props: ChevronLeftProps) {
 	const { size = 22 } = props;
 
 	return (
