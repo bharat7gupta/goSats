@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, Image, ImageBackground } from 'react-native';
+import { View, Text, StyleSheet, Image, ImageBackground, ScrollView } from 'react-native';
+import LinearGradient from 'react-native-linear-gradient';
 
 import * as ApiHelper from '../ApiHelper';
 import colorConstants from '../constants/color';
@@ -14,14 +15,22 @@ import MerchantDetail from '../types/MerchantDetail';
 import GiftCardDetail from '../types/GiftCardDetail';
 import merchantDetail from '../mock_jsons/merchant-detail.json';
 import giftCardDetail from '../mock_jsons/giftcard-detail.json';
+import BitcoinOffer from './common/icons/BitcoinOffer';
+import FavouriteButton from './common/FavouriteButton';
+import ShareButton from './common/ShareButton';
+import GiftVoucher from './common/GiftVoucher';
+import Notepad from './common/icons/Notepad';
+import LinearGradientComponent from './common/icons/LinearGradient';
 
 export default function BrandDetail(props) {
 	const { route } = props;
 	const { brand }: { brand: Brand } = route.params;
-	const [ loading, setLoading ] = useState<boolean>(false);
-	const [ showError, setShowError ] = useState<boolean>(false);
-	const [ errorMessage, setErrorMessage ] = useState<string>('');
-	const [ productData, setProductData ] = useState<MerchantDetail | GiftCardDetail>();
+	const [loading, setLoading] = useState<boolean>(false);
+	const [showError, setShowError] = useState<boolean>(false);
+	const [errorMessage, setErrorMessage] = useState<string>('');
+	const [brandData, setBrandData] = useState<MerchantDetail | GiftCardDetail>();
+	const [isFavourite, setFavourite] = useState(false);
+	const [ currentDenomination, setCurrentDenomination ] = useState<string>();
 
 	useEffect(() => {
 		fetchBrandDetails(brand.id);
@@ -34,10 +43,12 @@ export default function BrandDetail(props) {
 
 		try {
 			if (brand.type === BrandType.MERCHANT) {
-				responseData = await ApiHelper.fetchMerchantDetail(id);
+				responseData = merchantDetail;
+				// responseData = await ApiHelper.fetchMerchantDetail(id);
 				data = responseData.data;
 			} else if (brand.type === BrandType.GIFTCARD) {
-				responseData = await ApiHelper.fetchGiftCardDetail(id);
+				responseData = giftCardDetail;
+				// responseData = await ApiHelper.fetchGiftCardDetail(id);
 				data = responseData.data[0];
 			}
 
@@ -47,13 +58,21 @@ export default function BrandDetail(props) {
 				return;
 			}
 
-			setProductData(data);
+			setBrandData(data);
 			setLoading(false);
 		} catch (e) {
 			setLoading(false);
 			setShowError(true);
 			setErrorMessage('Something went wrong. Please try again!');
 		}
+	};
+
+	const handleShareClick = () => {
+
+	};
+
+	const handleFavouriteClick = () => {
+		setFavourite(!isFavourite);
 	};
 
 	const handleBackButtonClick = () => {
@@ -74,50 +93,149 @@ export default function BrandDetail(props) {
 
 	};
 
+	const renderSubText = () => {
+		const { subText } = brandData as MerchantDetail;
+
+		if (!subText) {
+			return null;
+		}
+
+		return (
+			<Text style={styles.subText}>{subText}</Text>
+		);
+	};
+
+	const renderVouchers = () => {
+		const { price } = brandData as GiftCardDetail;
+
+		if (!price || !price.denominations) {
+			return null;
+		}
+
+		return (
+			<ScrollView
+				horizontal={true}
+				showsHorizontalScrollIndicator={true}
+				alwaysBounceHorizontal={true}
+				contentContainerStyle={styles.giftVoucherContainer}
+			>
+				{price.denominations.map((denomination, index) => (
+					<GiftVoucher
+						key={denomination}
+						denomination={denomination}
+						isSelected={denomination === currentDenomination}
+						onClick={() => setCurrentDenomination(denomination)}
+						style={{
+							...styles.giftVoucher,
+							paddingLeft: index === 0 ? 0 : styles.giftVoucher.paddingHorizontal,
+						}}
+					/>
+				))}
+			</ScrollView>
+		);
+	};
+
 	return (
 		<View style={styles.root}>
-			<View style={styles.header}>
-				<BackButton onClick={handleBackButtonClick} />
-				<Text style={styles.headerText}>Details</Text>
-			</View>
+			<ScrollView>
+				<View style={styles.header}>
+					<BackButton onClick={handleBackButtonClick} />
+					<Text style={styles.headerText}>Details</Text>
+				</View>
 
-			<View style={styles.container}>
-				{brand && productData && (
-					<React.Fragment>
-						<View style={styles.content}>
-							<NeomorphFlex
-								style={styleConstants.shadowStyles}
-								darkShadowColor={colorConstants.SHADOW_DARK}
-								lightShadowColor={colorConstants.SHADOW_LIGHT}
-							>
-								<View style={styles.innerContent}>
-									<NeomorphFlex
-										inner={true}
-										style={styleConstants.shadowStyles}
-										darkShadowColor={colorConstants.SHADOW_DARK}
-										lightShadowColor={colorConstants.SHADOW_LIGHT}
-									>
-										<ImageBackground
-											source={require('../assets/images/pattern.png')}
-											style={{ width: 300, height: 250 }}
-											resizeMode="cover"
-										/>
-										<Image source={{ uri: brand.image }} style={styles.image}/>
-									</NeomorphFlex>
-								</View>
-							</NeomorphFlex>
-						</View>
+				<View style={styles.container}>
+					{brand && brandData && (
+						<React.Fragment>
+							<View style={styles.content}>
+								<NeomorphFlex
+									style={styleConstants.shadowStyles}
+									darkShadowColor={colorConstants.SHADOW_DARK}
+									lightShadowColor={colorConstants.SHADOW_LIGHT}
+								>
+									<View style={styles.innerContent}>
+										<View style={{ margin: 20, height: 250, overflow: 'hidden' }}>
+											<NeomorphFlex
+												inner={true}
+												style={styleConstants.shadowStyles}
+												darkShadowColor={colorConstants.SHADOW_DARK}
+												lightShadowColor={colorConstants.SHADOW_LIGHT}
+											>
+												<ImageBackground
+													source={require('../assets/images/pattern.png')}
+													style={{ width: 300, height: 250 }}
+													resizeMode="cover"
+												/>
+												<Image source={{ uri: brand.image }} style={styles.image} />
+											</NeomorphFlex>
+										</View>
 
-						<Button
-							btnText={getButtonText()}
-							onClick={onPurchanseClick}
-							btnContainerStyle={styles.purchaseButtonStyle}
-						/>
-					</React.Fragment>
-				)}
+										<View style={styles.brandDetail}>
+											<View style={styles.brandNameAndOffer}>
+												<Text style={styles.brandName}>{brandData.name}</Text>
+												<View style={styles.rewardLine}>
+													<BitcoinOffer />
+													<Text style={styles.rewardLineText}>{brandData.reward}</Text>
+												</View>
+											</View>
 
-				<PageLoader showLoader={loading} />
-			</View>
+											<View style={styles.actions}>
+												<ShareButton
+													style={styles.brandDetailActionButton}
+													onClick={handleShareClick}
+												/>
+												<FavouriteButton
+													style={styles.brandDetailActionButton}
+													onClick={handleFavouriteClick}
+													isSelected={isFavourite}
+													size={36}
+													iconSize={16}
+												/>
+											</View>
+										</View>
+
+										<View style={styles.brandInfo}>
+											<Text style={styles.title}>{brandData.title}</Text>
+											{renderSubText()}
+										</View>
+
+										{renderVouchers()}
+
+										<View style={styles.details}>
+											<View style={styles.detailsHeader}>
+												<Notepad />
+												<Text style={styles.detailsHeaderText}>Details</Text>
+											</View>
+
+											<View style={{ marginLeft: 30 }}>
+												{brandData.details && brandData.details.map((detail, index) => (
+													<Text key={index} style={styles.detailsLineItem}>
+														{`\u2022 ${detail}`}
+													</Text>
+												))}
+											</View>
+
+											<LinearGradient
+												colors={['rgba(30, 30, 30, 0)', 'rgba(30, 30, 30, 0.6)', 'rgba(30, 30, 30, 1)']}
+												locations={[ 0, 0.1, 1 ]}
+												style={styles.detailsBottomGradientContainer}
+											/>
+										</View>
+									</View>
+								</NeomorphFlex>
+							</View>
+
+							<Button
+								btnText={getButtonText()}
+								onClick={onPurchanseClick}
+								btnContainerStyle={styles.purchaseButtonStyle}
+							/>
+						</React.Fragment>
+					)}
+
+				</View>
+			</ScrollView>
+
+			<PageLoader showLoader={loading} />
 
 			<ErrorModal
 				showError={showError}
@@ -139,7 +257,7 @@ const styles = StyleSheet.create({
 		paddingTop: 20,
 		paddingBottom: 10,
 		paddingHorizontal: 10,
-		alignItems: 'center',
+		alignContent: 'center',
 	},
 	headerText: {
 		color: colorConstants.FONT_COLOR,
@@ -153,7 +271,6 @@ const styles = StyleSheet.create({
 		flex: 1,
 		width: '100%',
 		position: 'relative',
-		marginTop: 10,
 	},
 	content: {
 		flex: 1,
@@ -161,8 +278,8 @@ const styles = StyleSheet.create({
 		alignSelf: 'stretch',
 	},
 	innerContent: {
-		margin: 20,
-		height: 250,
+		// margin: 20,
+		minHeight: 250,
 		alignSelf: 'stretch',
 		flex: 1,
 		overflow: 'hidden',
@@ -174,8 +291,108 @@ const styles = StyleSheet.create({
 		width: 160,
 		height: 80,
 	},
+	brandDetail: {
+		paddingHorizontal: 20,
+		flexDirection: 'row',
+	},
+	brandNameAndOffer: {
+		flex: 1,
+	},
+	brandName: {
+		fontFamily: 'Gilroy-Bold',
+		fontSize: 22,
+		lineHeight: 28,
+		color: colorConstants.FONT_COLOR,
+		marginBottom: 4,
+	},
+	rewardLine: {
+		flexDirection: 'row',
+	},
+	rewardLineText: {
+		color: colorConstants.DARK_GREY,
+		fontSize: 11,
+		lineHeight: 13,
+		marginTop: 1,
+		marginLeft: 7,
+	},
+	actions: {
+		flexDirection: 'row',
+		justifyContent: 'space-between',
+		flexBasis: 90,
+		marginLeft: 10,
+	},
+	brandDetailActionButton: {
+		width: 36,
+		height: 36,
+	},
 	purchaseButtonStyle: {
 		marginHorizontal: 24,
 		marginBottom: 20,
+	},
+	brandInfo: {
+		marginTop: 16,
+		paddingHorizontal: 20,
+	},
+	title: {
+		fontFamily: 'Gilroy-Bold',
+		color: colorConstants.ORANGE,
+		fontSize: 22,
+		lineHeight: 26,
+	},
+	subText: {
+		fontFamily: 'Gilroy-Regular',
+		fontSize: 15,
+		color: colorConstants.FONT_COLOR,
+		opacity: 0.7,
+		marginTop: 8,
+		marginBottom: 10,
+	},
+	giftVoucherContainer: {
+		paddingHorizontal: 20,
+		paddingTop: 16,
+		paddingBottom: 10,
+		flexDirection: 'row',
+	},
+	giftVoucher: {
+		paddingHorizontal: 10,
+	},
+	details: {
+		position: 'relative',
+		marginHorizontal: 20,
+		paddingTop: 16,
+		paddingHorizontal: 10,
+		backgroundColor: colorConstants.PRIMARY_LIGHT,
+		borderRadius: 10,
+		marginTop: 6,
+		marginBottom: 24,
+		overflow: 'hidden',
+		maxHeight: 90,
+	},
+	detailsHeader: {
+		flexDirection: 'row',
+	},
+	detailsHeaderText: {
+		fontSize: 15,
+		lineHeight: 16,
+		fontFamily: 'Gilroy-Regular',
+		color: 'rgba(255, 255, 255, 0.5)',
+		opacity: 0.9,
+		marginLeft: 10,
+		marginBottom: 10,
+	},
+	detailsLineItem: {
+		fontSize: 15,
+		lineHeight: 16,
+		fontFamily: 'Gilroy-Regular',
+		color: colorConstants.FONT_COLOR,
+		opacity: 0.9,
+		marginBottom: 16,
+	},
+	detailsBottomGradientContainer: {
+		position: 'absolute',
+		bottom: 0,
+		left: 0,
+		right: 0,
+		height: 40,
 	},
 });

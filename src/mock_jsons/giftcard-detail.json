@@ -1,5 +1,5 @@
 {
-	"error": true,
+	"error": false,
 	"message": "Some error occured. Please try again",
 	"data": [
 		{
@@ -8,7 +8,9 @@
 			"category": [
 				"Food & Grocery"
 			],
-			"details": "This voucher can be redeemed online as well as at your ",
+			"details": [
+				"This voucher can be redeemed online as well as at your "
+			],
 			"id": "GSGC6549",
 			"price": {
 				"denominations": [

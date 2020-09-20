@@ -10,21 +10,25 @@ import colorConstants from '../../constants/color';
 
 interface FavouriteButtonProps {
 	isSelected: boolean;
+	size?: number;
+	iconSize?: number;
 	style?: ViewStyle;
 	onClick: () => void;
 }
 
 export default function FavouriteButton(props: FavouriteButtonProps) {
+	const { size = 28, iconSize = 12 } = props;
+
 	return (
 		<View style={props.style} onTouchEnd={props.onClick}>
 			<Neomorph
 				inner={props.isSelected}
-				style={styleConstants.smallButtonShadowStyles}
+				style={{ ...styleConstants.smallButtonShadowStyles, width: size, height: size, borderRadius: size/2 }}
 				darkShadowColor={colorConstants.SHADOW_DARK}
 				lightShadowColor={colorConstants.SHADOW_LIGHT}
 			>
-				{props.isSelected && <Star size={12} />}
-				{!props.isSelected && <DimStar />}
+				{props.isSelected && <Star size={iconSize} />}
+				{!props.isSelected && <DimStar size={iconSize} />}
 			</Neomorph>
 		</View>
 	);
