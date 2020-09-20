@@ -16,13 +16,13 @@ export default function Home(props) {
 	};
 
 	return (
-		<View>
-			<ScrollView style={styles.root} contentContainerStyle={{flexGrow: 1}}>
+		<View style={styles.root}>
+			<ScrollView contentContainerStyle={{flexGrow: 1}}>
 				<HomePageActions
 					onCategoriesClick={handleCategoryCLick}
 					onFavouritesClick={handleFavouritesClick}
 				/>
-				<HotDeals />
+				{/* <HotDeals /> */}
 			</ScrollView>
 
 			<BottomMenu />
@@ -32,6 +32,7 @@ export default function Home(props) {
 
 const styles = StyleSheet.create({
 	root: {
+		flex: 1,
 		backgroundColor: colorConstants.PRIMARY,
 	},
 });
