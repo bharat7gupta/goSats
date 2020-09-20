@@ -35,7 +35,7 @@ export default function PageLoader(props: PageLoaderProps) {
 
 	return (
 		<View style={styles.root}>
-			<Animated.View style={{ transform: [{rotate: spin}] }}>
+			<Animated.View style={{ transform: [{rotate: spin}], top: -40 }}>
 				<Loader />
 			</Animated.View>
 		</View>

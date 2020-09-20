@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
+import { View, Text, StyleSheet, Image, ImageBackground } from 'react-native';
 
 import * as ApiHelper from '../ApiHelper';
 import colorConstants from '../constants/color';
@@ -81,36 +81,43 @@ export default function BrandDetail(props) {
 				<Text style={styles.headerText}>Details</Text>
 			</View>
 
-			{brand && productData && (
-				<View style={styles.container}>
-					<View style={styles.content}>
-						<NeomorphFlex
-							style={styleConstants.shadowStyles}
-							darkShadowColor={colorConstants.SHADOW_DARK}
-							lightShadowColor={colorConstants.SHADOW_LIGHT}
-						>
-							<View style={styles.innerContent}>
-								<NeomorphFlex
-									inner={true}
-									style={styleConstants.shadowStyles}
-									darkShadowColor={colorConstants.SHADOW_DARK}
-									lightShadowColor={colorConstants.SHADOW_LIGHT}
-								>
-									<Image source={{ uri: brand.image }} style={styles.image}/>
-								</NeomorphFlex>
-							</View>
-						</NeomorphFlex>
-					</View>
+			<View style={styles.container}>
+				{brand && productData && (
+					<React.Fragment>
+						<View style={styles.content}>
+							<NeomorphFlex
+								style={styleConstants.shadowStyles}
+								darkShadowColor={colorConstants.SHADOW_DARK}
+								lightShadowColor={colorConstants.SHADOW_LIGHT}
+							>
+								<View style={styles.innerContent}>
+									<NeomorphFlex
+										inner={true}
+										style={styleConstants.shadowStyles}
+										darkShadowColor={colorConstants.SHADOW_DARK}
+										lightShadowColor={colorConstants.SHADOW_LIGHT}
+									>
+										<ImageBackground
+											source={require('../assets/images/pattern.png')}
+											style={{ width: 300, height: 250 }}
+											resizeMode="cover"
+										/>
+										<Image source={{ uri: brand.image }} style={styles.image}/>
+									</NeomorphFlex>
+								</View>
+							</NeomorphFlex>
+						</View>
 
-					<Button
-						btnText={getButtonText()}
-						onClick={onPurchanseClick}
-						btnContainerStyle={styles.purchaseButtonStyle}
-					/>
-				</View>
-			)}
+						<Button
+							btnText={getButtonText()}
+							onClick={onPurchanseClick}
+							btnContainerStyle={styles.purchaseButtonStyle}
+						/>
+					</React.Fragment>
+				)}
 
-			<PageLoader showLoader={loading} />
+				<PageLoader showLoader={loading} />
+			</View>
 
 			<ErrorModal
 				showError={showError}
@@ -129,7 +136,8 @@ const styles = StyleSheet.create({
 	},
 	header: {
 		flexDirection: 'row',
-		paddingVertical: 20,
+		paddingTop: 20,
+		paddingBottom: 10,
 		paddingHorizontal: 10,
 		alignItems: 'center',
 	},
@@ -145,7 +153,7 @@ const styles = StyleSheet.create({
 		flex: 1,
 		width: '100%',
 		position: 'relative',
-		marginTop: 20,
+		marginTop: 10,
 	},
 	content: {
 		flex: 1,
@@ -157,8 +165,12 @@ const styles = StyleSheet.create({
 		height: 250,
 		alignSelf: 'stretch',
 		flex: 1,
+		overflow: 'hidden',
+		position: 'relative',
 	},
 	image: {
+		position: 'absolute',
+		justifyContent: 'center',
 		width: 160,
 		height: 80,
 	},
