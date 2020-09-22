@@ -33,7 +33,9 @@ export default function NeoTile(props: NeoTileProps) {
 		setPressed(false);
 	};
 
-	const handleFavouriteClick = () => {
+	const handleFavouriteClick = (e) => {
+		e.preventDefault();
+		e.stopPropagation();
 		setFavourite(!isFavourite);
 	};
 

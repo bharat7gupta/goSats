@@ -18,8 +18,8 @@ import giftCardDetail from '../mock_jsons/giftcard-detail.json';
 import FavouriteButton from './common/FavouriteButton';
 import ShareButton from './common/ShareButton';
 import GiftVoucher from './common/GiftVoucher';
-import Notepad from './common/icons/Notepad';
 import BrandInfoWithOffer from './BrandInfoWithOffer';
+import BrandDetailsCard from './BrandDetailsCard';
 
 export default function BrandDetail(props) {
 	const { route } = props;
@@ -196,26 +196,7 @@ export default function BrandDetail(props) {
 
 										{renderVouchers()}
 
-										<View style={styles.details}>
-											<View style={styles.detailsHeader}>
-												<Notepad />
-												<Text style={styles.detailsHeaderText}>Details</Text>
-											</View>
-
-											<View style={{ marginLeft: 30 }}>
-												{brandData.details && brandData.details.map((detail, index) => (
-													<Text key={index} style={styles.detailsLineItem}>
-														{`\u2022 ${detail}`}
-													</Text>
-												))}
-											</View>
-
-											<LinearGradient
-												colors={['rgba(30, 30, 30, 0)', 'rgba(30, 30, 30, 0.6)', 'rgba(30, 30, 30, 1)']}
-												locations={[ 0, 0.1, 1 ]}
-												style={styles.detailsBottomGradientContainer}
-											/>
-										</View>
+										<BrandDetailsCard brandDetails={brandData.details} />
 									</View>
 								</NeomorphFlex>
 							</View>
@@ -274,7 +255,6 @@ const styles = StyleSheet.create({
 		alignSelf: 'stretch',
 	},
 	innerContent: {
-		// margin: 20,
 		minHeight: 250,
 		alignSelf: 'stretch',
 		flex: 1,
@@ -351,44 +331,5 @@ const styles = StyleSheet.create({
 	},
 	giftVoucher: {
 		paddingHorizontal: 10,
-	},
-	details: {
-		position: 'relative',
-		marginHorizontal: 20,
-		paddingTop: 16,
-		paddingHorizontal: 10,
-		backgroundColor: colorConstants.PRIMARY_LIGHT,
-		borderRadius: 10,
-		marginTop: 6,
-		marginBottom: 24,
-		overflow: 'hidden',
-		maxHeight: 90,
-	},
-	detailsHeader: {
-		flexDirection: 'row',
-	},
-	detailsHeaderText: {
-		fontSize: 15,
-		lineHeight: 16,
-		fontFamily: 'Gilroy-Regular',
-		color: 'rgba(255, 255, 255, 0.5)',
-		opacity: 0.9,
-		marginLeft: 10,
-		marginBottom: 10,
-	},
-	detailsLineItem: {
-		fontSize: 15,
-		lineHeight: 16,
-		fontFamily: 'Gilroy-Regular',
-		color: colorConstants.FONT_COLOR,
-		opacity: 0.9,
-		marginBottom: 16,
-	},
-	detailsBottomGradientContainer: {
-		position: 'absolute',
-		bottom: 0,
-		left: 0,
-		right: 0,
-		height: 40,
 	},
 });
