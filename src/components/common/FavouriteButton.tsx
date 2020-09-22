@@ -13,7 +13,7 @@ interface FavouriteButtonProps {
 	size?: number;
 	iconSize?: number;
 	style?: ViewStyle;
-	onClick: () => void;
+	onClick: (e) => void;
 }
 
 export default function FavouriteButton(props: FavouriteButtonProps) {

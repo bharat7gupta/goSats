@@ -15,6 +15,7 @@ enum Colors {
 	OVERLAY = 'rgba(15, 15, 15, 0.2)',
 	WHITE = '#FFFFFF',
 	ACTION_BUTTON = '#CEA547',
+	TEXTBOX_BACKGROUND = 'rgba(34, 37, 42, 0.2)',
 }
 
 export default Colors;

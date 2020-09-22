@@ -11,6 +11,7 @@ import Home from './components/Home';
 import Categories from './components/Categories';
 import colorConstants from './constants/color';
 import BrandDetail from './components/BrandDetail';
+import SignUp from './components/SignUp';
 
 const Stack = createStackNavigator();
 
@@ -19,12 +20,13 @@ class App extends Component {
 		return (
 			<NavigationContainer>
 				<Stack.Navigator
-					initialRouteName="Home"
+					initialRouteName="SignUp"
 					screenOptions={{ header: () => null }}
 				>
 					<Stack.Screen name="Home" component={Home} />
 					<Stack.Screen name="Categories" component={Categories} />
 					<Stack.Screen name="BrandDetail" component={BrandDetail} />
+					<Stack.Screen name="SignUp" component={SignUp} />
 				</Stack.Navigator>
 
 				<StatusBar barStyle="dark-content" backgroundColor={colorConstants.PRIMARY_DARK} />

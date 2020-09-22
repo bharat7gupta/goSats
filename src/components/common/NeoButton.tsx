@@ -5,10 +5,10 @@ import styleConstants from '../../constants/style';
 import colorConstants from '../../constants/color';
 
 interface NeoButtonProps {
-	text: string;
+	text?: string;
 	icon?: JSX.Element;
 	style?: ViewStyle;
-	buttonContentStyle?: ViewStyle;
+	buttonContentStyle?: ViewStyle; // can set width and height in this prop
 	buttonTextStyle?: ViewStyle;
 	onClick?: () => void;
 }
@@ -46,7 +46,6 @@ function NeoButton(props: NeoButtonProps) {
 	return (
 		<View style={[styles.root, props.style]}>
 			<View
-				style={styles.container}
 				onTouchStart={handleTouchStart}
 				onTouchEnd={handleTouchEnd}
 				onTouchCancel={handleTouchCancel}
@@ -71,10 +70,6 @@ const styles = StyleSheet.create({
 	root: {
 		padding: 10,
 		flexDirection: 'row',
-		flex: 1,
-	},
-	container: {
-		flex: 1,
 	},
 	buttonTextStyle: {
 		color: colorConstants.FONT_COLOR,
