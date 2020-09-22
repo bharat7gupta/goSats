@@ -5,11 +5,9 @@ import styleConstants from '../../constants/style';
 import colorConstants from '../../constants/color';
 
 interface NeoButtonProps {
-	text?: string;
-	icon?: JSX.Element;
+	children?: JSX.Element;
 	style?: ViewStyle;
-	buttonContentStyle?: ViewStyle; // can set width and height in this prop
-	buttonTextStyle?: ViewStyle;
+	containerStyle?: ViewStyle; // can set width and height in this prop
 	onClick?: () => void;
 }
 
@@ -34,13 +32,7 @@ function NeoButton(props: NeoButtonProps) {
 
 	const buttonContentStyle = {
 		...styleConstants.shadowStyles,
-		...props.buttonContentStyle,
-	};
-
-	const buttonTextStyle = {
-		...props.buttonTextStyle,
-		...styles.buttonTextStyle,
-		color: pressed ? colorConstants.WARM_GREY : colorConstants.FONT_COLOR,
+		...props.containerStyle,
 	};
 
 	return (
@@ -56,10 +48,7 @@ function NeoButton(props: NeoButtonProps) {
 					darkShadowColor={colorConstants.SHADOW_DARK}
 					lightShadowColor={colorConstants.SHADOW_LIGHT}
 				>
-					{props.icon && (
-						<View style={{ marginRight: 10 }}>{props.icon}</View>
-					)}
-					<Text style={buttonTextStyle}>{props.text}</Text>
+					{props.children}
 				</NeomorphFlex>
 			</View>
 		</View>
@@ -70,13 +59,6 @@ const styles = StyleSheet.create({
 	root: {
 		padding: 10,
 		flexDirection: 'row',
-	},
-	buttonTextStyle: {
-		color: colorConstants.FONT_COLOR,
-		fontFamily: 'Gilroy-Bold',
-		fontSize: 16,
-		lineHeight: 18,
-		paddingTop: 4,
 	},
 });
 

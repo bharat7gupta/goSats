@@ -20,7 +20,7 @@ class App extends Component {
 		return (
 			<NavigationContainer>
 				<Stack.Navigator
-					initialRouteName="SignUp"
+					initialRouteName="Home"
 					screenOptions={{ header: () => null }}
 				>
 					<Stack.Screen name="Home" component={Home} />

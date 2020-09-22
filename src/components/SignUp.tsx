@@ -65,17 +65,13 @@ export default function SignUp(props) {
 					<Text style={styles.socialSignUpHeaderText}>Or sign up with</Text>
 
 					<View style={styles.socialPlatforms}>
-						{/* <Text>Bharat</Text>
-						<Text>Gupta</Text> */}
-						<NeoButton
-							buttonContentStyle={styles.socialButton}
-							icon={<Image source={require('../assets/images/google.png')} />}
-						/>
+						<NeoButton containerStyle={styles.socialButton}>
+							<Image source={require('../assets/images/google.png')} />
+						</NeoButton>
 
-						<NeoButton
-							buttonContentStyle={styles.socialButton}
-							icon={<Image source={require('../assets/images/facebook.png')} />}
-						/>
+						<NeoButton containerStyle={styles.socialButton}>
+							<Image source={require('../assets/images/facebook.png')} />
+						</NeoButton>
 					</View>
 				</View>
 			</ScrollView>
