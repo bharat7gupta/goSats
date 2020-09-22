@@ -15,21 +15,20 @@ import MerchantDetail from '../types/MerchantDetail';
 import GiftCardDetail from '../types/GiftCardDetail';
 import merchantDetail from '../mock_jsons/merchant-detail.json';
 import giftCardDetail from '../mock_jsons/giftcard-detail.json';
-import BitcoinOffer from './common/icons/BitcoinOffer';
 import FavouriteButton from './common/FavouriteButton';
 import ShareButton from './common/ShareButton';
 import GiftVoucher from './common/GiftVoucher';
 import Notepad from './common/icons/Notepad';
-import LinearGradientComponent from './common/icons/LinearGradient';
+import BrandInfoWithOffer from './BrandInfoWithOffer';
 
 export default function BrandDetail(props) {
 	const { route } = props;
 	const { brand }: { brand: Brand } = route.params;
-	const [loading, setLoading] = useState<boolean>(false);
-	const [showError, setShowError] = useState<boolean>(false);
-	const [errorMessage, setErrorMessage] = useState<string>('');
-	const [brandData, setBrandData] = useState<MerchantDetail | GiftCardDetail>();
-	const [isFavourite, setFavourite] = useState(false);
+	const [ loading, setLoading ] = useState<boolean>(false);
+	const [ showError, setShowError ] = useState<boolean>(false);
+	const [ errorMessage, setErrorMessage ] = useState<string>('');
+	const [ brandData, setBrandData ] = useState<MerchantDetail | GiftCardDetail>();
+	const [ isFavourite, setFavourite ] = useState(false);
 	const [ currentDenomination, setCurrentDenomination ] = useState<string>();
 
 	useEffect(() => {
@@ -170,13 +169,10 @@ export default function BrandDetail(props) {
 										</View>
 
 										<View style={styles.brandDetail}>
-											<View style={styles.brandNameAndOffer}>
-												<Text style={styles.brandName}>{brandData.name}</Text>
-												<View style={styles.rewardLine}>
-													<BitcoinOffer />
-													<Text style={styles.rewardLineText}>{brandData.reward}</Text>
-												</View>
-											</View>
+											<BrandInfoWithOffer
+												name={brandData.name}
+												reward={brandData.reward}
+											/>
 
 											<View style={styles.actions}>
 												<ShareButton

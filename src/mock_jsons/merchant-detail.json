@@ -4,7 +4,7 @@
 	"data": {
 		"name": "Flipkart",
 		"image": "https://cdn0.cuelinks.com/campaigns/1/thumb/Flipkart_logo.jpg?1433139772",
-		"reward": 6.08,
+		"reward": "6.08",
 		"reward_type": "Per Sale(%)",
 		"title": "Your friendly online store",
 		"subText": "Flipkart is one the largest online stores in India with its massive range of products and services.",
