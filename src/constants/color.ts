@@ -10,6 +10,7 @@ enum Colors {
 	SHADOW_DARK = '#000000',
 	WARM_GREY = '#8E8E93',
 	DARK_GREY = '#A7ACB3',
+	LIGHT_GREY = '#C4C4C4',
 	DARK_BLACK = '#0B0B0B',
 	ORANGE = 'rgba(227, 133, 81, 0.87)',
 	OVERLAY = 'rgba(15, 15, 15, 0.2)',

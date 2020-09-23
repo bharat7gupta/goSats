@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import HTML from 'react-native-render-html';
 import LinearGradient from 'react-native-linear-gradient';
 import colorConstants from '../constants/color';
 import Notepad from './common/icons/Notepad';
 
 interface BrandDetailsCardProps {
-	brandDetails: string[];
+	brandDetails: string;
 }
 
 export default function BrandDetailsCard(props: BrandDetailsCardProps) {
@@ -28,14 +29,24 @@ export default function BrandDetailsCard(props: BrandDetailsCardProps) {
 			</View>
 
 			<View style={{ marginLeft: 30 }}>
-				<Text style={styles.detailsLineItem}>
-					{brandDetails}
-				</Text>
+				<HTML
+					html={brandDetails}
+					tagsStyles={{
+						div: { color: colorConstants.FONT_COLOR },
+					}}
+					listsPrefixesRenderers={{
+						ul: () => (<Text style={{ color: colorConstants.LIGHT_GREY }}>{'\u2022 '}</Text>)
+					}}
+				/>
 			</View>
 
 			{collapsed && (
 				<LinearGradient
-					colors={['rgba(30, 30, 30, 0)', 'rgba(30, 30, 30, 0.6)', 'rgba(30, 30, 30, 1)']}
+					colors={[
+						'rgba(30, 30, 30, 0)',
+						'rgba(30, 30, 30, 0.6)',
+						'rgba(30, 30, 30, 1)'
+					]}
 					locations={[ 0, 0.1, 1 ]}
 					style={styles.detailsBottomGradientContainer}
 				/>
@@ -67,7 +78,6 @@ const styles = StyleSheet.create({
 		color: 'rgba(255, 255, 255, 0.5)',
 		opacity: 0.9,
 		marginLeft: 10,
-		marginBottom: 10,
 	},
 	detailsLineItem: {
 		fontSize: 15,

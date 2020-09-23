@@ -5,5 +5,5 @@ export default interface MerchantDetail {
 	reward_type: string;
 	title: string;
 	subText: string;
-	details: string[];
+	details: string;
 }
