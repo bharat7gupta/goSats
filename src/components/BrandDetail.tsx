@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, Image, ImageBackground, ScrollView } from 'react-native';
-import LinearGradient from 'react-native-linear-gradient';
 
 import * as ApiHelper from '../ApiHelper';
 import colorConstants from '../constants/color';
 import styleConstants from '../constants/style';
-import BackButton from './common/BackButton';
 import Brand, { BrandType } from '../types/Brand';
 import PageLoader from './common/PageLoader';
 import ErrorModal from './common/ErrorModal';
@@ -13,13 +11,14 @@ import { NeomorphFlex } from 'react-native-neomorph-shadows';
 import Button from './common/Button';
 import MerchantDetail from '../types/MerchantDetail';
 import GiftCardDetail from '../types/GiftCardDetail';
-import merchantDetail from '../mock_jsons/merchant-detail.json';
-import giftCardDetail from '../mock_jsons/giftcard-detail.json';
 import FavouriteButton from './common/FavouriteButton';
 import ShareButton from './common/ShareButton';
 import GiftVoucher from './common/GiftVoucher';
 import BrandInfoWithOffer from './BrandInfoWithOffer';
 import BrandDetailsCard from './BrandDetailsCard';
+import Header from './common/Header';
+// import merchantDetail from '../mock_jsons/merchant-detail.json';
+// import giftCardDetail from '../mock_jsons/giftcard-detail.json';
 
 export default function BrandDetail(props) {
 	const { route } = props;
@@ -37,18 +36,15 @@ export default function BrandDetail(props) {
 
 	const fetchBrandDetails = async (id: string) => {
 		let responseData;
-		let data: MerchantDetail | GiftCardDetail;
 		setLoading(true);
 
 		try {
 			if (brand.type === BrandType.MERCHANT) {
-				responseData = merchantDetail;
-				// responseData = await ApiHelper.fetchMerchantDetail(id);
-				data = responseData.data;
+				// responseData = merchantDetail;
+				responseData = await ApiHelper.fetchMerchantDetail(id);
 			} else if (brand.type === BrandType.GIFTCARD) {
-				responseData = giftCardDetail;
-				// responseData = await ApiHelper.fetchGiftCardDetail(id);
-				data = responseData.data[0];
+				// responseData = giftCardDetail;
+				responseData = await ApiHelper.fetchGiftCardDetail(id);
 			}
 
 			if (responseData.error) {
@@ -57,7 +53,7 @@ export default function BrandDetail(props) {
 				return;
 			}
 
-			setBrandData(data);
+			setBrandData(responseData.data);
 			setLoading(false);
 		} catch (e) {
 			setLoading(false);
@@ -72,10 +68,6 @@ export default function BrandDetail(props) {
 
 	const handleFavouriteClick = () => {
 		setFavourite(!isFavourite);
-	};
-
-	const handleBackButtonClick = () => {
-		props.navigation.goBack();
 	};
 
 	const handleDismissError = () => {
@@ -137,10 +129,12 @@ export default function BrandDetail(props) {
 	return (
 		<View style={styles.root}>
 			<ScrollView>
-				<View style={styles.header}>
-					<BackButton onClick={handleBackButtonClick} />
-					<Text style={styles.headerText}>Details</Text>
-				</View>
+				<Header
+					title="Details"
+					showBackButton={true}
+					navigation={props.navigation}
+					style={styles.header}
+				/>
 
 				<View style={styles.container}>
 					{brand && brandData && (
@@ -230,19 +224,7 @@ const styles = StyleSheet.create({
 		position: 'relative',
 	},
 	header: {
-		flexDirection: 'row',
-		paddingTop: 20,
-		paddingBottom: 10,
 		paddingHorizontal: 10,
-		alignContent: 'center',
-	},
-	headerText: {
-		color: colorConstants.FONT_COLOR,
-		fontFamily: 'Gilroy-Bold',
-		fontSize: 20,
-		lineHeight: 28,
-		marginLeft: 10,
-		marginTop: 10,
 	},
 	container: {
 		flex: 1,

@@ -3,11 +3,11 @@ import { View, Text, StyleSheet, ScrollView } from 'react-native';
 
 import * as ApiHelper from '../../src/ApiHelper';
 import colorConstants from '../constants/color';
-import BackButton from './common/BackButton';
 import Brand from '../types/Brand';
 import NeoTile from './common/NeoTile';
 import PageLoader from './common/PageLoader';
 import ErrorModal from './common/ErrorModal';
+import Header from './common/Header';
 // import brandList from '../mock_jsons/brand-list.json';
 
 export default function Categories(props) {
@@ -62,10 +62,6 @@ export default function Categories(props) {
 		// console.log(transformedData);
 	};
 
-	const handleBackButtonClick = () => {
-		props.navigation.goBack();
-	};
-
 	const handleProductClick = (brand: Brand) => {
 		props.navigation.navigate('BrandDetail', { brand });
 	};
@@ -80,10 +76,12 @@ export default function Categories(props) {
 
 	return (
 		<View style={styles.root}>
-			<View style={styles.header}>
-				<BackButton onClick={handleBackButtonClick} />
-				<Text style={styles.headerText}>Categories</Text>
-			</View>
+			<Header
+				title="Categories"
+				showBackButton={true}
+				navigation={props.navigation}
+				style={styles.header}
+			/>
 
 			<View style={styles.container}>
 				<View style={styles.categoryList}>
@@ -138,18 +136,7 @@ const styles = StyleSheet.create({
 		position: 'relative',
 	},
 	header: {
-		flexDirection: 'row',
-		paddingVertical: 20,
 		paddingHorizontal: 10,
-		alignItems: 'center',
-	},
-	headerText: {
-		color: colorConstants.FONT_COLOR,
-		fontFamily: 'Gilroy-Bold',
-		fontSize: 20,
-		lineHeight: 28,
-		marginLeft: 10,
-		marginTop: 10,
 	},
 	container: {
 		flex: 1,

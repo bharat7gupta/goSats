@@ -6,7 +6,7 @@ import BackButton from './BackButton';
 interface HeaderProps {
 	title: string;
 	showBackButton: boolean;
-	navigation: any; // TODO: add type. router navigation object
+	navigation?: any; // TODO: add type. router navigation object
 	style?: ViewStyle;
 }
 
@@ -37,7 +37,6 @@ const styles = StyleSheet.create({
 	header: {
 		flexDirection: 'row',
 		paddingVertical: 20,
-		alignItems: 'center',
 	},
 	buttonStyle: {
 		marginRight: 10,

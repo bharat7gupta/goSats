@@ -28,11 +28,9 @@ export default function BrandDetailsCard(props: BrandDetailsCardProps) {
 			</View>
 
 			<View style={{ marginLeft: 30 }}>
-				{brandDetails.map((detail, index) => (
-					<Text key={index} style={styles.detailsLineItem}>
-						{`\u2022 ${detail}`}
-					</Text>
-				))}
+				<Text style={styles.detailsLineItem}>
+					{brandDetails}
+				</Text>
 			</View>
 
 			{collapsed && (
