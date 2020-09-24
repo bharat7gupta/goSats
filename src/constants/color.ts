@@ -17,6 +17,8 @@ enum Colors {
 	WHITE = '#FFFFFF',
 	ACTION_BUTTON = '#CEA547',
 	TEXTBOX_BACKGROUND = 'rgba(34, 37, 42, 0.2)',
+	TEXTBOX_PLACEHOLDER_TEXT_COLOR = '#7F8489',
+	VALIDATION_TEXT_COLOR = '#D72829',
 }
 
 export default Colors;

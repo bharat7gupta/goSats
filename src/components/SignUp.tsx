@@ -1,63 +1,136 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, TextInput, Image, StyleSheet } from 'react-native';
 import Header from './common/Header';
-import styleConstants from '../constants/style';
 import colorConstants from '../constants/color';
 import Button from './common/Button';
 import { ScrollView } from 'react-native-gesture-handler';
-import { NeomorphFlex } from 'react-native-neomorph-shadows';
 import NeoButton from './common/NeoButton';
+import TextBox from './common/TextBox';
+import * as CognitoHelper from '../CognitoHelper';
+
+let hasFormError = false;
 
 export default function SignUp(props) {
-	const handleUserNameChange = () => {
+	const [ userName, setUserName ] = useState('');
+	const [ email, setEmail ] = useState('');
+	const [ password, setPassword ] = useState('');
+	const [ submitDisabled, setSubmitDisabled ] = useState(false);
+	const [ validations, setValidation ] = useState<any>({});
+	const [ formErrorMessage, setFormErrorMessage ] = useState('');
 
+	const validateUserName = (currentUserName: string) => {
+		let errorMessage = '';
+
+		if (!currentUserName || currentUserName.trim().length < 2) {
+			errorMessage = 'Please provide valid username';
+			hasFormError = true;
+		}
+
+		setValidation((prevState) => ({ ...prevState, userName: errorMessage }));
+	};
+
+	const validateEmail = (currentEmail: string) => {
+		let errorMessage = '';
+		const emailRegex = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/;
+
+		if (!currentEmail || !emailRegex.test(currentEmail)) {
+			errorMessage = 'Please provide valid email';
+			hasFormError = true;
+		}
+
+		setValidation((prevState) => ({ ...prevState, email: errorMessage }));
+	};
+
+	const validatePassword = (currentPassword: string) => {
+		let errorMessage = '';
+
+		if (!currentPassword || currentPassword.trim().length === 0) {
+			errorMessage = 'Please provide valid password';
+			hasFormError = true;
+		}
+
+		setValidation((prevState) => ({ ...prevState, password: errorMessage }));
+	};
+
+	const handleUserNameChange = (text: string) => {
+		setUserName(text);
+		validateUserName(text);
+		setFormErrorMessage('');
+	};
+
+	const handleEmailChange = (text: string) => {
+		setEmail(text);
+		validateEmail(text);
+		setFormErrorMessage('');
+	};
+
+	const handlePasswordChange = (text: string) => {
+		setPassword(text);
+		validatePassword(text);
+		setFormErrorMessage('');
 	};
 
 	const onSubmit = () => {
+		setFormErrorMessage('');
+		setSubmitDisabled(true);
 
+		hasFormError = false;
+		validateUserName(userName);
+		validateEmail(email);
+		validatePassword(password);
+
+		if (!hasFormError) {
+			CognitoHelper.registerUser({ userName, email, password }, (err, result) => {
+				setSubmitDisabled(false);
+
+				if (err) {
+					setFormErrorMessage(err.message);
+					return;
+				}
+
+				const cognitoUser = result.user;
+				console.log('user name is ' + cognitoUser.getUsername());
+			});
+		}
 	};
 
 	return (
 		<View style={styles.root}>
-			<ScrollView>
+			<ScrollView contentContainerStyle={styles.container}>
 				<Header
 					title="Sign Up"
 					showBackButton={false}
 					navigation={props.navigation}
-					style={{ marginBottom: 32 }}
 				/>
 
-				<TextInput
-					style={styles.input}
-					underlineColorAndroid="transparent"
+				<TextBox
 					placeholder="Your Name"
-					placeholderTextColor="#7F8489"
-					autoCapitalize="none"
-					onChangeText={handleUserNameChange}
+					onChange={handleUserNameChange}
+					errorText={validations.userName}
 				/>
 
-				<TextInput
-					style={styles.input}
-					underlineColorAndroid="transparent"
+				<TextBox
 					placeholder="Your Email"
-					placeholderTextColor="#7F8489"
-					autoCapitalize="none"
-					onChangeText={handleUserNameChange}
+					onChange={handleEmailChange}
+					errorText={validations.email}
 				/>
 
-				<TextInput
-					style={styles.input}
-					underlineColorAndroid="transparent"
+				<TextBox
+					secureTextEntry={true}
 					placeholder="Enter a Password"
-					placeholderTextColor="#7F8489"
-					autoCapitalize="none"
-					onChangeText={handleUserNameChange}
+					onChange={handlePasswordChange}
+					errorText={validations.password}
 				/>
+
+				<Text style={styles.formErrorMessage}>
+					{formErrorMessage}
+				</Text>
 
 				<Button
 					btnText="Sign Up"
 					onClick={onSubmit}
-					btnContainerStyle={{ marginTop: 10 }}
+					btnContainerStyle={styles.signUpButton}
+					disabled={submitDisabled}
 				/>
 
 				<View style={styles.socialSignUp}>
@@ -83,22 +156,21 @@ const styles = StyleSheet.create({
 	root: {
 		flex: 1,
 		backgroundColor: colorConstants.PRIMARY,
+	},
+	container: {
 		paddingHorizontal: 24,
 	},
-	input: {
-		height: 56,
-		backgroundColor: colorConstants.TEXTBOX_BACKGROUND,
-		borderRadius: 19,
-		paddingHorizontal: 22,
-		paddingVertical: 16,
-		color: colorConstants.FONT_COLOR,
-		fontSize: 15,
-		lineHeight: 24,
-		fontFamily: 'Gilroy-Regular',
-		marginVertical: 18,
+	signUpButton: {
+		marginTop: 4,
+	},
+	formErrorMessage: {
+		fontSize: 12,
+		lineHeight: 16,
+		color: colorConstants.VALIDATION_TEXT_COLOR,
+		marginBottom: 4,
 	},
 	socialSignUp: {
-		marginTop: 68,
+		marginTop: 28,
 		justifyContent: 'center',
 	},
 	horizontalLine: {
@@ -119,7 +191,8 @@ const styles = StyleSheet.create({
 		flexDirection: 'row',
 		flex: 1,
 		justifyContent: 'space-around',
-		marginVertical: 40,
+		marginTop: 24,
+		marginBottom: 40,
 	},
 	socialButton: {
 		width: 110,
