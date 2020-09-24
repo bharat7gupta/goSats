@@ -1,9 +1,14 @@
-import { CognitoUserPool, CognitoUserAttribute } from 'amazon-cognito-identity-js';
+import { CognitoUserPool, CognitoUserAttribute, CognitoUser } from 'amazon-cognito-identity-js';
 
 interface RegisterParams {
 	userName: string;
 	email: string;
 	password: string;
+}
+
+interface ConfirmUserByOtpParams {
+	userName: string;
+	otp: string;
 }
 
 const poolData = {
@@ -19,4 +24,15 @@ export function registerUser(params: RegisterParams, callback) {
 	];
 
 	userPool.signUp(params.userName, params.password, attributeList, null, callback);
+}
+
+export function confirmUserByOtp(params: ConfirmUserByOtpParams, callback) {
+	const userData = {
+		Username: params.userName,
+		Pool: userPool,
+	};
+
+	const cognitoUser = new CognitoUser(userData);
+
+	cognitoUser.confirmRegistration(params.otp, true, callback);
 }

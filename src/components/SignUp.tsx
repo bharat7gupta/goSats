@@ -84,7 +84,7 @@ export default function SignUp(props) {
 				setSubmitDisabled(false);
 
 				if (err) {
-					setFormErrorMessage(err.message);
+					setFormErrorMessage(err.message || 'Something went wrong. Please try again!');
 					return;
 				}
 
