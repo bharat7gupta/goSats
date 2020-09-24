@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
 		color: colorConstants.FONT_COLOR,
 		textAlign: 'center',
 		paddingHorizontal: 28,
-		marginBottom: 72,
+		marginBottom: 52,
 		opacity: 0.7,
 	},
 	formErrorMessage: {
