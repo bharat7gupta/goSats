@@ -13,7 +13,7 @@ interface ConfirmUserByOtpParams {
 
 const poolData = {
 	UserPoolId: 'us-east-2_2IOhMeLKk',
-	ClientId: '41jvktg1ec45er06bgqoukugpk',
+	ClientId: '4fbmrnknnib3kcgmp9ppvb4mem',
 };
 
 const userPool = new CognitoUserPool(poolData);

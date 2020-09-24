@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
+import { KeyboardAwareScrollView } from '@codler/react-native-keyboard-aware-scroll-view';
 import colorConstants from '../constants/color';
 import TextBox from './common/TextBox';
 import Button from './common/Button';
@@ -39,7 +40,7 @@ export default function VerifyEmail() {
 	};
 
 	return (
-		<View style={styles.root}>
+		<KeyboardAwareScrollView style={styles.root}>
 			<Text style={styles.headerText}>Verify your email</Text>
 
 			<Text style={styles.subText}>
@@ -58,7 +59,7 @@ export default function VerifyEmail() {
 				btnContainerStyle={styles.verifyButton}
 				disabled={verifyDisabled}
 			/>
-		</View>
+		</KeyboardAwareScrollView>
 	);
 }
 

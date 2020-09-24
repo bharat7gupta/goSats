@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Image, StyleSheet } from 'react-native';
+import { KeyboardAwareScrollView } from '@codler/react-native-keyboard-aware-scroll-view';
 import Header from './common/Header';
 import colorConstants from '../constants/color';
 import Button from './common/Button';
@@ -72,7 +73,6 @@ export default function SignUp(props) {
 
 	const onSubmit = () => {
 		setFormErrorMessage('');
-		setSubmitDisabled(true);
 
 		hasFormError = false;
 		validateUserName(userName);
@@ -80,6 +80,8 @@ export default function SignUp(props) {
 		validatePassword(password);
 
 		if (!hasFormError) {
+			setSubmitDisabled(true);
+
 			CognitoHelper.registerUser({ userName, email, password }, (err, result) => {
 				setSubmitDisabled(false);
 
@@ -89,13 +91,13 @@ export default function SignUp(props) {
 				}
 
 				const cognitoUser = result.user;
-				console.log('user name is ' + cognitoUser.getUsername());
+				console.log('cognitoUser', cognitoUser);
 			});
 		}
 	};
 
 	return (
-		<View style={styles.root}>
+		<KeyboardAwareScrollView style={styles.root}>
 			<ScrollView contentContainerStyle={styles.container}>
 				<Header
 					title="Sign Up"
@@ -110,7 +112,7 @@ export default function SignUp(props) {
 				/>
 
 				<TextBox
-					placeholder="Your Email"
+					placeholder="Your Email or Mobile no."
 					onChange={handleEmailChange}
 					errorText={validations.email}
 				/>
@@ -148,7 +150,7 @@ export default function SignUp(props) {
 					</View>
 				</View>
 			</ScrollView>
-		</View>
+		</KeyboardAwareScrollView>
 	);
 }
 
