@@ -12,6 +12,8 @@ import Categories from './components/Categories';
 import colorConstants from './constants/color';
 import BrandDetail from './components/BrandDetail';
 import SignUp from './components/SignUp';
+import VerifyEmail from './components/VerifyEmail';
+import SignUpReferralCode from './components/SignUpReferralCode';
 
 const Stack = createStackNavigator();
 
@@ -27,6 +29,8 @@ class App extends Component {
 					<Stack.Screen name="Categories" component={Categories} />
 					<Stack.Screen name="BrandDetail" component={BrandDetail} />
 					<Stack.Screen name="SignUp" component={SignUp} />
+					<Stack.Screen name="VerifyEmail" component={VerifyEmail} />
+					<Stack.Screen name="SignUpReferralCode" component={SignUpReferralCode} />
 				</Stack.Navigator>
 
 				<StatusBar barStyle="dark-content" backgroundColor={colorConstants.PRIMARY_DARK} />
