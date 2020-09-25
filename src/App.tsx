@@ -17,6 +17,7 @@ import VerifyAccount from './components/VerifyAccount';
 import SignUpReferralCode from './components/SignUpReferralCode';
 import * as StorageHelper from './helpers/StorageHelper';
 import authReducer, { authInitialState, AuthActions, AuthState } from './reducers/AuthReducer';
+import SplashScreen from './components/SplashScreen';
 
 export const AuthStateContext = React.createContext({} as AuthState);
 export const AuthDispatchContext = React.createContext((payload) => {});
@@ -74,7 +75,7 @@ function App() {
 	};
 
 	if (!checkedSignInState || !checkedAccountState) {
-		return null;
+		return <SplashScreen />;
 	}
 
 	return (
