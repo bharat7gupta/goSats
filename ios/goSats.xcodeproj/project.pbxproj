@@ -8,7 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* goSatsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* goSatsTests.m */; };
-		0BA25DDEFE0C4102A1D9F455 /* Gilroy-Regular.woff in Resources */ = {isa = PBXBuildFile; fileRef = B7C8AA57E8C349F29E779EEA /* Gilroy-Regular.woff */; };
+		0104BF2C251E481D00CE9D66 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0104BF2B251E481D00CE9D66 /* Launch Screen.storyboard */; };
+		0104BF30251E611800CE9D66 /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = 0104BF2F251E611800CE9D66 /* main.jsbundle */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
@@ -21,16 +22,8 @@
 		6F07064CBC724F539CBB7B1E /* Gilroy-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6498224491C0448FA65E0445 /* Gilroy-Bold.ttf */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		92FEFD41BF35D800FCD99857 /* libPods-goSats-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 69B5AF991A7762219BCED97A /* libPods-goSats-tvOSTests.a */; };
-		9F69AB3DD2234DD397D0C3DA /* Gilroy-Light.woff in Resources */ = {isa = PBXBuildFile; fileRef = 31C0E6E069CF4A919492EFEC /* Gilroy-Light.woff */; };
-		A9AB1C4BC93E447D8B363954 /* Poppins-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2E41208F606A4F7A8708E12A /* Poppins-Regular.ttf */; };
-		AEA72F2358B3405C90025E70 /* Gilroy-Heavy.woff in Resources */ = {isa = PBXBuildFile; fileRef = 9D3D194D49DD4F4F8CA67965 /* Gilroy-Heavy.woff */; };
-		B2624F2AC3D4419E8BF8B78F /* Poppins-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 536847650BE64EAABF79735A /* Poppins-Bold.ttf */; };
-		B9AF895ADBE441468239A528 /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D44A242DB59A4F35B5B68CA4 /* Roboto-Regular.ttf */; };
 		C32F13DC1468456341B3024A /* libPods-goSats.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D6A2F1BBCBCF111724BE5D3C /* libPods-goSats.a */; };
 		D3F8FEE93F79645DACF54020 /* libPods-goSats-goSatsTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 24B4D4AAB758334FCD1314DF /* libPods-goSats-goSatsTests.a */; };
-		EAA1AD4269614A0FBA8EE908 /* Gilroy-Medium.woff in Resources */ = {isa = PBXBuildFile; fileRef = 9FD8DBA4BC2D4C949905A961 /* Gilroy-Medium.woff */; };
-		F2251B9E7E104A3188B77992 /* Roboto-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E109474C8B2E4FD1AE68E75D /* Roboto-Bold.ttf */; };
-		F5451E2CBB724487BCBFF76A /* Gilroy-Bold.woff in Resources */ = {isa = PBXBuildFile; fileRef = 3CB4D33C9A7C423CAE8C8D73 /* Gilroy-Bold.woff */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,10 +44,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		008F07F21AC5B25A0029DE68 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
 		00E356EE1AD99517003FC87E /* goSatsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = goSatsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* goSatsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = goSatsTests.m; sourceTree = "<group>"; };
+		0104BF2B251E481D00CE9D66 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
+		0104BF2F251E611800CE9D66 /* main.jsbundle */ = {isa = PBXFileReference; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
 		0D46EED39E566690F74042A1 /* Pods-goSats-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-goSats-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-goSats-tvOSTests/Pods-goSats-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* goSats.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = goSats.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = goSats/AppDelegate.h; sourceTree = "<group>"; };
@@ -147,7 +141,7 @@
 		13B07FAE1A68108700A75B9A /* goSats */ = {
 			isa = PBXGroup;
 			children = (
-				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
+				0104BF2F251E611800CE9D66 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
@@ -181,6 +175,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				0104BF2B251E481D00CE9D66 /* Launch Screen.storyboard */,
 				13B07FAE1A68108700A75B9A /* goSats */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* goSatsTests */,
@@ -382,15 +377,8 @@
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
-				B2624F2AC3D4419E8BF8B78F /* Poppins-Bold.ttf in Resources */,
-				A9AB1C4BC93E447D8B363954 /* Poppins-Regular.ttf in Resources */,
-				F2251B9E7E104A3188B77992 /* Roboto-Bold.ttf in Resources */,
-				B9AF895ADBE441468239A528 /* Roboto-Regular.ttf in Resources */,
-				F5451E2CBB724487BCBFF76A /* Gilroy-Bold.woff in Resources */,
-				AEA72F2358B3405C90025E70 /* Gilroy-Heavy.woff in Resources */,
-				9F69AB3DD2234DD397D0C3DA /* Gilroy-Light.woff in Resources */,
-				EAA1AD4269614A0FBA8EE908 /* Gilroy-Medium.woff in Resources */,
-				0BA25DDEFE0C4102A1D9F455 /* Gilroy-Regular.woff in Resources */,
+				0104BF2C251E481D00CE9D66 /* Launch Screen.storyboard in Resources */,
+				0104BF30251E611800CE9D66 /* main.jsbundle in Resources */,
 				6F07064CBC724F539CBB7B1E /* Gilroy-Bold.ttf in Resources */,
 				654F8688A4E64D74BDC53232 /* Gilroy-Regular.ttf in Resources */,
 			);

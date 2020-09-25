@@ -9,7 +9,8 @@
     "test": "jest",
     "lint": "eslint .",
     "lint-ts": "tslint -c tslint.json 'src/**/*.{ts,tsx}' --fix",
-    "link": "react-native link"
+    "link": "react-native link",
+    "bundle:ios": "react-native bundle --entry-file='index.js' --bundle-output='./ios/main.jsbundle' --dev=false --platform='ios' --assets-dest='./ios'"
   },
   "dependencies": {
     "@codler/react-native-keyboard-aware-scroll-view": "1.0.1",
@@ -33,7 +34,7 @@
     "react-native-screens": "2.10.1",
     "react-native-simple-toast": "1.1.2",
     "react-native-svg": "12.1.0",
-    "react-native-webview": "10.9.0"
+    "react-native-webview": "8.0.0"
   },
   "devDependencies": {
     "@babel/core": "7.10.5",
