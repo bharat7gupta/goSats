@@ -6,6 +6,7 @@ import {
 } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import SplashScreen from 'react-native-splash-screen';
 
 import Dashboard from './components/Dashboard';
 import Categories from './components/Categories';
@@ -17,7 +18,6 @@ import VerifyAccount from './components/VerifyAccount';
 import SignUpReferralCode from './components/SignUpReferralCode';
 import * as StorageHelper from './helpers/StorageHelper';
 import authReducer, { authInitialState, AuthActions, AuthState } from './reducers/AuthReducer';
-import SplashScreen from './components/SplashScreen';
 
 export const AuthStateContext = React.createContext({} as AuthState);
 export const AuthDispatchContext = React.createContext((payload) => {});
@@ -74,8 +74,8 @@ function App() {
 		}
 	};
 
-	if (!checkedSignInState || !checkedAccountState) {
-		return <SplashScreen />;
+	if (checkedSignInState && checkedAccountState) {
+		SplashScreen.hide();
 	}
 
 	return (

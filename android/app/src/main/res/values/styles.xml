@@ -7,4 +7,9 @@
         <item name="android:autofilledHighlight">@drawable/custom_drawable</item>
     </style>
 
+    <style name="SplashTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowBackground">@drawable/background_splash</item>
+        <item name="android:statusBarColor">@color/primary_dark</item>
+    </style>
+
 </resources>
