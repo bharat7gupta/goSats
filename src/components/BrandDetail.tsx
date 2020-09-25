@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, Image, ImageBackground, ScrollView } from 'react-native';
 
-import * as ApiHelper from '../ApiHelper';
+import * as ApiHelper from '../helpers/ApiHelper';
 import colorConstants from '../constants/color';
 import styleConstants from '../constants/style';
 import Brand, { BrandType } from '../types/Brand';
@@ -17,6 +17,7 @@ import GiftVoucher from './common/GiftVoucher';
 import BrandInfoWithOffer from './BrandInfoWithOffer';
 import BrandDetailsCard from './BrandDetailsCard';
 import Header from './common/Header';
+import Strings from '../constants/strings';
 // import merchantDetail from '../mock_jsons/merchant-detail.json';
 // import giftCardDetail from '../mock_jsons/giftcard-detail.json';
 
@@ -58,7 +59,7 @@ export default function BrandDetail(props) {
 		} catch (e) {
 			setLoading(false);
 			setShowError(true);
-			setErrorMessage('Something went wrong. Please try again!');
+			setErrorMessage(Strings.SOMETHING_WENT_WRONG);
 		}
 	};
 

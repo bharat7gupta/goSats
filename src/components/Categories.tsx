@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
 
-import * as ApiHelper from '../../src/ApiHelper';
+import * as ApiHelper from '../helpers/ApiHelper';
 import colorConstants from '../constants/color';
 import Brand from '../types/Brand';
 import NeoTile from './common/NeoTile';
 import PageLoader from './common/PageLoader';
 import ErrorModal from './common/ErrorModal';
 import Header from './common/Header';
+import Strings from '../constants/strings';
 // import brandList from '../mock_jsons/brand-list.json';
 
 export default function Categories(props) {
@@ -31,7 +32,7 @@ export default function Categories(props) {
 		} catch (e) {
 			setLoading(false);
 			setShowError(true);
-			setErrorMessage('Something went wrong. Please try again!');
+			setErrorMessage(Strings.SOMETHING_WENT_WRONG);
 		}
 	};
 

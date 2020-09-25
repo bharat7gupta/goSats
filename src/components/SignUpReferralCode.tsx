@@ -1,12 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { KeyboardAwareScrollView } from '@codler/react-native-keyboard-aware-scroll-view';
 import colorConstants from '../constants/color';
 import TextBox from './common/TextBox';
 import Button from './common/Button';
-import * as CognitoHelper from '../CognitoHelper';
+import * as CognitoHelper from '../helpers/CognitoHelper';
+import * as StorageHelper from '../helpers/StorageHelper';
+import { AuthStateContext, AuthDispatchContext } from '../App';
+import { AuthActions } from '../reducers/AuthReducer';
 
 export default function SignUpReferralCode(props) {
+	const authState = useContext(AuthStateContext);
+	const authDispatch = useContext(AuthDispatchContext);
+
 	const [ referralCode, setReferralCode ] = useState('');
 	const [ formErrorMessage, setFormErrorMessage ] = useState('');
 	const [ startButtonDisabled, setVerifyDisabled ] = useState(false);
@@ -16,14 +22,26 @@ export default function SignUpReferralCode(props) {
 		setFormErrorMessage('');
 	};
 
-	const onStartStackingClick = () => {
+	const onStartStackingClick = async () => {
 		setFormErrorMessage('');
 		setVerifyDisabled(true);
 
 		if (referralCode && referralCode.trim().length > 0) {
 			// TODO: Check if valid referral code
 		} else {
-			props.navigation.navigate('Home');
+			const username = authState.username;
+			const password = authState.password;
+
+			// CognitoHelper.loginUser({ username, password }, (result) => {
+			// 	const accessToken = result.getAccessToken().getJwtToken();
+			// 	StorageHelper.setItem('accessToken', accessToken);
+				StorageHelper.setItem('isLoggedIn', 'true');
+
+				authDispatch({
+					type: AuthActions.UPDATE_LOGIN_STATUS,
+					isLoggedIn: true,
+				});
+			// });
 		}
 	};
 

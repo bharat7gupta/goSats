@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { View, Text, TextInput, Image, StyleSheet } from 'react-native';
 import { KeyboardAwareScrollView } from '@codler/react-native-keyboard-aware-scroll-view';
 import Header from './common/Header';
@@ -8,47 +8,30 @@ import { ScrollView } from 'react-native-gesture-handler';
 import NeoButton from './common/NeoButton';
 import TextBox from './common/TextBox';
 import * as CognitoHelper from '../helpers/CognitoHelper';
-import * as StorageHelper from '../helpers/StorageHelper';
 import * as Utils from '../helpers/UtilityHelper';
 import Strings from '../constants/strings';
-import { AuthDispatchContext } from '../App';
-import { AuthActions } from '../reducers/AuthReducer';
 
 let hasFormError = false;
 
-export default function SignUp(props) {
-	const authDispatch = useContext(AuthDispatchContext);
-
-	const [ userDisplayName, setUserDisplayName ] = useState('');
+export default function SignIn(props) {
 	const [ username, setUsername ] = useState('');
 	const [ password, setPassword ] = useState('');
 	const [ submitDisabled, setSubmitDisabled ] = useState(false);
 	const [ validations, setValidation ] = useState<any>({});
 	const [ formErrorMessage, setFormErrorMessage ] = useState('');
 
-	const validateUserDisplayName = (currentUserDisplayName) => {
+	const validateUserName = (currentUserName: string) => {
 		let errorMessage = '';
 
-		if (!currentUserDisplayName || currentUserDisplayName.trim().length < 2) {
-			errorMessage = Strings.ENTER_VALID_DISPLAY_NAME;
-			hasFormError = true;
-		}
-
-		setValidation((prevState) => ({ ...prevState, userDisplayName: errorMessage }));
-	};
-
-	const validateUsername = (currentUsername: string) => {
-		let errorMessage = '';
-
-		if (!currentUsername || currentUsername.trim().length < 2) {
+		if (!currentUserName || currentUserName.trim().length < 2) {
 			errorMessage = Strings.ENTER_VALID_USERNAME;
 			hasFormError = true;
-		} else if (!Utils.isEmail(currentUsername) && !Utils.isPhoneNumber(currentUsername)) {
+		} else if (!Utils.isEmail(currentUserName) || !Utils.isPhoneNumber(currentUserName)) {
 			errorMessage = Strings.ENTER_VALID_USERNAME;
 			hasFormError = true;
 		}
 
-		setValidation((prevState) => ({ ...prevState, username: errorMessage }));
+		setValidation((prevState) => ({ ...prevState, userName: errorMessage }));
 	};
 
 	const validatePassword = (currentPassword: string) => {
@@ -60,12 +43,6 @@ export default function SignUp(props) {
 		}
 
 		setValidation((prevState) => ({ ...prevState, password: errorMessage }));
-	};
-
-	const handleUserDisplayNameChange = (text: string) => {
-		setUserDisplayName(text);
-		setValidation((prevState) => ({ ...prevState, userDisplayName: '' }));
-		setFormErrorMessage('');
 	};
 
 	const handleUsernameChange = (text: string) => {
@@ -84,39 +61,22 @@ export default function SignUp(props) {
 		setFormErrorMessage('');
 
 		hasFormError = false;
-		validateUserDisplayName(userDisplayName);
-		validateUsername(username);
+		validateUserName(username);
 		validatePassword(password);
 
 		if (!hasFormError) {
 			setSubmitDisabled(true);
 
-			CognitoHelper.registerUser({
-				username: Utils.isEmail(username) ? username : `+91${username}`,
-				password,
-				userDisplayName,
-			}, (err, result) => {
+			CognitoHelper.loginUser({ username, password }, (err, result) => {
 				setSubmitDisabled(false);
 
 				if (err) {
-					console.log(err);
 					setFormErrorMessage(err.message || Strings.SOMETHING_WENT_WRONG);
 					return;
 				}
 
-				StorageHelper.setItem('username', username);
-				StorageHelper.setItem('userDisplayName', userDisplayName);
-
-				// const cognitoUser = result.user;
-				authDispatch({
-					type: AuthActions.SET_CREDENTIALS,
-					userDisplayName,
-					username,
-					password,
-				});
-
-				props.navigation.navigate('VerifyAccount');
-				setSubmitDisabled(false);
+				const cognitoUser = result.user;
+				console.log('cognitoUser', cognitoUser);
 			});
 		}
 	};
@@ -125,21 +85,15 @@ export default function SignUp(props) {
 		<KeyboardAwareScrollView style={styles.root}>
 			<ScrollView contentContainerStyle={styles.container}>
 				<Header
-					title="Sign Up"
+					title="Login"
 					showBackButton={false}
 					navigation={props.navigation}
 				/>
 
 				<TextBox
-					placeholder="Your Name"
-					onChange={handleUserDisplayNameChange}
-					errorText={validations.userDisplayName}
-				/>
-
-				<TextBox
 					placeholder="Your Email or Mobile no."
 					onChange={handleUsernameChange}
-					errorText={validations.username}
+					errorText={validations.userName}
 				/>
 
 				<TextBox
@@ -154,7 +108,7 @@ export default function SignUp(props) {
 				</Text>
 
 				<Button
-					btnText="Sign Up"
+					btnText="Login"
 					onClick={onSubmit}
 					btnContainerStyle={styles.signUpButton}
 					disabled={submitDisabled}
@@ -162,7 +116,7 @@ export default function SignUp(props) {
 
 				<View style={styles.socialSignUp}>
 					<View style={styles.horizontalLine} />
-					<Text style={styles.socialSignUpHeaderText}>Or sign up with</Text>
+					<Text style={styles.socialSignUpHeaderText}>Or sign in with</Text>
 
 					<View style={styles.socialPlatforms}>
 						<NeoButton containerStyle={styles.socialButton}>
