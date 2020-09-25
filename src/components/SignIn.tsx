@@ -72,19 +72,12 @@ export default function SignIn(props) {
 		if (!hasFormError) {
 			setSubmitDisabled(true);
 
-			CognitoHelper.loginUser({ username, password }, (err, result) => {
-				setSubmitDisabled(false);
-				console.log(err.result);
-
-				if (err) {
-					const errorMessage = err.message || Strings.SOMETHING_WENT_WRONG;
-					setFormErrorMessage(errorMessage);
-					return;
-				}
-
+			CognitoHelper.loginUser({ username, password }, (result) => {
 				const cognitoUser = result.user;
 				const userDisplayName = cognitoUser.getUsername();
+				const accessToken = result.getAccessToken().getJwtToken();
 
+				StorageHelper.setItem('accessToken', accessToken);
 				StorageHelper.setItem('userDisplayName', userDisplayName);
 				StorageHelper.setItem('isLoggedIn', 'true').then(() => {
 					authDispatch({

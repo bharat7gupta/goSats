@@ -1,5 +1,5 @@
 import { CognitoUserPool, CognitoUserAttribute, CognitoUser, AuthenticationDetails } from 'amazon-cognito-identity-js';
-import Strings from '../constants/strings';
+import * as UtilityHelper from '../helpers/UtilityHelper';
 
 interface RegisterParams {
 	username: string; // email or mobile no.
@@ -33,12 +33,18 @@ export function registerUser(params: RegisterParams, callback) {
 		new CognitoUserAttribute({ Name: 'name', Value: params.userDisplayName }),
 	];
 
-	userPool.signUp(params.username, params.password, attributeList, null, callback);
+	const givenUsername = params.username;
+	const username = UtilityHelper.isEmail(givenUsername) ? givenUsername : `+91${givenUsername}`;
+
+	userPool.signUp(username, params.password, attributeList, null, callback);
 }
 
 export function confirmUserByOtp(params: ConfirmUserByOtpParams, callback) {
+	const givenUsername = params.username;
+	const username = UtilityHelper.isEmail(givenUsername) ? givenUsername : `+91${givenUsername}`;
+
 	const userData = {
-		Username: params.username,
+		Username: username,
 		Pool: userPool,
 	};
 
@@ -48,8 +54,11 @@ export function confirmUserByOtp(params: ConfirmUserByOtpParams, callback) {
 }
 
 export function resendConfirmationCode(params: ResendConfirmationCodeParams, callback) {
+	const givenUsername = params.username;
+	const username = UtilityHelper.isEmail(givenUsername) ? givenUsername : `+91${givenUsername}`;
+
 	const userData = {
-		Username: params.username,
+		Username: username,
 		Pool: userPool,
 	};
 
@@ -59,8 +68,11 @@ export function resendConfirmationCode(params: ResendConfirmationCodeParams, cal
 }
 
 export function loginUser(params: LoginParams, successCallback, failureCallback) {
+	const givenUsername = params.username;
+	const username = UtilityHelper.isEmail(givenUsername) ? givenUsername : `+91${givenUsername}`;
+
 	const authenticationData = {
-		Username: params.username,
+		Username: username,
 		Password: params.password,
 	};
 
@@ -70,6 +82,8 @@ export function loginUser(params: LoginParams, successCallback, failureCallback)
 		Username: params.username,
 		Pool: userPool,
 	};
+
+	console.log('authenticationData', authenticationData);
 
 	const cognitoUser = new CognitoUser(userData);
 

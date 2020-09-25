@@ -92,12 +92,9 @@ export default function SignUp(props) {
 		if (!hasFormError) {
 			setSubmitDisabled(true);
 
-			CognitoHelper.registerUser({
-				username: Utils.isEmail(username) ? username : `+91${username}`,
-				password,
-				userDisplayName,
-			}, (err, result) => {
+			CognitoHelper.registerUser({ username, password, userDisplayName}, (err, result) => {
 				setSubmitDisabled(false);
+				console.log(err, result);
 
 				if (err) {
 					if (err.code === 'UsernameExistsException') {

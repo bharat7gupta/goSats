@@ -8,6 +8,7 @@ import * as CognitoHelper from '../helpers/CognitoHelper';
 import * as StorageHelper from '../helpers/StorageHelper';
 import { AuthStateContext, AuthDispatchContext } from '../App';
 import { AuthActions } from '../reducers/AuthReducer';
+import Strings from '../constants/strings';
 
 export default function SignUpReferralCode(props) {
 	const authState = useContext(AuthStateContext);
@@ -34,9 +35,12 @@ export default function SignUpReferralCode(props) {
 			const password = authState.password;
 
 			CognitoHelper.loginUser({ username, password }, (result) => {
+				const cognitoUser = result.user;
+				const userDisplayName = cognitoUser.getUsername();
 				const accessToken = result.getAccessToken().getJwtToken();
-				StorageHelper.setItem('accessToken', accessToken);
 
+				StorageHelper.setItem('userDisplayName', userDisplayName);
+				StorageHelper.setItem('accessToken', accessToken);
 				StorageHelper.setItem('isLoggedIn', 'true')
 					.then(() => {
 						authDispatch({
@@ -44,6 +48,10 @@ export default function SignUpReferralCode(props) {
 							isLoggedIn: true,
 						});
 					});
+			}, (err) => {
+				const errorMessage = err.message || Strings.SOMETHING_WENT_WRONG;
+				setFormErrorMessage(errorMessage);
+				setVerifyDisabled(false);
 			});
 		}
 	};
