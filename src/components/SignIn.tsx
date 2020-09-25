@@ -4,7 +4,7 @@ import { KeyboardAwareScrollView } from '@codler/react-native-keyboard-aware-scr
 import Header from './common/Header';
 import colorConstants from '../constants/color';
 import Button from './common/Button';
-import { ScrollView } from 'react-native-gesture-handler';
+import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import NeoButton from './common/NeoButton';
 import TextBox from './common/TextBox';
 import * as CognitoHelper from '../helpers/CognitoHelper';
@@ -62,6 +62,10 @@ export default function SignIn(props) {
 		setFormErrorMessage('');
 	};
 
+	const handleSignUpPress = () => {
+		props.navigation.navigate('SignUp');
+	};
+
 	const onSubmit = () => {
 		setFormErrorMessage('');
 
@@ -96,11 +100,16 @@ export default function SignIn(props) {
 	return (
 		<KeyboardAwareScrollView style={styles.root}>
 			<ScrollView contentContainerStyle={styles.container}>
-				<Header
-					title="Sign In"
-					showBackButton={false}
-					navigation={props.navigation}
-				/>
+				<View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+					<Header
+						title="Sign In"
+						showBackButton={false}
+						navigation={props.navigation}
+					/>
+					<TouchableOpacity onPress={handleSignUpPress} containerStyle={styles.signUpButton} >
+						<Text style={styles.signUpButtonText}>Sign Up ></Text>
+					</TouchableOpacity>
+				</View>
 
 				<TextBox
 					placeholder="Your Email or Mobile no."
@@ -122,7 +131,7 @@ export default function SignIn(props) {
 				<Button
 					btnText="Sign In"
 					onClick={onSubmit}
-					btnContainerStyle={styles.signUpButton}
+					btnContainerStyle={styles.signInButton}
 					disabled={submitDisabled}
 				/>
 
@@ -153,7 +162,7 @@ const styles = StyleSheet.create({
 	container: {
 		paddingHorizontal: 24,
 	},
-	signUpButton: {
+	signInButton: {
 		marginTop: 4,
 	},
 	formErrorMessage: {
@@ -190,5 +199,13 @@ const styles = StyleSheet.create({
 	socialButton: {
 		width: 110,
 		height: 110,
+	},
+	signUpButton: {
+		paddingHorizontal: 10,
+		paddingVertical: 10,
+		marginTop: 12,
+	},
+	signUpButtonText: {
+		color: colorConstants.WARM_GREY,
 	},
 });

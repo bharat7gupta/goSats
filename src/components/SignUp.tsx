@@ -5,7 +5,7 @@ import Toast from 'react-native-simple-toast';
 import Header from './common/Header';
 import colorConstants from '../constants/color';
 import Button from './common/Button';
-import { ScrollView } from 'react-native-gesture-handler';
+import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import NeoButton from './common/NeoButton';
 import TextBox from './common/TextBox';
 import * as CognitoHelper from '../helpers/CognitoHelper';
@@ -81,6 +81,10 @@ export default function SignUp(props) {
 		setFormErrorMessage('');
 	};
 
+	const handleSignInPress = () => {
+		props.navigation.navigate('SignIn');
+	};
+
 	const onSubmit = () => {
 		setFormErrorMessage('');
 
@@ -127,11 +131,16 @@ export default function SignUp(props) {
 	return (
 		<KeyboardAwareScrollView style={styles.root}>
 			<ScrollView contentContainerStyle={styles.container}>
-				<Header
-					title="Sign Up"
-					showBackButton={false}
-					navigation={props.navigation}
-				/>
+				<View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+					<Header
+						title="Sign Up"
+						showBackButton={false}
+						navigation={props.navigation}
+					/>
+					<TouchableOpacity onPress={handleSignInPress} containerStyle={styles.signInButton} >
+						<Text style={styles.signInButtonText}>Sign In ></Text>
+					</TouchableOpacity>
+				</View>
 
 				<TextBox
 					placeholder="Your Name"
@@ -227,5 +236,13 @@ const styles = StyleSheet.create({
 	socialButton: {
 		width: 110,
 		height: 110,
+	},
+	signInButton: {
+		paddingHorizontal: 10,
+		paddingVertical: 10,
+		marginTop: 12,
+	},
+	signInButtonText: {
+		color: colorConstants.WARM_GREY,
 	},
 });
