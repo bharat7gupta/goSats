@@ -1,12 +1,11 @@
 import React from 'react';
-import { View, StyleSheet, ScrollView } from 'react-native';
-
-import HotDeals from './HotDeals';
+import { View, ScrollView, StyleSheet } from 'react-native';
 import HomePageActions from './HomePageActions';
+import HotDeals from './HotDeals';
 import BottomMenu from './common/BottomMenu';
 import colorConstants from '../constants/color';
 
-export default function Home(props) {
+export default function Shop(props) {
 	const handleCategoryCLick = () => {
 		props.navigation.navigate('Categories');
 	};
@@ -24,8 +23,6 @@ export default function Home(props) {
 				/>
 				<HotDeals />
 			</ScrollView>
-
-			<BottomMenu />
 		</View>
 	);
 }

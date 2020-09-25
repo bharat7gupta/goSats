@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { View, Text, TextInput, Image, StyleSheet } from 'react-native';
 import { KeyboardAwareScrollView } from '@codler/react-native-keyboard-aware-scroll-view';
 import Header from './common/Header';
@@ -8,12 +8,17 @@ import { ScrollView } from 'react-native-gesture-handler';
 import NeoButton from './common/NeoButton';
 import TextBox from './common/TextBox';
 import * as CognitoHelper from '../helpers/CognitoHelper';
-import * as Utils from '../helpers/UtilityHelper';
+import * as StorageHelper from '../helpers/StorageHelper';
+import * as UtilityHelper from '../helpers/UtilityHelper';
 import Strings from '../constants/strings';
+import { AuthActions } from '../reducers/AuthReducer';
+import { AuthDispatchContext } from '../App';
 
 let hasFormError = false;
 
 export default function SignIn(props) {
+	const authDispatch = useContext(AuthDispatchContext);
+
 	const [ username, setUsername ] = useState('');
 	const [ password, setPassword ] = useState('');
 	const [ submitDisabled, setSubmitDisabled ] = useState(false);
@@ -26,7 +31,7 @@ export default function SignIn(props) {
 		if (!currentUserName || currentUserName.trim().length < 2) {
 			errorMessage = Strings.ENTER_VALID_USERNAME;
 			hasFormError = true;
-		} else if (!Utils.isEmail(currentUserName) || !Utils.isPhoneNumber(currentUserName)) {
+		} else if (!UtilityHelper.isEmail(currentUserName) && !UtilityHelper.isPhoneNumber(currentUserName)) {
 			errorMessage = Strings.ENTER_VALID_USERNAME;
 			hasFormError = true;
 		}
@@ -69,14 +74,28 @@ export default function SignIn(props) {
 
 			CognitoHelper.loginUser({ username, password }, (err, result) => {
 				setSubmitDisabled(false);
+				console.log(err.result);
 
 				if (err) {
-					setFormErrorMessage(err.message || Strings.SOMETHING_WENT_WRONG);
+					const errorMessage = err.message || Strings.SOMETHING_WENT_WRONG;
+					setFormErrorMessage(errorMessage);
 					return;
 				}
 
 				const cognitoUser = result.user;
-				console.log('cognitoUser', cognitoUser);
+				const userDisplayName = cognitoUser.getUsername();
+
+				StorageHelper.setItem('userDisplayName', userDisplayName);
+				StorageHelper.setItem('isLoggedIn', 'true').then(() => {
+					authDispatch({
+						type: AuthActions.UPDATE_LOGIN_STATUS,
+						isLoggedIn: true,
+					});
+				});
+			}, (err) => {
+				const errorMessage = err.message || Strings.SOMETHING_WENT_WRONG;
+				setFormErrorMessage(errorMessage);
+				setSubmitDisabled(false);
 			});
 		}
 	};
@@ -85,7 +104,7 @@ export default function SignIn(props) {
 		<KeyboardAwareScrollView style={styles.root}>
 			<ScrollView contentContainerStyle={styles.container}>
 				<Header
-					title="Login"
+					title="Sign In"
 					showBackButton={false}
 					navigation={props.navigation}
 				/>
@@ -108,7 +127,7 @@ export default function SignIn(props) {
 				</Text>
 
 				<Button
-					btnText="Login"
+					btnText="Sign In"
 					onClick={onSubmit}
 					btnContainerStyle={styles.signUpButton}
 					disabled={submitDisabled}

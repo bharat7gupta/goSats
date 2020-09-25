@@ -7,7 +7,7 @@ import {
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import Home from './components/Home';
+import Dashboard from './components/Dashboard';
 import Categories from './components/Categories';
 import colorConstants from './constants/color';
 import BrandDetail from './components/BrandDetail';
@@ -88,7 +88,7 @@ function App() {
 							screenOptions={{ header: () => null }}
 						>
 							<React.Fragment>
-								<Stack.Screen name="Home" component={Home} />
+								<Stack.Screen name="Dashboard" component={Dashboard} />
 								<Stack.Screen name="Categories" component={Categories} />
 								<Stack.Screen name="BrandDetail" component={BrandDetail} />
 							</React.Fragment>

@@ -46,11 +46,11 @@ export default function VerifyEmail(props) {
 				return;
 			}
 
-			StorageHelper.setItem('hasVerifiedAccount', 'true');
-			authDispatch({type: AuthActions.SET_ACCOUNT_VERIFIED});
-
-			Toast.show(Strings.ACCOUNT_VERIFIED, Toast.LONG);
-			props.navigation.navigate('SignUpReferralCode');
+			StorageHelper.setItem('hasVerifiedAccount', 'true').then(() => {
+				authDispatch({type: AuthActions.SET_ACCOUNT_VERIFIED});
+				Toast.show(Strings.ACCOUNT_VERIFIED, Toast.LONG);
+				props.navigation.navigate('SignUpReferralCode');
+			});
 		});
 	};
 

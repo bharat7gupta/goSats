@@ -28,20 +28,23 @@ export default function SignUpReferralCode(props) {
 
 		if (referralCode && referralCode.trim().length > 0) {
 			// TODO: Check if valid referral code
+			setVerifyDisabled(false);
 		} else {
 			const username = authState.username;
 			const password = authState.password;
 
-			// CognitoHelper.loginUser({ username, password }, (result) => {
-			// 	const accessToken = result.getAccessToken().getJwtToken();
-			// 	StorageHelper.setItem('accessToken', accessToken);
-				StorageHelper.setItem('isLoggedIn', 'true');
+			CognitoHelper.loginUser({ username, password }, (result) => {
+				const accessToken = result.getAccessToken().getJwtToken();
+				StorageHelper.setItem('accessToken', accessToken);
 
-				authDispatch({
-					type: AuthActions.UPDATE_LOGIN_STATUS,
-					isLoggedIn: true,
-				});
-			// });
+				StorageHelper.setItem('isLoggedIn', 'true')
+					.then(() => {
+						authDispatch({
+							type: AuthActions.UPDATE_LOGIN_STATUS,
+							isLoggedIn: true,
+						});
+					});
+			});
 		}
 	};
 

@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react';
-import { View, Text, TextInput, Image, StyleSheet } from 'react-native';
+import { View, Text, TextInput, Image, StyleSheet, ToastAndroid } from 'react-native';
 import { KeyboardAwareScrollView } from '@codler/react-native-keyboard-aware-scroll-view';
+import Toast from 'react-native-simple-toast';
 import Header from './common/Header';
 import colorConstants from '../constants/color';
 import Button from './common/Button';
@@ -99,24 +100,29 @@ export default function SignUp(props) {
 				setSubmitDisabled(false);
 
 				if (err) {
-					console.log(err);
+					if (err.code === 'UsernameExistsException') {
+						Toast.show(`${err.message} Please login.`, Toast.LONG);
+						props.navigation.navigate('SignIn');
+						return;
+					}
+
 					setFormErrorMessage(err.message || Strings.SOMETHING_WENT_WRONG);
 					return;
 				}
 
-				StorageHelper.setItem('username', username);
-				StorageHelper.setItem('userDisplayName', userDisplayName);
+				StorageHelper.setItem('username', username).then(() => {
+					StorageHelper.setItem('userDisplayName', userDisplayName).then(() => {
+						// const cognitoUser = result.user;
+						authDispatch({
+							type: AuthActions.SET_CREDENTIALS,
+							userDisplayName,
+							username,
+							password,
+						});
 
-				// const cognitoUser = result.user;
-				authDispatch({
-					type: AuthActions.SET_CREDENTIALS,
-					userDisplayName,
-					username,
-					password,
+						props.navigation.navigate('VerifyAccount');
+					});
 				});
-
-				props.navigation.navigate('VerifyAccount');
-				setSubmitDisabled(false);
 			});
 		}
 	};
