@@ -5,8 +5,11 @@ import colorConstants from '../../constants/color';
 interface TextBoxProps {
 	placeholder:  string;
 	secureTextEntry?: boolean;
+	blurOnSubmit?: boolean;
 	errorText?: string;
 	onChange: (text: string) => void;
+	setTextInputRef?: (ref: any) => void;
+	onSubmitEditing?: () => void;
 }
 
 export default function TextBox(props: TextBoxProps) {
@@ -24,7 +27,10 @@ export default function TextBox(props: TextBoxProps) {
 				placeholderTextColor={colorConstants.TEXTBOX_PLACEHOLDER_TEXT_COLOR}
 				autoCapitalize="none"
 				onChange={handleChange}
+				onSubmitEditing={props.onSubmitEditing}
 				secureTextEntry={props.secureTextEntry}
+				blurOnSubmit={props.blurOnSubmit}
+				ref={props.setTextInputRef}
 			/>
 
 			<Text style={styles.errorText}>{props.errorText}</Text>

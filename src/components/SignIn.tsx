@@ -25,6 +25,8 @@ export default function SignIn(props) {
 	const [ validations, setValidation ] = useState<any>({});
 	const [ formErrorMessage, setFormErrorMessage ] = useState('');
 
+	let passwordRef;
+
 	const validateUserName = (currentUserName: string) => {
 		let errorMessage = '';
 
@@ -114,6 +116,8 @@ export default function SignIn(props) {
 				<TextBox
 					placeholder="Your Email or Mobile no."
 					onChange={handleUsernameChange}
+					onSubmitEditing={() => { passwordRef && passwordRef.focus(); }}
+					blurOnSubmit={false}
 					errorText={validations.userName}
 				/>
 
@@ -122,6 +126,8 @@ export default function SignIn(props) {
 					placeholder="Enter a Password"
 					onChange={handlePasswordChange}
 					errorText={validations.password}
+					setTextInputRef={(ref) => passwordRef = ref}
+					blurOnSubmit={true}
 				/>
 
 				<Text style={styles.formErrorMessage}>
