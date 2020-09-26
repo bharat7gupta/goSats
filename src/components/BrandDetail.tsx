@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, Image, ImageBackground, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, Image, ImageBackground, ScrollView, Share, ShareContent } from 'react-native';
 
 import * as ApiHelper from '../helpers/ApiHelper';
 import colorConstants from '../constants/color';
@@ -18,6 +18,7 @@ import BrandInfoWithOffer from './BrandInfoWithOffer';
 import BrandDetailsCard from './BrandDetailsCard';
 import Header from './common/Header';
 import Strings from '../constants/strings';
+import * as Config from '../constants/config';
 // import merchantDetail from '../mock_jsons/merchant-detail.json';
 // import giftCardDetail from '../mock_jsons/giftcard-detail.json';
 
@@ -63,8 +64,22 @@ export default function BrandDetail(props) {
 		}
 	};
 
-	const handleShareClick = () => {
+	const handleShareClick = async () => {
+		let title;
 
+		if (brand.type === BrandType.MERCHANT) {
+			title = `Buy products on ${brand.name} to get Satsback`;
+		} else if (brand.type === BrandType.GIFTCARD) {
+			title = `${brand.name}`;
+		}
+
+		try {
+			const result = await Share.share({
+				message: `${title}${`
+				`}${Config.SHARE_URL_BASE}${brand.type}/${brand.id}`,
+				url: `${Config.SHARE_URL_BASE}${brand.type}/${brand.id}`,
+			});
+		} catch (error) {}
 	};
 
 	const handleFavouriteClick = () => {

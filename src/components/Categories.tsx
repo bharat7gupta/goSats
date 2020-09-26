@@ -27,6 +27,7 @@ export default function Categories(props) {
 		try {
 			setLoading(true);
 			const data = await ApiHelper.fetchBrands();
+			// const data = brandList;
 			processData(data);
 			setLoading(false);
 		} catch (e) {
@@ -37,7 +38,7 @@ export default function Categories(props) {
 	};
 
 	const processData = (data) => {
-		// data = brandList;
+		console.log(data);
 		if (data.error) {
 			setShowError(data.error);
 			setErrorMessage(data.message);
