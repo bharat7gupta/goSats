@@ -7,7 +7,7 @@ import Button from './Button';
 
 interface AcitonButtonWithShadowProps {
 	buttonText: string;
-	disabled: boolean;
+	disabled?: boolean;
 	btnContainerStyle?: ViewStyle;
 	onClick: () => void;
 }
@@ -20,7 +20,7 @@ export default function AcitonButtonWithShadow(props: AcitonButtonWithShadowProp
 			lightShadowColor={props.disabled ? colorConstants.PRIMARY : colorConstants.ACTION_BUTTON_SHADOW}
 		>
 			<Button
-				btnText="Sign Up"
+				btnText={props.buttonText}
 				onClick={props.onClick}
 				disabled={props.disabled}
 				btnContainerStyle={props.btnContainerStyle}
