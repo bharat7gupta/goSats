@@ -12,7 +12,7 @@ import { Neomorph } from 'react-native-neomorph-shadows';
 const screen = Dimensions.get('screen');
 const { width } = screen;
 const carouselItemWidth = width - 20;
-const carouselItemHeight = carouselItemWidth / 2;
+const carouselItemHeight = Math.min(240, carouselItemWidth / 2);
 
 export default function Shop(props) {
 	const [ carouselItems, setCarouselItems ] = useState([1, 2, 3, 4, 5]);
@@ -58,10 +58,12 @@ export default function Shop(props) {
 				</View>
 
 				<Carousel
+					containerCustomStyle={{ paddingHorizontal: 10 }}
 					data={carouselItems}
 					renderItem={renderCarouselItem}
 					sliderWidth={width}
-					itemWidth={carouselItemWidth}
+					itemWidth={carouselItemWidth - 20}
+					slideStyle={styles.carouselSlideStyle}
 				/>
 
 				<HomePageActions
@@ -86,11 +88,15 @@ const styles = StyleSheet.create({
 		marginBottom: -12,
 	},
 	carouselContainer: {
+		width: carouselItemWidth - 20,
 		marginBottom: 14,
 		paddingVertical: 14,
-		paddingHorizontal: 10,
 	},
 	carouselImage: {
 		resizeMode: 'cover',
+	},
+	carouselSlideStyle: {
+		marginLeft: -10,
+		marginRight: 10
 	},
 });

@@ -70,5 +70,6 @@ const styles = StyleSheet.create({
 		fontSize: 16,
 		lineHeight: 18,
 		marginLeft: 10,
+		marginTop: 2,
 	},
 });
