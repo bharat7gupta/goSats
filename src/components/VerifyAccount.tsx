@@ -11,6 +11,7 @@ import * as Utils from '../helpers/UtilityHelper';
 import Strings from '../constants/strings';
 import { AuthStateContext, AuthDispatchContext } from '../App';
 import { AuthActions } from '../reducers/AuthReducer';
+import AcitonButtonWithShadow from './common/ActionButtonWithShadow';
 
 export default function VerifyEmail(props) {
 	const authState = useContext(AuthStateContext);
@@ -84,8 +85,8 @@ export default function VerifyEmail(props) {
 				errorText={formErrorMessage}
 			/>
 
-			<Button
-				btnText="Verify"
+			<AcitonButtonWithShadow
+				buttonText="Sign Up"
 				onClick={onVerifyClick}
 				btnContainerStyle={styles.verifyButton}
 				disabled={verifyDisabled}

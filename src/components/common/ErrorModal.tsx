@@ -24,7 +24,7 @@ export default function ErrorModal(props: ErrorModalProps) {
 
 					<View><Text style={styles.headerText}>Uh-oh!</Text></View>
 					<View><Text style={styles.errorMessage}>{props.errorMessage}</Text></View>
-					<Button btnText="OKAY" onClick={props.onDismissError} />
+					<Button btnText="OKAY" onClick={props.onDismissError} btnContainerStyle={styles.btnContainerStyle} />
 				</View>
 			</View>
 		</View>
@@ -89,5 +89,8 @@ const styles = StyleSheet.create({
 		textTransform: 'uppercase',
 		paddingVertical: 16,
 		textAlign: 'center',
+	},
+	btnContainerStyle: {
+		marginTop: 20,
 	},
 });

@@ -4,7 +4,6 @@ import { KeyboardAwareScrollView } from '@codler/react-native-keyboard-aware-scr
 import Toast from 'react-native-simple-toast';
 import Header from './common/Header';
 import colorConstants from '../constants/color';
-import Button from './common/Button';
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import NeoButton from './common/NeoButton';
 import TextBox from './common/TextBox';
@@ -14,6 +13,7 @@ import * as Utils from '../helpers/UtilityHelper';
 import Strings from '../constants/strings';
 import { AuthDispatchContext } from '../App';
 import { AuthActions } from '../reducers/AuthReducer';
+import AcitonButtonWithShadow from './common/ActionButtonWithShadow';
 
 let hasFormError = false;
 
@@ -175,10 +175,9 @@ export default function SignUp(props) {
 					{formErrorMessage}
 				</Text>
 
-				<Button
-					btnText="Sign Up"
+				<AcitonButtonWithShadow
+					buttonText="Sign Up"
 					onClick={onSubmit}
-					btnContainerStyle={styles.signUpButton}
 					disabled={submitDisabled}
 				/>
 
@@ -209,14 +208,12 @@ const styles = StyleSheet.create({
 	container: {
 		paddingHorizontal: 24,
 	},
-	signUpButton: {
-		marginTop: 4,
-	},
 	formErrorMessage: {
 		fontSize: 12,
 		lineHeight: 16,
 		color: colorConstants.VALIDATION_TEXT_COLOR,
 		marginBottom: 4,
+		minHeight: 42,
 	},
 	socialSignUp: {
 		marginTop: 28,

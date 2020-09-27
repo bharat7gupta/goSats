@@ -1,9 +1,9 @@
 import React, { useState, useContext } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { Text, StyleSheet } from 'react-native';
 import { KeyboardAwareScrollView } from '@codler/react-native-keyboard-aware-scroll-view';
 import colorConstants from '../constants/color';
 import TextBox from './common/TextBox';
-import Button from './common/Button';
+import AcitonButtonWithShadow from './common/ActionButtonWithShadow';
 import * as CognitoHelper from '../helpers/CognitoHelper';
 import * as StorageHelper from '../helpers/StorageHelper';
 import { AuthStateContext, AuthDispatchContext } from '../App';
@@ -68,8 +68,8 @@ export default function SignUpReferralCode(props) {
 				errorText={formErrorMessage}
 			/>
 
-			<Button
-				btnText="Start Stacking"
+			<AcitonButtonWithShadow
+				buttonText="Start Stacking"
 				onClick={onStartStackingClick}
 				btnContainerStyle={styles.startStackingButton}
 				disabled={startButtonDisabled}

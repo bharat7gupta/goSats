@@ -54,6 +54,7 @@ const styles = StyleSheet.create({
 	errorText: {
 		fontSize: 12,
 		lineHeight: 16,
+		minHeight: 16,
 		fontFamily: 'Gilroy-Regular',
 		color: colorConstants.VALIDATION_TEXT_COLOR,
 		marginTop: -6,

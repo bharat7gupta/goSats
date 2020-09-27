@@ -26,11 +26,11 @@ export default function Button(props: ButtonProps) {
 	};
 
 	return (
-		<TouchableHighlight style={[styles.root, btnContainerStyle ]}>
+		<View style={[styles.root, btnContainerStyle ]}>
 			<View style={actionButtonStyle} onTouchEnd={handleButtonClick}>
 				<Text style={[ styles.actionButtonText, btnTextStyle ]}>{btnText}</Text>
 			</View>
-		</TouchableHighlight>
+		</View>
 	);
 }
 
@@ -41,7 +41,6 @@ const styles = StyleSheet.create({
 	actionButton: {
 		flex: 1,
 		width: '100%',
-		// marginTop: 20,
 		borderRadius: 10,
 		backgroundColor: colorConstants.ACTION_BUTTON,
 	},
