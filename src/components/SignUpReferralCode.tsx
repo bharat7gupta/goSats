@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import { KeyboardAwareScrollView } from '@codler/react-native-keyboard-aware-scroll-view';
 import colorConstants from '../constants/color';
 import TextBox from './common/TextBox';
@@ -35,11 +35,8 @@ export default function SignUpReferralCode(props) {
 			const password = authState.password;
 
 			CognitoHelper.loginUser({ username, password }, (result) => {
-				const cognitoUser = result.user;
-				const userDisplayName = cognitoUser.getUsername();
 				const accessToken = result.getAccessToken().getJwtToken();
 
-				StorageHelper.setItem('userDisplayName', userDisplayName);
 				StorageHelper.setItem('accessToken', accessToken);
 				StorageHelper.setItem('isLoggedIn', 'true')
 					.then(() => {
@@ -62,18 +59,21 @@ export default function SignUpReferralCode(props) {
 				Your set!  Enter a referral code if you have one or leave this field blank.
 			</Text>
 
-			<TextBox
-				placeholder="Referral Code (OPTIONAL)"
-				onChange={handleReferralCodeChange}
-				errorText={formErrorMessage}
-			/>
+			<View style={styles.referralCodeInputContainer}>
+				<TextBox
+					placeholder="Referral Code (OPTIONAL)"
+					onChange={handleReferralCodeChange}
+					errorText={formErrorMessage}
+					/>
+			</View>
 
-			<AcitonButtonWithShadow
-				buttonText="Start Stacking"
-				onClick={onStartStackingClick}
-				btnContainerStyle={styles.startStackingButton}
-				disabled={startButtonDisabled}
-			/>
+			<View style={styles.startStackingContainer}>
+				<AcitonButtonWithShadow
+					buttonText="Start Stacking"
+					onClick={onStartStackingClick}
+					disabled={startButtonDisabled}
+				/>
+			</View>
 		</KeyboardAwareScrollView>
 	);
 }
@@ -82,16 +82,6 @@ const styles = StyleSheet.create({
 	root: {
 		flex: 1,
 		backgroundColor: colorConstants.PRIMARY,
-		paddingHorizontal: 20,
-	},
-	headerText: {
-		fontSize: 25,
-		lineHeight: 28,
-		fontFamily: 'Gilroy-Bold',
-		color: colorConstants.FONT_COLOR,
-		marginTop: 72,
-		marginBottom: 48,
-		textAlign: 'center',
 	},
 	subText: {
 		fontSize: 15,
@@ -104,13 +94,11 @@ const styles = StyleSheet.create({
 		marginBottom: 52,
 		opacity: 0.7,
 	},
-	formErrorMessage: {
-		fontSize: 12,
-		lineHeight: 16,
-		color: colorConstants.VALIDATION_TEXT_COLOR,
-		marginBottom: 4,
+	referralCodeInputContainer: {
+		paddingHorizontal: 20,
 	},
-	startStackingButton: {
+	startStackingContainer: {
 		marginTop: 24,
+		paddingHorizontal: 20,
 	},
 });

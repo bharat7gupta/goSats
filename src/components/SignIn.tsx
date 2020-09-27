@@ -79,12 +79,9 @@ export default function SignIn(props) {
 			setSubmitDisabled(true);
 
 			CognitoHelper.loginUser({ username, password }, (result) => {
-				const cognitoUser = result.user;
-				const userDisplayName = cognitoUser.getUsername();
 				const accessToken = result.getAccessToken().getJwtToken();
 
 				StorageHelper.setItem('accessToken', accessToken);
-				StorageHelper.setItem('userDisplayName', userDisplayName);
 				StorageHelper.setItem('isLoggedIn', 'true').then(() => {
 					authDispatch({
 						type: AuthActions.UPDATE_LOGIN_STATUS,

@@ -22,8 +22,8 @@ interface LoginParams {
 }
 
 const poolData = {
-	UserPoolId: 'us-east-2_uEnqzdtdo',
-	ClientId: '26mh7ae2829errfphvbpa5btm',
+	UserPoolId: 'us-east-2_M60CynCG2',
+	ClientId: '6lla9iektearf9j1q17cq66d5r',
 };
 
 const userPool = new CognitoUserPool(poolData);
@@ -82,8 +82,6 @@ export function loginUser(params: LoginParams, successCallback, failureCallback)
 		Username: params.username,
 		Pool: userPool,
 	};
-
-	console.log('authenticationData', authenticationData);
 
 	const cognitoUser = new CognitoUser(userData);
 

@@ -79,18 +79,21 @@ export default function VerifyEmail(props) {
 				An OTP has been sent to your {accountByText}. Please enter that below.
 			</Text>
 
-			<TextBox
-				placeholder="Enter OTP"
-				onChange={handleOTPChange}
-				errorText={formErrorMessage}
-			/>
+			<View style={styles.otpInputContainer}>
+				<TextBox
+					placeholder="Enter OTP"
+					onChange={handleOTPChange}
+					errorText={formErrorMessage}
+				/>
+			</View>
 
-			<AcitonButtonWithShadow
-				buttonText="Sign Up"
-				onClick={onVerifyClick}
-				btnContainerStyle={styles.verifyButton}
-				disabled={verifyDisabled}
-			/>
+			<View style={styles.verifyButtonContainer}>
+				<AcitonButtonWithShadow
+					buttonText="Verify"
+					onClick={onVerifyClick}
+					disabled={verifyDisabled}
+				/>
+			</View>
 
 			<View style={styles.resendOtpContainer}>
 				<TouchableOpacity onPress={onResendOtp} style={styles.resendOtpButton}>
@@ -105,7 +108,6 @@ const styles = StyleSheet.create({
 	root: {
 		flex: 1,
 		backgroundColor: colorConstants.PRIMARY,
-		paddingHorizontal: 20,
 	},
 	headerText: {
 		fontSize: 25,
@@ -115,6 +117,7 @@ const styles = StyleSheet.create({
 		marginTop: 72,
 		marginBottom: 48,
 		textAlign: 'center',
+		paddingHorizontal: 20,
 	},
 	subText: {
 		fontSize: 15,
@@ -126,14 +129,12 @@ const styles = StyleSheet.create({
 		marginBottom: 52,
 		opacity: 0.7,
 	},
-	formErrorMessage: {
-		fontSize: 12,
-		lineHeight: 16,
-		color: colorConstants.VALIDATION_TEXT_COLOR,
-		marginBottom: 4,
+	otpInputContainer: {
+		paddingHorizontal: 20,
 	},
-	verifyButton: {
+	verifyButtonContainer: {
 		marginTop: 24,
+		paddingHorizontal: 24,
 	},
 	resendOtpContainer: {
 		marginVertical: 32,
