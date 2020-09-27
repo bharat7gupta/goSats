@@ -40,6 +40,7 @@ const styles = StyleSheet.create({
 	root: {
 		position: 'relative',
 		paddingVertical: 10,
+		paddingRight: 6,
 	},
 	luckyWheel: {
 		position: 'absolute',

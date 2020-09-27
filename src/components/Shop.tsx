@@ -42,6 +42,6 @@ const styles = StyleSheet.create({
 	topSection: {
 		flexDirection: 'row',
 		justifyContent: 'space-between',
-		paddingHorizontal: 20,
+		paddingLeft: 20,
 	},
 });
