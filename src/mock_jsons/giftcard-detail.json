@@ -8,9 +8,7 @@
 			"category": [
 				"Food & Grocery"
 			],
-			"details": [
-				"This voucher can be redeemed online as well as at your "
-			],
+			"details": "<div><h4>Rewards distribution</h4><ul><li> Get 2.25% bitcoin cashback. </li></ul> <h4>Tracking Time</h4><ul><li>Our system will take about 2mins to recognise your purchase.</li><li>You will receive an approximate amount of sats into your GoSats wallet which will be in pending state.</li></ul> <h4>Terms</h4><ul><li>All disputes and refunds related to your order will need to be raised directly with the brand.</li></ul><div>",
 			"id": "GSGC6549",
 			"price": {
 				"denominations": [

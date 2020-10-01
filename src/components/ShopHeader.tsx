@@ -9,7 +9,8 @@ export default function ShopHeader() {
 	return (
 		<View style={styles.root}>
 			<Text style={styles.headerText}>Shop</Text>
-			<View>
+
+			<View style={{ marginLeft: 20 }}>
 				<Neomorph
 					style={{ ...styleConstants.smallButtonShadowStyles, width: 40, height: 40, borderRadius: 40/2 }}
 					darkShadowColor={colorConstants.SHADOW_DARK}
@@ -24,12 +25,14 @@ export default function ShopHeader() {
 
 const styles = StyleSheet.create({
 	root: {
-		marginTop: 24,
-		marginBottom: 40,
+		paddingTop: 24,
+		paddingBottom: 16,
 		paddingHorizontal: 18,
+		marginBottom: 24,
 		flex: 1,
 		flexDirection: 'row',
 		justifyContent: 'space-between',
+		// backgroundColor: 'rgba(21, 21, 21, 0.8)',
 	},
 	headerText: {
 		color: colorConstants.HEADER_TITLE,

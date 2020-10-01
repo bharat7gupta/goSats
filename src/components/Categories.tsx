@@ -38,7 +38,6 @@ export default function Categories(props) {
 	};
 
 	const processData = (data) => {
-		console.log(data);
 		if (data.error) {
 			setShowError(data.error);
 			setErrorMessage(data.message);

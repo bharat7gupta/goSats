@@ -1,23 +1,13 @@
 {
 	"error": false,
-	"message": "Some error occured. Please try again",
+	"message": "List of Merchants are",
 	"data": {
-		"name": "Flipkart",
-		"image": "https://cdn0.cuelinks.com/campaigns/1/thumb/Flipkart_logo.jpg?1433139772",
-		"reward": "6.08",
-		"reward_type": "Per Sale(%)",
-		"title": "Your friendly online store",
-		"subText": "Flipkart is one the largest online stores in India with its massive range of products and services.",
-		"details": [
-			"0.00% Payout for New User (Desktop / Mobile Website / Mobile App)",
-			"6.08% Grocery- Flipkart Supermart (Live in Delhi, Mumbai, Chennai, Hyderabad & Bengaluru)\t",
-			"3.38% Furniture",
-			"1.69% Books & General Merchandise (Auto Accessory, Toys, Personal Care, Books & Media, Baby Care, Sports)",
-			"1.69% Home (Home Decor ,Home Furnishing ,Home Improvement ,Household Supplies ,Kitchen & Dining ,Kitchen, Cookware, Pet Supplies ,Tools & Hardware)\t",
-			"₹ 506.25 Large Appliances ( Television-Exception(Mi TV), Refrigerators, Washing Machines & Air Conditioner)",
-			"0.00% Payout for Existing User (Desktop / Mobile Website / Mobile App)",
-			"1.01% Grocery- Flipkart Supermart (Live in Delhi, Mumbai, Chennai, Hyderabad & Bengaluru)\t",
-			"2.70% Furniture"
-		]
+		"name": "Kalki Fashion",
+		"image": "https://cdn0.cuelinks.com/campaigns/3492/thumb/KalkiFashion.png?1517566951",
+		"reward": "2.36%",
+		"rewardType": "Per Sale(%)",
+		"title": "Technicolor Sarees for the ultra fashionable",
+		"subText": "Exclusive Online Women’s Clothing Shopping: Buy Sarees, Lehengas, Kurtis, Salwar Kameez and Gowns",
+		"details": "<div><h4>Rewards distribution</h4><ul><li> Get 2.25% bitcoin cashback. </li></ul> <h4>Tracking Time</h4><ul><li>Our system will take about 2mins to recognise your purchase.</li><li>You will receive an approximate amount of sats into your GoSats wallet which will be in pending state.</li></ul> <h4>Terms</h4><ul><li>All disputes and refunds related to your order will need to be raised directly with the brand.</li></ul><div>"
 	}
 }
