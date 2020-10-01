@@ -1,13 +1,11 @@
-import React, { useState } from 'react';
-import { View, ScrollView, StyleSheet, Dimensions, Image } from 'react-native';
-import Carousel from 'react-native-snap-carousel';
-import HomePageActions from './HomePageActions';
+import React, { useState, useEffect } from 'react';
+import { View, Text, ScrollView, StyleSheet, Dimensions } from 'react-native';
 import HotDeals from './HotDeals';
-import styleConstants from '../constants/style';
 import colorConstants from '../constants/color';
-import EarnedRewards from './EarnedRewards';
-import SpinWheel from './SpinWheel';
-import { Neomorph } from 'react-native-neomorph-shadows';
+import ShopHeader from './ShopHeader';
+import BrandCarousel from './BrandCarousel';
+import * as ApiHelper from '../helpers/ApiHelper';
+import RewardsSection from './RewardsSection';
 
 const screen = Dimensions.get('screen');
 const { width } = screen;
@@ -15,62 +13,48 @@ const carouselItemWidth = width - 20;
 const carouselItemHeight = Math.min(240, carouselItemWidth / 2);
 
 export default function Shop(props) {
-	const [ carouselItems, setCarouselItems ] = useState([1, 2, 3, 4, 5]);
+	// const [ carouselItems, setCarouselItems ] = useState([1, 2, 3, 4, 5]);
+	const [ spotlight, setSpotlight ] = useState([]);
+	const [ merchants, setMerchants ] = useState([]);
+	const [ editorsPicks, setEditorsPicks ] = useState([]);
 
-	const handleCategoryCLick = () => {
-		props.navigation.navigate('Categories');
+	useEffect(() => {
+		fetchMasterData();
+	}, []);
+
+	const fetchMasterData = async () => {
+		try {
+			const masterData = await ApiHelper.fetchMasterData();
+			processData(masterData);
+			console.log(masterData);
+		} catch (e) {
+
+		}
 	};
 
-	const handleFavouritesClick = () => {
+	const processData = (masterData) => {
+		if (masterData.error) {
+			return;
+		}
 
-	};
-
-	const renderCarouselItem = () => {
-		return (
-			<View style={styles.carouselContainer}>
-				<Neomorph
-					style={{
-						...styleConstants.shadowStyles,
-						width: carouselItemWidth - 20,
-						height: carouselItemHeight,
-						overflow: 'hidden',
-					}}
-					darkShadowColor={colorConstants.SHADOW_DARK}
-					lightShadowColor={colorConstants.SHADOW_LIGHT}
-				>
-					<Image
-						source={require('../assets/images/amazon-pay-giftcard.jpg')}
-						width={carouselItemWidth}
-						height={carouselItemHeight}
-						style={styles.carouselImage}
-					/>
-				</Neomorph>
-			</View>
-		);
+		setSpotlight(masterData.data.spotlight);
+		setMerchants(masterData.data.merchant);
+		setEditorsPicks(masterData.data.editors_pic);
 	};
 
 	return (
 		<View style={styles.root}>
 			<ScrollView contentContainerStyle={{flexGrow: 1}}>
-				<View style={styles.topSection}>
-					<EarnedRewards />
-					<SpinWheel />
-				</View>
+				<ShopHeader />
 
-				<Carousel
-					containerCustomStyle={{ paddingHorizontal: 10 }}
-					data={carouselItems}
-					renderItem={renderCarouselItem}
-					sliderWidth={width}
-					itemWidth={carouselItemWidth - 20}
-					slideStyle={styles.carouselSlideStyle}
-				/>
+				<RewardsSection />
 
-				<HomePageActions
-					onCategoriesClick={handleCategoryCLick}
-					onFavouritesClick={handleFavouritesClick}
-				/>
-				<HotDeals />
+				<BrandCarousel items={spotlight} />
+
+				<HotDeals merchants={merchants} />
+
+				<Text style={styles.editorsPickTitleText}>Editor’s Pick</Text>
+				<BrandCarousel items={editorsPicks} height={250} />
 			</ScrollView>
 		</View>
 	);
@@ -80,6 +64,7 @@ const styles = StyleSheet.create({
 	root: {
 		flex: 1,
 		backgroundColor: colorConstants.PRIMARY,
+		paddingBottom: 20,
 	},
 	topSection: {
 		flexDirection: 'row',
@@ -87,16 +72,13 @@ const styles = StyleSheet.create({
 		paddingLeft: 20,
 		marginBottom: -12,
 	},
-	carouselContainer: {
-		width: carouselItemWidth - 20,
-		marginBottom: 14,
-		paddingVertical: 14,
-	},
-	carouselImage: {
-		resizeMode: 'cover',
-	},
-	carouselSlideStyle: {
-		marginLeft: -10,
-		marginRight: 10
+	editorsPickTitleText: {
+		fontFamily: 'Gilroy-Regular',
+		fontSize: 14,
+		lineHeight: 28,
+		color: colorConstants.GREY_FONT_COLOR,
+		paddingHorizontal: 20,
+		marginTop: 24,
+		marginBottom: 4,
 	},
 });

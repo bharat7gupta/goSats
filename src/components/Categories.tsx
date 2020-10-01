@@ -80,7 +80,7 @@ export default function Categories(props) {
 		<View style={styles.root}>
 			<Header
 				title="Categories"
-				showBackButton={true}
+				showBackButton={false}
 				navigation={props.navigation}
 				style={styles.header}
 			/>
@@ -138,7 +138,7 @@ const styles = StyleSheet.create({
 		position: 'relative',
 	},
 	header: {
-		paddingHorizontal: 10,
+		paddingHorizontal: 20,
 	},
 	container: {
 		flex: 1,

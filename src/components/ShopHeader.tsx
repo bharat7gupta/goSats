@@ -1,0 +1,40 @@
+import React from 'react';
+import { View, Text, StyleSheet } from 'react-native';
+import colorConstants from '../constants/color';
+import styleConstants from '../constants/style';
+import { Neomorph } from 'react-native-neomorph-shadows';
+import NotificationIcon from './common/icons/NotificationIcon';
+
+export default function ShopHeader() {
+	return (
+		<View style={styles.root}>
+			<Text style={styles.headerText}>Shop</Text>
+			<View>
+				<Neomorph
+					style={{ ...styleConstants.smallButtonShadowStyles, width: 40, height: 40, borderRadius: 40/2 }}
+					darkShadowColor={colorConstants.SHADOW_DARK}
+					lightShadowColor={colorConstants.SHADOW_LIGHT}
+				>
+					<NotificationIcon />
+				</Neomorph>
+			</View>
+		</View>
+	);
+}
+
+const styles = StyleSheet.create({
+	root: {
+		marginTop: 24,
+		marginBottom: 40,
+		paddingHorizontal: 18,
+		flex: 1,
+		flexDirection: 'row',
+		justifyContent: 'space-between',
+	},
+	headerText: {
+		color: colorConstants.HEADER_TITLE,
+		fontFamily: 'Gilroy-Bold',
+		fontSize: 30,
+		lineHeight: 30,
+	},
+});

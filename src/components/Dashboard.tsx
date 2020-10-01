@@ -7,6 +7,9 @@ import ShopIcon from '../components/common/icons/Shop';
 import Bitcoin from './common/icons/Bitcoin';
 import Wallet from './common/icons/Wallet';
 import User from './common/icons/User';
+import CategoriesIcon from './common/icons/CategoriesIcon';
+import Categories from './Categories';
+import SettingsIcon from './common/icons/SettingsIcon';
 
 const Tab = createBottomTabNavigator();
 
@@ -25,6 +28,7 @@ export default function Dashboard() {
 					backgroundColor: colorConstants.DARK_BLACK,
 					paddingVertical: 10,
 				},
+				showLabel: false,
 			}}
 		>
 			<Tab.Screen
@@ -32,15 +36,13 @@ export default function Dashboard() {
 				component={Shop}
 				options={{
 					tabBarIcon: ({ focused }) => <ShopIcon  isActive={focused} />,
-					tabBarLabel: 'Shop',
 				}}
 			/>
 			<Tab.Screen
 				name="BuyBitcoin"
-				component={ComingSoon}
+				component={Categories}
 				options={{
-					tabBarIcon: ({ focused }) => <Bitcoin isActive={focused} />,
-					tabBarLabel: 'Buy Bitcoin',
+					tabBarIcon: ({ focused }) => <CategoriesIcon isActive={focused} />,
 				}}
 			/>
 			<Tab.Screen
@@ -48,15 +50,13 @@ export default function Dashboard() {
 				component={ComingSoon}
 				options={{
 					tabBarIcon: ({ focused }) => <Wallet isActive={focused} />,
-					tabBarLabel: 'Wallet',
 				}}
 			/>
 			<Tab.Screen
 				name="Account"
 				component={ComingSoon}
 				options={{
-					tabBarIcon: ({ focused }) => <User isActive={focused} />,
-					tabBarLabel: 'Account',
+					tabBarIcon: ({ focused }) => <SettingsIcon isActive={focused} />,
 				}}
 			/>
 		</Tab.Navigator>

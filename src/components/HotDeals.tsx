@@ -1,23 +1,47 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Dimensions } from 'react-native';
 import colorConstants from '../constants/color';
 import NeoTile from './common/NeoTile';
+import Brand from '../types/Brand';
+import { TouchableHighlight, ScrollView } from 'react-native-gesture-handler';
 import brandList from '../mock_jsons/brand-list.json';
 
-export default function HotDeals() {
+const screen = Dimensions.get('screen');
+const { width } = screen;
+
+interface HotDealsProps {
+	merchants: Brand[];
+}
+
+export default function HotDeals(props: HotDealsProps) {
+	const handleShopAllPress = () => {
+
+	};
+
 	return (
 		<View>
-			<Text style={styles.title}>Hot Deals</Text>
+			<View style={styles.header}>
+				<Text style={styles.title}>Hot Deals</Text>
 
-			<View style={styles.content}>
-				{brandList.data.map(brand => (
+				<TouchableHighlight onPress={handleShopAllPress}>
+					<Text style={styles.shopAllText}>Shop All</Text>
+				</TouchableHighlight>
+			</View>
+
+			<ScrollView
+				horizontal={true}
+				showsHorizontalScrollIndicator={true}
+				alwaysBounceHorizontal={true}
+				contentContainerStyle={styles.content}
+			>
+				{props.merchants.map(brand => (
 					<NeoTile
 						key={brand.id}
 						brand={brand}
 						style={styles.tileStyle}
 					/>
 				))}
-			</View>
+			</ScrollView>
 		</View>
 	);
 }
@@ -29,19 +53,28 @@ const styles = StyleSheet.create({
 		paddingHorizontal: 10,
 		paddingVertical: 10,
 	},
+	header: {
+		flexDirection: 'row',
+		justifyContent: 'space-between',
+		paddingRight: 24,
+		paddingLeft: 14,
+		alignItems: 'center',
+	},
 	title: {
-		fontFamily: 'Gilroy-Bold',
-		fontSize: 18,
+		fontFamily: 'Gilroy-Regular',
+		fontSize: 14,
 		lineHeight: 28,
-		color: colorConstants.FONT_COLOR,
-		paddingHorizontal: 13,
-		marginLeft: 9,
-		marginTop: 16,
-		marginBottom: 8,
+		color: colorConstants.GREY_FONT_COLOR,
+		marginLeft: 8,
+		marginBottom: 4,
+	},
+	shopAllText: {
+		fontFamily: 'Gilroy-Bold',
+		fontSize: 14,
+		lineHeight: 28,
+		color: '#D1A33A',
 	},
 	tileStyle: {
-		flexBasis: '50%',
-		flex: 0,
-		marginBottom: 20,
+		width: (width - 20 ) / 2,
 	},
 });

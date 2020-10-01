@@ -15,7 +15,6 @@ interface NeoTileProps {
 
 export default function NeoTile(props: NeoTileProps) {
 	const [ pressed, setPressed ] = useState(false);
-	const [ isFavourite, setFavourite ] = useState(false);
 
 	const handleTouchStart = () => {
 		setPressed(true);
@@ -31,12 +30,6 @@ export default function NeoTile(props: NeoTileProps) {
 
 	const handleTouchCancel = () => {
 		setPressed(false);
-	};
-
-	const handleFavouriteClick = (e) => {
-		e.preventDefault();
-		e.stopPropagation();
-		setFavourite(!isFavourite);
 	};
 
 	const { brand, style } = props;
@@ -71,12 +64,6 @@ export default function NeoTile(props: NeoTileProps) {
 					<Text style={styles.rewardLineText}>{brand.reward}</Text>
 				</View>
 			</View>
-
-			<FavouriteButton
-				isSelected={isFavourite}
-				style={styles.favourite}
-				onClick={handleFavouriteClick}
-			/>
 		</View>
 	);
 }
@@ -113,7 +100,7 @@ const styles = StyleSheet.create({
 	},
 	name: {
 		marginTop: 8,
-		color: colorConstants.FONT_COLOR,
+		color: colorConstants.HEADER_TITLE,
 		opacity: 0.85,
 		fontFamily: 'Gilroy-Bold',
 		fontSize: 16,
@@ -127,6 +114,5 @@ const styles = StyleSheet.create({
 		fontSize: 11,
 		lineHeight: 13,
 		marginLeft: 4,
-		marginTop: 1,
 	},
 });
