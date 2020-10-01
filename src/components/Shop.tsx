@@ -27,14 +27,21 @@ export default function Shop(props) {
 		}
 	};
 
+	const filterBrands = item => (item.isActive || item.active);
+
 	const processData = (masterData) => {
 		if (masterData.error) {
 			return;
 		}
 
-		setSpotlight(masterData.data.spotlight);
-		setMerchants(masterData.data.merchant);
-		setEditorsPicks(masterData.data.editors_pic);
+		const emptyArray = [];
+		setSpotlight((masterData.data.spotlight || emptyArray).filter(filterBrands));
+		setMerchants((masterData.data.merchant || emptyArray).filter(filterBrands));
+		setEditorsPicks((masterData.data.editors_pic || emptyArray).filter(filterBrands));
+	};
+
+	const handleBrandItemClick = (brand) => {
+		props.navigation.navigate('BrandDetail', { brand });
 	};
 
 	return (
@@ -44,12 +51,22 @@ export default function Shop(props) {
 
 				<RewardsSection />
 
-				<BrandCarousel items={spotlight} />
+				<BrandCarousel
+					items={spotlight}
+					onItemClick={handleBrandItemClick}
+				/>
 
-				<HotDeals merchants={merchants} />
+				<HotDeals
+					merchants={merchants}
+					onItemClick={handleBrandItemClick}
+				/>
 
 				<Text style={styles.editorsPickTitleText}>Editor’s Pick</Text>
-				<BrandCarousel items={editorsPicks} height={250} />
+				<BrandCarousel
+					items={editorsPicks}
+					height={250}
+					onItemClick={handleBrandItemClick}
+				/>
 			</ScrollView>
 		</View>
 	);

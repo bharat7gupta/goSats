@@ -4,18 +4,25 @@ import colorConstants from '../constants/color';
 import NeoTile from './common/NeoTile';
 import Brand from '../types/Brand';
 import { TouchableHighlight, ScrollView } from 'react-native-gesture-handler';
-import brandList from '../mock_jsons/brand-list.json';
+// import brandList from '../mock_jsons/brand-list.json';
 
 const screen = Dimensions.get('screen');
 const { width } = screen;
 
 interface HotDealsProps {
 	merchants: Brand[];
+	onItemClick: (brand: Brand) => void;
 }
 
 export default function HotDeals(props: HotDealsProps) {
 	const handleShopAllPress = () => {
 
+	};
+
+	const handleItemClick = (brand: Brand) => {
+		if (props.onItemClick) {
+			props.onItemClick(brand);
+		}
 	};
 
 	return (
@@ -39,6 +46,7 @@ export default function HotDeals(props: HotDealsProps) {
 						key={brand.id}
 						brand={brand}
 						style={styles.tileStyle}
+						onClick={() => handleItemClick(brand)}
 					/>
 				))}
 			</ScrollView>

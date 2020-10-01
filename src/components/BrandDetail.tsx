@@ -301,7 +301,7 @@ const styles = StyleSheet.create({
 	},
 	purchaseButtonStyle: {
 		marginHorizontal: 24,
-		marginBottom: 20,
+		marginVertical: 20,
 	},
 	brandInfo: {
 		marginTop: 16,

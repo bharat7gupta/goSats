@@ -9,6 +9,7 @@ import BrandItem from '../types/BrandItem';
 interface BrandCarouselProps {
 	items: BrandItem[];
 	height?: number;
+	onItemClick: (brandItem: BrandItem) => void;
 }
 
 const screen = Dimensions.get('screen');
@@ -23,9 +24,15 @@ export default function BrandCarousel(props: BrandCarouselProps) {
 		return null;
 	}
 
+	const handleItemClick = (brandItem: BrandItem) => {
+		if (props.onItemClick) {
+			props.onItemClick(brandItem);
+		}
+	};
+
 	const renderCarouselItem = ({ item }: { item: BrandItem }) => {
 		return (
-			<View style={styles.carouselContainer}>
+			<View style={styles.carouselContainer} onTouchEnd={() => handleItemClick(item)}>
 				<Neomorph
 					style={{
 						...styleConstants.shadowStyles,
