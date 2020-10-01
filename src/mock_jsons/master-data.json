@@ -1,0 +1,182 @@
+{
+	"error": false,
+	"message": "Master Data details are",
+	"data": {
+		"spotlight": [
+			{
+				"isActive": true,
+				"imageURL": "https://gosatsicons.s3.us-east-2.amazonaws.com/spotlight/blog.svg",
+				"id": "GSDEA7819",
+				"merchantId": "GSMER6429",
+				"type": "spotlight"
+			},
+			{
+				"isActive": true,
+				"imageURL": "https://gosatsicons.s3.us-east-2.amazonaws.com/spotlight/ajio.svg",
+				"id": "GSDEA3430",
+				"merchantId": "GSMER6429",
+				"type": "spotlight"
+			},
+			{
+				"isActive": true,
+				"imageURL": "https://gosatsicons.s3.us-east-2.amazonaws.com/spotlight/dominos.svg",
+				"id": "GSDEA2539",
+				"merchantId": "GSMER9922",
+				"type": "spotlight"
+			}
+		],
+		"editors_pic": [
+			{
+				"isActive": true,
+				"imageURL": "https://gosatsicons.s3.us-east-2.amazonaws.com/editors_pic/superdry.svg",
+				"id": "GSDEA3595",
+				"merchantId": "GSMER2728",
+				"type": "editors_pic"
+			},
+			{
+				"isActive": true,
+				"imageURL": "https://gosatsicons.s3.us-east-2.amazonaws.com/editors_pic/themancompany.svg",
+				"id": "GSDEA3687",
+				"merchantId": "GSMER6429",
+				"type": "editors_pic"
+			},
+			{
+				"isActive": true,
+				"imageURL": "https://gosatsicons.s3.us-east-2.amazonaws.com/editors_pic/reebok.svg",
+				"id": "GSDEA9405",
+				"merchantId": "GSMER5385",
+				"type": "editors_pic"
+			},
+			{
+				"isActive": true,
+				"imageURL": "https://gosatsicons.s3.us-east-2.amazonaws.com/editors_pic/swiggy.svg",
+				"id": "GSDEA8733",
+				"merchantId": "GSMER9922",
+				"type": "editors_pic"
+			}
+		],
+		"merchant": [
+			{
+				"active": true,
+				"image": "https://cdn0.cuelinks.com/campaigns/3492/thumb/KalkiFashion.png?1517566951",
+				"reward": "2.36%",
+				"category": [
+					"Fashion"
+				],
+				"rewardType": "Per Sale(%)",
+				"id": "GSMER4189",
+				"name": "Kalki Fashion",
+				"type": "merchant"
+			},
+			{
+				"active": true,
+				"image": "https://gosatsicons.s3.us-east-2.amazonaws.com/merchant/logs/goibibo.svg",
+				"reward": "1.88%",
+				"category": [
+					"Electronics"
+				],
+				"rewardType": "Per Sale(%)",
+				"id": "GSMER2926",
+				"name": "Gonoise",
+				"type": "merchant"
+			},
+			{
+				"active": true,
+				"image": "https://gosatsicons.s3.us-east-2.amazonaws.com/merchant/logs/oyo.svg",
+				"reward": "1.69%",
+				"category": [
+					"Travel"
+				],
+				"rewardType": "Per Sale(%)",
+				"id": "GSMER7816",
+				"name": "Oyo Rooms",
+				"type": "merchant"
+			},
+			{
+				"active": true,
+				"image": "https://gosatsicons.s3.us-east-2.amazonaws.com/merchant/logs/fossil.svg",
+				"reward": "10.50%",
+				"category": [
+					"Fashion"
+				],
+				"rewardType": "Per Sale(%)",
+				"id": "GSMER7105",
+				"name": "Fossil",
+				"type": "merchant"
+			},
+			{
+				"active": true,
+				"image": "https://gosatsicons.s3.us-east-2.amazonaws.com/merchant/logs/clovia.svg",
+				"reward": "7.50%",
+				"category": [
+					"Fashion"
+				],
+				"rewardType": "Per Sale(%)",
+				"id": "GSMER1004",
+				"name": "Clovia",
+				"type": "merchant"
+			},
+			{
+				"active": true,
+				"image": "https://gosatsicons.s3.us-east-2.amazonaws.com/merchant/logs/ajio.svg",
+				"reward": "3.00%",
+				"category": [
+					"Fashion"
+				],
+				"rewardType": "Per Sale(%)",
+				"id": "GSMER6429",
+				"name": "Ajio",
+				"type": "merchant"
+			},
+			{
+				"active": true,
+				"image": "https://gosatsicons.s3.us-east-2.amazonaws.com/merchant/logs/dominos.svg",
+				"reward": "₹ 11.25",
+				"category": [
+					"Food"
+				],
+				"rewardType": "Per Sale",
+				"id": "GSMER9922",
+				"name": "Dominos",
+				"type": "merchant"
+			},
+			{
+				"active": true,
+				"image": "https://gosatsicons.s3.us-east-2.amazonaws.com/merchant/logs/adidas.svg",
+				"reward": "2.50-6.00%",
+				"category": [
+					"Fashion"
+				],
+				"rewardType": "Per Sale(%)",
+				"id": "GSMER5385",
+				"name": "Adidas",
+				"type": "merchant"
+			},
+			{
+				"active": true,
+				"image": "https://gosatsicons.s3.us-east-2.amazonaws.com/merchant/logs/healthkart.svg",
+				"reward": "1.31%",
+				"category": [
+					"Health & Beauty"
+				],
+				"rewardType": "Per Sale(%)",
+				"id": "GSMER2728",
+				"name": "HealthKart",
+				"type": "merchant"
+			},
+			{
+				"active": true,
+				"image": "https://cdn0.cuelinks.com/campaigns/1/thumb/Flipkart_logo.jpg?1433139772",
+				"reward": "6.25%",
+				"category": [
+					"Electronics",
+					"Fashion"
+				],
+				"rewardType": "Per Sale(%)",
+				"id": "GSMER6098",
+				"name": "Flipkart",
+				"type": "merchant"
+			}
+		]
+	}
+}

@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { View, Text, ScrollView, StyleSheet, Dimensions } from 'react-native';
+import { useScrollToTop } from '@react-navigation/native';
 import HotDeals from './HotDeals';
 import colorConstants from '../constants/color';
 import ShopHeader from './ShopHeader';
@@ -7,13 +8,7 @@ import BrandCarousel from './BrandCarousel';
 import * as ApiHelper from '../helpers/ApiHelper';
 import RewardsSection from './RewardsSection';
 
-const screen = Dimensions.get('screen');
-const { width } = screen;
-const carouselItemWidth = width - 20;
-const carouselItemHeight = Math.min(240, carouselItemWidth / 2);
-
 export default function Shop(props) {
-	// const [ carouselItems, setCarouselItems ] = useState([1, 2, 3, 4, 5]);
 	const [ spotlight, setSpotlight ] = useState([]);
 	const [ merchants, setMerchants ] = useState([]);
 	const [ editorsPicks, setEditorsPicks ] = useState([]);
@@ -26,7 +21,7 @@ export default function Shop(props) {
 		try {
 			const masterData = await ApiHelper.fetchMasterData();
 			processData(masterData);
-			console.log(masterData);
+			console.log(JSON.stringify(masterData));
 		} catch (e) {
 
 		}
