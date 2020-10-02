@@ -36,7 +36,7 @@ export default function Header(props: HeaderProps) {
 const styles = StyleSheet.create({
 	header: {
 		flexDirection: 'row',
-		paddingVertical: 20,
+		paddingBottom: 20,
 	},
 	buttonStyle: {
 		marginRight: 10,

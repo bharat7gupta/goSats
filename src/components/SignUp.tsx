@@ -9,7 +9,7 @@ import NeoButton from './common/NeoButton';
 import TextBox from './common/TextBox';
 import * as CognitoHelper from '../helpers/CognitoHelper';
 import * as StorageHelper from '../helpers/StorageHelper';
-import * as Utils from '../helpers/UtilityHelper';
+import * as UtilityHelper from '../helpers/UtilityHelper';
 import Strings from '../constants/strings';
 import { AuthDispatchContext } from '../App';
 import { AuthActions } from '../reducers/AuthReducer';
@@ -47,7 +47,7 @@ export default function SignUp(props) {
 		if (!currentUsername || currentUsername.trim().length < 2) {
 			errorMessage = Strings.ENTER_VALID_USERNAME;
 			hasFormError = true;
-		} else if (!Utils.isEmail(currentUsername) && !Utils.isPhoneNumber(currentUsername)) {
+		} else if (!UtilityHelper.isEmail(currentUsername) && !UtilityHelper.isPhoneNumber(currentUsername)) {
 			errorMessage = Strings.ENTER_VALID_USERNAME;
 			hasFormError = true;
 		}
@@ -207,6 +207,7 @@ const styles = StyleSheet.create({
 	},
 	container: {
 		paddingHorizontal: 24,
+		paddingTop: UtilityHelper.StatusBarHeight,
 	},
 	formErrorMessage: {
 		fontSize: 12,
@@ -247,7 +248,6 @@ const styles = StyleSheet.create({
 	signInButton: {
 		paddingHorizontal: 10,
 		paddingVertical: 10,
-		marginTop: 12,
 	},
 	signInButtonText: {
 		color: colorConstants.WARM_GREY,

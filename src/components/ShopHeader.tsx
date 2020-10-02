@@ -25,7 +25,6 @@ export default function ShopHeader() {
 
 const styles = StyleSheet.create({
 	root: {
-		paddingTop: 24,
 		paddingBottom: 16,
 		paddingHorizontal: 18,
 		marginBottom: 24,

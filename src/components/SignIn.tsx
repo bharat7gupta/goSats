@@ -163,6 +163,7 @@ const styles = StyleSheet.create({
 	},
 	container: {
 		paddingHorizontal: 24,
+		paddingTop: UtilityHelper.StatusBarHeight,
 	},
 	formErrorMessage: {
 		fontSize: 12,
@@ -203,7 +204,6 @@ const styles = StyleSheet.create({
 	signUpButton: {
 		paddingHorizontal: 10,
 		paddingVertical: 10,
-		marginTop: 12,
 	},
 	signUpButtonText: {
 		color: colorConstants.WARM_GREY,

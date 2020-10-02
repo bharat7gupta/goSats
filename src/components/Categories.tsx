@@ -9,6 +9,7 @@ import PageLoader from './common/PageLoader';
 import ErrorModal from './common/ErrorModal';
 import Header from './common/Header';
 import Strings from '../constants/strings';
+import { StatusBarHeight } from '../helpers/UtilityHelper';
 // import brandList from '../mock_jsons/brand-list.json';
 
 export default function Categories(props) {
@@ -117,8 +118,6 @@ export default function Categories(props) {
 						))}
 					</ScrollView>
 				</View>
-
-				<PageLoader showLoader={loading} />
 			</View>
 
 			<ErrorModal
@@ -135,6 +134,7 @@ const styles = StyleSheet.create({
 		flex: 1,
 		backgroundColor: colorConstants.PRIMARY,
 		position: 'relative',
+		paddingTop: StatusBarHeight,
 	},
 	header: {
 		paddingHorizontal: 20,

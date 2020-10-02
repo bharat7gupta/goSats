@@ -19,6 +19,7 @@ import BrandDetailsCard from './BrandDetailsCard';
 import Header from './common/Header';
 import Strings from '../constants/strings';
 import * as Config from '../constants/config';
+import { StatusBarHeight } from '../helpers/UtilityHelper';
 // import merchantDetail from '../mock_jsons/merchant-detail.json';
 
 export default function BrandDetail(props) {
@@ -216,8 +217,6 @@ export default function BrandDetail(props) {
 				</View>
 			</ScrollView>
 
-			<PageLoader showLoader={loading} />
-
 			<ErrorModal
 				showError={showError}
 				errorMessage={errorMessage}
@@ -232,6 +231,7 @@ const styles = StyleSheet.create({
 		flex: 1,
 		backgroundColor: colorConstants.PRIMARY,
 		position: 'relative',
+		paddingTop: StatusBarHeight,
 	},
 	header: {
 		paddingHorizontal: 10,
