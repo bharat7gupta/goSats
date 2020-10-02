@@ -11,6 +11,9 @@ import ErrorModal from './common/ErrorModal';
 import PageLoader from './common/PageLoader';
 import { StatusBarHeight } from '../helpers/UtilityHelper';
 
+const spotLightHeightFactor = 0.5;
+const editorsPickHeightFactor = 0.764;
+
 export default function Shop(props) {
 	const [ spotlight, setSpotlight ] = useState([]);
 	const [ merchants, setMerchants ] = useState([]);
@@ -73,7 +76,7 @@ export default function Shop(props) {
 
 					<BrandCarousel
 						items={spotlight}
-						heightFactor={0.5}
+						heightFactor={spotLightHeightFactor}
 						onItemClick={handleBrandItemClick}
 					/>
 
@@ -85,7 +88,7 @@ export default function Shop(props) {
 					<Text style={styles.editorsPickTitleText}>Editor’s Pick</Text>
 					<BrandCarousel
 						items={editorsPicks}
-						heightFactor={0.764}
+						heightFactor={editorsPickHeightFactor}
 						onItemClick={handleBrandItemClick}
 					/>
 

@@ -14,7 +14,7 @@ interface BrandCarouselProps {
 
 const screen = Dimensions.get('screen');
 const { width } = screen;
-const carouselItemWidth = width - 20;
+const carouselItemWidth = width - 20; // deduct 20 (10 * 2) for space between the carousels
 
 export default function BrandCarousel(props: BrandCarouselProps) {
 	const { items, heightFactor, onItemClick } = props;
@@ -36,7 +36,7 @@ export default function BrandCarousel(props: BrandCarouselProps) {
 				<Neomorph
 					style={{
 						...styleConstants.shadowStyles,
-						width: carouselItemWidth - 20,
+						width: carouselItemWidth - 20, // deduct 20 (10 * 2) to leave space for shadows
 						height: carouselItemHeight,
 						overflow: 'hidden',
 					}}
@@ -47,8 +47,8 @@ export default function BrandCarousel(props: BrandCarouselProps) {
 						source={{ uri: item.imageURL }}
 						style={{
 							...styles.carouselImage,
-							width: carouselItemWidth,
-							height: carouselItemHeight,
+							width: carouselItemWidth - 28, // 20 for the shadows and 8 for the margin
+							height: carouselItemHeight - 8, // 8 for the margin
 						}}
 					/>
 				</Neomorph>
@@ -75,7 +75,8 @@ const styles  = StyleSheet.create({
 		paddingVertical: 14,
 	},
 	carouselImage: {
-		resizeMode: 'contain',
+		borderRadius: 10,
+		margin: 4,
 	},
 	carouselSlideStyle: {
 		marginLeft: -10,
