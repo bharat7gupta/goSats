@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
 	},
 	spinButton: {
 		flexDirection: 'row',
-		backgroundColor: colorConstants.ACTION_BUTTON,
+		backgroundColor: '#B58E37',
 		paddingHorizontal: 16,
 		paddingVertical: 8,
 		borderRadius: 20,

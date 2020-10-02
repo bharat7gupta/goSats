@@ -5,7 +5,7 @@ const API_ROOT = 'https://devapi.gosats.io/v1';
 const API_URLS = {
 	MASTER_DATA: '/user/master/data',
 	GET_MERCHANTS: '/merchant/list/all',
-	GET_MERCHANT_DETAIL: '/merchant/get/',
+	GET_MERCHANT_DETAIL: '/user/merchant/get/',
 	GET_GIFTCARD_DETAIL: '/gifts/get/',
 	USER_BALANCE: '/user/balance',
 };
@@ -51,6 +51,7 @@ export async function fetchMerchantDetail(merchantId: string) {
 
 	try {
 		const accessToken = await StorageHelper.getItem('accessToken');
+		console.log('accessToken', accessToken);
 		const response = await fetch(apiUrl, {
 			headers: {
 				'Authorization': `Bearer ${accessToken}`,

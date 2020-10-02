@@ -20,7 +20,6 @@ import Header from './common/Header';
 import Strings from '../constants/strings';
 import * as Config from '../constants/config';
 // import merchantDetail from '../mock_jsons/merchant-detail.json';
-// import giftCardDetail from '../mock_jsons/giftcard-detail.json';
 
 export default function BrandDetail(props) {
 	const { route } = props;
@@ -33,7 +32,7 @@ export default function BrandDetail(props) {
 	const [ currentDenomination, setCurrentDenomination ] = useState<string>();
 
 	useEffect(() => {
-		fetchBrandDetails(brand.id);
+		fetchBrandDetails(brand.merchantId || brand.id);
 	}, []);
 
 	const fetchBrandDetails = async (id: string) => {
@@ -41,13 +40,8 @@ export default function BrandDetail(props) {
 		setLoading(true);
 
 		try {
-			if (brand.type === BrandType.MERCHANT) {
-				// responseData = merchantDetail;
-				responseData = await ApiHelper.fetchMerchantDetail(id);
-			} else if (brand.type === BrandType.GIFTCARD) {
-				// responseData = giftCardDetail;
-				responseData = await ApiHelper.fetchGiftCardDetail(id);
-			}
+			responseData = await ApiHelper.fetchMerchantDetail(id);
+			// console.log(responseData);
 
 			if (responseData.error) {
 				setShowError(responseData.error);
@@ -206,7 +200,7 @@ export default function BrandDetail(props) {
 
 										{renderVouchers()}
 
-										<BrandDetailsCard brandDetails={brandData.details} />
+										<BrandDetailsCard brandDetails={brandData.detailsInHTML} />
 									</View>
 								</NeomorphFlex>
 							</View>

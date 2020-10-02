@@ -5,6 +5,7 @@ export enum BrandType {
 
 interface Brand {
 	id: string;
+	merchantId: string;
 	active: boolean;
 	category: string[];
 	image: string;
