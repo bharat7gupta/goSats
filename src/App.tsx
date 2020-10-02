@@ -32,16 +32,6 @@ function App() {
 	const [ checkedSignInState, setCheckedSignInState ] = useState<boolean>(false);
 	const [ checkedAccountState, setCheckedAccountState ] = useState<boolean>(false);
 
-	// Used only for simulting purposes. can be removed later
-	// useEffect(() => {
-	// 	StorageHelper.setItem('hasVerifiedAccount', 'false').then(() => {
-	// 		StorageHelper.setItem('isLoggedIn', 'false').then(() => {
-	// 			checkAccountVerifiedState();
-	// 			checkLoggedInState();
-	// 		});
-	// 	});
-	// }, []);
-
 	useEffect(() => {
 		checkAccountVerifiedState();
 		checkLoggedInState();

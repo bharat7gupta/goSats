@@ -26,7 +26,10 @@ export default function Shop(props) {
 		try {
 			setLoading(true);
 			const masterData = await ApiHelper.fetchMasterData();
+			// const balanceData = await ApiHelper.fetchUserBalance();
 			processData(masterData);
+			// console.log(balanceData)
+			// console.log(masterData);
 			setLoading(false);
 		} catch (e) {
 			setLoading(false);
@@ -101,7 +104,6 @@ const styles = StyleSheet.create({
 	root: {
 		flex: 1,
 		backgroundColor: colorConstants.PRIMARY,
-		paddingBottom: 20,
 		position: 'relative',
 	},
 	topSection: {

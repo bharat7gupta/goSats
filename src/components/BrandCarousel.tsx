@@ -45,9 +45,11 @@ export default function BrandCarousel(props: BrandCarouselProps) {
 				>
 					<Image
 						source={{ uri: item.imageURL }}
-						width={carouselItemWidth}
-						height={props.height || carouselItemHeight}
-						style={styles.carouselImage}
+						style={{
+							...styles.carouselImage,
+							width: carouselItemWidth,
+							height: props.height || carouselItemHeight,
+						}}
 					/>
 				</Neomorph>
 			</View>
@@ -63,7 +65,7 @@ export default function BrandCarousel(props: BrandCarouselProps) {
 			itemWidth={carouselItemWidth - 20}
 			slideStyle={styles.carouselSlideStyle}
 		/>
-	)
+	);
 }
 
 const styles  = StyleSheet.create({
