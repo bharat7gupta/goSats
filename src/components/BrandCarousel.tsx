@@ -8,25 +8,25 @@ import BrandItem from '../types/BrandItem';
 
 interface BrandCarouselProps {
 	items: BrandItem[];
-	height?: number;
+	heightFactor: number;
 	onItemClick: (brandItem: BrandItem) => void;
 }
 
 const screen = Dimensions.get('screen');
 const { width } = screen;
 const carouselItemWidth = width - 20;
-const carouselItemHeight = Math.min(240, carouselItemWidth / 2);
 
 export default function BrandCarousel(props: BrandCarouselProps) {
-	const { items } = props;
+	const { items, heightFactor, onItemClick } = props;
+	const carouselItemHeight = carouselItemWidth * heightFactor;
 
 	if (!items || items.length === 0) {
 		return null;
 	}
 
 	const handleItemClick = (brandItem: BrandItem) => {
-		if (props.onItemClick) {
-			props.onItemClick(brandItem);
+		if (onItemClick) {
+			onItemClick(brandItem);
 		}
 	};
 
@@ -37,7 +37,7 @@ export default function BrandCarousel(props: BrandCarouselProps) {
 					style={{
 						...styleConstants.shadowStyles,
 						width: carouselItemWidth - 20,
-						height: props.height || carouselItemHeight,
+						height: carouselItemHeight,
 						overflow: 'hidden',
 					}}
 					darkShadowColor={colorConstants.SHADOW_DARK}
@@ -47,8 +47,8 @@ export default function BrandCarousel(props: BrandCarouselProps) {
 						source={{ uri: item.imageURL }}
 						style={{
 							...styles.carouselImage,
-							width: carouselItemWidth,
-							height: props.height || carouselItemHeight,
+							width: carouselItemWidth - 20,
+							height: carouselItemHeight,
 						}}
 					/>
 				</Neomorph>
@@ -59,7 +59,7 @@ export default function BrandCarousel(props: BrandCarouselProps) {
 	return (
 		<Carousel
 			containerCustomStyle={{ paddingHorizontal: 10 }}
-			data={props.items}
+			data={items}
 			renderItem={renderCarouselItem}
 			sliderWidth={width}
 			itemWidth={carouselItemWidth - 20}
@@ -75,7 +75,7 @@ const styles  = StyleSheet.create({
 		paddingVertical: 14,
 	},
 	carouselImage: {
-		resizeMode: 'cover',
+		resizeMode: 'contain',
 	},
 	carouselSlideStyle: {
 		marginLeft: -10,

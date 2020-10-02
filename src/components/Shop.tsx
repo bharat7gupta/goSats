@@ -73,6 +73,7 @@ export default function Shop(props) {
 
 					<BrandCarousel
 						items={spotlight}
+						heightFactor={0.5}
 						onItemClick={handleBrandItemClick}
 					/>
 
@@ -84,7 +85,7 @@ export default function Shop(props) {
 					<Text style={styles.editorsPickTitleText}>Editor’s Pick</Text>
 					<BrandCarousel
 						items={editorsPicks}
-						height={250}
+						heightFactor={0.764}
 						onItemClick={handleBrandItemClick}
 					/>
 
@@ -109,6 +110,7 @@ const styles = StyleSheet.create({
 	containerStyle: {
 		flexGrow: 1,
 		paddingTop: StatusBarHeight,
+		paddingBottom: 30,
 	},
 	topSection: {
 		flexDirection: 'row',
