@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { View, Text, ScrollView, StyleSheet, Dimensions } from 'react-native';
+import { View, Text, ScrollView, StyleSheet } from 'react-native';
 import HotDeals from './HotDeals';
 import colorConstants from '../constants/color';
 import ShopHeader from './ShopHeader';
@@ -9,6 +9,7 @@ import RewardsSection from './RewardsSection';
 import Strings from '../constants/strings';
 import ErrorModal from './common/ErrorModal';
 import PageLoader from './common/PageLoader';
+import { StatusBarHeight } from '../helpers/UtilityHelper';
 
 export default function Shop(props) {
 	const [ spotlight, setSpotlight ] = useState([]);
@@ -26,10 +27,9 @@ export default function Shop(props) {
 		try {
 			setLoading(true);
 			const masterData = await ApiHelper.fetchMasterData();
-			// const balanceData = await ApiHelper.fetchUserBalance();
+			const balanceData = await ApiHelper.fetchUserBalance();
 			processData(masterData);
-			// console.log(balanceData)
-			// console.log(masterData);
+			console.log(masterData);
 			setLoading(false);
 		} catch (e) {
 			setLoading(false);
@@ -65,31 +65,31 @@ export default function Shop(props) {
 
 	return (
 		<View style={styles.root}>
-			<ScrollView contentContainerStyle={{flexGrow: 1}}>
-				<ShopHeader />
+			{!loading && (
+				<ScrollView contentContainerStyle={styles.containerStyle}>
+					<ShopHeader />
 
-				<RewardsSection />
+					<RewardsSection />
 
-				<BrandCarousel
-					items={spotlight}
-					onItemClick={handleBrandItemClick}
-				/>
+					<BrandCarousel
+						items={spotlight}
+						onItemClick={handleBrandItemClick}
+					/>
 
-				<HotDeals
-					merchants={merchants}
-					onItemClick={handleBrandItemClick}
-				/>
+					<HotDeals
+						merchants={merchants}
+						onItemClick={handleBrandItemClick}
+					/>
 
-				<Text style={styles.editorsPickTitleText}>Editor’s Pick</Text>
-				<BrandCarousel
-					items={editorsPicks}
-					height={250}
-					onItemClick={handleBrandItemClick}
-				/>
+					<Text style={styles.editorsPickTitleText}>Editor’s Pick</Text>
+					<BrandCarousel
+						items={editorsPicks}
+						height={250}
+						onItemClick={handleBrandItemClick}
+					/>
 
-			</ScrollView>
-
-			<PageLoader showLoader={loading} />
+				</ScrollView>
+			)}
 
 			<ErrorModal
 				showError={showError}
@@ -106,6 +106,10 @@ const styles = StyleSheet.create({
 		backgroundColor: colorConstants.PRIMARY,
 		position: 'relative',
 	},
+	containerStyle: {
+		flexGrow: 1,
+		paddingTop: StatusBarHeight,
+	},
 	topSection: {
 		flexDirection: 'row',
 		justifyContent: 'space-between',
@@ -113,7 +117,7 @@ const styles = StyleSheet.create({
 		marginBottom: -12,
 	},
 	editorsPickTitleText: {
-		fontFamily: 'Gilroy-Regular',
+		fontFamily: 'SFProText-Regular',
 		fontSize: 14,
 		lineHeight: 28,
 		color: colorConstants.GREY_FONT_COLOR,

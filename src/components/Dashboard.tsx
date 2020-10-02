@@ -10,6 +10,7 @@ import User from './common/icons/User';
 import CategoriesIcon from './common/icons/CategoriesIcon';
 import Categories from './Categories';
 import SettingsIcon from './common/icons/SettingsIcon';
+import { Platform } from 'react-native';
 
 const Tab = createBottomTabNavigator();
 
@@ -21,8 +22,9 @@ export default function Dashboard() {
 				activeTintColor: colorConstants.FONT_COLOR,
 				inactiveTintColor: colorConstants.WARM_GREY,
 				style: {
-					height: 64,
+					height: Platform.OS === 'ios' ? 94 : 64,
 					borderTopWidth: 0,
+					backgroundColor: colorConstants.PRIMARY_DARK,
 				},
 				tabStyle: {
 					backgroundColor: colorConstants.DARK_BLACK,
