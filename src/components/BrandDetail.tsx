@@ -169,7 +169,7 @@ export default function BrandDetail(props) {
 													style={{ width: 300, height: 250 }}
 													resizeMode="cover"
 												/>
-												<Image source={{ uri: brand.image }} style={styles.image} />
+												<Image source={{ uri: brandData.image }} style={styles.image} />
 											</NeomorphFlex>
 										</View>
 
@@ -258,6 +258,7 @@ const styles = StyleSheet.create({
 		justifyContent: 'center',
 		width: 160,
 		height: 80,
+		resizeMode: 'contain',
 	},
 	brandDetail: {
 		paddingHorizontal: 20,

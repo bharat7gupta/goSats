@@ -51,7 +51,6 @@ export async function fetchMerchantDetail(merchantId: string) {
 
 	try {
 		const accessToken = await StorageHelper.getItem('accessToken');
-		console.log('accessToken', accessToken);
 		const response = await fetch(apiUrl, {
 			headers: {
 				'Authorization': `Bearer ${accessToken}`,
