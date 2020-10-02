@@ -68,32 +68,34 @@ export default function Shop(props) {
 
 	return (
 		<View style={styles.root}>
-			{!loading && (
-				<ScrollView contentContainerStyle={styles.containerStyle}>
-					<ShopHeader />
+			<ScrollView contentContainerStyle={styles.containerStyle}>
+				<ShopHeader />
 
-					<RewardsSection />
+				{!loading && (
+					<React.Fragment>
+						<RewardsSection />
 
-					<BrandCarousel
-						items={spotlight}
-						heightFactor={spotLightHeightFactor}
-						onItemClick={handleBrandItemClick}
-					/>
+						<BrandCarousel
+							items={spotlight}
+							heightFactor={spotLightHeightFactor}
+							onItemClick={handleBrandItemClick}
+						/>
 
-					<HotDeals
-						merchants={merchants}
-						onItemClick={handleBrandItemClick}
-					/>
+						<HotDeals
+							merchants={merchants}
+							onItemClick={handleBrandItemClick}
+						/>
 
-					<Text style={styles.editorsPickTitleText}>Editor’s Pick</Text>
-					<BrandCarousel
-						items={editorsPicks}
-						heightFactor={editorsPickHeightFactor}
-						onItemClick={handleBrandItemClick}
-					/>
+						<Text style={styles.editorsPickTitleText}>Editor’s Pick</Text>
+						<BrandCarousel
+							items={editorsPicks}
+							heightFactor={editorsPickHeightFactor}
+							onItemClick={handleBrandItemClick}
+						/>
+					</React.Fragment>
+				)}
 
-				</ScrollView>
-			)}
+			</ScrollView>
 
 			<ErrorModal
 				showError={showError}

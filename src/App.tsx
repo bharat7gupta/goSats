@@ -64,9 +64,11 @@ function App() {
 		}
 	};
 
-	if (checkedSignInState && checkedAccountState) {
-		SplashScreen.hide();
+	if (!checkedSignInState || !checkedAccountState) {
+		return null;
 	}
+
+	SplashScreen.hide();
 
 	return (
 		<AuthStateContext.Provider value={authContextValue.authState}>
