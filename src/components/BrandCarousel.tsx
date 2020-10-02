@@ -47,7 +47,7 @@ export default function BrandCarousel(props: BrandCarouselProps) {
 						source={{ uri: item.imageURL }}
 						style={{
 							...styles.carouselImage,
-							width: carouselItemWidth - 20,
+							width: carouselItemWidth,
 							height: carouselItemHeight,
 						}}
 					/>
