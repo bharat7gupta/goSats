@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
 		backgroundColor: colorConstants.ACTION_BUTTON,
 	},
 	actionButtonText: {
-		fontFamily: 'Gilroy-Bold',
+		fontFamily: 'SFProText-Bold',
 		fontSize: 16,
 		lineHeight: 19,
 		color: colorConstants.WHITE,

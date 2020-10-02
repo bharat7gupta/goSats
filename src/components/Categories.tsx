@@ -157,7 +157,7 @@ const styles = StyleSheet.create({
 		marginBottom: 10,
 	},
 	categoryItemText: {
-		fontFamily: 'Gilroy-Bold',
+		fontFamily: 'SFProText-Bold',
 		fontSize: 14,
 		lineHeight: 22,
 	},

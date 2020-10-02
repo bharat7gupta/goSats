@@ -267,7 +267,7 @@ const styles = StyleSheet.create({
 		flex: 1,
 	},
 	brandName: {
-		fontFamily: 'Gilroy-Bold',
+		fontFamily: 'SFProText-Regular',
 		fontSize: 22,
 		lineHeight: 28,
 		color: colorConstants.FONT_COLOR,
@@ -302,13 +302,13 @@ const styles = StyleSheet.create({
 		paddingHorizontal: 20,
 	},
 	title: {
-		fontFamily: 'Gilroy-Bold',
+		fontFamily: 'SFProText-Bold',
 		color: colorConstants.ORANGE,
 		fontSize: 22,
 		lineHeight: 26,
 	},
 	subText: {
-		fontFamily: 'Gilroy-Regular',
+		fontFamily: 'SFProText-Regular',
 		fontSize: 15,
 		color: colorConstants.FONT_COLOR,
 		opacity: 0.7,

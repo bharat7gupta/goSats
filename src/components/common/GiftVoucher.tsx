@@ -41,6 +41,6 @@ const styles = StyleSheet.create({
 	denomination: {
 		fontSize: 18,
 		lineHeight: 21,
-		fontFamily: 'Gilroy-Bold',
+		fontFamily: 'SFProText-Bold',
 	},
 });

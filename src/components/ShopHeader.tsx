@@ -35,8 +35,8 @@ const styles = StyleSheet.create({
 		// backgroundColor: 'rgba(21, 21, 21, 0.8)',
 	},
 	headerText: {
-		color: colorConstants.HEADER_TITLE,
-		fontFamily: 'Gilroy-Bold',
+		color: colorConstants.FONT_COLOR,
+		fontFamily: 'SFProText-Bold',
 		fontSize: 30,
 		lineHeight: 30,
 	},

@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
 	headerText: {
 		fontSize: 25,
 		lineHeight: 28,
-		fontFamily: 'Gilroy-Bold',
+		fontFamily: 'SFProText-Bold',
 		color: colorConstants.FONT_COLOR,
 		marginTop: 72,
 		marginBottom: 48,
@@ -122,7 +122,7 @@ const styles = StyleSheet.create({
 	subText: {
 		fontSize: 15,
 		lineHeight: 30,
-		fontFamily: 'Gilroy-Regular',
+		fontFamily: 'SFProText-Regular',
 		color: colorConstants.FONT_COLOR,
 		textAlign: 'center',
 		paddingHorizontal: 28,
@@ -147,7 +147,7 @@ const styles = StyleSheet.create({
 	},
 	resendOtpButtonText: {
 		textAlign: 'center',
-		fontFamily: 'Gilroy-Bold',
+		fontFamily: 'SFProText-Bold',
 		fontSize: 16,
 		color: colorConstants.FONT_COLOR,
 	},

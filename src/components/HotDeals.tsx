@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 	},
 	title: {
-		fontFamily: 'Gilroy-Regular',
+		fontFamily: 'SFProText-Regular',
 		fontSize: 14,
 		lineHeight: 28,
 		color: colorConstants.GREY_FONT_COLOR,
@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
 		marginBottom: 4,
 	},
 	shopAllText: {
-		fontFamily: 'Gilroy-Bold',
+		fontFamily: 'SFProText-Bold',
 		fontSize: 14,
 		lineHeight: 28,
 		color: '#D1A33A',

@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
 		flex: 1,
 	},
 	brandName: {
-		fontFamily: 'Gilroy-Bold',
+		fontFamily: 'SFProText-Bold',
 		fontSize: 22,
 		lineHeight: 28,
 		color: colorConstants.FONT_COLOR,

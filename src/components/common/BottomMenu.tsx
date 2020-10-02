@@ -109,7 +109,7 @@ const styles = StyleSheet.create({
 		minWidth: 80,
 	},
 	menuText: {
-		fontFamily: 'Gilroy-Bold',
+		fontFamily: 'SFProText-Bold',
 		fontSize: 10,
 		lineHeight: 12,
 		marginTop: 6,

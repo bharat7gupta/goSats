@@ -184,7 +184,7 @@ const styles = StyleSheet.create({
 	socialSignUpHeaderText: {
 		fontSize: 20,
 		lineHeight: 28,
-		fontFamily: 'Gilroy-Bold',
+		fontFamily: 'SFProText-Bold',
 		color: colorConstants.FONT_COLOR,
 		textAlign: 'center',
 		marginTop: 28,

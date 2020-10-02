@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
 	},
 	buttonTextStyle: {
 		color: colorConstants.FONT_COLOR,
-		fontFamily: 'Gilroy-Bold',
+		fontFamily: 'SFProText-Bold',
 		fontSize: 16,
 		lineHeight: 18,
 		marginLeft: 10,

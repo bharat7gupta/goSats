@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
 	subText: {
 		fontSize: 15,
 		lineHeight: 30,
-		fontFamily: 'Gilroy-Regular',
+		fontFamily: 'SFProText-Regular',
 		color: colorConstants.FONT_COLOR,
 		marginTop: 144,
 		textAlign: 'center',

@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 	},
 	text: {
-		fontFamily: 'Gilroy-Bold',
+		fontFamily: 'SFProText-Bold',
 		fontSize: 28,
 		color: colorConstants.FONT_COLOR,
 	},

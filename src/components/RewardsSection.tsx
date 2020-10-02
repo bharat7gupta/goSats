@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
 		paddingRight: 18,
 	},
 	rewardsHeaderText: {
-		fontFamily: 'Gilroy-Regular',
+		fontFamily: 'SFProText-Regular',
 		fontSize: 14,
 		lineHeight: 17,
 		color: colorConstants.GREY_FONT_COLOR,
@@ -78,13 +78,13 @@ const styles = StyleSheet.create({
 		marginTop: 4,
 	},
 	earningsText: {
-		fontFamily: 'Gilroy-Bold',
+		fontFamily: 'SFProText-Bold',
 		fontSize: 30,
 		lineHeight: 36,
 		color: colorConstants.FONT_COLOR,
 	},
 	earningsSubText: {
-		fontFamily: 'Gilroy-Bold',
+		fontFamily: 'SFProText-Bold',
 		fontSize: 16,
 		marginLeft: 10,
 		lineHeight: 40,
@@ -120,7 +120,7 @@ const styles = StyleSheet.create({
 	},
 	spinButtonText : {
 		color: colorConstants.FONT_COLOR,
-		fontFamily: 'Gilroy-Bold',
+		fontFamily: 'SFProText-Bold',
 		fontSize: 14,
 		lineHeight: 17,
 		opacity: 0.9,

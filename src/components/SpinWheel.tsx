@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
 	label: {
 		fontSize: 12,
 		lineHeight: 12,
-		fontFamily: 'Gilroy-Regular',
+		fontFamily: 'SFProText-Regular',
 		color: colorConstants.BRONZE,
 		marginTop: 6,
 	},
@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
 	spinButton: {
 	},
 	spinButtonText: {
-		fontFamily: 'Gilroy-Bold',
+		fontFamily: 'SFProText-Bold',
 		fontSize: 14,
 		lineHeight: 18,
 		color: colorConstants.FONT_COLOR,

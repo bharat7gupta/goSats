@@ -62,14 +62,14 @@ const styles = StyleSheet.create({
 	},
 	headerText: {
 		color: 'rgba(25, 28, 39, 0.87)',
-		fontFamily: 'Gilroy-Bold',
+		fontFamily: 'SFProText-Bold',
 		fontSize: 20,
 		lineHeight: 28,
 		marginTop: 26,
 		marginBottom: 16,
 	},
 	errorMessage: {
-		fontFamily: 'Gilroy-Regular',
+		fontFamily: 'SFProText-Regular',
 		fontSize: 15,
 		lineHeight: 18,
 		color: 'rgba(25, 28, 39, 0.87)',
@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
 		backgroundColor: colorConstants.ACTION_BUTTON,
 	},
 	actionButtonText: {
-		fontFamily: 'Gilroy-Bold',
+		fontFamily: 'SFProText-Bold',
 		fontSize: 16,
 		lineHeight: 19,
 		color: colorConstants.WHITE,

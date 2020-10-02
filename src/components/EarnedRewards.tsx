@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
 		paddingVertical: 30,
 	},
 	earningsTitle: {
-		fontFamily: 'Gilroy-Regular',
+		fontFamily: 'SFProText-Regular',
 		fontSize: 15,
 		lineHeight: 18,
 		color: colorConstants.EARNINGS_TITLE_GREY,
@@ -37,13 +37,13 @@ const styles = StyleSheet.create({
 		flexDirection: 'row',
 	},
 	earningsText: {
-		fontFamily: 'Gilroy-Bold',
+		fontFamily: 'SFProText-Bold',
 		fontSize: 46,
 		lineHeight: 54,
 		color: colorConstants.FONT_COLOR,
 	},
 	earningsSubText: {
-		fontFamily: 'Gilroy-Bold',
+		fontFamily: 'SFProText-Bold',
 		fontSize: 18,
 		marginLeft: 10,
 		lineHeight: 40,

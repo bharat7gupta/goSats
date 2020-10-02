@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* goSatsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* goSatsTests.m */; };
 		0104BF2C251E481D00CE9D66 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0104BF2B251E481D00CE9D66 /* Launch Screen.storyboard */; };
-		0104BF30251E611800CE9D66 /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = 0104BF2F251E611800CE9D66 /* main.jsbundle */; };
+		018FD371252781CF0096D7A9 /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = 018FD370252781CF0096D7A9 /* main.jsbundle */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
@@ -18,12 +18,12 @@
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2DCD954D1E0B4F2C00145EB5 /* goSatsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* goSatsTests.m */; };
 		451032099E11ABAF6E387592 /* libPods-goSats-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FD243DAE6B30E696E37C8A4 /* libPods-goSats-tvOS.a */; };
-		654F8688A4E64D74BDC53232 /* Gilroy-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 95C5E4B0414D436B9CBB5FE0 /* Gilroy-Regular.ttf */; };
-		6F07064CBC724F539CBB7B1E /* Gilroy-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6498224491C0448FA65E0445 /* Gilroy-Bold.ttf */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		92FEFD41BF35D800FCD99857 /* libPods-goSats-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 69B5AF991A7762219BCED97A /* libPods-goSats-tvOSTests.a */; };
+		B30B7509ED3245BE98FB51D2 /* SFProText-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 19DB4D0A033C44EF981F27E6 /* SFProText-Bold.ttf */; };
 		C32F13DC1468456341B3024A /* libPods-goSats.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D6A2F1BBCBCF111724BE5D3C /* libPods-goSats.a */; };
 		D3F8FEE93F79645DACF54020 /* libPods-goSats-goSatsTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 24B4D4AAB758334FCD1314DF /* libPods-goSats-goSatsTests.a */; };
+		FC905E9E3D704B82AF04FD18 /* SFProText-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4882ECDD3468472DB4160271 /* SFProText-Regular.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,7 +48,7 @@
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* goSatsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = goSatsTests.m; sourceTree = "<group>"; };
 		0104BF2B251E481D00CE9D66 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
-		0104BF2F251E611800CE9D66 /* main.jsbundle */ = {isa = PBXFileReference; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
+		018FD370252781CF0096D7A9 /* main.jsbundle */ = {isa = PBXFileReference; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
 		0D46EED39E566690F74042A1 /* Pods-goSats-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-goSats-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-goSats-tvOSTests/Pods-goSats-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* goSats.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = goSats.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = goSats/AppDelegate.h; sourceTree = "<group>"; };
@@ -56,25 +56,20 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = goSats/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = goSats/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = goSats/main.m; sourceTree = "<group>"; };
+		19DB4D0A033C44EF981F27E6 /* SFProText-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "SFProText-Bold.ttf"; path = "../src/assets/fonts/SFProText-Bold.ttf"; sourceTree = "<group>"; };
 		24B4D4AAB758334FCD1314DF /* libPods-goSats-goSatsTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-goSats-goSatsTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E47B1E0B4A5D006451C7 /* goSats-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "goSats-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* goSats-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "goSats-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2E41208F606A4F7A8708E12A /* Poppins-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-Regular.ttf"; path = "../src/assets/fonts/Poppins-Regular.ttf"; sourceTree = "<group>"; };
-		31C0E6E069CF4A919492EFEC /* Gilroy-Light.woff */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Gilroy-Light.woff"; path = "../src/assets/fonts/Gilroy-Light.woff"; sourceTree = "<group>"; };
-		3CB4D33C9A7C423CAE8C8D73 /* Gilroy-Bold.woff */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Gilroy-Bold.woff"; path = "../src/assets/fonts/Gilroy-Bold.woff"; sourceTree = "<group>"; };
 		3FD243DAE6B30E696E37C8A4 /* libPods-goSats-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-goSats-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4882ECDD3468472DB4160271 /* SFProText-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "SFProText-Regular.ttf"; path = "../src/assets/fonts/SFProText-Regular.ttf"; sourceTree = "<group>"; };
 		536847650BE64EAABF79735A /* Poppins-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-Bold.ttf"; path = "../src/assets/fonts/Poppins-Bold.ttf"; sourceTree = "<group>"; };
-		6498224491C0448FA65E0445 /* Gilroy-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Gilroy-Bold.ttf"; path = "../src/assets/fonts/Gilroy-Bold.ttf"; sourceTree = "<group>"; };
 		69B5AF991A7762219BCED97A /* libPods-goSats-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-goSats-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		79464C1B33724D19D7964BEA /* Pods-goSats.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-goSats.debug.xcconfig"; path = "Target Support Files/Pods-goSats/Pods-goSats.debug.xcconfig"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = goSats/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		870050CA3C05652109CC5831 /* Pods-goSats.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-goSats.release.xcconfig"; path = "Target Support Files/Pods-goSats/Pods-goSats.release.xcconfig"; sourceTree = "<group>"; };
-		95C5E4B0414D436B9CBB5FE0 /* Gilroy-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Gilroy-Regular.ttf"; path = "../src/assets/fonts/Gilroy-Regular.ttf"; sourceTree = "<group>"; };
-		9D3D194D49DD4F4F8CA67965 /* Gilroy-Heavy.woff */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Gilroy-Heavy.woff"; path = "../src/assets/fonts/Gilroy-Heavy.woff"; sourceTree = "<group>"; };
-		9FD8DBA4BC2D4C949905A961 /* Gilroy-Medium.woff */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Gilroy-Medium.woff"; path = "../src/assets/fonts/Gilroy-Medium.woff"; sourceTree = "<group>"; };
 		A85DE721CFB8ADCE38ACF242 /* Pods-goSats-goSatsTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-goSats-goSatsTests.debug.xcconfig"; path = "Target Support Files/Pods-goSats-goSatsTests/Pods-goSats-goSatsTests.debug.xcconfig"; sourceTree = "<group>"; };
 		B701A09850920E3856469F90 /* Pods-goSats-goSatsTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-goSats-goSatsTests.release.xcconfig"; path = "Target Support Files/Pods-goSats-goSatsTests/Pods-goSats-goSatsTests.release.xcconfig"; sourceTree = "<group>"; };
-		B7C8AA57E8C349F29E779EEA /* Gilroy-Regular.woff */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Gilroy-Regular.woff"; path = "../src/assets/fonts/Gilroy-Regular.woff"; sourceTree = "<group>"; };
 		C0A2743E69EB6B6DAE4D9962 /* Pods-goSats-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-goSats-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-goSats-tvOSTests/Pods-goSats-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		D44A242DB59A4F35B5B68CA4 /* Roboto-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Roboto-Regular.ttf"; path = "../src/assets/fonts/Roboto-Regular.ttf"; sourceTree = "<group>"; };
 		D6A2F1BBCBCF111724BE5D3C /* libPods-goSats.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-goSats.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -141,7 +136,7 @@
 		13B07FAE1A68108700A75B9A /* goSats */ = {
 			isa = PBXGroup;
 			children = (
-				0104BF2F251E611800CE9D66 /* main.jsbundle */,
+				018FD370252781CF0096D7A9 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
@@ -222,13 +217,8 @@
 				2E41208F606A4F7A8708E12A /* Poppins-Regular.ttf */,
 				E109474C8B2E4FD1AE68E75D /* Roboto-Bold.ttf */,
 				D44A242DB59A4F35B5B68CA4 /* Roboto-Regular.ttf */,
-				3CB4D33C9A7C423CAE8C8D73 /* Gilroy-Bold.woff */,
-				9D3D194D49DD4F4F8CA67965 /* Gilroy-Heavy.woff */,
-				31C0E6E069CF4A919492EFEC /* Gilroy-Light.woff */,
-				9FD8DBA4BC2D4C949905A961 /* Gilroy-Medium.woff */,
-				B7C8AA57E8C349F29E779EEA /* Gilroy-Regular.woff */,
-				6498224491C0448FA65E0445 /* Gilroy-Bold.ttf */,
-				95C5E4B0414D436B9CBB5FE0 /* Gilroy-Regular.ttf */,
+				19DB4D0A033C44EF981F27E6 /* SFProText-Bold.ttf */,
+				4882ECDD3468472DB4160271 /* SFProText-Regular.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -378,9 +368,9 @@
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				0104BF2C251E481D00CE9D66 /* Launch Screen.storyboard in Resources */,
-				0104BF30251E611800CE9D66 /* main.jsbundle in Resources */,
-				6F07064CBC724F539CBB7B1E /* Gilroy-Bold.ttf in Resources */,
-				654F8688A4E64D74BDC53232 /* Gilroy-Regular.ttf in Resources */,
+				018FD371252781CF0096D7A9 /* main.jsbundle in Resources */,
+				B30B7509ED3245BE98FB51D2 /* SFProText-Bold.ttf in Resources */,
+				FC905E9E3D704B82AF04FD18 /* SFProText-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

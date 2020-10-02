@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
 	},
 	headerText: {
 		color: colorConstants.FONT_COLOR,
-		fontFamily: 'Gilroy-Bold',
+		fontFamily: 'SFProText-Bold',
 		fontSize: 20,
 		lineHeight: 28,
 		marginTop: 10,

@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
 	},
 	buttonTextStyle: {
 		color: colorConstants.FONT_COLOR,
-		fontFamily: 'Gilroy-Bold',
+		fontFamily: 'SFProText-Bold',
 		fontSize: 16,
 		lineHeight: 18,
 		paddingTop: 4,
@@ -100,9 +100,9 @@ const styles = StyleSheet.create({
 	},
 	name: {
 		marginTop: 8,
-		color: colorConstants.HEADER_TITLE,
+		color: colorConstants.FONT_COLOR,
 		opacity: 0.85,
-		fontFamily: 'Gilroy-Bold',
+		fontFamily: 'SFProText-Bold',
 		fontSize: 16,
 		lineHeight: 28,
 	},

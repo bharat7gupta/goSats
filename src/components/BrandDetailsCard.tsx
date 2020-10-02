@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
 	detailsHeaderText: {
 		fontSize: 15,
 		lineHeight: 16,
-		fontFamily: 'Gilroy-Regular',
+		fontFamily: 'SFProText-Regular',
 		color: 'rgba(255, 255, 255, 0.5)',
 		opacity: 0.9,
 		marginLeft: 10,
@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
 	detailsLineItem: {
 		fontSize: 15,
 		lineHeight: 16,
-		fontFamily: 'Gilroy-Regular',
+		fontFamily: 'SFProText-Regular',
 		color: colorConstants.FONT_COLOR,
 		opacity: 0.9,
 		marginBottom: 16,
