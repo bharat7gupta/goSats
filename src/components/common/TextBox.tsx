@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
 		paddingVertical: 16,
 		color: colorConstants.FONT_COLOR,
 		fontSize: 15,
-		lineHeight: 24,
+		lineHeight: 18,
 		fontFamily: 'SFProText-Regular',
 		marginVertical: 8,
 	},
