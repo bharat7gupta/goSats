@@ -10,6 +10,7 @@ interface BrandCarouselProps {
 	items: BrandItem[];
 	heightFactor: number;
 	onItemClick: (brandItem: BrandItem) => void;
+	onCaroselImageLoad?: () => void;
 }
 
 const screen = Dimensions.get('screen');
@@ -30,7 +31,13 @@ export default function BrandCarousel(props: BrandCarouselProps) {
 		}
 	};
 
-	const renderCarouselItem = ({ item }: { item: BrandItem }) => {
+	const onCaroselImageLoad = (index: number) => {
+		if (index === 0 && props.onCaroselImageLoad) {
+			props.onCaroselImageLoad();
+		}
+	};
+
+	const renderCarouselItem = ({ item, index }: { item: BrandItem, index: number }) => {
 		return (
 			<View style={styles.carouselContainer} onTouchEnd={() => handleItemClick(item)}>
 				<Neomorph
@@ -50,6 +57,7 @@ export default function BrandCarousel(props: BrandCarouselProps) {
 							width: carouselItemWidth - 28, // 20 for the shadows and 8 for the margin
 							height: carouselItemHeight - 8, // 8 for the margin
 						}}
+						onLoad={() => onCaroselImageLoad(index)}
 					/>
 				</Neomorph>
 			</View>

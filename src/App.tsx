@@ -66,7 +66,9 @@ function App() {
 		return null;
 	}
 
-	SplashScreen.hide();
+	if (!hasVerifiedAccount || !isLoggedIn) {
+		SplashScreen.hide();
+	}
 
 	return (
 		<AuthStateContext.Provider value={authContextValue.authState}>

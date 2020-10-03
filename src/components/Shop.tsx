@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { View, Text, ScrollView, StyleSheet } from 'react-native';
+import SplashScreen from 'react-native-splash-screen';
 import HotDeals from './HotDeals';
 import colorConstants from '../constants/color';
 import ShopHeader from './ShopHeader';
@@ -10,6 +11,7 @@ import Strings from '../constants/strings';
 import ErrorModal from './common/ErrorModal';
 import PageLoader from './common/PageLoader';
 import { StatusBarHeight } from '../helpers/UtilityHelper';
+import masterDataSet from '../mock_jsons/master-data.json';
 
 const spotLightHeightFactor = 0.5;
 const editorsPickHeightFactor = 0.764;
@@ -29,10 +31,10 @@ export default function Shop(props) {
 	const fetchMasterData = async () => {
 		try {
 			setLoading(true);
-			const masterData = await ApiHelper.fetchMasterData();
-			const balanceData = await ApiHelper.fetchUserBalance();
+			// const masterData = await ApiHelper.fetchMasterData();
+			const masterData = masterDataSet;
 			processData(masterData);
-			console.log(masterData);
+			// console.log(JSON.stringify(masterData));
 			setLoading(false);
 		} catch (e) {
 			setLoading(false);
@@ -79,6 +81,7 @@ export default function Shop(props) {
 							items={spotlight}
 							heightFactor={spotLightHeightFactor}
 							onItemClick={handleBrandItemClick}
+							onCaroselImageLoad={() => SplashScreen.hide()}
 						/>
 
 						<HotDeals

@@ -5,21 +5,21 @@
 		"spotlight": [
 			{
 				"isActive": true,
-				"imageURL": "https://gosatsicons.s3.us-east-2.amazonaws.com/spotlight/blog.svg",
+				"imageURL": "https://gosatsicons.s3.us-east-2.amazonaws.com/spotlight/png/blog.png",
 				"id": "GSDEA7819",
 				"merchantId": "GSMER6429",
 				"type": "spotlight"
 			},
 			{
 				"isActive": true,
-				"imageURL": "https://gosatsicons.s3.us-east-2.amazonaws.com/spotlight/ajio.svg",
-				"id": "GSDEA3430",
+				"imageURL": "https://gosatsicons.s3.us-east-2.amazonaws.com/spotlight/png/TheManCompany.png",
+				"id": "GSDEA3687",
 				"merchantId": "GSMER6429",
 				"type": "spotlight"
 			},
 			{
 				"isActive": true,
-				"imageURL": "https://gosatsicons.s3.us-east-2.amazonaws.com/spotlight/dominos.svg",
+				"imageURL": "https://gosatsicons.s3.us-east-2.amazonaws.com/spotlight/png/dominos.png",
 				"id": "GSDEA2539",
 				"merchantId": "GSMER9922",
 				"type": "spotlight"
@@ -28,28 +28,21 @@
 		"editors_pic": [
 			{
 				"isActive": true,
-				"imageURL": "https://gosatsicons.s3.us-east-2.amazonaws.com/editors_pic/superdry.svg",
+				"imageURL": "https://gosatsicons.s3.us-east-2.amazonaws.com/editors_pic/png/superdry.png",
 				"id": "GSDEA3595",
 				"merchantId": "GSMER2728",
 				"type": "editors_pic"
 			},
 			{
 				"isActive": true,
-				"imageURL": "https://gosatsicons.s3.us-east-2.amazonaws.com/editors_pic/themancompany.svg",
-				"id": "GSDEA3687",
-				"merchantId": "GSMER6429",
-				"type": "editors_pic"
-			},
-			{
-				"isActive": true,
-				"imageURL": "https://gosatsicons.s3.us-east-2.amazonaws.com/editors_pic/reebok.svg",
+				"imageURL": "https://gosatsicons.s3.us-east-2.amazonaws.com/editors_pic/png/reebok.png",
 				"id": "GSDEA9405",
 				"merchantId": "GSMER5385",
 				"type": "editors_pic"
 			},
 			{
 				"isActive": true,
-				"imageURL": "https://gosatsicons.s3.us-east-2.amazonaws.com/editors_pic/swiggy.svg",
+				"imageURL": "https://gosatsicons.s3.us-east-2.amazonaws.com/editors_pic/png/swiggy.png",
 				"id": "GSDEA8733",
 				"merchantId": "GSMER9922",
 				"type": "editors_pic"
@@ -58,43 +51,7 @@
 		"merchant": [
 			{
 				"active": true,
-				"image": "https://cdn0.cuelinks.com/campaigns/3492/thumb/KalkiFashion.png?1517566951",
-				"reward": "2.36%",
-				"category": [
-					"Fashion"
-				],
-				"rewardType": "Per Sale(%)",
-				"id": "GSMER4189",
-				"name": "Kalki Fashion",
-				"type": "merchant"
-			},
-			{
-				"active": true,
-				"image": "https://gosatsicons.s3.us-east-2.amazonaws.com/merchant/logs/goibibo.svg",
-				"reward": "1.88%",
-				"category": [
-					"Electronics"
-				],
-				"rewardType": "Per Sale(%)",
-				"id": "GSMER2926",
-				"name": "Gonoise",
-				"type": "merchant"
-			},
-			{
-				"active": true,
-				"image": "https://gosatsicons.s3.us-east-2.amazonaws.com/merchant/logs/oyo.svg",
-				"reward": "1.69%",
-				"category": [
-					"Travel"
-				],
-				"rewardType": "Per Sale(%)",
-				"id": "GSMER7816",
-				"name": "Oyo Rooms",
-				"type": "merchant"
-			},
-			{
-				"active": true,
-				"image": "https://gosatsicons.s3.us-east-2.amazonaws.com/merchant/logs/fossil.svg",
+				"image": "https://gosatsicons.s3.us-east-2.amazonaws.com/merchant/logo/png/fossil.png",
 				"reward": "10.50%",
 				"category": [
 					"Fashion"
@@ -106,7 +63,7 @@
 			},
 			{
 				"active": true,
-				"image": "https://gosatsicons.s3.us-east-2.amazonaws.com/merchant/logs/clovia.svg",
+				"image": "https://gosatsicons.s3.us-east-2.amazonaws.com/merchant/logo/png/clovia.png",
 				"reward": "7.50%",
 				"category": [
 					"Fashion"
@@ -118,31 +75,7 @@
 			},
 			{
 				"active": true,
-				"image": "https://gosatsicons.s3.us-east-2.amazonaws.com/merchant/logs/ajio.svg",
-				"reward": "3.00%",
-				"category": [
-					"Fashion"
-				],
-				"rewardType": "Per Sale(%)",
-				"id": "GSMER6429",
-				"name": "Ajio",
-				"type": "merchant"
-			},
-			{
-				"active": true,
-				"image": "https://gosatsicons.s3.us-east-2.amazonaws.com/merchant/logs/dominos.svg",
-				"reward": "₹ 11.25",
-				"category": [
-					"Food"
-				],
-				"rewardType": "Per Sale",
-				"id": "GSMER9922",
-				"name": "Dominos",
-				"type": "merchant"
-			},
-			{
-				"active": true,
-				"image": "https://gosatsicons.s3.us-east-2.amazonaws.com/merchant/logs/adidas.svg",
+				"image": "https://gosatsicons.s3.us-east-2.amazonaws.com/merchant/logo/png/adidas.png",
 				"reward": "2.50-6.00%",
 				"category": [
 					"Fashion"
@@ -150,18 +83,6 @@
 				"rewardType": "Per Sale(%)",
 				"id": "GSMER5385",
 				"name": "Adidas",
-				"type": "merchant"
-			},
-			{
-				"active": true,
-				"image": "https://gosatsicons.s3.us-east-2.amazonaws.com/merchant/logs/healthkart.svg",
-				"reward": "1.31%",
-				"category": [
-					"Health & Beauty"
-				],
-				"rewardType": "Per Sale(%)",
-				"id": "GSMER2728",
-				"name": "HealthKart",
 				"type": "merchant"
 			},
 			{
