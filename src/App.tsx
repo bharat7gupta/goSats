@@ -1,9 +1,5 @@
 import React, { useEffect, useState, useReducer, useMemo } from 'react';
-import {
-	StatusBar,
-	StyleSheet,
-	ScrollView,
-} from 'react-native';
+import { StatusBar, LogBox } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import SplashScreen from 'react-native-splash-screen';
@@ -21,6 +17,8 @@ import authReducer, { authInitialState, AuthActions, AuthState } from './reducer
 
 export const AuthStateContext = React.createContext({} as AuthState);
 export const AuthDispatchContext = React.createContext((payload) => {});
+
+LogBox.ignoreAllLogs();
 
 const Stack = createStackNavigator();
 

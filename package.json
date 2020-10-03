@@ -4,12 +4,13 @@
   "private": true,
   "scripts": {
     "android": "react-native run-android --port=8088",
-    "ios": "react-native run-ios --port=8088",
+    "ios": "npm run bundle:ios && react-native run-ios --port=8088",
     "start": "react-native start --port=8088",
     "test": "jest",
     "lint": "eslint .",
     "lint-ts": "tslint -c tslint.json 'src/**/*.{ts,tsx}' --fix",
     "link": "react-native link",
+    "bundle:android": "react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res/",
     "bundle:ios": "react-native bundle --entry-file='index.js' --bundle-output='./ios/main.jsbundle' --dev=false --platform='ios' --assets-dest='./ios'"
   },
   "dependencies": {

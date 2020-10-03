@@ -78,10 +78,11 @@ export default function SignIn(props) {
 		if (!hasFormError) {
 			setSubmitDisabled(true);
 
-			CognitoHelper.loginUser({ username, password }, (result) => {
+			CognitoHelper.loginUser({ username, password }, async (result) => {
 				const accessToken = result.getAccessToken().getJwtToken();
 
-				StorageHelper.setItem('accessToken', accessToken);
+				const hasVerifiedAccount = await StorageHelper.setItem('hasVerifiedAccount', 'true');
+				const savedAccessToken = await StorageHelper.setItem('accessToken', accessToken);
 				StorageHelper.setItem('isLoggedIn', 'true').then(() => {
 					authDispatch({
 						type: AuthActions.UPDATE_LOGIN_STATUS,

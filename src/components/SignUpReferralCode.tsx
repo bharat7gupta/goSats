@@ -34,10 +34,10 @@ export default function SignUpReferralCode(props) {
 			const username = authState.username;
 			const password = authState.password;
 
-			CognitoHelper.loginUser({ username, password }, (result) => {
+			CognitoHelper.loginUser({ username, password }, async (result) => {
 				const accessToken = result.getAccessToken().getJwtToken();
 
-				StorageHelper.setItem('accessToken', accessToken);
+				const savedAccessToken = await StorageHelper.setItem('accessToken', accessToken);
 				StorageHelper.setItem('isLoggedIn', 'true')
 					.then(() => {
 						authDispatch({
