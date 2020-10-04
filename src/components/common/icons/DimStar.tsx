@@ -10,7 +10,7 @@ export default function DimStar(props: DimStarProps) {
 
 	return (
 		<Image
-			source={require('../../../assets/images/dimstar.png')}
+			source={{ uri: 'https://res.cloudinary.com/dm5xyhl7v/image/upload/v1601829750/sats/dimstar_q4lbbb.png' }}
 			style={{ width: size, height: size }}
 		/>
 	);

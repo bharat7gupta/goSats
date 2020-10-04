@@ -43,7 +43,8 @@ export default function ShareButton(props: ShareButtonProps) {
 				darkShadowColor={colorConstants.SHADOW_DARK}
 				lightShadowColor={colorConstants.SHADOW_LIGHT}
 			>
-				<Image source={require('../../assets/images/share.png')} style={{ width: 16, height: 16 }}/>
+				<Image source={{
+					uri: 'https://res.cloudinary.com/dm5xyhl7v/image/upload/v1601829750/sats/share_gapnih.png' }} style={{ width: 16, height: 16 }}/>
 			</Neomorph>
 		</View>
 	);

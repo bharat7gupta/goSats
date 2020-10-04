@@ -165,7 +165,7 @@ export default function BrandDetail(props) {
 												lightShadowColor={colorConstants.SHADOW_LIGHT}
 											>
 												<ImageBackground
-													source={require('../assets/images/pattern.png')}
+													source={{ uri: 'https://res.cloudinary.com/dm5xyhl7v/image/upload/v1601829751/sats/pattern_n6dqxr.png'}}
 													style={{ width: 300, height: 250 }}
 													resizeMode="cover"
 												/>
