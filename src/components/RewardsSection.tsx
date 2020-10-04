@@ -20,7 +20,7 @@ export default function RewardsSection() {
 
 				<View style={styles.earningsTextContainer}>
 					<Text style={styles.earningsText}>
-						75,000
+						20,000
 					</Text>
 					<Text style={styles.earningsSubText}>
 						sats
