@@ -31,10 +31,10 @@ export default function Shop(props) {
 	const fetchMasterData = async () => {
 		try {
 			setLoading(true);
-			// const masterData = await ApiHelper.fetchMasterData();
-			const masterData = masterDataSet;
+			const masterData = await ApiHelper.fetchMasterData();
+			// const masterData = masterDataSet;
 			processData(masterData);
-			// console.log(JSON.stringify(masterData));
+			// console.log(masterData);
 			setLoading(false);
 		} catch (e) {
 			setLoading(false);
