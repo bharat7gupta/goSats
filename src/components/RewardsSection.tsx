@@ -54,6 +54,7 @@ const styles = StyleSheet.create({
 		justifyContent: 'space-between',
 		backgroundColor: colorConstants.PRIMARY_LIGHT,
 		marginHorizontal: 18,
+		marginTop: 24,
 		marginBottom: 30,
 		borderRadius: 10,
 	},

@@ -70,8 +70,10 @@ export default function Shop(props) {
 
 	return (
 		<View style={styles.root}>
-			<ScrollView contentContainerStyle={styles.containerStyle}>
-				<ShopHeader />
+			<ScrollView contentContainerStyle={styles.containerStyle} stickyHeaderIndices={[0]}>
+				<View style={styles.topSection}>
+					<ShopHeader />
+				</View>
 
 				{!loading && (
 					<React.Fragment>
@@ -117,14 +119,11 @@ const styles = StyleSheet.create({
 	},
 	containerStyle: {
 		flexGrow: 1,
-		paddingTop: StatusBarHeight,
 		paddingBottom: 30,
 	},
 	topSection: {
-		flexDirection: 'row',
-		justifyContent: 'space-between',
-		paddingLeft: 20,
-		marginBottom: -12,
+		paddingTop: StatusBarHeight,
+		backgroundColor: colorConstants.PRIMARY,
 	},
 	editorsPickTitleText: {
 		fontFamily: 'SFProText-Regular',
