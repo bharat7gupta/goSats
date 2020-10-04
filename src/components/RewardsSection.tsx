@@ -15,7 +15,7 @@ export default function RewardsSection() {
 
 			<View style={styles.rewards}>
 				<Text style={styles.rewardsHeaderText}>
-					Total Rewards Earned
+					Total Bitcoin Earned
 				</Text>
 
 				<View style={styles.earningsTextContainer}>

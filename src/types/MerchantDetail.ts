@@ -6,4 +6,10 @@ export default interface MerchantDetail {
 	title: string;
 	subText: string;
 	detailsInHTML: string;
+	detailsInJson: DetailJson[];
+}
+
+export interface DetailJson {
+	title: string;
+	description: string[];
 }

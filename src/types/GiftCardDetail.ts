@@ -4,9 +4,15 @@ export default interface GiftCardDetail {
 	image: string;
 	category: string[];
 	detailsInHTML: string;
+	detailsInJson: DetailJson[];
 	price: { denominations: string[] };
 	name: string;
 	sku: string;
 	title: string;
 	reward: string;
+}
+
+export interface DetailJson {
+	title: string;
+	description: string[];
 }

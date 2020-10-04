@@ -4,9 +4,10 @@ import HTML from 'react-native-render-html';
 import LinearGradient from 'react-native-linear-gradient';
 import colorConstants from '../constants/color';
 import Notepad from './common/icons/Notepad';
+import { DetailJson } from '../types/MerchantDetail';
 
 interface BrandDetailsCardProps {
-	brandDetails: string;
+	brandDetails: DetailJson[];
 }
 
 export default function BrandDetailsCard(props: BrandDetailsCardProps) {
@@ -29,7 +30,18 @@ export default function BrandDetailsCard(props: BrandDetailsCardProps) {
 			</View>
 
 			<View style={{ marginLeft: 30 }}>
-				<HTML
+				{brandDetails && brandDetails.map(brandDetail => (
+					<View key={brandDetail.title}>
+						<Text style={{...styles.detailsTextColor, marginBottom: 4 }}>{brandDetail.title}</Text>
+						{brandDetail.description && brandDetail.description.map(desc => (
+							<View key={desc} style={{ flexDirection: 'row', marginBottom: 8 }}>
+								<Text style={styles.detailsTextColor}>{'\u2022'}</Text>
+								<Text style={{ ...styles.detailsTextColor, flex: 1 }}>{desc}</Text>
+							</View>
+						))}
+					</View>
+				))}
+				{/* <HTML
 					html={brandDetails}
 					tagsStyles={{
 						div: { color: colorConstants.FONT_COLOR },
@@ -37,15 +49,15 @@ export default function BrandDetailsCard(props: BrandDetailsCardProps) {
 					listsPrefixesRenderers={{
 						ul: () => (<Text style={{ color: colorConstants.LIGHT_GREY }}>{'\u2022 '}</Text>)
 					}}
-				/>
+				/> */}
 			</View>
 
 			{collapsed && (
 				<LinearGradient
 					colors={[
-						'rgba(30, 30, 30, 0)',
-						'rgba(30, 30, 30, 0.6)',
-						'rgba(30, 30, 30, 1)'
+						'rgba(64, 57, 72, 0)',
+						'rgba(64, 57, 72, 0.6)',
+						'rgba(64, 57, 72, 1)',
 					]}
 					locations={[ 0, 0.1, 1 ]}
 					style={styles.detailsBottomGradientContainer}
@@ -61,12 +73,13 @@ const styles = StyleSheet.create({
 		marginHorizontal: 20,
 		paddingTop: 16,
 		paddingHorizontal: 10,
-		backgroundColor: colorConstants.PRIMARY_LIGHT,
+		// backgroundColor: colorConstants.PRIMARY_LIGHT,
+		backgroundColor: '#403948',
 		borderRadius: 10,
 		marginTop: 6,
 		marginBottom: 24,
 		overflow: 'hidden',
-		maxHeight: 90,
+		maxHeight: 120,
 	},
 	detailsHeader: {
 		flexDirection: 'row',
@@ -78,6 +91,13 @@ const styles = StyleSheet.create({
 		color: 'rgba(255, 255, 255, 0.5)',
 		opacity: 0.9,
 		marginLeft: 10,
+		marginBottom: 8,
+	},
+	detailsTextColor: {
+		color: '#FFFFFF',
+		fontSize: 14,
+		lineHeight: 18,
+		fontFamily: 'SFProText-Regular',
 	},
 	detailsLineItem: {
 		fontSize: 15,

@@ -139,7 +139,7 @@ export default function BrandDetail(props) {
 
 	return (
 		<View style={styles.root}>
-			<ScrollView>
+			<ScrollView stickyHeaderIndices={[0]}>
 				<Header
 					title="Details"
 					showBackButton={true}
@@ -201,7 +201,7 @@ export default function BrandDetail(props) {
 
 										{renderVouchers()}
 
-										<BrandDetailsCard brandDetails={brandData.detailsInHTML} />
+										<BrandDetailsCard brandDetails={brandData.detailsInJson} />
 									</View>
 								</NeomorphFlex>
 							</View>
@@ -235,11 +235,13 @@ const styles = StyleSheet.create({
 	},
 	header: {
 		paddingHorizontal: 10,
+		backgroundColor: colorConstants.PRIMARY,
 	},
 	container: {
 		flex: 1,
 		width: '100%',
 		position: 'relative',
+		paddingTop: 14,
 	},
 	content: {
 		flex: 1,
