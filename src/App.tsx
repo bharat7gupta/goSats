@@ -99,7 +99,7 @@ function App() {
 						</Stack.Navigator>
 					)}
 
-					<StatusBar barStyle="dark-content" backgroundColor={colorConstants.PRIMARY_DARK} />
+					<StatusBar barStyle="light-content" backgroundColor={colorConstants.PRIMARY_DARK} />
 				</NavigationContainer>
 			</AuthDispatchContext.Provider>
 		</AuthStateContext.Provider>
