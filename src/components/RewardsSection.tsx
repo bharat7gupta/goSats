@@ -1,16 +1,28 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Image } from 'react-native';
 import { NeomorphFlex } from 'react-native-neomorph-shadows';
-import RewardsCup from './common/icons/RewardsCup';
 import colorConstants from '../constants/color';
 import styleConstants from '../constants/style';
 import SpinWheelIcon from './common/icons/SpinWheelIcon';
+import UserBalance from '../types/UserBalance';
 
-export default function RewardsSection() {
+interface RewardsSectionProps {
+	balanceData: UserBalance;
+}
+
+export default function RewardsSection(props: RewardsSectionProps) {
+	const { balanceData } = props;
+	const userBalance = (balanceData && balanceData.balance.totalEarnedSats) || 0;
+	const formattedBalance = userBalance.toLocaleString();
+	const currentLevel = balanceData && balanceData.level.current;
+	const levelImageUrl = balanceData && balanceData.level.icon;
+	const textColorCode = balanceData && balanceData.level.colorCode;
+	const bgColorCode = balanceData && balanceData.level.bgColorCode;
+
 	return (
 		<View style={styles.root}>
 			<View style={styles.icon}>
-				<RewardsCup />
+				<Image source={{ uri: levelImageUrl }} style={{ width: 60, height: 90 }} />
 			</View>
 
 			<View style={styles.rewards}>
@@ -20,7 +32,7 @@ export default function RewardsSection() {
 
 				<View style={styles.earningsTextContainer}>
 					<Text style={styles.earningsText}>
-						20,000
+						{formattedBalance}
 					</Text>
 					<Text style={styles.earningsSubText}>
 						sats
@@ -28,8 +40,8 @@ export default function RewardsSection() {
 				</View>
 
 				<View style={styles.bottomRow}>
-					<View style={styles.badge}>
-						<Text style={styles.badgeText}>Bronze</Text>
+					<View style={{ ...styles.badge, borderColor: textColorCode, backgroundColor: bgColorCode }}>
+						<Text style={{ color: textColorCode }}>{currentLevel}</Text>
 					</View>
 
 					<NeomorphFlex
@@ -101,15 +113,9 @@ const styles = StyleSheet.create({
 	badge: {
 		borderStyle: 'dashed',
 		borderWidth: 1,
-		borderColor: colorConstants.BRONZE,
 		borderRadius: 4,
-		textTransform: 'capitalize',
 		paddingHorizontal: 14,
 		paddingVertical: 4,
-		backgroundColor: 'rgba(169, 94, 20, 0.2)',
-	},
-	badgeText: {
-		color: colorConstants.BRONZE,
 	},
 	spinButton: {
 		flexDirection: 'row',

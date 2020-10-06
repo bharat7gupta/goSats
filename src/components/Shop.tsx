@@ -23,6 +23,7 @@ export default function Shop(props) {
 	const [ loading, setLoading ] = useState<boolean>(false);
 	const [ showError, setShowError ] = useState<boolean>(false);
 	const [ errorMessage, setErrorMessage ] = useState<string>('');
+	const [ balanceData, setBalanceData ] = useState(null);
 
 	useEffect(() => {
 		fetchMasterData();
@@ -32,9 +33,12 @@ export default function Shop(props) {
 		try {
 			setLoading(true);
 			const masterData = await ApiHelper.fetchMasterData();
+			const userBalance = await ApiHelper.fetchUserBalance();
 			// const masterData = masterDataSet;
-			processData(masterData);
 			// console.log(masterData);
+			// console.log(balanceData);
+			processData(masterData);
+			setBalanceData(userBalance.data);
 			setLoading(false);
 		} catch (e) {
 			setLoading(false);
@@ -77,7 +81,7 @@ export default function Shop(props) {
 
 				{!loading && (
 					<React.Fragment>
-						<RewardsSection />
+						<RewardsSection balanceData={balanceData} />
 
 						<BrandCarousel
 							items={spotlight}
