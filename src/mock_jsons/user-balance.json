@@ -1,0 +1,17 @@
+{
+	"error": false,
+	"message": "User balances are",
+	"data": {
+		"balance": {
+			"spendableSats": 10000,
+			"totalEarnedSats": 11000
+		},
+		"level": {
+			"colorCode": "#A95E14",
+			"current": "Bronze",
+			"icon": "https://gosatsicons.s3.us-east-2.amazonaws.com/level/png/bronze.svg",
+			"next": "Silver"
+		},
+		"referralId": "GSBH7970"
+	}
+}
