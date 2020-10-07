@@ -1,9 +1,9 @@
 export default interface GiftCardDetail {
 	id: string;
 	active: boolean;
+	isGiftCard: boolean;
 	image: string;
 	category: string[];
-	detailsInHTML: string;
 	detailsInJson: DetailJson[];
 	price: { denominations: string[] };
 	name: string;

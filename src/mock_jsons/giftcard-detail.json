@@ -1,28 +1,30 @@
 {
 	"error": false,
-	"message": "Some error occured. Please try again",
-	"data": [
-		{
-			"active": true,
-			"image": "https://i.pinimg.com/originals/ba/a8/67/baa867c146c04d0b329fd6b0bf70281e.png",
-			"category": [
-				"Food & Grocery"
-			],
-			"details": "<div><h4>Rewards distribution</h4><ul><li> Get 2.25% bitcoin cashback. </li></ul> <h4>Tracking Time</h4><ul><li>Our system will take about 2mins to recognise your purchase.</li><li>You will receive an approximate amount of sats into your GoSats wallet which will be in pending state.</li></ul> <h4>Terms</h4><ul><li>All disputes and refunds related to your order will need to be raised directly with the brand.</li></ul><div>",
-			"id": "GSGC6549",
-			"price": {
-				"denominations": [
-					"100",
-					"200",
-					"300",
-					"500",
-					"5000"
+	"message": "List of Merchants are",
+	"data": {
+		"name": "Starbucks",
+		"image": "https://gosatsicons.s3.us-east-2.amazonaws.com/merchant/logo/png/starbucks.png",
+		"reward": "2.50% satsback",
+		"rewardType": "Per Sale(%)",
+		"title": "Choose Voucher Amount",
+		"subText": "",
+		"detailsInHTML": "<div><ul><li>This voucher can be redeemed online as well as at your </li></ul/><div>",
+		"detailsInJson": [
+			{
+				"title": "",
+				"description": [
+					"This voucher can be redeemed online as well as at your "
 				]
-			},
-			"name": "Starbucks eGift Card - Starbucks",
-			"sku": "SBCEGC001",
-			"title": "Choose Voucher Amount",
-			"reward": "2.00%"
+			}
+		],
+		"price": {
+			"denominations": [
+				"100",
+				"200",
+				"300",
+				"500",
+				"5000"
+			]
 		}
-	]
+	}
 }

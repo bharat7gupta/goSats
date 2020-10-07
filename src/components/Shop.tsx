@@ -12,6 +12,8 @@ import ErrorModal from './common/ErrorModal';
 import PageLoader from './common/PageLoader';
 import { StatusBarHeight } from '../helpers/UtilityHelper';
 import masterDataSet from '../mock_jsons/master-data.json';
+import Brand from '../types/Brand';
+import BrandItem from '../types/BrandItem';
 
 const spotLightHeightFactor = 0.5;
 const editorsPickHeightFactor = 0.764;
@@ -36,7 +38,7 @@ export default function Shop(props) {
 			const userBalance = await ApiHelper.fetchUserBalance();
 			// const masterData = masterDataSet;
 			// console.log(masterData);
-			// console.log(balanceData);
+			// console.log(userBalance);
 			processData(masterData);
 			setBalanceData(userBalance.data);
 			setLoading(false);
@@ -62,8 +64,8 @@ export default function Shop(props) {
 		setEditorsPicks((masterData.data.editors_pic || emptyArray).filter(filterBrands));
 	};
 
-	const handleBrandItemClick = (brand) => {
-		props.navigation.navigate('BrandDetail', { brand });
+	const handleBrandItemClick = (brand: BrandItem) => {
+		props.navigation.navigate('BrandDetail', { id: brand.merchantId || brand.id });
 	};
 
 	const handleDismissError = () => {

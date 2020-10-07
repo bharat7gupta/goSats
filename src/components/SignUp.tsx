@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react';
 import { View, Text, TextInput, Image, StyleSheet, ToastAndroid } from 'react-native';
 import { KeyboardAwareScrollView } from '@codler/react-native-keyboard-aware-scroll-view';
 import Toast from 'react-native-simple-toast';
+import InAppBrowser from 'react-native-inappbrowser-reborn';
 import Header from './common/Header';
 import colorConstants from '../constants/color';
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
@@ -131,6 +132,10 @@ export default function SignUp(props) {
 		}
 	};
 
+	const handleGoogleSignIn = () => {
+		InAppBrowser.open('https://gosats-dvp.auth.us-east-2.amazoncognito.com/oauth2/authorize?identity_provider=Google&client_id=6lla9iektearf9j1q17cq66d5r&response_type=code&scope=email+openid+phone+profile&redirect_uri=gosats://socialsignin');
+	};
+
 	return (
 		<KeyboardAwareScrollView style={styles.root}>
 			<ScrollView contentContainerStyle={styles.container}>
@@ -186,7 +191,7 @@ export default function SignUp(props) {
 					<Text style={styles.socialSignUpHeaderText}>Or sign up with</Text>
 
 					<View style={styles.socialPlatforms}>
-						<NeoButton containerStyle={styles.socialButton}>
+						<NeoButton containerStyle={styles.socialButton} onClick={handleGoogleSignIn}>
 							<Image source={require('../assets/images/google.png')} />
 						</NeoButton>
 

@@ -24,7 +24,7 @@ import { StatusBarHeight } from '../helpers/UtilityHelper';
 
 export default function BrandDetail(props) {
 	const { route } = props;
-	const { brand }: { brand: Brand } = route.params;
+	const { id }: { id: string } = route.params;
 	const [ loading, setLoading ] = useState<boolean>(false);
 	const [ showError, setShowError ] = useState<boolean>(false);
 	const [ errorMessage, setErrorMessage ] = useState<string>('');
@@ -33,7 +33,8 @@ export default function BrandDetail(props) {
 	const [ currentDenomination, setCurrentDenomination ] = useState<string>();
 
 	useEffect(() => {
-		fetchBrandDetails(brand.merchantId || brand.id);
+		fetchBrandDetails(id);
+		console.log('Brand ID: ', id);
 	}, []);
 
 	const fetchBrandDetails = async (id: string) => {
@@ -61,18 +62,21 @@ export default function BrandDetail(props) {
 
 	const handleShareClick = async () => {
 		let title;
+		let type;
 
-		if (brand.type === BrandType.MERCHANT) {
-			title = `Buy products on ${brand.name} to get Satsback`;
-		} else if (brand.type === BrandType.GIFTCARD) {
-			title = `${brand.name}`;
+		if (brandData.isGiftCard) {
+			title = `${brandData.name}`;
+			type = 'giftcard';
+		} else {
+			title = `Buy products on ${brandData.name} to get Satsback`;
+			type = 'merchant';
 		}
 
 		try {
 			const result = await Share.share({
 				message: `${title}${`
-				`}${Config.SHARE_URL_BASE}${brand.type}/${brand.id}`,
-				url: `${Config.SHARE_URL_BASE}${brand.type}/${brand.id}`,
+				`}${Config.SHARE_URL_BASE}${type}/${id}`,
+				url: `${Config.SHARE_URL_BASE}${type}/${id}`,
 			});
 		} catch (error) {}
 	};
@@ -88,7 +92,7 @@ export default function BrandDetail(props) {
 	};
 
 	const getButtonText = () => {
-		return brand && brand.type === BrandType.GIFTCARD ? 'Buy Voucher' : 'Shop Now';
+		return brandData && brandData.isGiftCard ? 'Buy Voucher' : 'Shop Now';
 	};
 
 	const onPurchanseClick = () => {
@@ -148,7 +152,7 @@ export default function BrandDetail(props) {
 				/>
 
 				<View style={styles.container}>
-					{brand && brandData && (
+					{brandData && (
 						<React.Fragment>
 							<View style={styles.content}>
 								<NeomorphFlex
