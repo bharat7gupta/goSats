@@ -15,6 +15,7 @@ import SignUpReferralCode from './components/SignUpReferralCode';
 import * as StorageHelper from './helpers/StorageHelper';
 import authReducer, { authInitialState, AuthActions, AuthState } from './reducers/AuthReducer';
 import SocialSignIn from './components/SocialSignIn';
+import SpinWheel from './components/SpinWheel';
 
 export const AuthStateContext = React.createContext({} as AuthState);
 export const AuthDispatchContext = React.createContext((payload) => {});
@@ -104,10 +105,12 @@ function App() {
 						</Stack.Navigator>
 						) : (
 							<Stack.Navigator
-								initialRouteName={hasVerifiedAccount ? 'SignIn' : 'SignUp'}
+								// initialRouteName={hasVerifiedAccount ? 'SignIn' : 'SignUp'}
+								initialRouteName={'SpinWheel'}
 								screenOptions={{ header: () => null }}
 							>
 								<React.Fragment>
+									<Stack.Screen name="SpinWheel" component={SpinWheel} />
 									<Stack.Screen name="SignUp" component={SignUp} />
 									<Stack.Screen name="SignIn" component={SignIn} />
 									<Stack.Screen name="SocialSignIn" component={SocialSignIn} />

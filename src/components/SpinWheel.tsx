@@ -8,30 +8,32 @@ import AcitonButtonWithShadow from './common/ActionButtonWithShadow';
 import { Neomorph } from 'react-native-neomorph-shadows';
 import Button from './common/Button';
 import { TouchableHighlight } from 'react-native-gesture-handler';
+import BackButton from './common/BackButton';
+import Cross from './common/icons/Cross';
 
-export default function SpinWheel() {
+export default function SpinWheel(props) {
 	const handleSpinClick = () => {
 
 	};
 
+	const handleBackButtonClick = () => {
+		props.navigation.goBack();
+	};
+
 	return (
 		<View style={styles.root}>
-			<WheelBoundary />
+			<View style={[styles.header, props.style]}>
+				<Text style={styles.headerText}>
+					Sats Spin
+				</Text>
 
-			<View style={styles.luckyWheel}>
-				<LuckyWheel />
-				<Text style={styles.label}>Bronze</Text>
+				<BackButton
+					onClick={handleBackButtonClick}
+					style={styles.buttonStyle}
+				>
+					<Cross />
+				</BackButton>
 			</View>
-
-			<Neomorph
-				style={{...styleConstants.shadowStyles, ...styles.spinButtonContainer}}
-				darkShadowColor={colorConstants.SHADOW_DARK}
-				lightShadowColor={colorConstants.ACTION_BUTTON_SHADOW}
-			>
-				<TouchableHighlight style={styles.spinButton}>
-					<Text style={styles.spinButtonText}>Spin</Text>
-				</TouchableHighlight>
-			</Neomorph>
 		</View>
 	);
 }
@@ -41,34 +43,26 @@ const styles = StyleSheet.create({
 		position: 'relative',
 		paddingVertical: 10,
 		paddingRight: 6,
+		backgroundColor: colorConstants.PRIMARY,
+		flex: 1,
 	},
-	luckyWheel: {
+	header: {
+		flexDirection: 'row',
+		paddingBottom: 8,
+		justifyContent: 'center',
+		position: 'relative',
+	},
+	buttonStyle: {
+		marginRight: 10,
 		position: 'absolute',
-		top: 50,
-		left: 51,
+		top: 0,
+		left: 10,
 	},
-	label: {
-		fontSize: 12,
-		lineHeight: 12,
-		fontFamily: 'SFProText-Regular',
-		color: colorConstants.BRONZE,
-		marginTop: 6,
-	},
-	spinButtonContainer: {
-		top: -30,
-		left: 28,
-		width: 80,
-		height: 30,
-		borderRadius: 40,
-		backgroundColor: colorConstants.ACTION_BUTTON,
-	},
-	spinButton: {
-	},
-	spinButtonText: {
-		fontFamily: 'SFProText-Bold',
-		fontSize: 14,
-		lineHeight: 18,
+	headerText: {
 		color: colorConstants.FONT_COLOR,
-		textTransform: 'uppercase',
+		fontFamily: 'SFProText-Bold',
+		fontSize: 18,
+		lineHeight: 28,
+		marginTop: 10,
 	},
 });

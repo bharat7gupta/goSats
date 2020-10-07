@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, ViewStyle } from 'react-native';
 import colorConstants from '../../constants/color';
 import BackButton from './BackButton';
+import ChevronLeft from './icons/ChevronLeft';
 
 interface HeaderProps {
 	title: string;
@@ -23,7 +24,9 @@ export default function Header(props: HeaderProps) {
 				<BackButton
 					onClick={handleBackButtonClick}
 					style={styles.buttonStyle}
-				/>
+				>
+					<ChevronLeft />
+				</BackButton>
 			)}
 
 			<Text style={styles.headerText}>
