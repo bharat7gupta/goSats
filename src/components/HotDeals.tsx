@@ -4,6 +4,7 @@ import colorConstants from '../constants/color';
 import NeoTile from './common/NeoTile';
 import Brand from '../types/Brand';
 import { TouchableHighlight, ScrollView } from 'react-native-gesture-handler';
+import BrandItem from '../types/BrandItem';
 // import brandList from '../mock_jsons/brand-list.json';
 
 const screen = Dimensions.get('screen');
@@ -11,7 +12,7 @@ const { width } = screen;
 
 interface HotDealsProps {
 	merchants: Brand[];
-	onItemClick: (brand: Brand) => void;
+	onItemClick: (brand: BrandItem) => void;
 }
 
 export default function HotDeals(props: HotDealsProps) {

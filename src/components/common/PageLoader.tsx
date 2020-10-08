@@ -12,14 +12,16 @@ export default function PageLoader(props: PageLoaderProps) {
 
 	useEffect(() => {
 		if (props.showLoader) {
-			Animated.timing(
-				spinValue,
-				{
-					toValue: 1,
-					duration: 1000,
-					easing: Easing.linear,
-					useNativeDriver: true,
-				},
+			Animated.loop(
+				Animated.timing(
+					spinValue,
+					{
+						toValue: 1,
+						duration: 1000,
+						easing: Easing.linear,
+						useNativeDriver: true,
+					},
+				)
 			).start();
 		}
 	}, [props.showLoader]);

@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useReducer, useMemo } from 'react';
-import { StatusBar, LogBox } from 'react-native';
+import { StatusBar, LogBox, Linking } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import SplashScreen from 'react-native-splash-screen';
@@ -14,6 +14,7 @@ import VerifyAccount from './components/VerifyAccount';
 import SignUpReferralCode from './components/SignUpReferralCode';
 import * as StorageHelper from './helpers/StorageHelper';
 import authReducer, { authInitialState, AuthActions, AuthState } from './reducers/AuthReducer';
+import SocialSignIn from './components/SocialSignIn';
 
 export const AuthStateContext = React.createContext({} as AuthState);
 export const AuthDispatchContext = React.createContext((payload) => {});
@@ -70,18 +71,34 @@ function App() {
 		SplashScreen.hide();
 	}
 
+	const deepLinking = {
+		prefixes: ['https://gosats.io', 'gosats://'],
+		config: {
+			screens: {
+				Dashboard: {
+					initialRouteName: 'shop',
+					screens: {
+						Shop: 'shop',
+						Categories: 'categories',
+					},
+				},
+				BrandDetail: 'merchant/:id',
+				SocialSignIn: 'socialsignin',
+			},
+		},
+	};
+
 	return (
 		<AuthStateContext.Provider value={authContextValue.authState}>
 			<AuthDispatchContext.Provider value={authContextValue.dispatch}>
-				<NavigationContainer>
+				<NavigationContainer linking={deepLinking}>
 					{hasVerifiedAccount && isLoggedIn ? (
 						<Stack.Navigator
-							initialRouteName="Home"
+							initialRouteName="Dashboard"
 							screenOptions={{ header: () => null }}
 						>
 							<React.Fragment>
 								<Stack.Screen name="Dashboard" component={Dashboard} />
-								<Stack.Screen name="Categories" component={Categories} />
 								<Stack.Screen name="BrandDetail" component={BrandDetail} />
 							</React.Fragment>
 						</Stack.Navigator>
@@ -93,6 +110,7 @@ function App() {
 								<React.Fragment>
 									<Stack.Screen name="SignUp" component={SignUp} />
 									<Stack.Screen name="SignIn" component={SignIn} />
+									<Stack.Screen name="SocialSignIn" component={SocialSignIn} />
 									<Stack.Screen name="VerifyAccount" component={VerifyAccount} />
 									<Stack.Screen name="SignUpReferralCode" component={SignUpReferralCode} />
 								</React.Fragment>

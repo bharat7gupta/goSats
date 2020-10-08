@@ -65,7 +65,7 @@ export default function Categories(props) {
 	};
 
 	const handleProductClick = (brand: Brand) => {
-		props.navigation.navigate('BrandDetail', { brand });
+		props.navigation.navigate('BrandDetail', { id: brand.merchantId || brand.id });
 	};
 
 	const handleDismissError = () => {

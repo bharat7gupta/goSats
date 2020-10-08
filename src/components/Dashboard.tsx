@@ -41,7 +41,7 @@ export default function Dashboard() {
 				}}
 			/>
 			<Tab.Screen
-				name="BuyBitcoin"
+				name="Categories"
 				component={Categories}
 				options={{
 					tabBarIcon: ({ focused }) => <CategoriesIcon isActive={focused} />,
