@@ -5,6 +5,7 @@ import colorConstants from '../constants/color';
 import styleConstants from '../constants/style';
 import SpinWheelIcon from './common/icons/SpinWheelIcon';
 import UserBalance from '../types/UserBalance';
+import * as UtilityHelper from '../helpers/UtilityHelper';
 
 interface RewardsSectionProps {
 	balanceData: UserBalance;
@@ -12,8 +13,8 @@ interface RewardsSectionProps {
 
 export default function RewardsSection(props: RewardsSectionProps) {
 	const { balanceData } = props;
-	const userBalance = (balanceData && balanceData.balance.totalEarnedSats) || 0;
-	const formattedBalance = userBalance.toLocaleString();
+	const userBalance = balanceData && balanceData.balance.totalEarnedSats;
+	const formattedBalance = UtilityHelper.getFormattedNumber(userBalance);
 	const currentLevel = balanceData && balanceData.level.current;
 	const levelImageUrl = balanceData && balanceData.level.icon;
 	const textColorCode = balanceData && balanceData.level.colorCode;

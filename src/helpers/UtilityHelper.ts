@@ -10,6 +10,10 @@ export const isPhoneNumber = (value: string) => {
 	return phoneNumberRegEx.test(value);
 };
 
+export const getFormattedNumber = (number) => {
+	return number && !isNaN(number) ? Number(number).toLocaleString('en-IN') : 0;
+};
+
 //  Start status bar height
 const X_WIDTH = 375;
 const X_HEIGHT = 812;
