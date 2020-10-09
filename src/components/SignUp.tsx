@@ -15,6 +15,7 @@ import Strings from '../constants/strings';
 import { AuthDispatchContext } from '../App';
 import { AuthActions } from '../reducers/AuthReducer';
 import AcitonButtonWithShadow from './common/ActionButtonWithShadow';
+import { Auth } from 'aws-amplify';
 
 let hasFormError = false;
 
@@ -133,7 +134,7 @@ export default function SignUp(props) {
 	};
 
 	const handleGoogleSignIn = () => {
-		InAppBrowser.open('https://gosats-dvp.auth.us-east-2.amazoncognito.com/oauth2/authorize?identity_provider=Google&client_id=6lla9iektearf9j1q17cq66d5r&response_type=code&scope=email+openid+phone+profile&redirect_uri=gosats://socialsignin');
+		Auth.federatedSignIn({ provider: 'Google' });
 	};
 
 	return (
