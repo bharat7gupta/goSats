@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, Image, StyleSheet } from 'react-native';
 import colorConstants from '../constants/color';
 import Header from './common/Header';
 import { ScrollView } from 'react-native-gesture-handler';
 import LevelBadge from './common/LevelBadge';
-import userBalanceMockData from '../mock_jsons/user-balance.json';
 import * as ApiHelper from '../helpers/ApiHelper';
 import WalletFilledIcon from './common/icons/WalletFilledIcon';
 import ProgressBar from './common/ProgressBar';
+import * as UtilityHelper from '../helpers/UtilityHelper';
+import LevelProgress from './LevelProgress';
+// import userBalanceMockData from '../mock_jsons/user-balance.json';
 
 export default function Rewards(props) {
 	const [ balanceData, setBalanceData ] = useState(null);
@@ -17,8 +19,8 @@ export default function Rewards(props) {
 	}, []);
 
 	const fetchUserBalance = async () => {
-		// const userBalance = await ApiHelper.fetchUserBalance();
-		const userBalance = userBalanceMockData;
+		const userBalance = await ApiHelper.fetchUserBalance();
+		// const userBalance = userBalanceMockData;
 		if (userBalance.error) {
 			return;
 		}
@@ -26,10 +28,10 @@ export default function Rewards(props) {
 		setBalanceData(userBalance.data);
 	};
 
-	const earnedSats = (balanceData && balanceData.balance.totalEarnedSats) || 0;
-	const spendableSats = (balanceData && balanceData.balance.spendableSats) || 0;
-	const formattedEarnedSats = earnedSats.toLocaleString();
-	const formattedSpendableSats = spendableSats.toLocaleString();
+	const earnedSats = balanceData && balanceData.balance.totalEarnedSats;
+	const spendableSats = balanceData && balanceData.balance.spendableSats;
+	const formattedEarnedSats = UtilityHelper.getFormattedNumber(earnedSats);
+	const formattedSpendableSats = UtilityHelper.getFormattedNumber(spendableSats);
 
 	return (
 		<View style={styles.root}>
@@ -47,7 +49,7 @@ export default function Rewards(props) {
 							Total Rewards Earrned
 						</Text>
 
-						{balanceData && <LevelBadge level={balanceData.level} />}
+						<LevelBadge level={balanceData && balanceData.level} />
 					</View>
 
 					<View style={{ flexDirection: 'row' }}>
@@ -71,11 +73,16 @@ export default function Rewards(props) {
 					<View style={styles.horizontalLine} />
 
 					<View style={styles.levelContainer}>
-						<View style={styles.badgeIcon} />
+						<Image
+							source={{ uri: balanceData && balanceData.level && balanceData.level.badge }}
+							style={styles.badgeIcon}
+						/>
 
-						<View style={styles.progressBarContainer}>
-							<ProgressBar />
-						</View>
+						<LevelProgress
+							earnedSats={Number(earnedSats)}
+							level={balanceData && balanceData.level}
+							style={styles.progressBarContainer}
+						/>
 					</View>
 
 					<Text style={styles.info}>
@@ -165,12 +172,14 @@ const styles = StyleSheet.create({
 		flexDirection: 'row',
 	},
 	badgeIcon: {
-		width: 84,
-		height: 94,
+		width: 104,
+		height: 114,
+		marginLeft: -14,
+		marginBottom: -8,
 	},
 	progressBarContainer: {
-		marginLeft: 6,
 		flex: 1,
+		marginTop: 12,
 	},
 	info: {
 		fontSize: 12,

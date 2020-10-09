@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
 import { NeomorphFlex } from 'react-native-neomorph-shadows';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 import colorConstants from '../constants/color';
 import styleConstants from '../constants/style';
 import SpinWheelIcon from './common/icons/SpinWheelIcon';
@@ -10,6 +11,8 @@ import LevelBadge from './common/LevelBadge';
 
 interface RewardsSectionProps {
 	balanceData: UserBalance;
+	navigation?: any;
+	onRewardsClick: () => void;
 }
 
 export default function RewardsSection(props: RewardsSectionProps) {
@@ -18,11 +21,17 @@ export default function RewardsSection(props: RewardsSectionProps) {
 	const formattedBalance = UtilityHelper.getFormattedNumber(userBalance);
 	const levelImageUrl = balanceData && balanceData.level.icon;
 
+	const handleRewardsClick = () => {
+		props.onRewardsClick();
+	};
+
 	return (
 		<View style={styles.root}>
-			<View style={styles.icon}>
-				<Image source={{ uri: levelImageUrl }} style={{ width: 60, height: 90 }} />
-			</View>
+			<TouchableOpacity onPress={handleRewardsClick}>
+				<View style={styles.icon}>
+					<Image source={{ uri: levelImageUrl }} style={{ width: 60, height: 90 }} />
+				</View>
+			</TouchableOpacity>
 
 			<View style={styles.rewards}>
 				<Text style={styles.rewardsHeaderText}>

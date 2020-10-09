@@ -7,4 +7,5 @@ export default interface UserBalance {
 	};
 	level: UserLevel;
 	referralId: string;
+	isReferralReq: boolean;
 }

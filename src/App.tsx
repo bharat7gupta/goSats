@@ -101,16 +101,15 @@ function App() {
 							<React.Fragment>
 								<Stack.Screen name="Dashboard" component={Dashboard} />
 								<Stack.Screen name="BrandDetail" component={BrandDetail} />
+								<Stack.Screen name="Rewards" component={Rewards} />
 							</React.Fragment>
 						</Stack.Navigator>
 						) : (
 							<Stack.Navigator
-								// initialRouteName={hasVerifiedAccount ? 'SignIn' : 'SignUp'}
-								initialRouteName={'Rewards'}
+								initialRouteName={hasVerifiedAccount ? 'SignIn' : 'SignUp'}
 								screenOptions={{ header: () => null }}
 							>
 								<React.Fragment>
-									<Stack.Screen name="Rewards" component={Rewards} />
 									<Stack.Screen name="SignUp" component={SignUp} />
 									<Stack.Screen name="SignIn" component={SignIn} />
 									<Stack.Screen name="SocialSignIn" component={SocialSignIn} />

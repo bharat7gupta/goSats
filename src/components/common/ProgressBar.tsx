@@ -6,7 +6,10 @@ import colorConstants from '../../constants/color';
 import LinearGradient from 'react-native-linear-gradient';
 
 interface ProgressBarProps {
-
+	minValue: number;
+	maxValue: number;
+	currValue: number;
+	gradientColors: string[];
 }
 
 const PROGRESS_BAR_WIDTH_ADJUST = 5;
@@ -26,11 +29,9 @@ export default function ProgressBar(props: ProgressBarProps) {
 		setProgressBarWidth(calculatedProgressBarWidth);
 	};
 
-	const lowValue = 100;
-	const highValue = 200;
-	const currValue = 170;
-	const userValueRange = currValue - lowValue;
-	const levelValueRange = highValue - lowValue;
+	const { minValue, maxValue, currValue } = props;
+	const userValueRange = currValue - minValue;
+	const levelValueRange = maxValue - minValue;
 	const finalWidth = Math.min(
 		((userValueRange / levelValueRange) * progressBarWidth) + PROGRESS_BAR_WIDTH_ADJUST,
 		progressBarWidth,
@@ -68,7 +69,7 @@ export default function ProgressBar(props: ProgressBarProps) {
 		>
 			<Animated.View style={[ styles.progressBar, animatedStyle ]}>
 				<LinearGradient
-					colors={['#C38974', '#844832']}
+					colors={props.gradientColors}
 					locations={[ 0, 0.9 ]}
 					style={{ flexGrow: 1 }}
 				/>
