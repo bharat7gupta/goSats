@@ -14,7 +14,7 @@ export default function Header(props: HeaderProps) {
 	const { title, showBackButton = false, navigation } = props;
 
 	const handleBackButtonClick = () => {
-		props.navigation.goBack();
+		navigation.goBack();
 	};
 
 	return (
@@ -37,9 +37,13 @@ const styles = StyleSheet.create({
 	header: {
 		flexDirection: 'row',
 		paddingBottom: 8,
+		justifyContent: 'center',
+		marginTop: 10,
 	},
 	buttonStyle: {
-		marginRight: 10,
+		position: 'absolute',
+		left: 10,
+		top: 0,
 	},
 	headerText: {
 		color: colorConstants.FONT_COLOR,

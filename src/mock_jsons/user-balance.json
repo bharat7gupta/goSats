@@ -8,6 +8,8 @@
 		},
 		"level": {
 			"colorCode": "#A95E14",
+			"bgColorCode": "rgba(140, 78, 55, 0.2)",
+			"borderColor": "rgba(140, 78, 55, 0.6)",
 			"current": "Bronze",
 			"icon": "https://gosatsicons.s3.us-east-2.amazonaws.com/level/png/bronze.svg",
 			"next": "Silver"

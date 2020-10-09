@@ -65,6 +65,25 @@ export default function SocialSignIn(props) {
 			setErrorMessage(params.error_description);
 			return;
 		}
+
+		if (params.code) {
+			fetch('https://oauth2.googleapis.com/token', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/x-www-form-urlencoded',
+				},
+				body: JSON.stringify({
+					code: params.code,
+					client_id: "955313282872-gp23sffrgbv3fb80tinbedrfpatf7vto.apps.googleusercontent.com",
+					client_secret: "d1qCmw9tINeuIO1Oi6PQ9ple",
+					redirect_uri: "https://gosats-dvp.auth.us-east-2.amazoncognito.com/oauth2/idpresponse",
+					grant_type: "authorization_code"
+				})
+			})
+			.then(response => response.json().then(data => {
+				console.log(data);
+			}));
+		}
 	}, [ props.route.params ]);
 
 	const getUser = () => {

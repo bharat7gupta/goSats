@@ -1,0 +1,182 @@
+import React, { useState, useEffect } from 'react';
+import { View, Text, StyleSheet } from 'react-native';
+import colorConstants from '../constants/color';
+import Header from './common/Header';
+import { ScrollView } from 'react-native-gesture-handler';
+import LevelBadge from './common/LevelBadge';
+import userBalanceMockData from '../mock_jsons/user-balance.json';
+import * as ApiHelper from '../helpers/ApiHelper';
+import WalletFilledIcon from './common/icons/WalletFilledIcon';
+import ProgressBar from './common/ProgressBar';
+
+export default function Rewards(props) {
+	const [ balanceData, setBalanceData ] = useState(null);
+
+	useEffect(() => {
+		fetchUserBalance();
+	}, []);
+
+	const fetchUserBalance = async () => {
+		// const userBalance = await ApiHelper.fetchUserBalance();
+		const userBalance = userBalanceMockData;
+		if (userBalance.error) {
+			return;
+		}
+
+		setBalanceData(userBalance.data);
+	};
+
+	const earnedSats = (balanceData && balanceData.balance.totalEarnedSats) || 0;
+	const spendableSats = (balanceData && balanceData.balance.spendableSats) || 0;
+	const formattedEarnedSats = earnedSats.toLocaleString();
+	const formattedSpendableSats = spendableSats.toLocaleString();
+
+	return (
+		<View style={styles.root}>
+			<Header
+				title="Rewards"
+				showBackButton={true}
+				navigation={props.navigation}
+				style={styles.header}
+			/>
+
+			<ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+				<View style={styles.main}>
+					<View style={styles.mainHeader}>
+						<Text style={styles.earningsHeaderText}>
+							Total Rewards Earrned
+						</Text>
+
+						{balanceData && <LevelBadge level={balanceData.level} />}
+					</View>
+
+					<View style={{ flexDirection: 'row' }}>
+						<Text style={styles.earningsText}>
+							{formattedEarnedSats}
+						</Text>
+						<Text style={styles.earningsSubText}>
+							sats
+						</Text>
+					</View>
+
+					<View style={styles.balanceContainer}>
+						<View style={styles.balanceChip}>
+							<WalletFilledIcon />
+							<Text style={styles.balanceStaticText}>Balance</Text>
+						</View>
+
+						<Text style={styles.balanceText}>{`${formattedSpendableSats} sats`}</Text>
+					</View>
+
+					<View style={styles.horizontalLine} />
+
+					<View style={styles.levelContainer}>
+						<View style={styles.badgeIcon} />
+
+						<View style={styles.progressBarContainer}>
+							<ProgressBar />
+						</View>
+					</View>
+
+					<Text style={styles.info}>
+						Withdraw sats wont affect your progress to the next level.
+					</Text>
+				</View>
+			</ScrollView>
+		</View>
+	);
+}
+
+const styles = StyleSheet.create({
+	root: {
+		flex: 1,
+		backgroundColor: colorConstants.PRIMARY,
+	},
+	header: {
+		paddingHorizontal: 20,
+		paddingBottom: 20,
+	},
+	main: {
+		backgroundColor: colorConstants.PRIMARY_LIGHT,
+		borderRadius: 10,
+		padding: 20,
+		marginHorizontal: 18,
+		marginTop: 24,
+	},
+	mainHeader: {
+		flexDirection: 'row',
+		justifyContent: 'space-between',
+	},
+	earningsHeaderText: {
+		fontFamily: 'SFProText-Regular',
+		fontSize: 14,
+		lineHeight: 16,
+		color: '#737373',
+	},
+	earningsText: {
+		fontFamily: 'SFProText-Bold',
+		fontSize: 30,
+		lineHeight: 36,
+		color: colorConstants.FONT_COLOR,
+	},
+	earningsSubText: {
+		fontFamily: 'SFProText-Bold',
+		fontSize: 16,
+		marginLeft: 10,
+		lineHeight: 40,
+		color: colorConstants.FONT_COLOR,
+		textAlignVertical: 'bottom',
+	},
+	balanceContainer: {
+		flexDirection: 'row',
+		alignItems: 'center',
+		marginTop: 9,
+	},
+	balanceChip: {
+		flexDirection: 'row',
+		alignItems: 'center',
+		backgroundColor: '#252525',
+		borderRadius: 4,
+		paddingHorizontal: 10,
+		paddingVertical: 6,
+	},
+	balanceStaticText: {
+		color: '#737373',
+		fontFamily: 'SFProText-Regular',
+		fontSize: 14,
+		lineHeight: 19,
+		marginLeft: 10,
+	},
+	balanceText: {
+		color: colorConstants.FONT_COLOR,
+		fontFamily: 'SFProText-Regular',
+		fontSize: 14,
+		lineHeight: 16,
+		marginLeft: 10,
+	},
+	horizontalLine: {
+		height: 2,
+		backgroundColor: '#000000',
+		marginTop: 24,
+		marginBottom: 14,
+		borderRadius: 100,
+	},
+	levelContainer: {
+		flexDirection: 'row',
+	},
+	badgeIcon: {
+		width: 84,
+		height: 94,
+	},
+	progressBarContainer: {
+		marginLeft: 6,
+		flex: 1,
+	},
+	info: {
+		fontSize: 12,
+		lineHeight: 12,
+		fontFamily: 'SFProText-Regular',
+		color: '#5A4927',
+		marginTop: 9,
+	},
+});

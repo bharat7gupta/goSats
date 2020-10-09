@@ -6,6 +6,7 @@ import styleConstants from '../constants/style';
 import SpinWheelIcon from './common/icons/SpinWheelIcon';
 import UserBalance from '../types/UserBalance';
 import * as UtilityHelper from '../helpers/UtilityHelper';
+import LevelBadge from './common/LevelBadge';
 
 interface RewardsSectionProps {
 	balanceData: UserBalance;
@@ -15,10 +16,7 @@ export default function RewardsSection(props: RewardsSectionProps) {
 	const { balanceData } = props;
 	const userBalance = balanceData && balanceData.balance.totalEarnedSats;
 	const formattedBalance = UtilityHelper.getFormattedNumber(userBalance);
-	const currentLevel = balanceData && balanceData.level.current;
 	const levelImageUrl = balanceData && balanceData.level.icon;
-	const textColorCode = balanceData && balanceData.level.colorCode;
-	const bgColorCode = balanceData && balanceData.level.bgColorCode;
 
 	return (
 		<View style={styles.root}>
@@ -41,9 +39,7 @@ export default function RewardsSection(props: RewardsSectionProps) {
 				</View>
 
 				<View style={styles.bottomRow}>
-					<View style={{ ...styles.badge, borderColor: textColorCode, backgroundColor: bgColorCode }}>
-						<Text style={{ color: textColorCode }}>{currentLevel}</Text>
-					</View>
+					{balanceData && <LevelBadge level={balanceData.level} />}
 
 					<NeomorphFlex
 						style={{ ...styleConstants.shadowStyles, flex: 0, borderRadius: 20 }}
