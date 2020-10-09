@@ -2,13 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
 import colorConstants from '../constants/color';
 import Header from './common/Header';
-import { ScrollView } from 'react-native-gesture-handler';
+import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import LevelBadge from './common/LevelBadge';
 import * as ApiHelper from '../helpers/ApiHelper';
 import WalletFilledIcon from './common/icons/WalletFilledIcon';
 import ProgressBar from './common/ProgressBar';
 import * as UtilityHelper from '../helpers/UtilityHelper';
 import LevelProgress from './LevelProgress';
+import RewardsHistoryIcon from './common/icons/RewardsHistoryIcon';
+import ReferAndEarnIcon from './common/icons/ReferAndEarnIcon';
 // import userBalanceMockData from '../mock_jsons/user-balance.json';
 
 export default function Rewards(props) {
@@ -89,6 +91,23 @@ export default function Rewards(props) {
 						Withdraw sats wont affect your progress to the next level.
 					</Text>
 				</View>
+
+				<TouchableOpacity style={styles.menuButton}>
+					<RewardsHistoryIcon />
+					<Text style={styles.menuButtonText}>Rewards History</Text>
+				</TouchableOpacity>
+
+				<TouchableOpacity style={styles.menuButton}>
+					<ReferAndEarnIcon />
+					<Text style={styles.menuButtonText}>Refer & Earn</Text>
+				</TouchableOpacity>
+
+				<TouchableOpacity style={styles.menuButton}>
+					<RewardsHistoryIcon />
+					<Text style={styles.menuButtonText}>How It Works</Text>
+				</TouchableOpacity>
+
+				<View style={{ marginBottom: 50 }} />
 			</ScrollView>
 		</View>
 	);
@@ -187,5 +206,22 @@ const styles = StyleSheet.create({
 		fontFamily: 'SFProText-Regular',
 		color: '#5A4927',
 		marginTop: 9,
+	},
+	menuButton: {
+		flexDirection: 'row',
+		alignItems: 'center',
+		marginTop: 10,
+		marginHorizontal: 20,
+		paddingHorizontal: 20,
+		paddingVertical: 16,
+		backgroundColor: colorConstants.PRIMARY_LIGHT,
+		borderRadius: 10,
+	},
+	menuButtonText: {
+		fontSize: 16,
+		lineHeight: 28,
+		fontFamily: 'SFProText-Regular',
+		color: '#D0D0D0',
+		marginLeft: 10,
 	},
 });
