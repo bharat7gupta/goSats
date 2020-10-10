@@ -117,6 +117,7 @@ const styles = StyleSheet.create({
 	root: {
 		flex: 1,
 		backgroundColor: colorConstants.PRIMARY,
+		paddingTop: UtilityHelper.StatusBarHeight,
 	},
 	header: {
 		paddingHorizontal: 20,
