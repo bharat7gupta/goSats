@@ -8,6 +8,7 @@ const API_URLS = {
 	GET_MERCHANT_DETAIL: '/user/merchant/get/',
 	USER_BALANCE: '/user/balance',
 	SET_REFEREE: '/user/referee',
+	SPIN_WHEEL: '/user/spin',
 };
 
 export async function fetchMasterData() {
@@ -93,6 +94,25 @@ export async function setReferee (referralCode) {
 			},
 			method: 'POST',
 			body: JSON.stringify({ referee: referralCode }),
+		});
+		const json = await response.json();
+
+		return json;
+	} catch (e) {
+		// TODO: Show toast here
+	}
+}
+
+export async function spinWheel() {
+	const apiUrl = `${API_ROOT}${API_URLS.SPIN_WHEEL}`;
+
+	try {
+		const accessToken = await StorageHelper.getItem('accessToken');
+		console.log(accessToken);
+		const response = await fetch(apiUrl, {
+			headers: {
+				'Authorization': `Bearer ${accessToken}`,
+			},
 		});
 		const json = await response.json();
 

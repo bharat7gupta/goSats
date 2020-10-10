@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, Animated, StyleSheet, Dimensions, Easing } from 'react-native';
 import Header from './common/Header';
 import colorConstants from '../constants/color';
 import styleConstants from '../constants/style';
+import * as ApiHelper from '../helpers/ApiHelper';
 import * as UtilityHelper from '../helpers/UtilityHelper';
 import { ScrollView } from 'react-native-gesture-handler';
 import Strings from '../constants/strings';
@@ -23,6 +24,15 @@ const wheelImageWidth = wheelWidth - 8;
 export default function SatsSpin(props: SatsSpinProps) {
 	const [ submitDisabled, setSubmitDisabled ] = useState(false);
 	const spinValue = new Animated.Value(0);
+
+	useEffect(() => {
+		fetchSpinWheelData();
+	}, []);
+
+	const fetchSpinWheelData = async () => {
+		const spinWheelData = await ApiHelper.spinWheel();
+		console.log(spinWheelData);
+	};
 
 	const onSubmit = () => {
 		spinValue.setValue(0);
