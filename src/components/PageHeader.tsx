@@ -5,10 +5,14 @@ import styleConstants from '../constants/style';
 import { Neomorph } from 'react-native-neomorph-shadows';
 import NotificationIcon from './common/icons/NotificationIcon';
 
-export default function ShopHeader() {
+interface PageHeaderProps {
+	title: string;
+}
+
+export default function PageHeader(props: PageHeaderProps) {
 	return (
 		<View style={styles.root}>
-			<Text style={styles.headerText}>Shop</Text>
+			<Text style={styles.headerText}>{props.title}</Text>
 
 			<View style={{ marginLeft: 20 }}>
 				<Neomorph

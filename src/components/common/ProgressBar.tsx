@@ -10,6 +10,7 @@ interface ProgressBarProps {
 	maxValue: number;
 	currValue: number;
 	gradientColors: string[];
+	horizontalGradient?: boolean;
 }
 
 const PROGRESS_BAR_WIDTH_ADJUST = 5;
@@ -56,6 +57,15 @@ export default function ProgressBar(props: ProgressBarProps) {
 
 	const animatedStyle = { width: slideValue, height: finalHeight, top: finalTop };
 
+	let extraProps = {};
+
+	if (props.horizontalGradient) {
+		extraProps = {
+			start: { x: 0, y: 1 },
+			end: { x: 1, y: 1 },
+		};
+	}
+
 	return (
 		<NeomorphFlex
 			inner={true}
@@ -72,6 +82,7 @@ export default function ProgressBar(props: ProgressBarProps) {
 					colors={props.gradientColors}
 					locations={[ 0, 0.9 ]}
 					style={{ flexGrow: 1 }}
+					{...extraProps}
 				/>
 			</Animated.View>
 		</NeomorphFlex>

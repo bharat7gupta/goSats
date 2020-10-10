@@ -2,12 +2,12 @@ import React from 'react';
 import { Svg, Path } from 'react-native-svg';
 import colorConstants from '../../../constants/color';
 
-interface WalletProps {
+interface WalletIconProps {
 	size?: number;
 	isActive?: boolean;
 }
 
-export default function Wallet(props: WalletProps) {
+export default function WalletIcon(props: WalletIconProps) {
 	const { size = 20, isActive = false } = props;
 	const fillColor = isActive ? colorConstants.FONT_COLOR : colorConstants.WARM_GREY;
 

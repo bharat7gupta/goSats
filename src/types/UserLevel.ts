@@ -1,14 +1,14 @@
 export default interface UserLevel {
-	colorCode: string;
-	bgColorCode: string;
-	borderColor: string;
-	current: UserLevelType;
-	next: UserLevelType;
+	colorCode?: string;
+	bgColorCode?: string;
+	borderColor?: string;
+	current?: UserLevelType;
+	next?: UserLevelType;
 	curMaxSats: number;
 	curMinSats: number;
 	progressBarBgColor: string[];
-	icon: string;
-	badge: string;
+	icon?: string;
+	badge?: string;
 }
 
 export enum UserLevelType {
