@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
 		marginTop: 7,
 	},
 	levelText: {
-		fontFamily: 'SFProText-Regular',
+		fontFamily: 'SFProText-Bold',
 		fontSize: 12,
 		lineHeight: 16,
 		color: '#939393',

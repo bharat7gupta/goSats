@@ -12,6 +12,7 @@ import LevelProgress from './LevelProgress';
 import RewardsHistoryIcon from './common/icons/RewardsHistoryIcon';
 import ReferAndEarnIcon from './common/icons/ReferAndEarnIcon';
 import ChevronLeft from './common/icons/ChevronLeft';
+import HowItWorksIcon from './common/icons/HowItWorksIcon';
 // import userBalanceMockData from '../mock_jsons/user-balance.json';
 
 export default function Rewards(props) {
@@ -105,7 +106,7 @@ export default function Rewards(props) {
 				</TouchableOpacity>
 
 				<TouchableOpacity style={styles.menuButton}>
-					<RewardsHistoryIcon />
+					<HowItWorksIcon />
 					<Text style={styles.menuButtonText}>How It Works</Text>
 				</TouchableOpacity>
 
