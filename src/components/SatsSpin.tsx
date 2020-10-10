@@ -25,21 +25,17 @@ export default function SatsSpin(props: SatsSpinProps) {
 	const spinValue = new Animated.Value(0);
 
 	const onSubmit = () => {
-		// setShouldSpin(true);
+		spinValue.setValue(0);
 
-		setTimeout(() => {
-			spinValue.setValue(0);
-
-			Animated.timing(
-				spinValue,
-				{
-					toValue: 1,
-					duration: 700,
-					easing: Easing.linear,
-					useNativeDriver: true,
-				},
-			).start();
-		});
+		Animated.timing(
+			spinValue,
+			{
+				toValue: 1,
+				duration: 700,
+				easing: Easing.linear,
+				useNativeDriver: true,
+			},
+		).start();
 	};
 
 	const spin = spinValue.interpolate({
