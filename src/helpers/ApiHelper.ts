@@ -7,6 +7,7 @@ const API_URLS = {
 	GET_MERCHANTS: '/user/merchant/list/all',
 	GET_MERCHANT_DETAIL: '/user/merchant/get/',
 	USER_BALANCE: '/user/balance',
+	SET_REFEREE: '/user/referee',
 };
 
 export async function fetchMasterData() {
@@ -72,6 +73,26 @@ export async function fetchUserBalance() {
 			headers: {
 				'Authorization': `Bearer ${accessToken}`,
 			},
+		});
+		const json = await response.json();
+
+		return json;
+	} catch (e) {
+		// TODO: Show toast here
+	}
+}
+
+export async function setReferee (referralCode) {
+	const apiUrl = `${API_ROOT}${API_URLS.SET_REFEREE}`;
+
+	try {
+		const accessToken = await StorageHelper.getItem('accessToken');
+		const response = await fetch(apiUrl, {
+			headers: {
+				'Authorization': `Bearer ${accessToken}`,
+			},
+			method: 'POST',
+			body: JSON.stringify({ referee: referralCode }),
 		});
 		const json = await response.json();
 

@@ -4,7 +4,8 @@ import { Auth, Hub } from 'aws-amplify';
 import PageLoader from './common/PageLoader';
 import colorConstants from '../constants/color';
 import ErrorModal from './common/ErrorModal';
-import * as StorageHelper from '../helpers/StorageHelper'
+import * as StorageHelper from '../helpers/StorageHelper';
+import * as ApiHelper from '../helpers/ApiHelper';
 import { AuthDispatchContext } from '../App';
 import { AuthActions } from '../reducers/AuthReducer';
 import Strings from '../constants/strings';
@@ -22,14 +23,25 @@ export default function SocialSignIn(props) {
 				case 'cognitoHostedUI': {
 					getUser().then(user => {
 						const accessToken = user.signInUserSession.accessToken.jwtToken;
-						StorageHelper.setItem('isLoggedIn', 'true');
-						StorageHelper.setItem('hasVerifiedAccount', 'true');
 						StorageHelper.setItem('accessToken', accessToken);
+						StorageHelper.setItem('isSocialSignIn', 'true');
 
-						authDispatch({
-							type: AuthActions.UPDATE_LOGIN_STATUS,
-							isLoggedIn: true,
-						});
+						ApiHelper.fetchUserBalance()
+							.then(balanceResponse => {
+								const isReferralReq = balanceResponse.data.isReferralReq;
+
+								if (isReferralReq) {
+									props.navigation.navigate('SignUpReferralCode');
+								} else {
+									StorageHelper.setItem('isLoggedIn', 'true');
+									StorageHelper.setItem('hasVerifiedAccount', 'true');
+
+									authDispatch({
+										type: AuthActions.UPDATE_LOGIN_STATUS,
+										isLoggedIn: true,
+									});
+								}
+							});
 					});
 
 					break;
