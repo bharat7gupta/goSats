@@ -13,6 +13,7 @@ interface RewardsSectionProps {
 	balanceData: UserBalance;
 	navigation?: any;
 	onRewardsClick: () => void;
+	onSpinClick: () => void;
 }
 
 export default function RewardsSection(props: RewardsSectionProps) {
@@ -21,13 +22,9 @@ export default function RewardsSection(props: RewardsSectionProps) {
 	const formattedBalance = UtilityHelper.getFormattedNumber(userBalance);
 	const levelImageUrl = balanceData && balanceData.level.icon;
 
-	const handleRewardsClick = () => {
-		props.onRewardsClick();
-	};
-
 	return (
 		<View style={styles.root}>
-			<TouchableOpacity onPress={handleRewardsClick}>
+			<TouchableOpacity onPress={props.onRewardsClick}>
 				<View style={styles.icon}>
 					<Image source={{ uri: levelImageUrl }} style={{ width: 60, height: 90 }} />
 				</View>
@@ -55,10 +52,10 @@ export default function RewardsSection(props: RewardsSectionProps) {
 						darkShadowColor={colorConstants.SHADOW_DARK}
 						lightShadowColor={colorConstants.ACTION_BUTTON_SHADOW}
 					>
-						<View style={styles.spinButton}>
+						<TouchableOpacity style={styles.spinButton} onPress={props.onSpinClick}>
 							<SpinWheelIcon />
 							<Text style={styles.spinButtonText}>Spin</Text>
-						</View>
+						</TouchableOpacity>
 					</NeomorphFlex>
 				</View>
 			</View>

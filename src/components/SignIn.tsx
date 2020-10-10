@@ -13,6 +13,7 @@ import Strings from '../constants/strings';
 import { AuthActions } from '../reducers/AuthReducer';
 import { AuthDispatchContext } from '../App';
 import AcitonButtonWithShadow from './common/ActionButtonWithShadow';
+import ChevronLeft from './common/icons/ChevronLeft';
 
 let hasFormError = false;
 
@@ -104,6 +105,7 @@ export default function SignIn(props) {
 					<Header
 						title="Sign In"
 						showBackButton={false}
+						backButtonContent={<ChevronLeft />}
 						navigation={props.navigation}
 					/>
 					<TouchableOpacity onPress={handleSignUpPress} containerStyle={styles.signUpButton} >

@@ -20,6 +20,7 @@ import Header from './common/Header';
 import Strings from '../constants/strings';
 import * as Config from '../constants/config';
 import { StatusBarHeight } from '../helpers/UtilityHelper';
+import ChevronLeft from './common/icons/ChevronLeft';
 // import merchantDetail from '../mock_jsons/merchant-detail.json';
 
 export default function BrandDetail(props) {
@@ -147,6 +148,7 @@ export default function BrandDetail(props) {
 				<Header
 					title="Details"
 					showBackButton={true}
+					backButtonContent={<ChevronLeft />}
 					navigation={props.navigation}
 					style={styles.header}
 				/>

@@ -6,6 +6,7 @@ import colorConstants from '../../constants/color';
 import ChevronLeft from './icons/ChevronLeft';
 
 interface BackButtonProps {
+	children: JSX.Element;
 	style?: ViewStyle;
 	onClick?: () => void;
 }
@@ -43,7 +44,7 @@ function BackButton(props: BackButtonProps) {
 					darkShadowColor={colorConstants.SHADOW_DARK}
 					lightShadowColor={colorConstants.SHADOW_LIGHT}
 				>
-					<ChevronLeft />
+					{props.children}
 				</NeomorphFlex>
 			</View>
 		</View>

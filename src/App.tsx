@@ -16,6 +16,7 @@ import * as StorageHelper from './helpers/StorageHelper';
 import authReducer, { authInitialState, AuthActions, AuthState } from './reducers/AuthReducer';
 import SocialSignIn from './components/SocialSignIn';
 import Rewards from './components/Rewards';
+import SatsSpin from './components/SatsSpin';
 
 export const AuthStateContext = React.createContext({} as AuthState);
 export const AuthDispatchContext = React.createContext((payload) => {});
@@ -102,6 +103,7 @@ function App() {
 								<Stack.Screen name="Dashboard" component={Dashboard} />
 								<Stack.Screen name="BrandDetail" component={BrandDetail} />
 								<Stack.Screen name="Rewards" component={Rewards} />
+								<Stack.Screen name="SatsSpin" component={SatsSpin} />
 							</React.Fragment>
 						</Stack.Navigator>
 						) : (

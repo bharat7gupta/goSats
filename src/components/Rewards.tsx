@@ -11,6 +11,7 @@ import * as UtilityHelper from '../helpers/UtilityHelper';
 import LevelProgress from './LevelProgress';
 import RewardsHistoryIcon from './common/icons/RewardsHistoryIcon';
 import ReferAndEarnIcon from './common/icons/ReferAndEarnIcon';
+import ChevronLeft from './common/icons/ChevronLeft';
 // import userBalanceMockData from '../mock_jsons/user-balance.json';
 
 export default function Rewards(props) {
@@ -40,6 +41,7 @@ export default function Rewards(props) {
 			<Header
 				title="Rewards"
 				showBackButton={true}
+				backButtonContent={<ChevronLeft />}
 				navigation={props.navigation}
 				style={styles.header}
 			/>
@@ -122,7 +124,6 @@ const styles = StyleSheet.create({
 	header: {
 		paddingHorizontal: 20,
 		paddingBottom: 20,
-		marginTop: 0,
 	},
 	main: {
 		backgroundColor: colorConstants.PRIMARY_LIGHT,

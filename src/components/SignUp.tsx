@@ -16,6 +16,7 @@ import { AuthDispatchContext } from '../App';
 import { AuthActions } from '../reducers/AuthReducer';
 import AcitonButtonWithShadow from './common/ActionButtonWithShadow';
 import { Auth } from 'aws-amplify';
+import ChevronLeft from './common/icons/ChevronLeft';
 
 let hasFormError = false;
 
@@ -144,6 +145,7 @@ export default function SignUp(props) {
 					<Header
 						title="Sign Up"
 						showBackButton={false}
+						backButtonContent={<ChevronLeft />}
 						navigation={props.navigation}
 					/>
 					<TouchableOpacity onPress={handleSignInPress} containerStyle={styles.signInButton} >
