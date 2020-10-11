@@ -28,7 +28,7 @@ export default function SocialSignIn(props) {
 
 						ApiHelper.fetchUserBalance()
 							.then(balanceResponse => {
-								const isReferralReq = balanceResponse.data.isReferralReq;
+								const isReferralReq = false; //balanceResponse.data.isReferralReq;
 
 								if (isReferralReq) {
 									props.navigation.navigate('SignUpReferralCode');

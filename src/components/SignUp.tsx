@@ -1,12 +1,10 @@
 import React, { useState, useContext } from 'react';
-import { View, Text, TextInput, Image, StyleSheet, ToastAndroid } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import { KeyboardAwareScrollView } from '@codler/react-native-keyboard-aware-scroll-view';
 import Toast from 'react-native-simple-toast';
-import InAppBrowser from 'react-native-inappbrowser-reborn';
 import Header from './common/Header';
 import colorConstants from '../constants/color';
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
-import NeoButton from './common/NeoButton';
 import TextBox from './common/TextBox';
 import * as CognitoHelper from '../helpers/CognitoHelper';
 import * as StorageHelper from '../helpers/StorageHelper';
@@ -15,8 +13,8 @@ import Strings from '../constants/strings';
 import { AuthDispatchContext } from '../App';
 import { AuthActions } from '../reducers/AuthReducer';
 import AcitonButtonWithShadow from './common/ActionButtonWithShadow';
-import { Auth } from 'aws-amplify';
 import ChevronLeft from './common/icons/ChevronLeft';
+import SocialSignInPlatforms from './SocialSignInPlatfroms';
 
 let hasFormError = false;
 
@@ -134,10 +132,6 @@ export default function SignUp(props) {
 		}
 	};
 
-	const handleGoogleSignIn = () => {
-		Auth.federatedSignIn({ provider: 'Google' });
-	};
-
 	return (
 		<KeyboardAwareScrollView style={styles.root}>
 			<ScrollView contentContainerStyle={styles.container}>
@@ -193,15 +187,7 @@ export default function SignUp(props) {
 					<View style={styles.horizontalLine} />
 					<Text style={styles.socialSignUpHeaderText}>Or sign up with</Text>
 
-					<View style={styles.socialPlatforms}>
-						<NeoButton containerStyle={styles.socialButton} onClick={handleGoogleSignIn}>
-							<Image source={require('../assets/images/google.png')} />
-						</NeoButton>
-
-						<NeoButton containerStyle={styles.socialButton}>
-							<Image source={require('../assets/images/facebook.png')} />
-						</NeoButton>
-					</View>
+					<SocialSignInPlatforms />
 				</View>
 			</ScrollView>
 		</KeyboardAwareScrollView>
@@ -241,17 +227,6 @@ const styles = StyleSheet.create({
 		color: colorConstants.FONT_COLOR,
 		textAlign: 'center',
 		marginTop: 28,
-	},
-	socialPlatforms: {
-		flexDirection: 'row',
-		flex: 1,
-		justifyContent: 'space-around',
-		marginTop: 24,
-		marginBottom: 40,
-	},
-	socialButton: {
-		width: 110,
-		height: 110,
 	},
 	signInButton: {
 		paddingHorizontal: 10,

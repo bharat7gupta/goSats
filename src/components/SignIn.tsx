@@ -1,10 +1,9 @@
 import React, { useState, useContext } from 'react';
-import { View, Text, TextInput, Image, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import { KeyboardAwareScrollView } from '@codler/react-native-keyboard-aware-scroll-view';
 import Header from './common/Header';
 import colorConstants from '../constants/color';
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
-import NeoButton from './common/NeoButton';
 import TextBox from './common/TextBox';
 import * as CognitoHelper from '../helpers/CognitoHelper';
 import * as StorageHelper from '../helpers/StorageHelper';
@@ -14,6 +13,7 @@ import { AuthActions } from '../reducers/AuthReducer';
 import { AuthDispatchContext } from '../App';
 import AcitonButtonWithShadow from './common/ActionButtonWithShadow';
 import ChevronLeft from './common/icons/ChevronLeft';
+import SocialSignInPlatforms from './SocialSignInPlatfroms';
 
 let hasFormError = false;
 
@@ -144,15 +144,7 @@ export default function SignIn(props) {
 					<View style={styles.horizontalLine} />
 					<Text style={styles.socialSignUpHeaderText}>Or sign in with</Text>
 
-					<View style={styles.socialPlatforms}>
-						<NeoButton containerStyle={styles.socialButton}>
-							<Image source={require('../assets/images/google.png')} />
-						</NeoButton>
-
-						<NeoButton containerStyle={styles.socialButton}>
-							<Image source={require('../assets/images/facebook.png')} />
-						</NeoButton>
-					</View>
+					<SocialSignInPlatforms />
 				</View>
 			</ScrollView>
 		</KeyboardAwareScrollView>
