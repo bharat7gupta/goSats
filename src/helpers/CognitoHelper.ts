@@ -1,6 +1,8 @@
 import { CognitoUserPool, CognitoUserAttribute, CognitoUser, AuthenticationDetails } from 'amazon-cognito-identity-js';
 import Amplify, { Auth, Hub } from 'aws-amplify';
 import * as UtilityHelper from '../helpers/UtilityHelper';
+import sha256 from 'crypto-js/sha256';
+import Base64 from 'crypto-js/enc-base64';
 
 interface RegisterParams {
 	username: string; // email or mobile no.
@@ -120,4 +122,87 @@ export function loginUser(params: LoginParams, successCallback, failureCallback)
 		onSuccess: successCallback,
 		onFailure: failureCallback,
 	});
+}
+
+/* Cognito Social Sign In URLs */
+export const getSocialSignInURL = (provider: string) => {
+	const redirectUri = 'gosats://socialsignin/';
+	const responseType = 'code';
+	const domain = 'gosats-dvp.auth.us-east-2.amazoncognito.com';
+	const clientId = poolData.ClientId;
+	const scopes = ['phone', 'email', 'profile', 'openid'];
+
+	const pkce_key = generateRandom(128);
+	const scopesString = scopes.join(' ');
+	const generatedState = generateState(32);
+	const code_challenge = generateChallenge(pkce_key);
+	const code_challenge_method = 'S256';
+
+	const queryString = Object.entries({
+		redirect_uri: redirectUri,
+		response_type: responseType,
+		client_id: clientId,
+		identity_provider: provider,
+		scope: scopesString,
+		state: generatedState,
+		...(responseType === 'code' ? { code_challenge } : {}),
+		...(responseType === 'code' ? { code_challenge_method } : {}),
+	})
+		.map(([k, v]) => `${encodeURIComponent(k)}=${encodeURIComponent(v)}`)
+		.join('&');
+
+	const URL = `https://${domain}/oauth2/authorize?${queryString}`;
+
+	return URL;
+};
+
+function generateState(length: number) {
+	let result = '';
+	let i = length;
+	const chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+	for (; i > 0; --i) {
+		result += chars[Math.round(Math.random() * (chars.length - 1))];
+	}
+
+	return result;
+}
+
+function generateRandom(size: number) {
+	const CHARSET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-._~';
+	const buffer = new Uint8Array(size);
+
+	if (typeof window !== 'undefined' && !!window.crypto) {
+		window.crypto.getRandomValues(buffer);
+	} else {
+		for (let i = 0; i < size; i += 1) {
+			buffer[i] = (Math.random() * CHARSET.length) | 0;
+		}
+	}
+
+	return bufferToString(buffer);
+}
+
+function generateChallenge(code: string) {
+	return base64URL(sha256(code));
+}
+
+function bufferToString(buffer: Uint8Array) {
+	const CHARSET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+	const state = [];
+
+	for (let i = 0; i < buffer.byteLength; i += 1) {
+		const index = buffer[i] % CHARSET.length;
+		state.push(CHARSET[index]);
+	}
+
+	return state.join('');
+}
+
+function base64URL(string) {
+	return string
+		.toString(Base64)
+		.replace(/=/g, '')
+		.replace(/\+/g, '-')
+		.replace(/\//g, '_');
 }

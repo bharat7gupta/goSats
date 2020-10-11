@@ -3,11 +3,13 @@ import { View, StyleSheet } from 'react-native';
 import NeoButton from './common/NeoButton';
 import GoogleIcon from './common/icons/GoogleIcon';
 import FacebookIcon from './common/icons/FacebookIcon';
-import { Auth } from 'aws-amplify';
+import * as CognitoHelper from '../helpers/CognitoHelper';
+import * as UtilityHelper from '../helpers/UtilityHelper';
 
 export default function SocialSignInPlatforms() {
 	const handleGoogleSignIn = () => {
-		Auth.federatedSignIn({ provider: 'Google' });
+		const redirectURL = CognitoHelper.getSocialSignInURL('Google');
+		UtilityHelper.openInAppBrowser(redirectURL);
 	};
 
 	return (
