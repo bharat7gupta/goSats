@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Image, StyleSheet, Dimensions } from 'react-native';
+import { Image, StyleSheet, TouchableWithoutFeedback, Dimensions } from 'react-native';
 import Carousel from 'react-native-snap-carousel';
 import { Neomorph } from 'react-native-neomorph-shadows';
 import colorConstants from '../constants/color';
@@ -39,7 +39,7 @@ export default function BrandCarousel(props: BrandCarouselProps) {
 
 	const renderCarouselItem = ({ item, index }: { item: BrandItem, index: number }) => {
 		return (
-			<View style={styles.carouselContainer} onTouchEnd={() => handleItemClick(item)}>
+			<TouchableWithoutFeedback style={styles.carouselContainer} onPress={() => handleItemClick(item)}>
 				<Neomorph
 					style={{
 						...styleConstants.shadowStyles,
@@ -60,7 +60,7 @@ export default function BrandCarousel(props: BrandCarouselProps) {
 						onLoad={() => onCaroselImageLoad(index)}
 					/>
 				</Neomorph>
-			</View>
+			</TouchableWithoutFeedback>
 		);
 	};
 
