@@ -29,29 +29,31 @@ function BackButton(props: BackButtonProps) {
 	};
 
 	return (
-		<View style={[styles.root, props.style]}>
-			<TouchableWithoutFeedback
-				style={styles.container}
-				onPressIn={handlePressIn}
-				onPressOut={handlePressOut}
-				onPress={handlePress}
-			>
-				<NeomorphFlex
-					inner={pressed}
-					style={{ ...styleConstants.smallButtonShadowStyles, width: 32, height: 32, borderRadius: 20 }}
-					darkShadowColor={colorConstants.SHADOW_DARK}
-					lightShadowColor={colorConstants.SHADOW_LIGHT}
-				>
-					{props.children}
-				</NeomorphFlex>
-			</TouchableWithoutFeedback>
-		</View>
+		<TouchableWithoutFeedback
+			onPressIn={handlePressIn}
+			onPressOut={handlePressOut}
+			onPress={handlePress}
+		>
+			<View style={[styles.root, props.style]}>
+				<View style={styles.container}>
+					<NeomorphFlex
+						inner={pressed}
+						style={{ ...styleConstants.smallButtonShadowStyles, width: 32, height: 32, borderRadius: 20 }}
+						darkShadowColor={colorConstants.SHADOW_DARK}
+						lightShadowColor={colorConstants.SHADOW_LIGHT}
+					>
+						{props.children}
+					</NeomorphFlex>
+				</View>
+			</View>
+		</TouchableWithoutFeedback>
 	);
 }
 
 const styles = StyleSheet.create({
 	root: {
-		padding: 10,
+		paddingVertical: 10,
+		paddingHorizontal: 4,
 	},
 	container: {
 		flex: 1,

@@ -1,5 +1,5 @@
 import React, { Component, useState } from 'react';
-import { StyleSheet, View, Text, ViewStyle, TouchableWithoutFeedback } from 'react-native';
+import { StyleSheet, View, Text, ViewStyle } from 'react-native';
 import { NeomorphFlex } from 'react-native-neomorph-shadows';
 import styleConstants from '../../constants/style';
 import colorConstants from '../../constants/color';
@@ -14,18 +14,20 @@ interface NeoButtonProps {
 function NeoButton(props: NeoButtonProps) {
 	const [ pressed, setPressed ] = useState(false);
 
-	const handlePressIn = () => {
+	const handleTouchStart = () => {
 		setPressed(true);
 	};
 
-	const handlePressOut = () => {
+	const handleTouchEnd = () => {
 		setPressed(false);
-	};
 
-	const handlePress = () => {
 		if (props.onClick) {
 			props.onClick();
 		}
+	};
+
+	const handleTouchCancel = () => {
+		setPressed(false);
 	};
 
 	const buttonContentStyle = {
@@ -35,10 +37,10 @@ function NeoButton(props: NeoButtonProps) {
 
 	return (
 		<View style={[styles.root, props.style]}>
-			<TouchableWithoutFeedback
-				onPressIn={handlePressIn}
-				onPressOut={handlePressOut}
-				onPress={handlePress}
+			<View
+				onTouchStart={handleTouchStart}
+				onTouchEnd={handleTouchEnd}
+				onTouchCancel={handleTouchCancel}
 			>
 				<NeomorphFlex
 					inner={pressed}
@@ -48,7 +50,7 @@ function NeoButton(props: NeoButtonProps) {
 				>
 					{props.children}
 				</NeomorphFlex>
-			</TouchableWithoutFeedback>
+			</View>
 		</View>
 	);
 }
