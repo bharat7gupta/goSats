@@ -37,10 +37,10 @@ export default function BrandDetail(props) {
 	const [ currentDenomination, setCurrentDenomination ] = useState<string>();
 
 	useEffect(() => {
-		fetchBrandDetails(id);
+		fetchBrandDetails();
 	}, []);
 
-	const fetchBrandDetails = async (id: string) => {
+	const fetchBrandDetails = async () => {
 		let responseData;
 		setLoading(true);
 
