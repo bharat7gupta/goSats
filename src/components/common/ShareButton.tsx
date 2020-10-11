@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { ViewStyle, View, Image, TouchableWithoutFeedback } from 'react-native';
+import { ViewStyle, TouchableWithoutFeedback } from 'react-native';
 import { Neomorph } from 'react-native-neomorph-shadows';
 import styleConstants from '../../constants/style';
 import colorConstants from '../../constants/color';
+import ShareIcon from './icons/ShareIcon';
 
 interface ShareButtonProps {
 	buttonSize?: number;
@@ -41,8 +42,7 @@ export default function ShareButton(props: ShareButtonProps) {
 				darkShadowColor={colorConstants.SHADOW_DARK}
 				lightShadowColor={colorConstants.SHADOW_LIGHT}
 			>
-				<Image source={{
-					uri: 'https://res.cloudinary.com/dm5xyhl7v/image/upload/v1601829750/sats/share_gapnih.png' }} style={{ width: 16, height: 16 }}/>
+				<ShareIcon />
 			</Neomorph>
 		</TouchableWithoutFeedback>
 	);

@@ -1,17 +1,16 @@
 import React from 'react';
-import { Image } from 'react-native';
+import { Svg, Path } from 'react-native-svg';
 
 interface DimStarProps {
 	size?: number;
 }
 
 export default function DimStar(props: DimStarProps) {
-	const { size = 12 } = props;
+	const { size = 16 } = props;
 
 	return (
-		<Image
-			source={{ uri: 'https://res.cloudinary.com/dm5xyhl7v/image/upload/v1601829750/sats/dimstar_q4lbbb.png' }}
-			style={{ width: size, height: size }}
-		/>
+		<Svg width={size} height={size} viewBox="0 0 16 16" fill="none">
+			<Path d="M0.0229654 6.07562C0.0780907 5.8977 0.224747 5.76804 0.401308 5.74118L5.36138 4.98558L7.57966 0.273901C7.6586 0.106173 7.82156 0 7.99997 0C8.17841 0 8.34134 0.106173 8.42031 0.273901L10.6387 4.98558L15.5987 5.74118C15.7752 5.76804 15.9219 5.8977 15.977 6.07558C16.0322 6.2535 15.9862 6.44878 15.8584 6.57932L12.2694 10.2469L13.1165 15.4256C13.1467 15.6099 13.0744 15.7962 12.9301 15.9062C12.8484 15.9684 12.7517 16 12.6545 16C12.5799 16 12.505 15.9814 12.4365 15.9436L8 13.4985L3.56373 15.9435C3.40577 16.0306 3.21442 16.0161 3.07008 15.9061C2.92574 15.7962 2.85339 15.6099 2.88355 15.4255L3.73095 10.2469L0.141559 6.57929C0.0138092 6.44878 -0.0322227 6.2535 0.0229654 6.07562Z" fill="#737373"/>
+		</Svg>
 	);
 }
