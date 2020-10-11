@@ -9,6 +9,8 @@ const API_URLS = {
 	USER_BALANCE: '/user/balance',
 	SET_REFEREE: '/user/referee',
 	SPIN_WHEEL: '/user/spin',
+	CREATE_ORDER: '/user/order/create/',
+	ORDER_STATUS: '/user/order/status/',
 };
 
 export async function fetchMasterData() {
@@ -109,6 +111,42 @@ export async function spinWheel() {
 	try {
 		const accessToken = await StorageHelper.getItem('accessToken');
 		console.log(accessToken);
+		const response = await fetch(apiUrl, {
+			headers: {
+				'Authorization': `Bearer ${accessToken}`,
+			},
+		});
+		const json = await response.json();
+
+		return json;
+	} catch (e) {
+		// TODO: Show toast here
+	}
+}
+
+export async function createOrder(merchantId: string) {
+	const apiUrl = `${API_ROOT}${API_URLS.CREATE_ORDER}${merchantId}`;
+
+	try {
+		const accessToken = await StorageHelper.getItem('accessToken');
+		const response = await fetch(apiUrl, {
+			headers: {
+				'Authorization': `Bearer ${accessToken}`,
+			},
+		});
+		const json = await response.json();
+
+		return json;
+	} catch (e) {
+		// TODO: Show toast here
+	}
+}
+
+export async function getOrderStatus(orderId: string) {
+	const apiUrl = `${API_ROOT}${API_URLS.ORDER_STATUS}${orderId}`;
+
+	try {
+		const accessToken = await StorageHelper.getItem('accessToken');
 		const response = await fetch(apiUrl, {
 			headers: {
 				'Authorization': `Bearer ${accessToken}`,

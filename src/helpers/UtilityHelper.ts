@@ -1,4 +1,6 @@
 import { Dimensions, Platform, StatusBar } from 'react-native';
+import InAppBrowser from 'react-native-inappbrowser-reborn';
+import colorConstants from '../constants/color';
 
 export const isEmail = (value: string) => {
 	const emailRegEx = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/;
@@ -12,6 +14,31 @@ export const isPhoneNumber = (value: string) => {
 
 export const getFormattedNumber = (number) => {
 	return number && !isNaN(number) ? Number(number).toLocaleString('en-IN') : 0;
+};
+
+export const openInAppBrowser = (url: string) => {
+	return InAppBrowser.open(url, {
+		// iOS Properties
+		dismissButtonStyle: 'done',
+		preferredBarTintColor: 'gray',
+		preferredControlTintColor: 'white',
+		readerMode: false,
+		// Android Properties
+		showTitle: true,
+		toolbarColor: colorConstants.PRIMARY_DARK,
+		secondaryToolbarColor: colorConstants.FONT_COLOR,
+		enableUrlBarHiding: true,
+		enableDefaultShare: true,
+		forceCloseOnRedirection: false,
+		// Specify full animation resource identifier(package:anim/name)
+		// or only resource name(in case of animation bundled with app).
+		animations: {
+			startEnter: 'slide_in_right',
+			startExit: 'slide_out_left',
+			endEnter: 'slide_in_right',
+			endExit: 'slide_out_left',
+		},
+	});
 };
 
 //  Start status bar height

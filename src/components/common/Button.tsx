@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, TextStyle, StyleProp, StyleSheet } from 'react-native';
+import { Text, View, TextStyle, StyleProp, StyleSheet, TouchableOpacity } from 'react-native';
 import colorConstants from '../../constants/color';
 import { TouchableHighlight } from 'react-native-gesture-handler';
 
@@ -27,9 +27,9 @@ export default function Button(props: ButtonProps) {
 
 	return (
 		<View style={[styles.root, btnContainerStyle ]}>
-			<View style={actionButtonStyle} onTouchEnd={handleButtonClick}>
+			<TouchableOpacity style={actionButtonStyle} onPress={handleButtonClick}>
 				<Text style={[ styles.actionButtonText, btnTextStyle ]}>{btnText}</Text>
-			</View>
+			</TouchableOpacity>
 		</View>
 	);
 }
