@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
 		backgroundColor: colorConstants.PRIMARY_LIGHT,
 		marginHorizontal: 18,
 		marginTop: 24,
-		marginBottom: 30,
+		marginBottom: 14,
 		borderRadius: 10,
 	},
 	icon: {

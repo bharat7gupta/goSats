@@ -74,7 +74,7 @@ export default function BrandCarousel(props: BrandCarouselProps) {
 			sliderWidth={width}
 			itemWidth={carouselItemWidth - 20}
 			slideStyle={styles.carouselSlideStyle}
-			autoPlay={true}
+			inactiveSlideScale={0.94}
 		/>
 	);
 }
@@ -82,7 +82,7 @@ export default function BrandCarousel(props: BrandCarouselProps) {
 const styles  = StyleSheet.create({
 	carouselContainer: {
 		width: carouselItemWidth - 20,
-		marginBottom: 14,
+		marginBottom: 4,
 		paddingVertical: 14,
 	},
 	carouselImage: {

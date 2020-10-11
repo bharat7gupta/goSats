@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
 	},
 	tileContainer: {
 		height: 150,
-		padding: 10,
+		padding: 12,
 	},
 	buttonTextStyle: {
 		color: colorConstants.FONT_COLOR,
@@ -98,17 +98,17 @@ const styles = StyleSheet.create({
 		resizeMode: 'contain',
 	},
 	name: {
-		marginTop: 4,
+		marginTop: -4,
 		color: colorConstants.FONT_COLOR,
 		opacity: 0.85,
 		fontFamily: 'SFProText-Bold',
 		fontSize: 16,
 		lineHeight: 28,
-		paddingLeft: 10,
+		paddingLeft: 12,
 	},
 	rewardLine: {
 		flexDirection: 'row',
-		paddingLeft: 10,
+		paddingLeft: 12,
 	},
 	rewardLineText: {
 		color: colorConstants.DARK_GREY,
