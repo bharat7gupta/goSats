@@ -187,21 +187,21 @@ export default function BrandDetail(props) {
 									lightShadowColor={colorConstants.SHADOW_LIGHT}
 								>
 									<View style={styles.innerContent}>
-										<View style={{ margin: 20, height: 250, overflow: 'hidden' }}>
+										{/* <View style={{ margin: 20, height: 250, overflow: 'hidden' }}>
 											<NeomorphFlex
 												inner={true}
 												style={styleConstants.shadowStyles}
 												darkShadowColor={colorConstants.SHADOW_DARK}
 												lightShadowColor={colorConstants.SHADOW_LIGHT}
 											>
-												{/* <ImageBackground
+												<ImageBackground
 													source={{ uri: 'https://res.cloudinary.com/dm5xyhl7v/image/upload/v1601829751/sats/pattern_n6dqxr.png'}}
 													style={{ width: 300, height: 250 }}
 													resizeMode="cover"
-												/> */}
+												/>
 												<Image source={{ uri: brandData.image }} style={styles.image} />
 											</NeomorphFlex>
-										</View>
+										</View> */}
 
 										<View style={styles.brandDetail}>
 											<BrandInfoWithOffer
