@@ -6,6 +6,7 @@ import BackButton from './BackButton';
 interface HeaderProps {
 	title: string;
 	showBackButton: boolean;
+	backButtonContent?: JSX.Element;
 	navigation?: any; // TODO: add type. router navigation object
 	style?: ViewStyle;
 }
@@ -14,7 +15,7 @@ export default function Header(props: HeaderProps) {
 	const { title, showBackButton = false, navigation } = props;
 
 	const handleBackButtonClick = () => {
-		props.navigation.goBack();
+		navigation.goBack();
 	};
 
 	return (
@@ -23,7 +24,9 @@ export default function Header(props: HeaderProps) {
 				<BackButton
 					onClick={handleBackButtonClick}
 					style={styles.buttonStyle}
-				/>
+				>
+					{props.backButtonContent}
+				</BackButton>
 			)}
 
 			<Text style={styles.headerText}>
@@ -37,9 +40,12 @@ const styles = StyleSheet.create({
 	header: {
 		flexDirection: 'row',
 		paddingBottom: 8,
+		justifyContent: 'center',
 	},
 	buttonStyle: {
-		marginRight: 10,
+		position: 'absolute',
+		left: 10,
+		top: 0,
 	},
 	headerText: {
 		color: colorConstants.FONT_COLOR,

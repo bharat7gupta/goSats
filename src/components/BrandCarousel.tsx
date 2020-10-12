@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Image, StyleSheet, Dimensions } from 'react-native';
+import { View, Image, StyleSheet, TouchableWithoutFeedback, Dimensions } from 'react-native';
 import Carousel from 'react-native-snap-carousel';
 import { Neomorph } from 'react-native-neomorph-shadows';
 import colorConstants from '../constants/color';
@@ -39,27 +39,29 @@ export default function BrandCarousel(props: BrandCarouselProps) {
 
 	const renderCarouselItem = ({ item, index }: { item: BrandItem, index: number }) => {
 		return (
-			<View style={styles.carouselContainer} onTouchEnd={() => handleItemClick(item)}>
-				<Neomorph
-					style={{
-						...styleConstants.shadowStyles,
-						width: carouselItemWidth - 20, // deduct 20 (10 * 2) to leave space for shadows
-						height: carouselItemHeight,
-						overflow: 'hidden',
-					}}
-					darkShadowColor={colorConstants.SHADOW_DARK}
-					lightShadowColor={colorConstants.SHADOW_LIGHT}
-				>
-					<Image
-						source={{ uri: item.imageURL }}
+			<View style={styles.carouselContainer}>
+				<TouchableWithoutFeedback onPress={() => handleItemClick(item)}>
+					<Neomorph
 						style={{
-							...styles.carouselImage,
-							width: carouselItemWidth - 28, // 20 for the shadows and 8 for the margin
-							height: carouselItemHeight - 8, // 8 for the margin
+							...styleConstants.shadowStyles,
+							width: carouselItemWidth - 20, // deduct 20 (10 * 2) to leave space for shadows
+							height: carouselItemHeight,
+							overflow: 'hidden',
 						}}
-						onLoad={() => onCaroselImageLoad(index)}
-					/>
-				</Neomorph>
+						darkShadowColor={colorConstants.SHADOW_DARK}
+						lightShadowColor={colorConstants.SHADOW_LIGHT}
+					>
+						<Image
+							source={{ uri: item.imageURL }}
+							style={{
+								...styles.carouselImage,
+								width: carouselItemWidth - 28, // 20 for the shadows and 8 for the margin
+								height: carouselItemHeight - 8, // 8 for the margin
+							}}
+							onLoad={() => onCaroselImageLoad(index)}
+						/>
+					</Neomorph>
+				</TouchableWithoutFeedback>
 			</View>
 		);
 	};
@@ -72,6 +74,7 @@ export default function BrandCarousel(props: BrandCarouselProps) {
 			sliderWidth={width}
 			itemWidth={carouselItemWidth - 20}
 			slideStyle={styles.carouselSlideStyle}
+			inactiveSlideScale={0.94}
 		/>
 	);
 }
@@ -79,7 +82,7 @@ export default function BrandCarousel(props: BrandCarouselProps) {
 const styles  = StyleSheet.create({
 	carouselContainer: {
 		width: carouselItemWidth - 20,
-		marginBottom: 14,
+		marginBottom: 4,
 		paddingVertical: 14,
 	},
 	carouselImage: {

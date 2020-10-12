@@ -6,6 +6,7 @@ import styleConstants from '../../constants/style';
 import FavouriteButton from './FavouriteButton';
 import Brand from '../../types/Brand';
 import BitcoinOffer from './icons/BitcoinOffer';
+import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 
 interface NeoTileProps {
 	brand: Brand;
@@ -16,20 +17,18 @@ interface NeoTileProps {
 export default function NeoTile(props: NeoTileProps) {
 	const [ pressed, setPressed ] = useState(false);
 
-	const handleTouchStart = () => {
+	const handlePressIn = () => {
 		setPressed(true);
 	};
 
-	const handleTouchEnd = () => {
+	const handlePressOut = () => {
 		setPressed(false);
+	};
 
+	const handlePress = () => {
 		if (props.onClick) {
 			props.onClick();
 		}
-	};
-
-	const handleTouchCancel = () => {
-		setPressed(false);
 	};
 
 	const { brand, style } = props;
@@ -41,11 +40,11 @@ export default function NeoTile(props: NeoTileProps) {
 	return (
 		<View style={[styles.root, style]}>
 			<View style={styles.container}>
-				<View
+				<TouchableWithoutFeedback
 					style={styles.tileContainer}
-					onTouchStart={handleTouchStart}
-					onTouchEnd={handleTouchEnd}
-					onTouchCancel={handleTouchCancel}
+					onPressIn={handlePressIn}
+					onPressOut={handlePressOut}
+					onPress={handlePress}
 				>
 					<NeomorphFlex
 						inner={pressed}
@@ -55,7 +54,7 @@ export default function NeoTile(props: NeoTileProps) {
 					>
 						<Image source={{ uri: brand.image }} style={styles.image}/>
 					</NeomorphFlex>
-				</View>
+				</TouchableWithoutFeedback>
 
 				<Text style={styles.name}>{brand.name}</Text>
 
@@ -76,10 +75,10 @@ const styles = StyleSheet.create({
 	},
 	container: {
 		flex: 1,
-		paddingHorizontal: 10,
 	},
 	tileContainer: {
-		height: 130,
+		height: 150,
+		padding: 12,
 	},
 	buttonTextStyle: {
 		color: colorConstants.FONT_COLOR,
@@ -99,15 +98,17 @@ const styles = StyleSheet.create({
 		resizeMode: 'contain',
 	},
 	name: {
-		marginTop: 8,
+		marginTop: -4,
 		color: colorConstants.FONT_COLOR,
 		opacity: 0.85,
 		fontFamily: 'SFProText-Bold',
 		fontSize: 16,
 		lineHeight: 28,
+		paddingLeft: 12,
 	},
 	rewardLine: {
 		flexDirection: 'row',
+		paddingLeft: 12,
 	},
 	rewardLineText: {
 		color: colorConstants.DARK_GREY,

@@ -74,6 +74,14 @@ export default function Shop(props) {
 		props.navigation.goBack();
 	};
 
+	const handleRewardsClick = () => {
+		props.navigation.navigate('Rewards');
+	};
+
+	const handleSpinClick = () => {
+		props.navigation.navigate('SatsSpin');
+	};
+
 	return (
 		<View style={styles.root}>
 			<ScrollView contentContainerStyle={styles.containerStyle} stickyHeaderIndices={[0]}>
@@ -83,7 +91,11 @@ export default function Shop(props) {
 
 				{!loading && (
 					<React.Fragment>
-						<RewardsSection balanceData={balanceData} />
+						<RewardsSection
+							balanceData={balanceData}
+							onRewardsClick={handleRewardsClick}
+							onSpinClick={handleSpinClick}
+						/>
 
 						<BrandCarousel
 							items={spotlight}

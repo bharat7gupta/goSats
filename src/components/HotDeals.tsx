@@ -59,8 +59,7 @@ const styles = StyleSheet.create({
 	content: {
 		flexDirection: 'row',
 		flexWrap: 'wrap',
-		paddingHorizontal: 10,
-		paddingVertical: 10,
+		paddingHorizontal: 8,
 	},
 	header: {
 		flexDirection: 'row',

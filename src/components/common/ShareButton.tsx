@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { ViewStyle, View, Image } from 'react-native';
+import { ViewStyle, TouchableWithoutFeedback } from 'react-native';
 import { Neomorph } from 'react-native-neomorph-shadows';
 import styleConstants from '../../constants/style';
 import colorConstants from '../../constants/color';
+import ShareIcon from './icons/ShareIcon';
 
 interface ShareButtonProps {
 	buttonSize?: number;
@@ -14,28 +15,26 @@ interface ShareButtonProps {
 export default function ShareButton(props: ShareButtonProps) {
 	const [ pressed, setPressed ] = useState(false);
 
-	const handleTouchStart = () => {
+	const handlePressIn = () => {
 		setPressed(true);
 	};
 
-	const handleTouchEnd = () => {
+	const handlePressOut = () => {
 		setPressed(false);
+	};
 
+	const handlePress = () => {
 		if (props.onClick) {
 			props.onClick();
 		}
 	};
 
-	const handleTouchCancel = () => {
-		setPressed(false);
-	};
-
 	return (
-		<View
+		<TouchableWithoutFeedback
 			style={props.style}
-			onTouchStart={handleTouchStart}
-			onTouchEnd={handleTouchEnd}
-			onTouchCancel={handleTouchCancel}
+			onPressIn={handlePressIn}
+			onPressOut={handlePressOut}
+			onPress={handlePress}
 		>
 			<Neomorph
 				inner={pressed}
@@ -43,9 +42,8 @@ export default function ShareButton(props: ShareButtonProps) {
 				darkShadowColor={colorConstants.SHADOW_DARK}
 				lightShadowColor={colorConstants.SHADOW_LIGHT}
 			>
-				<Image source={{
-					uri: 'https://res.cloudinary.com/dm5xyhl7v/image/upload/v1601829750/sats/share_gapnih.png' }} style={{ width: 16, height: 16 }}/>
+				<ShareIcon />
 			</Neomorph>
-		</View>
+		</TouchableWithoutFeedback>
 	);
 }

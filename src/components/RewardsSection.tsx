@@ -1,29 +1,34 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
 import { NeomorphFlex } from 'react-native-neomorph-shadows';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 import colorConstants from '../constants/color';
 import styleConstants from '../constants/style';
 import SpinWheelIcon from './common/icons/SpinWheelIcon';
 import UserBalance from '../types/UserBalance';
+import * as UtilityHelper from '../helpers/UtilityHelper';
+import LevelBadge from './common/LevelBadge';
 
 interface RewardsSectionProps {
 	balanceData: UserBalance;
+	navigation?: any;
+	onRewardsClick: () => void;
+	onSpinClick: () => void;
 }
 
 export default function RewardsSection(props: RewardsSectionProps) {
 	const { balanceData } = props;
-	const userBalance = (balanceData && balanceData.balance.totalEarnedSats) || 0;
-	const formattedBalance = userBalance.toLocaleString();
-	const currentLevel = balanceData && balanceData.level.current;
+	const userBalance = balanceData && balanceData.balance.totalEarnedSats;
+	const formattedBalance = UtilityHelper.getFormattedNumber(userBalance);
 	const levelImageUrl = balanceData && balanceData.level.icon;
-	const textColorCode = balanceData && balanceData.level.colorCode;
-	const bgColorCode = balanceData && balanceData.level.bgColorCode;
 
 	return (
 		<View style={styles.root}>
-			<View style={styles.icon}>
-				<Image source={{ uri: levelImageUrl }} style={{ width: 60, height: 90 }} />
-			</View>
+			<TouchableOpacity onPress={props.onRewardsClick}>
+				<View style={styles.icon}>
+					<Image source={{ uri: levelImageUrl }} style={{ width: 60, height: 90 }} />
+				</View>
+			</TouchableOpacity>
 
 			<View style={styles.rewards}>
 				<Text style={styles.rewardsHeaderText}>
@@ -40,19 +45,17 @@ export default function RewardsSection(props: RewardsSectionProps) {
 				</View>
 
 				<View style={styles.bottomRow}>
-					<View style={{ ...styles.badge, borderColor: textColorCode, backgroundColor: bgColorCode }}>
-						<Text style={{ color: textColorCode }}>{currentLevel}</Text>
-					</View>
+					{balanceData && <LevelBadge level={balanceData.level} />}
 
 					<NeomorphFlex
 						style={{ ...styleConstants.shadowStyles, flex: 0, borderRadius: 20 }}
 						darkShadowColor={colorConstants.SHADOW_DARK}
 						lightShadowColor={colorConstants.ACTION_BUTTON_SHADOW}
 					>
-						<View style={styles.spinButton}>
+						<TouchableOpacity style={styles.spinButton} onPress={props.onSpinClick}>
 							<SpinWheelIcon />
 							<Text style={styles.spinButtonText}>Spin</Text>
-						</View>
+						</TouchableOpacity>
 					</NeomorphFlex>
 				</View>
 			</View>
@@ -67,7 +70,7 @@ const styles = StyleSheet.create({
 		backgroundColor: colorConstants.PRIMARY_LIGHT,
 		marginHorizontal: 18,
 		marginTop: 24,
-		marginBottom: 30,
+		marginBottom: 14,
 		borderRadius: 10,
 	},
 	icon: {

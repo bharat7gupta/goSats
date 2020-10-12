@@ -10,6 +10,7 @@ import ErrorModal from './common/ErrorModal';
 import Header from './common/Header';
 import Strings from '../constants/strings';
 import { StatusBarHeight } from '../helpers/UtilityHelper';
+import ChevronLeft from './common/icons/ChevronLeft';
 // import brandList from '../mock_jsons/brand-list.json';
 
 export default function Categories(props) {
@@ -81,6 +82,7 @@ export default function Categories(props) {
 			<Header
 				title="Categories"
 				showBackButton={false}
+				backButtonContent={<ChevronLeft />}
 				navigation={props.navigation}
 				style={styles.header}
 			/>

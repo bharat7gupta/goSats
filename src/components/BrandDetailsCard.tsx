@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import HTML from 'react-native-render-html';
 import LinearGradient from 'react-native-linear-gradient';
 import colorConstants from '../constants/color';
 import Notepad from './common/icons/Notepad';
@@ -41,15 +40,6 @@ export default function BrandDetailsCard(props: BrandDetailsCardProps) {
 						))}
 					</View>
 				))}
-				{/* <HTML
-					html={brandDetails}
-					tagsStyles={{
-						div: { color: colorConstants.FONT_COLOR },
-					}}
-					listsPrefixesRenderers={{
-						ul: () => (<Text style={{ color: colorConstants.LIGHT_GREY }}>{'\u2022 '}</Text>)
-					}}
-				/> */}
 			</View>
 
 			{collapsed && (

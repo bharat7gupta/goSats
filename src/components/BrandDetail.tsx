@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, Image, ImageBackground, ScrollView, Share, ShareContent } from 'react-native';
+import Toast from 'react-native-simple-toast';
 
 import * as ApiHelper from '../helpers/ApiHelper';
+import * as StorageHelper from '../helpers/StorageHelper';
+import * as UtilityHelper from '../helpers/UtilityHelper';
 import colorConstants from '../constants/color';
 import styleConstants from '../constants/style';
 import Brand, { BrandType } from '../types/Brand';
@@ -20,6 +23,7 @@ import Header from './common/Header';
 import Strings from '../constants/strings';
 import * as Config from '../constants/config';
 import { StatusBarHeight } from '../helpers/UtilityHelper';
+import ChevronLeft from './common/icons/ChevronLeft';
 // import merchantDetail from '../mock_jsons/merchant-detail.json';
 
 export default function BrandDetail(props) {
@@ -33,11 +37,10 @@ export default function BrandDetail(props) {
 	const [ currentDenomination, setCurrentDenomination ] = useState<string>();
 
 	useEffect(() => {
-		fetchBrandDetails(id);
-		console.log('Brand ID: ', id);
+		fetchBrandDetails();
 	}, []);
 
-	const fetchBrandDetails = async (id: string) => {
+	const fetchBrandDetails = async () => {
 		let responseData;
 		setLoading(true);
 
@@ -95,8 +98,30 @@ export default function BrandDetail(props) {
 		return brandData && brandData.isGiftCard ? 'Buy Voucher' : 'Shop Now';
 	};
 
-	const onPurchanseClick = () => {
+	const onPurchanseClick = async () => {
+		try {
+			const createOrderResponse = await ApiHelper.createOrder(id);
 
+			if (createOrderResponse.error) {
+				Toast.show(createOrderResponse.message);
+				return;
+			}
+
+			const { orderId, redirectURL } = createOrderResponse.data;
+
+			StorageHelper.setItem('orderId', orderId);
+
+			const result = await UtilityHelper.openInAppBrowser(redirectURL);
+
+			if (result.type === 'cancel') {
+				const orderStatusResponse = await ApiHelper.getOrderStatus(orderId);
+				console.log(orderStatusResponse);
+			} else {
+				Toast.show('Order not placed');
+			}
+		} catch (e) {
+			Toast.show(Strings.SOMETHING_WENT_WRONG);
+		}
 	};
 
 	const renderSubText = () => {
@@ -147,6 +172,7 @@ export default function BrandDetail(props) {
 				<Header
 					title="Details"
 					showBackButton={true}
+					backButtonContent={<ChevronLeft />}
 					navigation={props.navigation}
 					style={styles.header}
 				/>
