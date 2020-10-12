@@ -1,0 +1,27 @@
+{
+	"error": false,
+	"message": "User balances are",
+	"data": {
+		"balance": {
+			"spendableSats": "1000",
+			"totalEarnedSats": "1000"
+		},
+		"level": {
+			"colorCode": "#A95E14",
+			"bgColorCode": "rgba(140, 78, 55, 0.2)",
+			"borderColor": "rgba(140, 78, 55, 0.6)",
+			"progressBarBgColor": [
+				"#C38974",
+				"#844832"
+			],
+			"curMaxSats": 20000,
+			"curMinSats": 0,
+			"current": "Bronze",
+			"next": "Silver",
+			"icon": "https://gosatsicons.s3.us-east-2.amazonaws.com/level/trophy/png/bronze.png",
+			"badge": "https://gosatsicons.s3.us-east-2.amazonaws.com/level/badge/png/bronze.png"
+		},
+		"referralId": "GSBH4813",
+		"isReferralReq": false
+	}
+}
