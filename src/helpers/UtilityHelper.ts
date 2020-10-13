@@ -41,6 +41,14 @@ export const openInAppBrowser = (url: string) => {
 	});
 };
 
+export const randomValue = (min: number, max: number): number  => {
+	return Math.random() * (max - min) + min;
+};
+
+export const randomIntValue = (min: number, max: number) => {
+	return Math.floor(randomValue(min, max));
+};
+
 //  Start status bar height
 const X_WIDTH = 375;
 const X_HEIGHT = 812;

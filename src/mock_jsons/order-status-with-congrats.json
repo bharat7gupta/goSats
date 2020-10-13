@@ -1,0 +1,10 @@
+{
+    "error": false,
+    "message": "Order Lists are",
+    "data": {
+        "isCongrats": true,
+        "header": "Congrats!",
+        "message1": "As long as you don't return your order you will be credited with",
+        "message2": "1000 Free Sats"
+    }
+}
