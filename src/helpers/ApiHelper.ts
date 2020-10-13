@@ -9,7 +9,7 @@ const API_URLS = {
 	USER_BALANCE: '/user/balance',
 	SET_REFEREE: '/user/referee',
 	SPIN_WHEEL: '/user/spin',
-	CREATE_ORDER: '/user/order/create/',
+	CREATE_ORDER: '/user/order/create',
 	ORDER_STATUS: '/user/order/status/',
 };
 
@@ -124,15 +124,24 @@ export async function spinWheel() {
 	}
 }
 
-export async function createOrder(merchantId: string) {
-	const apiUrl = `${API_ROOT}${API_URLS.CREATE_ORDER}${merchantId}`;
+export async function createOrder(merchantId: string, giftCardDenomination?: number) {
+	const apiUrl = `${API_ROOT}${API_URLS.CREATE_ORDER}`;
 
 	try {
 		const accessToken = await StorageHelper.getItem('accessToken');
+		const requestObject: any = { merchantId };
+
+		if (giftCardDenomination) {
+			requestObject.amount = giftCardDenomination;
+		}
+
 		const response = await fetch(apiUrl, {
 			headers: {
 				'Authorization': `Bearer ${accessToken}`,
+				'Content-Type': 'application/json',
 			},
+			method: 'POST',
+			body: JSON.stringify(requestObject),
 		});
 		const json = await response.json();
 

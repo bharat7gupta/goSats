@@ -1,0 +1,8 @@
+{
+    "error": false,
+    "message": "Order Lists are",
+    "data": {
+        "isCongrats": false,
+        "message": "It can take an hour for your purchase to be recognised. Please check your order history later to see the amount of sats you've won."
+    }
+}

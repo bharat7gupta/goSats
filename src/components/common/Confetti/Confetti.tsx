@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { StyleSheet, Animated, Dimensions, Easing } from 'react-native';
-import Svg, { Path } from 'react-native-svg';
+import { StyleSheet, Animated, Dimensions, Easing, Text } from 'react-native';
+import * as UtilityHelper from '../../../helpers/UtilityHelper';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -9,6 +9,7 @@ interface IConfettiProps {
 	colors: string[];
 	duration: number; // time in ms
 	index: number;
+	content: JSX.Element;
 	onAnimationComplete: () => void;
 	left?: number;
 }
@@ -25,7 +26,6 @@ class Confetti extends Component<IConfettiProps> {
 		],
 	};
 
-	color: string;
 	left: number;
 	xAnimation;
 	yAnimation;
@@ -34,12 +34,11 @@ class Confetti extends Component<IConfettiProps> {
 
 	constructor(props: IConfettiProps) {
 		super(props);
-		this.color = this.randomColor(this.props.colors);
-		this.left = this.randomValue(0, windowWidth);
+		this.left = UtilityHelper.randomValue(0, windowWidth);
 
 		this.yAnimation = new Animated.Value(0);
-		const xRotationOutput = this.randomValue(-120, 120) + 'deg';
-		const yRotationOutput = this.randomValue(-220, 220) + 'deg';
+		const xRotationOutput = UtilityHelper.randomValue(-120, 120) + 'deg';
+		const yRotationOutput = UtilityHelper.randomValue(-220, 220) + 'deg';
 
 		this.yRotateAnimation = this.yAnimation.interpolate({
 			inputRange: [0, windowHeight / 2, windowHeight],
@@ -48,7 +47,7 @@ class Confetti extends Component<IConfettiProps> {
 
 		// maximum allowed distance along x axis - one third of screen width
 		const xMoveAllowed = windowWidth / 3;
-		const xDistance = this.randomIntValue(xMoveAllowed * -1, xMoveAllowed);
+		const xDistance = UtilityHelper.randomIntValue(xMoveAllowed * -1, xMoveAllowed);
 
 		this.xAnimation = this.yAnimation.interpolate({
 			inputRange: [0, windowHeight],
@@ -64,7 +63,7 @@ class Confetti extends Component<IConfettiProps> {
 	componentDidMount(): void {
 		const { duration } = this.props;
 		Animated.timing(this.yAnimation, {
-			duration: duration + this.randomIntValue(duration * .2, duration * -.2),
+			duration: duration + UtilityHelper.randomIntValue(duration * .2, duration * -.2),
 			toValue: windowHeight + 1.25,
 			useNativeDriver: true,
 		}).start(this.props.onAnimationComplete);
@@ -81,20 +80,8 @@ class Confetti extends Component<IConfettiProps> {
 		};
 	}
 
-	randomValue = (min: number, max: number): number  => {
-		return Math.random() * (max - min) + min;
-	}
-
-	randomIntValue = (min: number, max: number) => {
-		return Math.floor(this.randomValue(min, max));
-	}
-
-	randomColor = (colors: string[]) => {
-		return colors[this.randomIntValue(0, colors.length)];
-	}
-
 	render(): React.ReactNode {
-		const { left, ...otherProps } = this.props;
+		const { left, content, ...otherProps } = this.props;
 
 		return (
 			<Animated.View
@@ -105,12 +92,7 @@ class Confetti extends Component<IConfettiProps> {
 				]}
 				{...otherProps}
 			>
-				<Svg width={11} height={12}>
-					<Path
-						d="M0.409792 11.1844C4.83615 11.3492 5.71336 6.55381 9.98848 6.2407C10.2506 6.22422 9.83723 0.481277 9.98848 0.473038C5.71336 0.786139 4.83615 5.58154 0.409792 5.41675C0.460206 5.41675 0.248466 11.1762 0.409792 11.1844Z"
-						fill={this.color}
-					/>
-				</Svg>
+				{content}
 			</Animated.View>
 		);
 	}

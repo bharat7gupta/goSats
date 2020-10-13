@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, Image, ImageBackground, ScrollView, Share, ShareContent } from 'react-native';
+import { View, Text, StyleSheet, Image, ImageBackground, ScrollView, Share } from 'react-native';
 import Toast from 'react-native-simple-toast';
 
 import * as ApiHelper from '../helpers/ApiHelper';
@@ -24,7 +24,10 @@ import Strings from '../constants/strings';
 import * as Config from '../constants/config';
 import { StatusBarHeight } from '../helpers/UtilityHelper';
 import ChevronLeft from './common/icons/ChevronLeft';
+import OrderStatusModal from './OrderStatusModal';
 // import merchantDetail from '../mock_jsons/merchant-detail.json';
+// import orderStatusWithCongrats from '../mock_jsons/order-status-with-congrats.json';
+// import orderStatusWithoutCongrats from '../mock_jsons/order-status-without-congrats.json';
 
 export default function BrandDetail(props) {
 	const { route } = props;
@@ -35,6 +38,9 @@ export default function BrandDetail(props) {
 	const [ brandData, setBrandData ] = useState<MerchantDetail | GiftCardDetail>();
 	const [ isFavourite, setFavourite ] = useState(false);
 	const [ currentDenomination, setCurrentDenomination ] = useState<string>();
+	const [ isModalVisible, setModalVisibility ] = useState(false);
+	const [ orderStatus, setOrderStatusData ] = useState(null);
+	const [ submitDisabled, setSubmitDisabled ] = useState(false);
 
 	useEffect(() => {
 		fetchBrandDetails();
@@ -42,7 +48,6 @@ export default function BrandDetail(props) {
 
 	const fetchBrandDetails = async () => {
 		let responseData;
-		setLoading(true);
 
 		try {
 			responseData = await ApiHelper.fetchMerchantDetail(id);
@@ -55,9 +60,7 @@ export default function BrandDetail(props) {
 			}
 
 			setBrandData(responseData.data);
-			setLoading(false);
 		} catch (e) {
-			setLoading(false);
 			setShowError(true);
 			setErrorMessage(Strings.SOMETHING_WENT_WRONG);
 		}
@@ -99,11 +102,30 @@ export default function BrandDetail(props) {
 	};
 
 	const onPurchanseClick = async () => {
+		if (submitDisabled) {
+			return;
+		}
+
+		setLoading(true);
+		setSubmitDisabled(true);
+
+		const isGiftCard = brandData && brandData.isGiftCard;
+
+		if (isGiftCard && !currentDenomination) {
+			Toast.show('Please select an amount to continue buying giftcard');
+		}
+
+		const amount = Number(currentDenomination);
+
 		try {
-			const createOrderResponse = await ApiHelper.createOrder(id);
+			const createOrderResponse = await ApiHelper.createOrder(
+				id,
+				isGiftCard && !isNaN(amount) ? amount : 0,
+			);
 
 			if (createOrderResponse.error) {
 				Toast.show(createOrderResponse.message);
+				setSubmitDisabled(false);
 				return;
 			}
 
@@ -112,15 +134,21 @@ export default function BrandDetail(props) {
 			StorageHelper.setItem('orderId', orderId);
 
 			const result = await UtilityHelper.openInAppBrowser(redirectURL);
+			setSubmitDisabled(false);
 
 			if (result.type === 'cancel') {
 				const orderStatusResponse = await ApiHelper.getOrderStatus(orderId);
-				console.log(orderStatusResponse);
+				// const orderStatusResponse = orderStatusWithCongrats;
+				setOrderStatusData(orderStatusResponse.data);
+				setModalVisibility(true);
+				setLoading(false);
 			} else {
 				Toast.show('Order not placed');
+				setLoading(false);
 			}
 		} catch (e) {
 			Toast.show(Strings.SOMETHING_WENT_WRONG);
+			setSubmitDisabled(false);
 		}
 	};
 
@@ -240,6 +268,7 @@ export default function BrandDetail(props) {
 								btnText={getButtonText()}
 								onClick={onPurchanseClick}
 								btnContainerStyle={styles.purchaseButtonStyle}
+								disabled={submitDisabled}
 							/>
 						</React.Fragment>
 					)}
@@ -247,10 +276,18 @@ export default function BrandDetail(props) {
 				</View>
 			</ScrollView>
 
+			<PageLoader showLoader={loading} />
+
 			<ErrorModal
 				showError={showError}
 				errorMessage={errorMessage}
 				onDismissError={handleDismissError}
+			/>
+
+			<OrderStatusModal
+				isVisible={isModalVisible}
+				orderStatus={orderStatus}
+				onOkayClick={() => setModalVisibility(false)}
 			/>
 		</View>
 	);
