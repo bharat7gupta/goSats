@@ -17,6 +17,7 @@ import authReducer, { authInitialState, AuthActions, AuthState } from './reducer
 import SocialSignIn from './components/SocialSignIn';
 import Rewards from './components/Rewards';
 import SatsSpin from './components/SatsSpin';
+import AccountLogin from './components/AccountLogin';
 
 export const AuthStateContext = React.createContext({} as AuthState);
 export const AuthDispatchContext = React.createContext((payload) => {});
@@ -108,12 +109,13 @@ function App() {
 						</Stack.Navigator>
 						) : (
 							<Stack.Navigator
-								initialRouteName={hasVerifiedAccount ? 'SignIn' : 'SignUp'}
+								initialRouteName="AccountLogin"
 								screenOptions={{ header: () => null }}
 							>
 								<React.Fragment>
 									<Stack.Screen name="SignUp" component={SignUp} />
 									<Stack.Screen name="SignIn" component={SignIn} />
+									<Stack.Screen name="AccountLogin" component={AccountLogin} />
 									<Stack.Screen name="SocialSignIn" component={SocialSignIn} />
 									<Stack.Screen name="VerifyAccount" component={VerifyAccount} />
 									<Stack.Screen name="SignUpReferralCode" component={SignUpReferralCode} />
