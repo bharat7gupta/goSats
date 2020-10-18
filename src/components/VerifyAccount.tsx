@@ -8,6 +8,7 @@ import Button from './common/Button';
 import * as CognitoHelper from '../helpers/CognitoHelper';
 import * as StorageHelper from '../helpers/StorageHelper';
 import * as UtilityHelper from '../helpers/UtilityHelper';
+import * as ApiHelper from '../helpers/ApiHelper';
 import Strings from '../constants/strings';
 import { AuthStateContext, AuthDispatchContext } from '../App';
 import { AuthActions } from '../reducers/AuthReducer';
@@ -15,57 +16,55 @@ import AcitonButtonWithShadow from './common/ActionButtonWithShadow';
 import ShadowButton from './common/ShadowButton';
 import OtpInput from './common/OtpInput';
 
+const RESEND_OTP_TIMEOUT = 15 * 1000; // 15 secs
+
 export default function VerifyEmail(props) {
 	const { params } = props.route;
-	const { countryCode, phoneNumber } = params;
+	const { countryCode, phoneNumber, email } = params;
 	const authState = useContext(AuthStateContext);
 	const authDispatch = useContext(AuthDispatchContext);
 
+	const [ header, setHeader ] = useState('');
+	const [ subHeader, setSubHeader ] = useState('');
 	const [ otp, setOtp ] = useState('');
 	const [ otpValid, setOtpValidity ] = useState(false);
+	const [ submitDisabled, setSubmitDisabled ] = useState(false);
+	const [ resendOtpVisible, setResendOtpVisibility ] = useState(true);
 	const [ formErrorMessage, setFormErrorMessage ] = useState('');
 	const [ continueButtonHintText, setContinueButtonHintText ] = useState('');
 
 	useEffect(() => {
+		let headerText;
+		let subHeaderText;
+
+		if (email) {
+			headerText = 'Verify Email';
+			subHeaderText = email;
+		} else {
+			headerText = 'Verify Number';
+			subHeaderText = `(${countryCode}) ${phoneNumber}`;
+		}
+
+		setHeader(headerText);
+		setSubHeader(`We have sent 4 digit code to ${subHeaderText}, please enter it below to complete verification.`);
+
 		validateOtpInput('');
 	}, []);
 
-	const handleOTPChange = (text) => {
-		setOtp(text);
-		setFormErrorMessage('');
-	};
-
-	const onVerifyClick = () => {
+	const onVerifyClick = async () => {
 		if (otpValid) {
+			let verificationData;
+			setSubmitDisabled(false);
+
+			if (email) {
+				verificationData = await ApiHelper.verifyPhone(`${countryCode}${phoneNumber}`, otp);
+			} else {
+				verificationData = await ApiHelper.verifyEmail(otp);
+			}
+
+			setSubmitDisabled(true);
 			props.navigation.navigate('CreateAccount');
 		}
-
-		// setFormErrorMessage('');
-
-		// if (!otp || otp.trim().length === 0) {
-		// 	setFormErrorMessage('Please enter OTP');
-		// 	return;
-		// }
-
-		// setVerifyDisabled(true);
-
-		// const username = authState.username;
-
-		// CognitoHelper.confirmUserByOtp({ username, otp }, (err, result) => {
-		// 	setVerifyDisabled(false);
-
-		// 	if (err) {
-		// 		console.log(err);
-		// 		setFormErrorMessage(err.message || Strings.SOMETHING_WENT_WRONG);
-		// 		return;
-		// 	}
-
-		// 	StorageHelper.setItem('hasVerifiedAccount', 'true').then(() => {
-		// 		authDispatch({type: AuthActions.SET_ACCOUNT_VERIFIED});
-		// 		Toast.show(Strings.ACCOUNT_VERIFIED, Toast.LONG);
-		// 		props.navigation.navigate('SignUpReferralCode');
-		// 	});
-		// });
 	};
 
 	const validateOtpInput = (otp: string) => {
@@ -82,26 +81,23 @@ export default function VerifyEmail(props) {
 	};
 
 	const onResendOtp = async () => {
-		const username = authState.username;
+		setResendOtpVisibility(false);
+		Toast.show('Trying to send OTP code');
+		const signInData = await ApiHelper.signIn(`${countryCode}${phoneNumber}`);
 
-		CognitoHelper.resendConfirmationCode({ username }, (err) => {
-			if (err) {
-				const errorMessage = err.message || Strings.SOMETHING_WENT_WRONG;
-				Toast.show(errorMessage, Toast.LONG);
-				return;
-			}
+		if (signInData.message) {
+			Toast.show(signInData.message);
+		}
 
-			Toast.show(Strings.OTP_SENT, Toast.LONG);
-		});
+		setTimeout(() => {
+			setResendOtpVisibility(true);
+		}, RESEND_OTP_TIMEOUT);
 	};
 
 	return (
 		<KeyboardAwareScrollView contentContainerStyle={styles.root}>
-			<Text style={styles.headerText}>Verify Number</Text>
-
-			<Text style={styles.subText}>
-				We have sent 4 digit code to ({countryCode}) {phoneNumber}, please enter it below to complete verification.
-			</Text>
+			<Text style={styles.headerText}>{header}</Text>
+			<Text style={styles.subText}>{subHeader}</Text>
 
 			<OtpInput
 				length={4}
@@ -109,16 +105,20 @@ export default function VerifyEmail(props) {
 				style={styles.otpInputContainer}
 			/>
 
-			<View style={styles.resendContainer}>
-				<Text style={styles.codeNotReceivedText}>Didn’t receive the code?</Text>
-				<TouchableOpacity activeOpacity={0.6} onPress={onResendOtp}>
-					<Text style={styles.resendCode}>Resend Code</Text>
-				</TouchableOpacity>
-			</View>
+			{resendOtpVisible && (
+				<View style={styles.resendContainer}>
+					<Text style={styles.codeNotReceivedText}>Didn’t receive the code?</Text>
+					<TouchableOpacity activeOpacity={0.6} onPress={onResendOtp}>
+						<Text style={styles.resendCode}>Resend Code</Text>
+					</TouchableOpacity>
+				</View>
+			)}
+
+			<View style={{ flex: 1 }} />
 
 			<ShadowButton
 				buttonText="Continue"
-				disabled={!otpValid}
+				disabled={!otpValid || submitDisabled}
 				hintText={continueButtonHintText}
 				onClick={onVerifyClick}
 			/>
@@ -177,7 +177,6 @@ const styles = StyleSheet.create({
 		marginTop: 18,
 		justifyContent: 'center',
 		flexDirection: 'row',
-		flex: 1,
 	},
 	codeNotReceivedText: {
 		fontFamily: 'SFProText-Regular',

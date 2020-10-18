@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { KeyboardAwareScrollView } from '@codler/react-native-keyboard-aware-scroll-view';
+import Toast from 'react-native-simple-toast';
 import colorConstants from '../constants/color';
 import * as UtilityHelper from '../helpers/UtilityHelper';
+import * as ApiHelper from '../helpers/ApiHelper';
 import PhoneInputBox from './common/PhoneInputBox';
 import ShadowButton from './common/ShadowButton';
+import Strings from '../constants/strings';
 
 interface AccountLoginProps {
 	navigation: any;
@@ -14,6 +17,7 @@ export default function AccountLogin(props: AccountLoginProps) {
 	const [ phoneNumber, setPhoneNumber ] = useState('');
 	const [ continueButtonHintText, setContinueButtonHintText ] = useState('');
 	const [ isValidPhoneNumber, setIsValidPhoneNumber ] = useState(false);
+	const [ submitDisabled, setSubmitDisabled ] = useState(false);
 
 	const phoneNumberRegEx = /^[0-9]{10}$/;
 
@@ -37,9 +41,28 @@ export default function AccountLogin(props: AccountLoginProps) {
 		}
 	};
 
-	const handleSubmit = () => {
-		if (isValidPhoneNumber) {
-			props.navigation.navigate('VerifyAccount', { countryCode: '+91', phoneNumber });
+	const handleSubmit = async () => {
+		const countryCode = '+91';
+
+		if (!isValidPhoneNumber || submitDisabled) {
+			return;
+		}
+
+		try {
+			setSubmitDisabled(true);
+			const signInData = await ApiHelper.signIn(`${countryCode}${phoneNumber}`);
+			setSubmitDisabled(false);
+
+			if (signInData.message) {
+				Toast.show(signInData.message);
+			}
+
+			if (!signInData.error) {
+				props.navigation.navigate('VerifyAccount', { countryCode, phoneNumber });
+			}
+		} catch (e) {
+			Toast.show(Strings.SOMETHING_WENT_WRONG);
+			setSubmitDisabled(false);
 		}
 	};
 
@@ -58,7 +81,7 @@ export default function AccountLogin(props: AccountLoginProps) {
 				<ShadowButton
 					buttonText="Continue"
 					hintText={continueButtonHintText}
-					disabled={!isValidPhoneNumber}
+					disabled={!isValidPhoneNumber || submitDisabled}
 					onClick={handleSubmit}
 				/>
 			</View>

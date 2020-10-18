@@ -31,7 +31,7 @@ export default function PhoneInputBox(props: PhoneInputBoxProps) {
 			<TextInput
 				style={styles.input}
 				underlineColorAndroid="transparent"
-				placeholder="90909 09090"
+				placeholder="9090909090"
 				placeholderTextColor={colorConstants.TEXTBOX_PLACEHOLDER_TEXT_COLOR}
 				keyboardType="numeric"
 				autoCapitalize="none"
