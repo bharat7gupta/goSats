@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { KeyboardAwareScrollView } from '@codler/react-native-keyboard-aware-scroll-view';
 import colorConstants from '../constants/color';
@@ -17,13 +17,18 @@ export default function AccountLogin(props: AccountLoginProps) {
 
 	const phoneNumberRegEx = /^[0-9]{10}$/;
 
+	useEffect(() => {
+		validatePhoneNumber(phoneNumber);
+	}, []);
+
 	const handlePhoneNumberChange = (text: string) => {
 		setPhoneNumber(text);
+		validatePhoneNumber(text);
+	};
 
-		// validate
-		const isValid = !!(phoneNumber && phoneNumberRegEx.test(text));
+	const validatePhoneNumber = (phoneNumber: string) => {
+		const isValid = !!(phoneNumber && phoneNumberRegEx.test(phoneNumber));
 		setIsValidPhoneNumber(isValid);
-		console.log('isValid', isValid);
 
 		if (!isValid) {
 			setContinueButtonHintText('Enter valid phone number');
@@ -34,7 +39,7 @@ export default function AccountLogin(props: AccountLoginProps) {
 
 	const handleSubmit = () => {
 		if (isValidPhoneNumber) {
-			// TODO: initiate login
+			props.navigation.navigate('VerifyAccount', { countryCode: '+91', phoneNumber });
 		}
 	};
 
@@ -67,7 +72,7 @@ const styles = StyleSheet.create({
 		backgroundColor: colorConstants.PRIMARY,
 	},
 	topSection: {
-		paddingTop: UtilityHelper.StatusBarHeight,
+		paddingTop: UtilityHelper.StatusBarHeight + 20,
 		paddingHorizontal: 18,
 	},
 	heading: {
@@ -75,12 +80,15 @@ const styles = StyleSheet.create({
 		fontFamily: 'SFProText-Bold',
 		fontSize: 16,
 		lineHeight: 28,
+		textAlign: 'center',
+		marginBottom: 12,
 	},
 	subText: {
 		color: '#939393',
 		fontFamily: 'SFProText-Regular',
 		fontSize: 14,
 		lineHeight: 18,
+		textAlign: 'center',
 	},
 	phoneInputBox: {
 		marginTop: 40,

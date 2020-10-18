@@ -18,6 +18,7 @@ import SocialSignIn from './components/SocialSignIn';
 import Rewards from './components/Rewards';
 import SatsSpin from './components/SatsSpin';
 import AccountLogin from './components/AccountLogin';
+import CreateAccount from './components/CreateAccount';
 
 export const AuthStateContext = React.createContext({} as AuthState);
 export const AuthDispatchContext = React.createContext((payload) => {});
@@ -115,6 +116,7 @@ function App() {
 								<React.Fragment>
 									<Stack.Screen name="SignUp" component={SignUp} />
 									<Stack.Screen name="SignIn" component={SignIn} />
+									<Stack.Screen name="CreateAccount" component={CreateAccount} />
 									<Stack.Screen name="AccountLogin" component={AccountLogin} />
 									<Stack.Screen name="SocialSignIn" component={SocialSignIn} />
 									<Stack.Screen name="VerifyAccount" component={VerifyAccount} />

@@ -7,19 +7,28 @@ import TextBox from './common/TextBox';
 import Button from './common/Button';
 import * as CognitoHelper from '../helpers/CognitoHelper';
 import * as StorageHelper from '../helpers/StorageHelper';
-import * as Utils from '../helpers/UtilityHelper';
+import * as UtilityHelper from '../helpers/UtilityHelper';
 import Strings from '../constants/strings';
 import { AuthStateContext, AuthDispatchContext } from '../App';
 import { AuthActions } from '../reducers/AuthReducer';
 import AcitonButtonWithShadow from './common/ActionButtonWithShadow';
+import ShadowButton from './common/ShadowButton';
+import OtpInput from './common/OtpInput';
 
 export default function VerifyEmail(props) {
+	const { params } = props.route;
+	const { countryCode, phoneNumber } = params;
 	const authState = useContext(AuthStateContext);
 	const authDispatch = useContext(AuthDispatchContext);
 
 	const [ otp, setOtp ] = useState('');
+	const [ otpValid, setOtpValidity ] = useState(false);
 	const [ formErrorMessage, setFormErrorMessage ] = useState('');
-	const [ verifyDisabled, setVerifyDisabled ] = useState(false);
+	const [ continueButtonHintText, setContinueButtonHintText ] = useState('');
+
+	useEffect(() => {
+		validateOtpInput('');
+	}, []);
 
 	const handleOTPChange = (text) => {
 		setOtp(text);
@@ -27,32 +36,49 @@ export default function VerifyEmail(props) {
 	};
 
 	const onVerifyClick = () => {
-		setFormErrorMessage('');
-
-		if (!otp || otp.trim().length === 0) {
-			setFormErrorMessage('Please enter OTP');
-			return;
+		if (otpValid) {
+			props.navigation.navigate('CreateAccount');
 		}
 
-		setVerifyDisabled(true);
+		// setFormErrorMessage('');
 
-		const username = authState.username;
+		// if (!otp || otp.trim().length === 0) {
+		// 	setFormErrorMessage('Please enter OTP');
+		// 	return;
+		// }
 
-		CognitoHelper.confirmUserByOtp({ username, otp }, (err, result) => {
-			setVerifyDisabled(false);
+		// setVerifyDisabled(true);
 
-			if (err) {
-				console.log(err);
-				setFormErrorMessage(err.message || Strings.SOMETHING_WENT_WRONG);
-				return;
-			}
+		// const username = authState.username;
 
-			StorageHelper.setItem('hasVerifiedAccount', 'true').then(() => {
-				authDispatch({type: AuthActions.SET_ACCOUNT_VERIFIED});
-				Toast.show(Strings.ACCOUNT_VERIFIED, Toast.LONG);
-				props.navigation.navigate('SignUpReferralCode');
-			});
-		});
+		// CognitoHelper.confirmUserByOtp({ username, otp }, (err, result) => {
+		// 	setVerifyDisabled(false);
+
+		// 	if (err) {
+		// 		console.log(err);
+		// 		setFormErrorMessage(err.message || Strings.SOMETHING_WENT_WRONG);
+		// 		return;
+		// 	}
+
+		// 	StorageHelper.setItem('hasVerifiedAccount', 'true').then(() => {
+		// 		authDispatch({type: AuthActions.SET_ACCOUNT_VERIFIED});
+		// 		Toast.show(Strings.ACCOUNT_VERIFIED, Toast.LONG);
+		// 		props.navigation.navigate('SignUpReferralCode');
+		// 	});
+		// });
+	};
+
+	const validateOtpInput = (otp: string) => {
+		const otpRegex = new RegExp(`^\\d{4}$`);
+		const validity = otpRegex.test(otp);
+		const hintText = validity ? '' : 'Enter valid code to complete verification';
+		setOtpValidity(validity);
+		setContinueButtonHintText(hintText);
+	};
+
+	const handleOtpChange = (otp: string) => {
+		setOtp(otp);
+		validateOtpInput(otp);
 	};
 
 	const onResendOtp = async () => {
@@ -69,37 +95,33 @@ export default function VerifyEmail(props) {
 		});
 	};
 
-	const accountByText = Utils.isEmail(authState.username) ? 'email' : 'mobile number';
-
 	return (
-		<KeyboardAwareScrollView style={styles.root}>
-			<Text style={styles.headerText}>Verify your account</Text>
+		<KeyboardAwareScrollView contentContainerStyle={styles.root}>
+			<Text style={styles.headerText}>Verify Number</Text>
 
 			<Text style={styles.subText}>
-				An OTP has been sent to your {accountByText}. Please enter that below.
+				We have sent 4 digit code to ({countryCode}) {phoneNumber}, please enter it below to complete verification.
 			</Text>
 
-			<View style={styles.otpInputContainer}>
-				<TextBox
-					placeholder="Enter OTP"
-					onChange={handleOTPChange}
-					errorText={formErrorMessage}
-				/>
-			</View>
+			<OtpInput
+				length={4}
+				onOtpChange={handleOtpChange}
+				style={styles.otpInputContainer}
+			/>
 
-			<View style={styles.verifyButtonContainer}>
-				<AcitonButtonWithShadow
-					buttonText="Verify"
-					onClick={onVerifyClick}
-					disabled={verifyDisabled}
-				/>
-			</View>
-
-			<View style={styles.resendOtpContainer}>
-				<TouchableOpacity onPress={onResendOtp} style={styles.resendOtpButton}>
-					<Text style={styles.resendOtpButtonText}>Resend OTP</Text>
+			<View style={styles.resendContainer}>
+				<Text style={styles.codeNotReceivedText}>Didn’t receive the code?</Text>
+				<TouchableOpacity activeOpacity={0.6} onPress={onResendOtp}>
+					<Text style={styles.resendCode}>Resend Code</Text>
 				</TouchableOpacity>
 			</View>
+
+			<ShadowButton
+				buttonText="Continue"
+				disabled={!otpValid}
+				hintText={continueButtonHintText}
+				onClick={onVerifyClick}
+			/>
 		</KeyboardAwareScrollView>
 	);
 }
@@ -110,12 +132,12 @@ const styles = StyleSheet.create({
 		backgroundColor: colorConstants.PRIMARY,
 	},
 	headerText: {
-		fontSize: 25,
+		fontSize: 16,
 		lineHeight: 28,
 		fontFamily: 'SFProText-Bold',
 		color: colorConstants.FONT_COLOR,
-		marginTop: 72,
-		marginBottom: 48,
+		paddingTop: UtilityHelper.StatusBarHeight + 20,
+		marginBottom: 12,
 		textAlign: 'center',
 		paddingHorizontal: 20,
 	},
@@ -123,14 +145,14 @@ const styles = StyleSheet.create({
 		fontSize: 15,
 		lineHeight: 30,
 		fontFamily: 'SFProText-Regular',
-		color: colorConstants.FONT_COLOR,
+		color: '#939393',
 		textAlign: 'center',
-		paddingHorizontal: 28,
-		marginBottom: 52,
+		paddingHorizontal: 20,
+		marginBottom: 18,
 		opacity: 0.7,
 	},
 	otpInputContainer: {
-		paddingHorizontal: 20,
+		marginVertical: 10,
 	},
 	verifyButtonContainer: {
 		marginTop: 24,
@@ -150,5 +172,25 @@ const styles = StyleSheet.create({
 		fontFamily: 'SFProText-Bold',
 		fontSize: 16,
 		color: colorConstants.FONT_COLOR,
+	},
+	resendContainer: {
+		marginTop: 18,
+		justifyContent: 'center',
+		flexDirection: 'row',
+		flex: 1,
+	},
+	codeNotReceivedText: {
+		fontFamily: 'SFProText-Regular',
+		fontSize: 14,
+		lineHeight: 19,
+		color: '#939393',
+	},
+	resendCode: {
+		marginLeft: 4,
+		fontFamily: 'SFProText-Bold',
+		textDecorationLine: 'underline',
+		fontSize: 14,
+		lineHeight: 19,
+		color: '#939393',
 	},
 });

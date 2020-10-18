@@ -15,7 +15,7 @@ export default function ShadowButton(props: ShadowButtonProps) {
 	const [ lightShadowColor, setLightShadowColor ] = useState('#38342B');
 	const [ backgroundColor, setBackgroundColor ] = useState(colorConstants.PRIMARY);
 	const [ buttonTextColor, setButtonTextColor ] = useState('rgba(255, 255, 255, 0.5)');
-	const touchableActiveOpacity = 0.7;
+	const touchableActiveOpacity = 0.5;
 
 	useEffect(() => {
 		const { disabled } = props;
@@ -72,7 +72,6 @@ const styles = StyleSheet.create({
 	},
 	button: {
 		width: '100%',
-
 		borderRadius: 10,
 	},
 	disabledText: {
