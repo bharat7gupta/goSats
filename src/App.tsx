@@ -5,11 +5,8 @@ import { createStackNavigator } from '@react-navigation/stack';
 import SplashScreen from 'react-native-splash-screen';
 
 import Dashboard from './components/Dashboard';
-import Categories from './components/Categories';
 import colorConstants from './constants/color';
 import BrandDetail from './components/BrandDetail';
-import SignIn from './components/SignIn';
-import SignUp from './components/SignUp';
 import VerifyAccount from './components/VerifyAccount';
 import * as StorageHelper from './helpers/StorageHelper';
 import authReducer, { authInitialState, AuthActions, AuthState } from './reducers/AuthReducer';
