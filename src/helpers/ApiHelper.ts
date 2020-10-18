@@ -1,10 +1,12 @@
 import * as StorageHelper from '../helpers/StorageHelper';
+import Strings from '../constants/strings';
 
 const API_ROOT = 'https://devapi.gosats.io/v1';
 
 const API_URLS = {
 	SIGN_IN: '/auth/user/signin',
 	VERIFY_PHONE: '/auth/user/verify/phone',
+	REQUEST_EMAIL_OTP: '/auth/user/request/email/code',
 	VERIFY_EMAIL: '/auth/user/verify/email',
 	UPDATE_USER_DETAILS: '/auth/update/user/details',
 	MASTER_DATA: '/user/master/data',
@@ -21,226 +23,113 @@ const baseHeaders = {
 	'Content-Type': 'application/json',
 };
 
-export async function signIn(phoneNumber: string) {
-	const apiUrl = `${API_ROOT}${API_URLS.SIGN_IN}`;
+const commonApiCall = async (apiUrl: string, body?: any, method?: string, skipBearerToken: boolean = false) => {
+	const requestParams = {} as any;
 
 	try {
-		const response = await fetch(apiUrl, {
-			method: 'POST',
-			headers: { ... baseHeaders },
-			body: JSON.stringify({ phoneNumber }),
-		});
-		const json = await response.json();
+		const headers = { ...baseHeaders };
 
-		return json;
+		if (skipBearerToken) {
+			const accessToken = await StorageHelper.getItem('accessToken');
+			headers['Authorization'] = `Bearer ${accessToken}`;
+		}
+
+		requestParams.headers = headers;
+
+		if (method && method === 'POST') {
+			requestParams.method = 'POST';
+			requestParams.body = JSON.stringify(body);
+		} else {
+			requestParams.method = 'GET';
+		}
+
+		const response = await fetch(apiUrl, requestParams);
+		return response.json();
 	} catch (e) {
-		// TODO: Show toast here
+		return Promise.resolve({
+			error: true,
+			message: Strings.SOMETHING_WENT_WRONG,
+		});
 	}
+};
+
+export async function signIn(phoneNumber: string) {
+	const apiUrl = `${API_ROOT}${API_URLS.SIGN_IN}`;
+	const requestObj = { phoneNumber };
+
+	return await commonApiCall(apiUrl, requestObj, 'POST');
 }
 
 export async function verifyPhone(phoneNumber, code) {
 	const apiUrl = `${API_ROOT}${API_URLS.VERIFY_PHONE}`;
+	const requestObj = { phoneNumber, code };
 
-	try {
-		const response = await fetch(apiUrl, {
-			method: 'POST',
-			headers: { ...baseHeaders },
-			body: JSON.stringify({ phoneNumber, code }),
-		});
-		const json = await response.json();
+	return await commonApiCall(apiUrl, requestObj, 'POST');
+}
 
-		return json;
-	} catch (e) {
-		// TODO: Show toast here
-	}
+export async function requestEmailOtp(code) {
+	const apiUrl = `${API_ROOT}${API_URLS.REQUEST_EMAIL_OTP}`;
+	return await commonApiCall(apiUrl);
 }
 
 export async function verifyEmail(code) {
 	const apiUrl = `${API_ROOT}${API_URLS.VERIFY_EMAIL}`;
+	const requestObj = { code };
 
-	try {
-		const response = await fetch(apiUrl, {
-			method: 'POST',
-			headers: { ...baseHeaders },
-			body: JSON.stringify({ code }),
-		});
-		const json = await response.json();
-
-		return json;
-	} catch (e) {
-		// TODO: Show toast here
-	}
+	return await commonApiCall(apiUrl, requestObj, 'POST');
 }
 
 export async function updateUserInfo(email: string, name: string, referee?: string) {
 	const apiUrl = `${API_ROOT}${API_URLS.UPDATE_USER_DETAILS}`;
+	const requestObj = { email, name, referee };
 
-	try {
-		const response = await fetch(apiUrl, {
-			method: 'POST',
-			headers: { ...baseHeaders },
-			body: JSON.stringify({ email, name, referee }),
-		});
-		const json = await response.json();
-
-		return json;
-	} catch (e) {
-		// TODO: Show toast here
-	}
+	return await commonApiCall(apiUrl, requestObj, 'POST');
 }
 
 export async function fetchMasterData() {
 	const apiUrl = `${API_ROOT}${API_URLS.MASTER_DATA}`;
-
-	try {
-		const accessToken = await StorageHelper.getItem('accessToken');
-		const response = await fetch(apiUrl, {
-			headers: {
-				'Authorization': `Bearer ${accessToken}`,
-			},
-		});
-		const json = await response.json();
-
-		return json;
-	} catch (e) {
-		// TODO: Show toast here
-	}
+	return await commonApiCall(apiUrl);
 }
 
 export async function fetchBrands() {
 	const apiUrl = `${API_ROOT}${API_URLS.GET_MERCHANTS}`;
-
-	try {
-		const accessToken = await StorageHelper.getItem('accessToken');
-		const response = await fetch(apiUrl, {
-			headers: {
-				'Authorization': `Bearer ${accessToken}`,
-			},
-		});
-		const json = await response.json();
-
-		return json;
-	} catch (e) {
-		// TODO: Show toast here
-	}
+	return await commonApiCall(apiUrl);
 }
 
 export async function fetchMerchantDetail(merchantId: string) {
 	const apiUrl = `${API_ROOT}${API_URLS.GET_MERCHANT_DETAIL}${merchantId}`;
-
-	try {
-		const accessToken = await StorageHelper.getItem('accessToken');
-		const response = await fetch(apiUrl, {
-			headers: {
-				'Authorization': `Bearer ${accessToken}`,
-			},
-		});
-		const json = await response.json();
-
-		return json;
-	} catch (e) {
-		// TODO: Show toast here
-	}
+	return await commonApiCall(apiUrl);
 }
 
 export async function fetchUserBalance() {
 	const apiUrl = `${API_ROOT}${API_URLS.USER_BALANCE}`;
-
-	try {
-		const accessToken = await StorageHelper.getItem('accessToken');
-		const response = await fetch(apiUrl, {
-			headers: {
-				'Authorization': `Bearer ${accessToken}`,
-			},
-		});
-		const json = await response.json();
-
-		return json;
-	} catch (e) {
-		// TODO: Show toast here
-	}
+	return await commonApiCall(apiUrl);
 }
 
 export async function setReferee (referralCode) {
 	const apiUrl = `${API_ROOT}${API_URLS.SET_REFEREE}`;
+	const requestObj = { referee: referralCode };
 
-	try {
-		const accessToken = await StorageHelper.getItem('accessToken');
-		const response = await fetch(apiUrl, {
-			headers: {
-				'Authorization': `Bearer ${accessToken}`,
-			},
-			method: 'POST',
-			body: JSON.stringify({ referee: referralCode }),
-		});
-		const json = await response.json();
-
-		return json;
-	} catch (e) {
-		// TODO: Show toast here
-	}
+	return await commonApiCall(apiUrl, requestObj, 'POST');
 }
 
 export async function spinWheel() {
 	const apiUrl = `${API_ROOT}${API_URLS.SPIN_WHEEL}`;
-
-	try {
-		const accessToken = await StorageHelper.getItem('accessToken');
-		console.log(accessToken);
-		const response = await fetch(apiUrl, {
-			headers: {
-				'Authorization': `Bearer ${accessToken}`,
-			},
-		});
-		const json = await response.json();
-
-		return json;
-	} catch (e) {
-		// TODO: Show toast here
-	}
+	return await commonApiCall(apiUrl);
 }
 
 export async function createOrder(merchantId: string, giftCardDenomination?: number) {
 	const apiUrl = `${API_ROOT}${API_URLS.CREATE_ORDER}`;
+	const requestObject: any = { merchantId };
 
-	try {
-		const accessToken = await StorageHelper.getItem('accessToken');
-		const requestObject: any = { merchantId };
-
-		if (giftCardDenomination) {
-			requestObject.amount = giftCardDenomination;
-		}
-
-		const response = await fetch(apiUrl, {
-			headers: {
-				'Authorization': `Bearer ${accessToken}`,
-				'Content-Type': 'application/json',
-			},
-			method: 'POST',
-			body: JSON.stringify(requestObject),
-		});
-		const json = await response.json();
-
-		return json;
-	} catch (e) {
-		// TODO: Show toast here
+	if (giftCardDenomination) {
+		requestObject.amount = giftCardDenomination;
 	}
+
+	return await commonApiCall(apiUrl, requestObject, 'POST');
 }
 
 export async function getOrderStatus(orderId: string) {
 	const apiUrl = `${API_ROOT}${API_URLS.ORDER_STATUS}${orderId}`;
-
-	try {
-		const accessToken = await StorageHelper.getItem('accessToken');
-		const response = await fetch(apiUrl, {
-			headers: {
-				'Authorization': `Bearer ${accessToken}`,
-			},
-		});
-		const json = await response.json();
-
-		return json;
-	} catch (e) {
-		// TODO: Show toast here
-	}
+	return await commonApiCall(apiUrl);
 }
