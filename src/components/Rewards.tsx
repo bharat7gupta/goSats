@@ -95,17 +95,17 @@ export default function Rewards(props) {
 					</Text>
 				</View>
 
-				<TouchableOpacity style={styles.menuButton}>
+				<TouchableOpacity activeOpacity={0.7} style={styles.menuButton}>
 					<RewardsHistoryIcon />
 					<Text style={styles.menuButtonText}>Rewards History</Text>
 				</TouchableOpacity>
 
-				<TouchableOpacity style={styles.menuButton}>
+				<TouchableOpacity activeOpacity={0.7} style={styles.menuButton}>
 					<ReferAndEarnIcon />
 					<Text style={styles.menuButtonText}>Refer & Earn</Text>
 				</TouchableOpacity>
 
-				<TouchableOpacity style={styles.menuButton}>
+				<TouchableOpacity activeOpacity={0.7} style={styles.menuButton}>
 					<HowItWorksIcon />
 					<Text style={styles.menuButtonText}>How It Works</Text>
 				</TouchableOpacity>

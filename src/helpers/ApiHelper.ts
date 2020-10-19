@@ -23,15 +23,26 @@ const baseHeaders = {
 	'Content-Type': 'application/json',
 };
 
-const commonApiCall = async (apiUrl: string, body?: any, method?: string, skipBearerToken: boolean = false) => {
+const commonApiCall = async (
+	apiUrl: string,
+	body?: any,
+	method?: string,
+	addBearerTokenHeader: boolean = false,
+	addSessionHeader: boolean = false,
+) => {
 	const requestParams = {} as any;
 
 	try {
 		const headers = { ...baseHeaders };
 
-		if (skipBearerToken) {
+		if (addBearerTokenHeader) {
 			const accessToken = await StorageHelper.getItem('accessToken');
 			headers['Authorization'] = `Bearer ${accessToken}`;
+		}
+
+		if (addSessionHeader) {
+			const sessionToken = await StorageHelper.getItem('sessionToken');
+			headers['session'] = sessionToken;
 		}
 
 		requestParams.headers = headers;
@@ -64,58 +75,58 @@ export async function verifyPhone(phoneNumber, code) {
 	const apiUrl = `${API_ROOT}${API_URLS.VERIFY_PHONE}`;
 	const requestObj = { phoneNumber, code };
 
-	return await commonApiCall(apiUrl, requestObj, 'POST');
+	return await commonApiCall(apiUrl, requestObj, 'POST', false, true);
 }
 
-export async function requestEmailOtp(code) {
+export async function requestEmailOtp() {
 	const apiUrl = `${API_ROOT}${API_URLS.REQUEST_EMAIL_OTP}`;
-	return await commonApiCall(apiUrl);
+	return await commonApiCall(apiUrl, null, null, true);
 }
 
-export async function verifyEmail(code) {
+export async function verifyEmail(code: string) {
 	const apiUrl = `${API_ROOT}${API_URLS.VERIFY_EMAIL}`;
 	const requestObj = { code };
 
-	return await commonApiCall(apiUrl, requestObj, 'POST');
+	return await commonApiCall(apiUrl, requestObj, 'POST', true);
 }
 
-export async function updateUserInfo(email: string, name: string, referee?: string) {
+export async function updateUserDetails(email: string, name: string, referee?: string) {
 	const apiUrl = `${API_ROOT}${API_URLS.UPDATE_USER_DETAILS}`;
 	const requestObj = { email, name, referee };
 
-	return await commonApiCall(apiUrl, requestObj, 'POST');
+	return await commonApiCall(apiUrl, requestObj, 'POST', true);
 }
 
 export async function fetchMasterData() {
 	const apiUrl = `${API_ROOT}${API_URLS.MASTER_DATA}`;
-	return await commonApiCall(apiUrl);
+	return await commonApiCall(apiUrl, null, null, true);
 }
 
 export async function fetchBrands() {
 	const apiUrl = `${API_ROOT}${API_URLS.GET_MERCHANTS}`;
-	return await commonApiCall(apiUrl);
+	return await commonApiCall(apiUrl, null, null, true);
 }
 
 export async function fetchMerchantDetail(merchantId: string) {
 	const apiUrl = `${API_ROOT}${API_URLS.GET_MERCHANT_DETAIL}${merchantId}`;
-	return await commonApiCall(apiUrl);
+	return await commonApiCall(apiUrl, null, null, true);
 }
 
 export async function fetchUserBalance() {
 	const apiUrl = `${API_ROOT}${API_URLS.USER_BALANCE}`;
-	return await commonApiCall(apiUrl);
+	return await commonApiCall(apiUrl, null, null, true);
 }
 
 export async function setReferee (referralCode) {
 	const apiUrl = `${API_ROOT}${API_URLS.SET_REFEREE}`;
 	const requestObj = { referee: referralCode };
 
-	return await commonApiCall(apiUrl, requestObj, 'POST');
+	return await commonApiCall(apiUrl, requestObj, 'POST', true);
 }
 
 export async function spinWheel() {
 	const apiUrl = `${API_ROOT}${API_URLS.SPIN_WHEEL}`;
-	return await commonApiCall(apiUrl);
+	return await commonApiCall(apiUrl, null, null, true);
 }
 
 export async function createOrder(merchantId: string, giftCardDenomination?: number) {
@@ -126,10 +137,10 @@ export async function createOrder(merchantId: string, giftCardDenomination?: num
 		requestObject.amount = giftCardDenomination;
 	}
 
-	return await commonApiCall(apiUrl, requestObject, 'POST');
+	return await commonApiCall(apiUrl, requestObject, 'POST', true);
 }
 
 export async function getOrderStatus(orderId: string) {
 	const apiUrl = `${API_ROOT}${API_URLS.ORDER_STATUS}${orderId}`;
-	return await commonApiCall(apiUrl);
+	return await commonApiCall(apiUrl, null, null, true);
 }

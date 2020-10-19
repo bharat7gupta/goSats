@@ -26,12 +26,9 @@ function App() {
 	const [ authState, dispatch ] = useReducer(authReducer, authInitialState);
 
 	const [ isLoggedIn, setIsLoggedIn ] = useState<boolean>(false);
-	const [ hasVerifiedAccount, setHasVerifiedAccount ] = useState<boolean>(false);
 	const [ checkedSignInState, setCheckedSignInState ] = useState<boolean>(false);
-	const [ checkedAccountState, setCheckedAccountState ] = useState<boolean>(false);
 
 	useEffect(() => {
-		checkAccountVerifiedState();
 		checkLoggedInState();
 	}, [authState]);
 
@@ -46,12 +43,6 @@ function App() {
 		setCheckedSignInState(true);
 	};
 
-	const checkAccountVerifiedState = async () => {
-		const hasVerifiedAccount = await readBoolStorageValue('hasVerifiedAccount');
-		setHasVerifiedAccount(hasVerifiedAccount);
-		setCheckedAccountState(true);
-	};
-
 	const readBoolStorageValue = async (key: string): Promise<boolean> => {
 		const value = await StorageHelper.getItem(key);
 
@@ -62,11 +53,11 @@ function App() {
 		}
 	};
 
-	if (!checkedSignInState || !checkedAccountState) {
+	if (!checkedSignInState) {
 		return null;
 	}
 
-	if (!hasVerifiedAccount || !isLoggedIn) {
+	if (!isLoggedIn) {
 		SplashScreen.hide();
 	}
 
@@ -91,7 +82,7 @@ function App() {
 		<AuthStateContext.Provider value={authContextValue.authState}>
 			<AuthDispatchContext.Provider value={authContextValue.dispatch}>
 				<NavigationContainer linking={deepLinking}>
-					{hasVerifiedAccount && isLoggedIn ? (
+					{isLoggedIn ? (
 						<Stack.Navigator
 							initialRouteName="Dashboard"
 							screenOptions={{ header: () => null }}

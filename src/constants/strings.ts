@@ -7,8 +7,8 @@ const Strings = {
 
 	// validation texts
 	ENTER_VALID_DISPLAY_NAME: 'Please enter valid name',
-	ENTER_VALID_EMAIL: 'Please provide valid email',
-	ENTER_VALID_REFERRAL_CODE: 'Please provide valid referral code',
+	ENTER_VALID_EMAIL: 'Please enter valid email',
+	ENTER_VALID_REFERRAL_CODE: 'Please enter valid referral code',
 };
 
 export default Strings;

@@ -31,7 +31,7 @@ export default function SatsSpin(props: SatsSpinProps) {
 
 	const fetchSpinWheelData = async () => {
 		const spinWheelData = await ApiHelper.spinWheel();
-		console.log(spinWheelData);
+		// console.log(spinWheelData);
 	};
 
 	const onSubmit = () => {

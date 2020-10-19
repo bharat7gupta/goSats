@@ -14,6 +14,7 @@ import { StatusBarHeight } from '../helpers/UtilityHelper';
 import masterDataSet from '../mock_jsons/master-data.json';
 import Brand from '../types/Brand';
 import BrandItem from '../types/BrandItem';
+import Toast from 'react-native-simple-toast';
 
 const spotLightHeightFactor = 0.5;
 const editorsPickHeightFactor = 0.764;
@@ -79,7 +80,8 @@ export default function Shop(props) {
 	};
 
 	const handleSpinClick = () => {
-		props.navigation.navigate('SatsSpin');
+		Toast.show('Coming soon!');
+		// props.navigation.navigate('SatsSpin');
 	};
 
 	return (
@@ -140,7 +142,7 @@ const styles = StyleSheet.create({
 		paddingBottom: 30,
 	},
 	topSection: {
-		paddingTop: StatusBarHeight,
+		paddingTop: StatusBarHeight + 10,
 		backgroundColor: colorConstants.PRIMARY,
 	},
 	editorsPickTitleText: {

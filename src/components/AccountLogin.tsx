@@ -3,6 +3,7 @@ import { View, Text, StyleSheet } from 'react-native';
 import { KeyboardAwareScrollView } from '@codler/react-native-keyboard-aware-scroll-view';
 import Toast from 'react-native-simple-toast';
 import colorConstants from '../constants/color';
+import * as StorageHelper from '../helpers/StorageHelper';
 import * as UtilityHelper from '../helpers/UtilityHelper';
 import * as ApiHelper from '../helpers/ApiHelper';
 import PhoneInputBox from './common/PhoneInputBox';
@@ -19,8 +20,6 @@ export default function AccountLogin(props: AccountLoginProps) {
 	const [ isValidPhoneNumber, setIsValidPhoneNumber ] = useState(false);
 	const [ submitDisabled, setSubmitDisabled ] = useState(false);
 
-	const phoneNumberRegEx = /^[0-9]{10}$/;
-
 	useEffect(() => {
 		validatePhoneNumber(phoneNumber);
 	}, []);
@@ -31,7 +30,7 @@ export default function AccountLogin(props: AccountLoginProps) {
 	};
 
 	const validatePhoneNumber = (phoneNumber: string) => {
-		const isValid = !!(phoneNumber && phoneNumberRegEx.test(phoneNumber));
+		const isValid = UtilityHelper.isPhoneNumber(phoneNumber);
 		setIsValidPhoneNumber(isValid);
 
 		if (!isValid) {
@@ -58,6 +57,11 @@ export default function AccountLogin(props: AccountLoginProps) {
 			}
 
 			if (!signInData.error) {
+				const { session, isNewUser } = signInData.data;
+
+				StorageHelper.setItem('sessionToken', session);
+				StorageHelper.setItem('isNewUser', isNewUser.toString());
+
 				props.navigation.navigate('VerifyAccount', { countryCode, phoneNumber });
 			}
 		} catch (e) {

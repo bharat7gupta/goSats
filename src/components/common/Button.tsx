@@ -27,7 +27,7 @@ export default function Button(props: ButtonProps) {
 
 	return (
 		<View style={[styles.root, btnContainerStyle ]}>
-			<TouchableOpacity style={actionButtonStyle} onPress={handleButtonClick}>
+			<TouchableOpacity activeOpacity={0.7} style={actionButtonStyle} onPress={handleButtonClick}>
 				<Text style={[ styles.actionButtonText, btnTextStyle ]}>{btnText}</Text>
 			</TouchableOpacity>
 		</View>

@@ -16,11 +16,13 @@ import AcitonButtonWithShadow from './common/ActionButtonWithShadow';
 import ShadowButton from './common/ShadowButton';
 import OtpInput from './common/OtpInput';
 
+const EMAIL_OTP_LENGTH = 6;
+const PHONE_OTP_LENGTH = 4;
 const RESEND_OTP_TIMEOUT = 15 * 1000; // 15 secs
 
 export default function VerifyEmail(props) {
 	const { params } = props.route;
-	const { countryCode, phoneNumber, email } = params;
+	const { countryCode, phoneNumber, email, totalSats } = params;
 	const authState = useContext(AuthStateContext);
 	const authDispatch = useContext(AuthDispatchContext);
 
@@ -30,45 +32,63 @@ export default function VerifyEmail(props) {
 	const [ otpValid, setOtpValidity ] = useState(false);
 	const [ submitDisabled, setSubmitDisabled ] = useState(false);
 	const [ resendOtpVisible, setResendOtpVisibility ] = useState(true);
-	const [ formErrorMessage, setFormErrorMessage ] = useState('');
 	const [ continueButtonHintText, setContinueButtonHintText ] = useState('');
+	const otpLength = email ? EMAIL_OTP_LENGTH : PHONE_OTP_LENGTH;
 
 	useEffect(() => {
-		let headerText;
-		let subHeaderText;
-
 		if (email) {
-			headerText = 'Verify Email';
-			subHeaderText = email;
+			const formattedRewardSats = UtilityHelper.getFormattedNumber(totalSats);
+			setHeader('Verify Email');
+			setSubHeader(`You have won a reward of ${formattedRewardSats} sats on spin wheel. We have sent an OTP to your email ‘${email}’. Enter code to verify and claim the reward.`);
 		} else {
-			headerText = 'Verify Number';
-			subHeaderText = `(${countryCode}) ${phoneNumber}`;
+			setHeader('Verify Number');
+			setSubHeader(`We have sent 4 digit code to (${countryCode}) ${phoneNumber}, please enter it below to complete verification.`);
 		}
 
-		setHeader(headerText);
-		setSubHeader(`We have sent 4 digit code to ${subHeaderText}, please enter it below to complete verification.`);
-
 		validateOtpInput('');
-	}, []);
+	}, [params]);
 
 	const onVerifyClick = async () => {
 		if (otpValid) {
 			let verificationData;
-			setSubmitDisabled(false);
+			setSubmitDisabled(true);
 
 			if (email) {
-				verificationData = await ApiHelper.verifyPhone(`${countryCode}${phoneNumber}`, otp);
-			} else {
 				verificationData = await ApiHelper.verifyEmail(otp);
+			} else {
+				verificationData = await ApiHelper.verifyPhone(`${countryCode}${phoneNumber}`, otp);
 			}
 
-			setSubmitDisabled(true);
-			props.navigation.navigate('CreateAccount');
+			const isNewUser = await StorageHelper.getItem('isNewUser');
+			Toast.show(verificationData.message);
+			setSubmitDisabled(false);
+
+			// console.log(verificationData);
+
+			if (verificationData.error) {
+				StorageHelper.setItem('sessionToken', verificationData.data.session);
+			} else {
+				if (phoneNumber) {
+					StorageHelper.setItem('accessToken', verificationData.data.AccessToken);
+					StorageHelper.setItem('refreshToken', verificationData.data.RefreshToken);
+				}
+
+				if (phoneNumber && isNewUser === 'true') {
+					props.navigation.replace('CreateAccount');
+				} else {
+					StorageHelper.setItem('isLoggedIn', 'true');
+
+					authDispatch({
+						type: AuthActions.UPDATE_LOGIN_STATUS,
+						isLoggedIn: true,
+					});
+				}
+			}
 		}
 	};
 
 	const validateOtpInput = (otp: string) => {
-		const otpRegex = new RegExp(`^\\d{4}$`);
+		const otpRegex = new RegExp('^\\d{' + otpLength + '}$');
 		const validity = otpRegex.test(otp);
 		const hintText = validity ? '' : 'Enter valid code to complete verification';
 		setOtpValidity(validity);
@@ -81,12 +101,22 @@ export default function VerifyEmail(props) {
 	};
 
 	const onResendOtp = async () => {
+		let signInData;
 		setResendOtpVisibility(false);
 		Toast.show('Trying to send OTP code');
-		const signInData = await ApiHelper.signIn(`${countryCode}${phoneNumber}`);
 
-		if (signInData.message) {
-			Toast.show(signInData.message);
+		if (email) {
+			signInData = await ApiHelper.requestEmailOtp();
+		} else {
+			signInData = await ApiHelper.signIn(`${countryCode}${phoneNumber}`);
+		}
+
+		const { error, message } = signInData;
+		message && Toast.show(signInData.message);
+
+		if (!error) {
+			const { session } = signInData.data;
+			StorageHelper.setItem('sessionToken', session);
 		}
 
 		setTimeout(() => {
@@ -100,7 +130,8 @@ export default function VerifyEmail(props) {
 			<Text style={styles.subText}>{subHeader}</Text>
 
 			<OtpInput
-				length={4}
+				length={otpLength}
+				otpValues={Array(otpLength).fill('')}
 				onOtpChange={handleOtpChange}
 				style={styles.otpInputContainer}
 			/>

@@ -24,7 +24,7 @@ export default function RewardsSection(props: RewardsSectionProps) {
 
 	return (
 		<View style={styles.root}>
-			<TouchableOpacity onPress={props.onRewardsClick}>
+			<TouchableOpacity activeOpacity={0.7} onPress={props.onRewardsClick}>
 				<View style={styles.icon}>
 					<Image source={{ uri: levelImageUrl }} style={{ width: 60, height: 90 }} />
 				</View>
@@ -52,7 +52,7 @@ export default function RewardsSection(props: RewardsSectionProps) {
 						darkShadowColor={colorConstants.SHADOW_DARK}
 						lightShadowColor={colorConstants.ACTION_BUTTON_SHADOW}
 					>
-						<TouchableOpacity style={styles.spinButton} onPress={props.onSpinClick}>
+						<TouchableOpacity activeOpacity={0.7} style={styles.spinButton} onPress={props.onSpinClick}>
 							<SpinWheelIcon />
 							<Text style={styles.spinButtonText}>Spin</Text>
 						</TouchableOpacity>
