@@ -71,15 +71,19 @@ export default function AccountLogin(props: AccountLoginProps) {
 	};
 
 	return (
-		<KeyboardAwareScrollView contentContainerStyle={styles.root}>
+		<View style={styles.root}>
 			<View style={styles.topSection}>
 				<Text style={styles.heading}>Enter your mobile number</Text>
 				<Text style={styles.subText}>We will send a verificaion code to your number.</Text>
 			</View>
 
-			<View style={styles.phoneInputBox}>
-				<PhoneInputBox onChange={handlePhoneNumberChange} />
-			</View>
+			<KeyboardAwareScrollView contentContainerStyle={{ flexGrow: 1, justifyContent: 'center' }}>
+				<View style={styles.phoneInputBox}>
+					<PhoneInputBox onChange={handlePhoneNumberChange} />
+				</View>
+			</KeyboardAwareScrollView>
+
+			<View style={{ marginTop: 40 }} />
 
 			<View style={styles.buttonContainer}>
 				<ShadowButton
@@ -89,7 +93,7 @@ export default function AccountLogin(props: AccountLoginProps) {
 					onClick={handleSubmit}
 				/>
 			</View>
-		</KeyboardAwareScrollView>
+		</View>
 	);
 }
 
@@ -97,6 +101,7 @@ const styles = StyleSheet.create({
 	root: {
 		flex: 1,
 		backgroundColor: colorConstants.PRIMARY,
+		justifyContent: 'space-between',
 	},
 	topSection: {
 		paddingTop: UtilityHelper.StatusBarHeight + 20,
@@ -118,9 +123,7 @@ const styles = StyleSheet.create({
 		textAlign: 'center',
 	},
 	phoneInputBox: {
-		marginTop: 40,
 		paddingHorizontal: 18,
-		flex: 1,
 		justifyContent: 'flex-start',
 	},
 	buttonContainer: {
