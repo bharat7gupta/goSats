@@ -5,7 +5,6 @@ import Toast from 'react-native-simple-toast';
 import colorConstants from '../constants/color';
 import TextBox from './common/TextBox';
 import Button from './common/Button';
-import * as CognitoHelper from '../helpers/CognitoHelper';
 import * as StorageHelper from '../helpers/StorageHelper';
 import * as UtilityHelper from '../helpers/UtilityHelper';
 import * as ApiHelper from '../helpers/ApiHelper';

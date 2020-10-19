@@ -1,10 +1,16 @@
 import * as StorageHelper from '../helpers/StorageHelper';
 import Strings from '../constants/strings';
+import Toast from 'react-native-simple-toast';
+import { AuthActions } from '../reducers/AuthReducer';
+import { useContext } from 'react';
+import { AuthDispatchContext } from '../App';
 
 const API_ROOT = 'https://devapi.gosats.io/v1';
 
 const API_URLS = {
 	SIGN_IN: '/auth/user/signin',
+	SIGN_OUT: '/auth/user/signout',
+	REFRESH_TOKEN: '/auth/user/token/renew',
 	VERIFY_PHONE: '/auth/user/verify/phone',
 	REQUEST_EMAIL_OTP: '/auth/user/request/email/code',
 	VERIFY_EMAIL: '/auth/user/verify/email',
@@ -29,6 +35,7 @@ const commonApiCall = async (
 	method?: string,
 	addBearerTokenHeader: boolean = false,
 	addSessionHeader: boolean = false,
+	refreshTokenOnExpiry: boolean = true,
 ) => {
 	const requestParams = {} as any;
 
@@ -55,6 +62,19 @@ const commonApiCall = async (
 		}
 
 		const response = await fetch(apiUrl, requestParams);
+
+		if (response.status === 401) {
+			dispatchSignOutAction();
+		}
+
+		if (response.status === 405) {
+			if (refreshTokenOnExpiry) {
+				refreshToken(apiUrl, body, method, addBearerTokenHeader, addSessionHeader, refreshTokenOnExpiry);
+			} else {
+				dispatchSignOutAction();
+			}
+		}
+
 		return response.json();
 	} catch (e) {
 		return Promise.resolve({
@@ -64,11 +84,52 @@ const commonApiCall = async (
 	}
 };
 
+async function refreshToken(prevApiUrl, body, method, addBearerTokenHeader, addSessionHeader, refreshTokenOnExpiry) {
+	const apiUrl = `${API_ROOT}${API_URLS.REFRESH_TOKEN}`;
+	const refreshTokenValue = await StorageHelper.getItem('refreshToken');
+
+	try {
+		const response = await fetch(apiUrl, {
+			headers: {
+				'refresh_token': refreshTokenValue,
+			},
+		});
+
+		const json = await response.json();
+
+		if (json.error) {
+			dispatchSignOutAction();
+		} else {
+			await StorageHelper.setItem('accessToken', json.data.AccessToken);
+			commonApiCall(prevApiUrl, body, method, addBearerTokenHeader, addSessionHeader, false);
+		}
+	} catch (e) {
+		dispatchSignOutAction();
+	}
+}
+
+function dispatchSignOutAction() {
+	StorageHelper.setItem('isLoggedIn', 'false');
+	Toast.show('You have been logged out!');
+
+	const authDispatch = useContext(AuthDispatchContext);
+
+	authDispatch({
+		type: AuthActions.UPDATE_LOGIN_STATUS,
+		isLoggedIn: false,
+	});
+}
+
 export async function signIn(phoneNumber: string) {
 	const apiUrl = `${API_ROOT}${API_URLS.SIGN_IN}`;
 	const requestObj = { phoneNumber };
 
 	return await commonApiCall(apiUrl, requestObj, 'POST');
+}
+
+export async function signOut() {
+	const apiUrl = `${API_ROOT}${API_URLS.SIGN_OUT}`;
+	return await commonApiCall(apiUrl, null, null, true);
 }
 
 export async function verifyPhone(phoneNumber, code) {
