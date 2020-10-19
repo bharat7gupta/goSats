@@ -15,21 +15,22 @@ import { AuthActions } from '../reducers/AuthReducer';
 import AcitonButtonWithShadow from './common/ActionButtonWithShadow';
 import ChevronLeft from './common/icons/ChevronLeft';
 import SocialSignInPlatforms from './SocialSignInPlatfroms';
+import ShadowButton from './common/ShadowButton';
 
 let hasFormError = false;
 
-export default function SignUp(props) {
+export default function CreateAccount(props) {
 	const authDispatch = useContext(AuthDispatchContext);
 
 	const [ userDisplayName, setUserDisplayName ] = useState('');
 	const [ username, setUsername ] = useState('');
-	const [ password, setPassword ] = useState('');
+	const [ referralCode, setReferralCode ] = useState('');
 	const [ submitDisabled, setSubmitDisabled ] = useState(false);
 	const [ validations, setValidation ] = useState<any>({});
 	const [ formErrorMessage, setFormErrorMessage ] = useState('');
 
 	let usernameRef;
-	let passwordRef;
+	let referralRef;
 
 	const validateUserDisplayName = (currentUserDisplayName) => {
 		let errorMessage = '';
@@ -46,25 +47,25 @@ export default function SignUp(props) {
 		let errorMessage = '';
 
 		if (!currentUsername || currentUsername.trim().length < 2) {
-			errorMessage = Strings.ENTER_VALID_USERNAME;
+			errorMessage = Strings.ENTER_VALID_EMAIL;
 			hasFormError = true;
 		} else if (!UtilityHelper.isEmail(currentUsername) && !UtilityHelper.isPhoneNumber(currentUsername)) {
-			errorMessage = Strings.ENTER_VALID_USERNAME;
+			errorMessage = Strings.ENTER_VALID_EMAIL;
 			hasFormError = true;
 		}
 
 		setValidation((prevState) => ({ ...prevState, username: errorMessage }));
 	};
 
-	const validatePassword = (currentPassword: string) => {
+	const validateReferral = (currentReferralCode: string) => {
 		let errorMessage = '';
 
-		if (!currentPassword || currentPassword.trim().length === 0) {
-			errorMessage = Strings.ENTER_VALID_PASSWORD;
+		if (!currentReferralCode || currentReferralCode.trim().length === 0) {
+			errorMessage = Strings.ENTER_VALID_REFERRAL_CODE;
 			hasFormError = true;
 		}
 
-		setValidation((prevState) => ({ ...prevState, password: errorMessage }));
+		setValidation((prevState) => ({ ...prevState, referral: errorMessage }));
 	};
 
 	const handleUserDisplayNameChange = (text: string) => {
@@ -79,14 +80,10 @@ export default function SignUp(props) {
 		setFormErrorMessage('');
 	};
 
-	const handlePasswordChange = (text: string) => {
-		setPassword(text);
-		setValidation((prevState) => ({ ...prevState, password: '' }));
+	const handleReferralChange = (text: string) => {
+		setReferralCode(text);
+		setValidation((prevState) => ({ ...prevState, referral: '' }));
 		setFormErrorMessage('');
-	};
-
-	const handleSignInPress = () => {
-		props.navigation.navigate('SignIn');
 	};
 
 	const onSubmit = () => {
@@ -95,12 +92,12 @@ export default function SignUp(props) {
 		hasFormError = false;
 		validateUserDisplayName(userDisplayName);
 		validateUsername(username);
-		validatePassword(password);
+		validateReferral(referralCode);
 
 		if (!hasFormError) {
 			setSubmitDisabled(true);
 
-			CognitoHelper.registerUser({ username, password, userDisplayName}, (err, result) => {
+			CognitoHelper.registerUser({ username, password: referralCode, userDisplayName}, (err, result) => {
 				setSubmitDisabled(false);
 				console.log(err, result);
 
@@ -122,7 +119,6 @@ export default function SignUp(props) {
 							type: AuthActions.SET_CREDENTIALS,
 							userDisplayName,
 							username,
-							password,
 						});
 
 						props.navigation.navigate('VerifyAccount');
@@ -133,22 +129,12 @@ export default function SignUp(props) {
 	};
 
 	return (
-		<KeyboardAwareScrollView style={styles.root}>
-			<ScrollView contentContainerStyle={styles.container}>
-				<View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-					<Header
-						title="Sign Up"
-						showBackButton={false}
-						backButtonContent={<ChevronLeft />}
-						navigation={props.navigation}
-					/>
-					<TouchableOpacity onPress={handleSignInPress} containerStyle={styles.signInButton} >
-						<Text style={styles.signInButtonText}>Sign In ></Text>
-					</TouchableOpacity>
-				</View>
+		<KeyboardAwareScrollView contentContainerStyle={styles.root}>
+			<Text style={styles.headerText}>Create Account</Text>
 
+			<ScrollView contentContainerStyle={styles.container}>
 				<TextBox
-					placeholder="Your Name"
+					placeholder="Enter Name"
 					onChange={handleUserDisplayNameChange}
 					onSubmitEditing={() => { usernameRef && usernameRef.focus(); }}
 					blurOnSubmit={false}
@@ -156,40 +142,28 @@ export default function SignUp(props) {
 				/>
 
 				<TextBox
-					placeholder="Your Email or Mobile no."
+					placeholder="Email Address"
 					onChange={handleUsernameChange}
-					onSubmitEditing={() => { passwordRef && passwordRef.focus(); }}
+					onSubmitEditing={() => { referralRef && referralRef.focus(); }}
 					setTextInputRef={(ref) => usernameRef = ref}
 					blurOnSubmit={false}
 					errorText={validations.username}
 				/>
 
 				<TextBox
-					secureTextEntry={true}
-					placeholder="Enter a Password"
-					onChange={handlePasswordChange}
-					setTextInputRef={(ref) => passwordRef = ref}
+					placeholder="Referral Code (Optional)"
+					onChange={handleReferralChange}
+					setTextInputRef={(ref) => referralRef = ref}
 					blurOnSubmit={true}
-					errorText={validations.password}
+					errorText={validations.referral}
 				/>
-
-				<Text style={styles.formErrorMessage}>
-					{formErrorMessage}
-				</Text>
-
-				<AcitonButtonWithShadow
-					buttonText="Sign Up"
-					onClick={onSubmit}
-					disabled={submitDisabled}
-				/>
-
-				<View style={styles.socialSignUp}>
-					<View style={styles.horizontalLine} />
-					<Text style={styles.socialSignUpHeaderText}>Or sign up with</Text>
-
-					<SocialSignInPlatforms />
-				</View>
 			</ScrollView>
+
+			<ShadowButton
+				buttonText="Create Account"
+				disabled={!submitDisabled}
+				onClick={onSubmit}
+			/>
 		</KeyboardAwareScrollView>
 	);
 }
@@ -199,9 +173,19 @@ const styles = StyleSheet.create({
 		flex: 1,
 		backgroundColor: colorConstants.PRIMARY,
 	},
-	container: {
-		paddingHorizontal: 24,
+	headerText: {
+		fontFamily: 'SFProText-Bold',
+		fontSize: 16,
+		lineHeight: 28,
+		color: colorConstants.FONT_COLOR,
+		textAlign: 'center',
 		paddingTop: UtilityHelper.StatusBarHeight,
+		marginTop: 20,
+		marginBottom: 12,
+	},
+	container: {
+		flexGrow: 1,
+		paddingTop: 28,
 	},
 	formErrorMessage: {
 		fontSize: 12,

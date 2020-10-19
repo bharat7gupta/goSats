@@ -5,18 +5,15 @@ import { createStackNavigator } from '@react-navigation/stack';
 import SplashScreen from 'react-native-splash-screen';
 
 import Dashboard from './components/Dashboard';
-import Categories from './components/Categories';
 import colorConstants from './constants/color';
 import BrandDetail from './components/BrandDetail';
-import SignIn from './components/SignIn';
-import SignUp from './components/SignUp';
 import VerifyAccount from './components/VerifyAccount';
-import SignUpReferralCode from './components/SignUpReferralCode';
 import * as StorageHelper from './helpers/StorageHelper';
 import authReducer, { authInitialState, AuthActions, AuthState } from './reducers/AuthReducer';
-import SocialSignIn from './components/SocialSignIn';
 import Rewards from './components/Rewards';
 import SatsSpin from './components/SatsSpin';
+import AccountLogin from './components/AccountLogin';
+import CreateAccount from './components/CreateAccount';
 
 export const AuthStateContext = React.createContext({} as AuthState);
 export const AuthDispatchContext = React.createContext((payload) => {});
@@ -108,15 +105,13 @@ function App() {
 						</Stack.Navigator>
 						) : (
 							<Stack.Navigator
-								initialRouteName={hasVerifiedAccount ? 'SignIn' : 'SignUp'}
+								initialRouteName="AccountLogin"
 								screenOptions={{ header: () => null }}
 							>
 								<React.Fragment>
-									<Stack.Screen name="SignUp" component={SignUp} />
-									<Stack.Screen name="SignIn" component={SignIn} />
-									<Stack.Screen name="SocialSignIn" component={SocialSignIn} />
+									<Stack.Screen name="AccountLogin" component={AccountLogin} />
+									<Stack.Screen name="CreateAccount" component={CreateAccount} />
 									<Stack.Screen name="VerifyAccount" component={VerifyAccount} />
-									<Stack.Screen name="SignUpReferralCode" component={SignUpReferralCode} />
 								</React.Fragment>
 						</Stack.Navigator>
 					)}
