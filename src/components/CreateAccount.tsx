@@ -132,10 +132,10 @@ export default function CreateAccount(props) {
 	};
 
 	return (
-		<KeyboardAwareScrollView contentContainerStyle={styles.root}>
+		<View style={styles.root}>
 			<Text style={styles.headerText}>Create Account</Text>
 
-			<ScrollView contentContainerStyle={styles.container}>
+			<KeyboardAwareScrollView contentContainerStyle={{ flexGrow: 1, justifyContent: 'center' }}>
 				<TextBox
 					placeholder="Enter Name"
 					onChange={handleUserDisplayNameChange}
@@ -160,7 +160,7 @@ export default function CreateAccount(props) {
 					blurOnSubmit={true}
 					errorText={validations.referral}
 				/>
-			</ScrollView>
+			</KeyboardAwareScrollView>
 
 			{!!formErrorMessage && <Text style={styles.errorText}>{formErrorMessage}</Text>}
 
@@ -169,7 +169,7 @@ export default function CreateAccount(props) {
 				disabled={submitDisabled}
 				onClick={onSubmit}
 			/>
-		</KeyboardAwareScrollView>
+		</View>
 	);
 }
 

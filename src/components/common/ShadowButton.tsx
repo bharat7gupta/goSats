@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
 		paddingHorizontal: 18,
 		paddingTop: 14,
 		paddingBottom: 30,
-		height: 84,
+		height: 100,
 	},
 	shadowContainer: {
 		shadowRadius: 6,
