@@ -117,7 +117,6 @@ export default function CreateAccount(props) {
 			Toast.show(userDetailsResponse.message);
 
 			if (verifyEmailNow) {
-
 				props.navigation.navigate('VerifyAccount', { email, totalSats });
 			} else {
 				StorageHelper.setItem('isLoggedIn', 'true');

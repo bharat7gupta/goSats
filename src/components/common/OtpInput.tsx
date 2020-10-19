@@ -15,12 +15,6 @@ export default function OtpInput(props: OtpInputProps) {
 	const [ otpValues, setOtpValues ] = useState(props.otpValues || Array(props.length).fill(''));
 	const refs = Array(props.length).fill(null);
 
-	useEffect(() => {
-		const index = 0;
-		// setCurrentIndex(index);
-		// setFocus(index);
-	}, []);
-
 	const setFocus = (index: number) => {
 		if (refs && refs[index]) {
 			refs[index].focus();

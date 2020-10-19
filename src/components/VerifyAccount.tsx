@@ -33,6 +33,7 @@ export default function VerifyEmail(props) {
 	const [ submitDisabled, setSubmitDisabled ] = useState(false);
 	const [ resendOtpVisible, setResendOtpVisibility ] = useState(true);
 	const [ continueButtonHintText, setContinueButtonHintText ] = useState('');
+	const otpLength = email ? EMAIL_OTP_LENGTH : PHONE_OTP_LENGTH;
 
 	useEffect(() => {
 		if (email) {
@@ -62,14 +63,18 @@ export default function VerifyEmail(props) {
 			Toast.show(verificationData.message);
 			setSubmitDisabled(false);
 
+			console.log(verificationData);
+
 			if (verificationData.error) {
 				StorageHelper.setItem('sessionToken', verificationData.data.session);
 			} else {
-				StorageHelper.setItem('accessToken', verificationData.data.AccessToken);
-				StorageHelper.setItem('refreshToken', verificationData.data.RefreshToken);
+				if (phoneNumber) {
+					StorageHelper.setItem('accessToken', verificationData.data.AccessToken);
+					StorageHelper.setItem('refreshToken', verificationData.data.RefreshToken);
+				}
 
-				if (isNewUser) {
-					props.navigation.navigate('CreateAccount');
+				if (phoneNumber && isNewUser === 'true') {
+					props.navigation.replace('CreateAccount');
 				} else {
 					StorageHelper.setItem('isLoggedIn', 'true');
 
@@ -83,7 +88,7 @@ export default function VerifyEmail(props) {
 	};
 
 	const validateOtpInput = (otp: string) => {
-		const otpRegex = new RegExp(`^\\d{4}$`);
+		const otpRegex = new RegExp('^\\d{' + otpLength + '}$');
 		const validity = otpRegex.test(otp);
 		const hintText = validity ? '' : 'Enter valid code to complete verification';
 		setOtpValidity(validity);
@@ -106,8 +111,6 @@ export default function VerifyEmail(props) {
 			signInData = await ApiHelper.signIn(`${countryCode}${phoneNumber}`);
 		}
 
-		console.log(signInData);
-
 		const { error, message } = signInData;
 		message && Toast.show(signInData.message);
 
@@ -127,7 +130,8 @@ export default function VerifyEmail(props) {
 			<Text style={styles.subText}>{subHeader}</Text>
 
 			<OtpInput
-				length={email ? EMAIL_OTP_LENGTH : PHONE_OTP_LENGTH}
+				length={otpLength}
+				otpValues={Array(otpLength).fill('')}
 				onOtpChange={handleOtpChange}
 				style={styles.otpInputContainer}
 			/>

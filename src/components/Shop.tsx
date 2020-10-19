@@ -140,7 +140,7 @@ const styles = StyleSheet.create({
 		paddingBottom: 30,
 	},
 	topSection: {
-		paddingTop: StatusBarHeight,
+		paddingTop: StatusBarHeight + 10,
 		backgroundColor: colorConstants.PRIMARY,
 	},
 	editorsPickTitleText: {

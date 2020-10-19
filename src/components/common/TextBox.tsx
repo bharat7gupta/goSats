@@ -6,6 +6,7 @@ import { NeomorphFlex } from 'react-native-neomorph-shadows';
 interface TextBoxProps {
 	placeholder:  string;
 	secureTextEntry?: boolean;
+	maxLength?: number;
 	blurOnSubmit?: boolean;
 	errorText?: string;
 	onChange: (text: string) => void;
@@ -32,6 +33,7 @@ export default function TextBox(props: TextBoxProps) {
 					underlineColorAndroid="transparent"
 					placeholder={props.placeholder}
 					placeholderTextColor={colorConstants.TEXTBOX_PLACEHOLDER_TEXT_COLOR}
+					maxLength={props.maxLength}
 					autoCapitalize="none"
 					onChange={handleChange}
 					onSubmitEditing={props.onSubmitEditing}
