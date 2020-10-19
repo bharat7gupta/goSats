@@ -8,8 +8,13 @@ export const isEmail = (value: string) => {
 };
 
 export const isPhoneNumber = (value: string) => {
-	const phoneNumberRegEx = /^[6-9]{1}[0-9]{9}$/;
+	const phoneNumberRegEx = /^[0-9]{10}$/;
 	return phoneNumberRegEx.test(value);
+};
+
+export const isReferralCode = (value: string) => {
+	const referralCodeRegEx = /^[A-Za-z0-9]{8}$/;
+	return referralCodeRegEx.test(value);
 };
 
 export const getFormattedNumber = (number) => {
