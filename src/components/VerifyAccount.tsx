@@ -74,7 +74,7 @@ export default function VerifyEmail(props) {
 					StorageHelper.setItem('refreshToken', verificationData.data.RefreshToken);
 				}
 
-				if (phoneNumber && isNewUser === 'false') {
+				if (phoneNumber && isNewUser === 'true') {
 					props.navigation.replace('CreateAccount');
 				} else {
 					StorageHelper.setItem('isLoggedIn', 'true');
