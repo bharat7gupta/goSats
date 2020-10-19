@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Keyboard } from 'react-native';
 import { KeyboardAwareScrollView } from '@codler/react-native-keyboard-aware-scroll-view';
 import Toast from 'react-native-simple-toast';
 import colorConstants from '../constants/color';
@@ -15,6 +15,7 @@ import { AuthActions } from '../reducers/AuthReducer';
 import AcitonButtonWithShadow from './common/ActionButtonWithShadow';
 import ShadowButton from './common/ShadowButton';
 import OtpInput from './common/OtpInput';
+import { ScrollView } from 'react-native-gesture-handler';
 
 const EMAIL_OTP_LENGTH = 6;
 const PHONE_OTP_LENGTH = 4;
@@ -125,27 +126,30 @@ export default function VerifyEmail(props) {
 	};
 
 	return (
-		<KeyboardAwareScrollView contentContainerStyle={styles.root}>
+		<View style={styles.root}>
 			<Text style={styles.headerText}>{header}</Text>
-			<Text style={styles.subText}>{subHeader}</Text>
 
-			<OtpInput
-				length={otpLength}
-				otpValues={Array(otpLength).fill('')}
-				onOtpChange={handleOtpChange}
-				style={styles.otpInputContainer}
-			/>
+			<KeyboardAwareScrollView contentContainerStyle={{ flexGrow: 1, justifyContent: 'center' }}>
+				<Text style={styles.subText}>{subHeader}</Text>
 
-			{resendOtpVisible && (
-				<View style={styles.resendContainer}>
-					<Text style={styles.codeNotReceivedText}>Didn’t receive the code?</Text>
-					<TouchableOpacity activeOpacity={0.6} onPress={onResendOtp}>
-						<Text style={styles.resendCode}>Resend Code</Text>
-					</TouchableOpacity>
-				</View>
-			)}
+				<OtpInput
+					length={otpLength}
+					otpValues={Array(otpLength).fill('')}
+					onOtpChange={handleOtpChange}
+					style={styles.otpInputContainer}
+				/>
 
-			<View style={{ flex: 1 }} />
+				{resendOtpVisible && (
+					<View style={styles.resendContainer}>
+						<Text style={styles.codeNotReceivedText}>Didn’t receive the code?</Text>
+						<TouchableOpacity activeOpacity={0.6} onPress={onResendOtp}>
+							<Text style={styles.resendCode}>Resend Code</Text>
+						</TouchableOpacity>
+					</View>
+				)}
+			</KeyboardAwareScrollView>
+
+			<View style={{ marginTop: 40 }} />
 
 			<ShadowButton
 				buttonText="Continue"
@@ -153,7 +157,7 @@ export default function VerifyEmail(props) {
 				hintText={continueButtonHintText}
 				onClick={onVerifyClick}
 			/>
-		</KeyboardAwareScrollView>
+		</View>
 	);
 }
 
@@ -161,6 +165,7 @@ const styles = StyleSheet.create({
 	root: {
 		flex: 1,
 		backgroundColor: colorConstants.PRIMARY,
+		justifyContent: 'space-between',
 	},
 	headerText: {
 		fontSize: 16,
