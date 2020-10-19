@@ -5,8 +5,8 @@
         android:drawable="@color/primary_dark"/>
 
     <item
-        android:width="200dp"
-        android:height="200dp"
+        android:width="480dp"
+        android:height="800dp"
         android:drawable="@mipmap/screen"
         android:gravity="center" />
 
