@@ -63,7 +63,7 @@ export default function VerifyEmail(props) {
 			Toast.show(verificationData.message);
 			setSubmitDisabled(false);
 
-			console.log(verificationData);
+			// console.log(verificationData);
 
 			if (verificationData.error) {
 				StorageHelper.setItem('sessionToken', verificationData.data.session);
