@@ -11,6 +11,7 @@ import CategoriesIcon from './common/icons/CategoriesIcon';
 import Categories from './Categories';
 import SettingsIcon from './common/icons/SettingsIcon';
 import { Platform } from 'react-native';
+import Settings from './Settings';
 
 const Tab = createBottomTabNavigator();
 
@@ -56,7 +57,7 @@ export default function Dashboard() {
 			/>
 			<Tab.Screen
 				name="Account"
-				component={ComingSoon}
+				component={Settings}
 				options={{
 					tabBarIcon: ({ focused }) => <SettingsIcon isActive={focused} />,
 				}}

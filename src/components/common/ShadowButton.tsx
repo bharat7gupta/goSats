@@ -57,8 +57,9 @@ export default function ShadowButton(props: ShadowButtonProps) {
 const styles = StyleSheet.create({
 	root: {
 		paddingHorizontal: 18,
-		paddingVertical: 14,
-		height: 84,
+		paddingTop: 14,
+		paddingBottom: 30,
+		height: 100,
 	},
 	shadowContainer: {
 		shadowRadius: 6,
