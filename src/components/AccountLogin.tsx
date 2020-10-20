@@ -57,10 +57,9 @@ export default function AccountLogin(props: AccountLoginProps) {
 			}
 
 			if (!signInData.error) {
-				const { session, isNewUser } = signInData.data;
+				const { session } = signInData.data;
 
 				StorageHelper.setItem('sessionToken', session);
-				StorageHelper.setItem('isNewUser', isNewUser.toString());
 
 				props.navigation.navigate('VerifyAccount', { countryCode, phoneNumber });
 			}

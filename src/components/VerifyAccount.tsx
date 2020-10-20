@@ -59,7 +59,6 @@ export default function VerifyEmail(props) {
 				verificationData = await ApiHelper.verifyPhone(`${countryCode}${phoneNumber}`, otp);
 			}
 
-			const isNewUser = await StorageHelper.getItem('isNewUser');
 			Toast.show(verificationData.message);
 			setSubmitDisabled(false);
 
@@ -73,7 +72,7 @@ export default function VerifyEmail(props) {
 					StorageHelper.setItem('refreshToken', verificationData.data.RefreshToken);
 				}
 
-				if (phoneNumber && isNewUser === 'true') {
+				if (phoneNumber && verificationData.data.isNewUser) {
 					props.navigation.replace('CreateAccount');
 				} else {
 					StorageHelper.setItem('isLoggedIn', 'true');
