@@ -129,7 +129,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.gosats"
+        applicationId "io.gosats"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1.1
