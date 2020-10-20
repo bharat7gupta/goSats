@@ -1,4 +1,4 @@
-package com.gosats;
+package io.gosats;
 
 import com.facebook.react.ReactActivity;
 import org.devio.rn.splashscreen.SplashScreen;
