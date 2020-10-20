@@ -1,0 +1,8 @@
+app_identifier("io.gosats") # The bundle identifier of your app
+apple_id("app@gosats.io") # Your Apple email address
+
+itc_team_id("122237671") # App Store Connect Team ID
+team_id("M74866T43H") # Developer Portal Team ID
+
+# For more information about the Appfile, see:
+#     https://docs.fastlane.tools/advanced/#appfile

@@ -55,7 +55,7 @@ static void InitializeFlipper(UIApplication *application) {
   return [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
 #endif
 }
-
+/*
 // For deep linking
 - (BOOL)application:(UIApplication *)application
    openURL:(NSURL *)url
@@ -71,5 +71,5 @@ static void InitializeFlipper(UIApplication *application) {
                   continueUserActivity:userActivity
                     restorationHandler:restorationHandler];
 }
-
+*/
 @end
