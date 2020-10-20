@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableWithoutFeedback } from 'react-native';
 
 import * as ApiHelper from '../helpers/ApiHelper';
 import colorConstants from '../constants/color';
@@ -109,14 +109,16 @@ export default function Categories(props) {
 				<View style={styles.itemsList}>
 					<ScrollView contentContainerStyle={{ flexGrow: 1 }}>
 						{currentBrands && currentBrands.map((brand, index: number) => (
-							<View key={brand.id} onTouchEnd={() => handleProductClick(brand)}>
-								{index === 0 && <View style={{ paddingTop: 10 }} />}
-								<NeoTile
-									brand={brand}
-									style={{ margin: 10 }}
-								/>
-								{(index === currentBrands.length - 1) && <View style={{ marginBottom: 100 }} />}
-							</View>
+							<TouchableWithoutFeedback key={brand.id} onPress={() => handleProductClick(brand)}>
+								<View>
+									{index === 0 && <View style={{ paddingTop: 10 }} />}
+									<NeoTile
+										brand={brand}
+										style={{ margin: 10 }}
+									/>
+									{(index === currentBrands.length - 1) && <View style={{ marginBottom: 100 }} />}
+								</View>
+							</TouchableWithoutFeedback>
 						))}
 					</ScrollView>
 				</View>
