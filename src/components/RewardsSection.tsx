@@ -45,7 +45,7 @@ export default function RewardsSection(props: RewardsSectionProps) {
 				</View>
 
 				<View style={styles.bottomRow}>
-					{balanceData && <LevelBadge level={balanceData.level} />}
+					{balanceData && <LevelBadge level={balanceData.level} onCLick={props.onRewardsClick} />}
 
 					<NeomorphFlex
 						style={{ ...styleConstants.shadowStyles, flex: 0, borderRadius: 20 }}
