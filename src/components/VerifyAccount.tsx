@@ -39,10 +39,10 @@ export default function VerifyEmail(props) {
 		if (email) {
 			const formattedRewardSats = UtilityHelper.getFormattedNumber(totalSats);
 			setHeader('Verify Email');
-			setSubHeader(`You have won a reward of ${formattedRewardSats} sats on spin wheel. We have sent an OTP to your email ‘${email}’. Enter code to verify and claim the reward.`);
+			setSubHeader(`You have won a total reward of ${formattedRewardSats} sats during the pre-launch phase! An OTP has been sent to your email ‘${email}’. Enter it below to verify and claim your reward.`);
 		} else {
 			setHeader('Verify Number');
-			setSubHeader(`We have sent 4 digit code to (${countryCode}) ${phoneNumber}, please enter it below to complete verification.`);
+			setSubHeader(`A 4 digit code has been sent to (${countryCode}) ${phoneNumber}. Please enter it below.`);
 		}
 
 		validateOtpInput('');

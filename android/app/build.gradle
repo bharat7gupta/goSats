@@ -132,8 +132,8 @@ android {
         applicationId "io.gosats"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 1200
-        versionName "1.2"
+        versionCode 1400
+        versionName "1.4"
     }
     splits {
         abi {

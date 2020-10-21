@@ -137,7 +137,7 @@ export default function CreateAccount(props) {
 
 			<KeyboardAwareScrollView contentContainerStyle={{ flexGrow: 1, justifyContent: 'center' }}>
 				<TextBox
-					placeholder="Enter Name"
+					placeholder="Your Name"
 					onChange={handleUserDisplayNameChange}
 					onSubmitEditing={() => { emailRef && emailRef.focus(); }}
 					blurOnSubmit={false}
@@ -145,7 +145,7 @@ export default function CreateAccount(props) {
 				/>
 
 				<TextBox
-					placeholder="Email Address"
+					placeholder="Your Email"
 					onChange={handleEmailChange}
 					onSubmitEditing={() => { referralRef && referralRef.focus(); }}
 					setTextInputRef={(ref) => emailRef = ref}
@@ -165,7 +165,7 @@ export default function CreateAccount(props) {
 			{!!formErrorMessage && <Text style={styles.errorText}>{formErrorMessage}</Text>}
 
 			<ShadowButton
-				buttonText="Create Account"
+				buttonText="Start Stacking!"
 				disabled={submitDisabled}
 				onClick={onSubmit}
 			/>

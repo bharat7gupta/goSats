@@ -29,7 +29,7 @@ export default function HotDeals(props: HotDealsProps) {
 	return (
 		<View>
 			<View style={styles.header}>
-				<Text style={styles.title}>Hot Deals</Text>
+				<Text style={styles.title}>Most Rewarding Brands</Text>
 
 				<TouchableHighlight onPress={handleShopAllPress}>
 					<Text style={styles.shopAllText}>Shop All</Text>
