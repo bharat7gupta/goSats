@@ -18,10 +18,13 @@ export default function Settings() {
 			Toast.show(response.message);
 		}
 
-		await StorageHelper.setItem('isLoggedIn', 'false');
-		authDispatch({
-			type: AuthActions.UPDATE_LOGIN_STATUS,
-			isLoggedIn: false,
+		StorageHelper.setItem('isLoggedIn', 'false').then(() => {
+			setTimeout(() => {
+				authDispatch({
+					type: AuthActions.UPDATE_LOGIN_STATUS,
+					isLoggedIn: false,
+				});
+			}, 300);
 		});
 	};
 
