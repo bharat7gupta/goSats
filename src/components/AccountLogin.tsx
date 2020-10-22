@@ -73,7 +73,7 @@ export default function AccountLogin(props: AccountLoginProps) {
 		<View style={styles.root}>
 			<View style={styles.topSection}>
 				<Text style={styles.heading}>Enter your mobile number</Text>
-				<Text style={styles.subText}>We will send a verificaion code to your number.</Text>
+				<Text style={styles.subText}>We will send a verification code to your number.</Text>
 			</View>
 
 			<KeyboardAwareScrollView contentContainerStyle={{ flexGrow: 1, justifyContent: 'center' }}>
