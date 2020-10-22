@@ -69,7 +69,7 @@ const commonApiCall = async (
 
 		if (response.status === 405) {
 			if (refreshTokenOnExpiry) {
-				refreshToken(apiUrl, body, method, addBearerTokenHeader, addSessionHeader, refreshTokenOnExpiry);
+				return refreshToken(apiUrl, body, method, addBearerTokenHeader, addSessionHeader, refreshTokenOnExpiry);
 			} else {
 				dispatchSignOutAction();
 			}
@@ -101,7 +101,7 @@ async function refreshToken(prevApiUrl, body, method, addBearerTokenHeader, addS
 			dispatchSignOutAction();
 		} else {
 			await StorageHelper.setItem('accessToken', json.data.AccessToken);
-			commonApiCall(prevApiUrl, body, method, addBearerTokenHeader, addSessionHeader, false);
+			return commonApiCall(prevApiUrl, body, method, addBearerTokenHeader, addSessionHeader, false);
 		}
 	} catch (e) {
 		dispatchSignOutAction();
