@@ -7,6 +7,7 @@ import * as ApiHelper from '../helpers/ApiHelper';
 import * as StorageHelper from '../helpers/StorageHelper';
 import { AuthDispatchContext } from '../App';
 import { AuthActions } from '../reducers/AuthReducer';
+import { DEFAULT_TOUCHABLE_OPACITY } from '../constants/config';
 
 export default function Settings() {
 	const authDispatch = useContext(AuthDispatchContext);
@@ -32,7 +33,7 @@ export default function Settings() {
 		<View style={styles.root}>
 			<Text style={styles.headerText}>Account Settings</Text>
 
-			<TouchableOpacity activeOpacity={0.7} onPress={onLogout}>
+			<TouchableOpacity activeOpacity={DEFAULT_TOUCHABLE_OPACITY} onPress={onLogout}>
 				<View style={styles.menuButton}>
 					<Text style={styles.menuText}>Logout</Text>
 				</View>

@@ -4,6 +4,7 @@ import { NeomorphFlex } from 'react-native-neomorph-shadows';
 import colorConstants from '../../constants/color';
 import CountryPicker, { DARK_THEME } from 'react-native-country-picker-modal';
 import CaretDown from './icons/CaretDown';
+import { DEFAULT_TOUCHABLE_OPACITY } from '../../constants/config';
 
 interface PhoneInputBoxProps {
 	onCountryChange: (code: string) => void;
@@ -33,7 +34,7 @@ export default function PhoneInputBox(props: PhoneInputBoxProps) {
 			darkShadowColor={colorConstants.SHADOW_DARK}
 			lightShadowColor={colorConstants.SHADOW_LIGHT}
 		>
-			<TouchableOpacity activeOpacity={0.7} onPress={() => setCountryModalVisibility(true)}>
+			<TouchableOpacity activeOpacity={DEFAULT_TOUCHABLE_OPACITY} onPress={() => setCountryModalVisibility(true)}>
 				<View style={styles.countryCodeContainer}>
 					<View style={styles.flagContainer}>
 						<View style={styles.flag}>

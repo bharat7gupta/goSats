@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import UserLevel from '../../types/UserLevel';
+import { DEFAULT_TOUCHABLE_OPACITY } from '../../constants/config';
 
 interface LevelBadgeProps {
 	level: UserLevel;
@@ -21,7 +22,7 @@ export default function LevelBadge(props: LevelBadgeProps) {
 	};
 
 	return (
-		<TouchableOpacity activeOpacity={0.7} onPress={handleClick}>
+		<TouchableOpacity activeOpacity={DEFAULT_TOUCHABLE_OPACITY} onPress={handleClick}>
 			<View
 				style={{
 					...styles.badge,
