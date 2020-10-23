@@ -12,12 +12,13 @@ const { width } = screen;
 
 interface HotDealsProps {
 	merchants: Brand[];
+	onShopAllClick: () => void;
 	onItemClick: (brand: BrandItem) => void;
 }
 
 export default function HotDeals(props: HotDealsProps) {
 	const handleShopAllPress = () => {
-
+		props.onShopAllClick();
 	};
 
 	const handleItemClick = (brand: Brand) => {
@@ -81,6 +82,7 @@ const styles = StyleSheet.create({
 		fontSize: 14,
 		lineHeight: 28,
 		color: '#D1A33A',
+		marginBottom: 4,
 	},
 	tileStyle: {
 		width: (width - 20 ) / 2,
