@@ -30,12 +30,19 @@ export default function Shop(props) {
 	const [ errorMessage, setErrorMessage ] = useState<string>('');
 	const [ balanceData, setBalanceData ] = useState(null);
 
+	let scrollViewRef;
+
 	useEffect(() => {
 		fetchMasterData();
 		AppState.addEventListener('change', fetchPageDataOnResume);
 
+		const removeNavigationListener = props.navigation.addListener('tabPress', e => {
+			setTimeout(() => scrollToTop(), 10);
+		});
+
 		return () => {
 			AppState.removeEventListener('change', fetchPageDataOnResume);
+			removeNavigationListener();
 		};
 	}, []);
 
@@ -60,10 +67,17 @@ export default function Shop(props) {
 			processData(masterData);
 			setBalanceData(userBalance.data);
 			setLoading(false);
+			scrollToTop();
 		} catch (e) {
 			setLoading(false);
 			setShowError(true);
 			setErrorMessage(Strings.SOMETHING_WENT_WRONG);
+		}
+	};
+
+	const scrollToTop = () => {
+		if (scrollViewRef) {
+			scrollViewRef.scrollTo({ x: 0, y: 0, animated: true });
 		}
 	};
 
@@ -107,7 +121,7 @@ export default function Shop(props) {
 
 	return (
 		<View style={styles.root}>
-			<ScrollView contentContainerStyle={styles.containerStyle} stickyHeaderIndices={[0]}>
+			<ScrollView ref={(ref) => scrollViewRef = ref} contentContainerStyle={styles.containerStyle} stickyHeaderIndices={[0]}>
 				<View style={styles.topSection}>
 					<ShopHeader />
 				</View>
