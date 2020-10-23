@@ -17,7 +17,7 @@ export default function BrandInfoWithOffer(props: BrandInfoWithOfferProps) {
 				{props.name}
 			</Text>
 			<View style={styles.rewardLine}>
-				<BitcoinOffer />
+				{!!props.name && <BitcoinOffer />}
 				<Text style={styles.rewardLineText}>{props.reward}</Text>
 			</View>
 		</View>
@@ -42,7 +42,6 @@ const styles = StyleSheet.create({
 		color: colorConstants.DARK_GREY,
 		fontSize: 11,
 		lineHeight: 13,
-		marginTop: 1,
 		marginLeft: 7,
 	},
 });

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, Image, ImageBackground, ScrollView, Share } from 'react-native';
+import { View, Text, StyleSheet, Image, ImageBackground, ScrollView, Share, Dimensions } from 'react-native';
 import Toast from 'react-native-simple-toast';
 
 import * as ApiHelper from '../helpers/ApiHelper';
@@ -28,6 +28,11 @@ import OrderStatusModal from './OrderStatusModal';
 // import merchantDetail from '../mock_jsons/merchant-detail.json';
 // import orderStatusWithCongrats from '../mock_jsons/order-status-with-congrats.json';
 // import orderStatusWithoutCongrats from '../mock_jsons/order-status-without-congrats.json';
+
+const screen = Dimensions.get('screen');
+const { width } = screen;
+const logoContainerWidth = width - 44; // 24: outer margin; 20: inner padding
+const logoContainerHeight = logoContainerWidth * 0.73;
 
 export default function BrandDetail(props) {
 	const { route } = props;
@@ -70,6 +75,10 @@ export default function BrandDetail(props) {
 		let title;
 		let type;
 
+		if (!brandData) {
+			return;
+		}
+
 		if (brandData.isGiftCard) {
 			title = `${brandData.name}`;
 			type = 'giftcard';
@@ -98,7 +107,7 @@ export default function BrandDetail(props) {
 	};
 
 	const getButtonText = () => {
-		return brandData && brandData.isGiftCard ? 'Buy Voucher' : 'Shop Now';
+		return brandData && brandData.isGiftCard ? 'Buy Gift Card' : brandData && `Go To ${brandData.name}`;
 	};
 
 	const onPurchanseClick = async () => {
@@ -153,7 +162,7 @@ export default function BrandDetail(props) {
 	};
 
 	const renderSubText = () => {
-		const { subText } = brandData as MerchantDetail;
+		const { subText } = (brandData || {}) as MerchantDetail;
 
 		if (!subText) {
 			return null;
@@ -165,7 +174,7 @@ export default function BrandDetail(props) {
 	};
 
 	const renderVouchers = () => {
-		const { price } = brandData as GiftCardDetail;
+		const { price } = (brandData || {}) as GiftCardDetail;
 
 		if (!price || !price.denominations) {
 			return null;
@@ -194,87 +203,85 @@ export default function BrandDetail(props) {
 		);
 	};
 
+	const {
+		image: brandImageUrl = '',
+		name: brandName = '',
+		reward: brandReward = '',
+		title: brandTitle = '',
+		detailsInJson = [],
+	} = brandData || {};
+
 	return (
 		<View style={styles.root}>
-			<ScrollView stickyHeaderIndices={[0]}>
-				<Header
-					title="Details"
-					showBackButton={true}
-					backButtonContent={<ChevronLeft />}
-					navigation={props.navigation}
-					style={styles.header}
-				/>
+			<Header
+				title="Details"
+				showBackButton={true}
+				backButtonContent={<ChevronLeft />}
+				navigation={props.navigation}
+				style={styles.header}
+			/>
 
-				<View style={styles.container}>
-					{brandData && (
-						<React.Fragment>
-							<View style={styles.content}>
+			<View style={{ paddingHorizontal: 24, paddingVertical: 8, flex: 1 }}>
+				<NeomorphFlex
+					style={{...styleConstants.shadowStyles, overflow: 'hidden'}}
+					darkShadowColor={colorConstants.SHADOW_DARK}
+					lightShadowColor={colorConstants.SHADOW_LIGHT}
+				>
+					<ScrollView contentContainerStyle={styles.container}>
+						<View style={styles.innerContent}>
+							<View style={{ margin: 20, height: logoContainerHeight, overflow: 'hidden' }}>
 								<NeomorphFlex
+									inner={true}
 									style={styleConstants.shadowStyles}
 									darkShadowColor={colorConstants.SHADOW_DARK}
 									lightShadowColor={colorConstants.SHADOW_LIGHT}
 								>
-									<View style={styles.innerContent}>
-										<View style={{ margin: 20, height: 250, overflow: 'hidden' }}>
-											<NeomorphFlex
-												inner={true}
-												style={styleConstants.shadowStyles}
-												darkShadowColor={colorConstants.SHADOW_DARK}
-												lightShadowColor={colorConstants.SHADOW_LIGHT}
-											>
-												<ImageBackground
-													source={{ uri: 'https://res.cloudinary.com/dm5xyhl7v/image/upload/v1601829751/sats/pattern_n6dqxr.png'}}
-													style={{ width: 300, height: 250 }}
-													resizeMode="cover"
-												/>
-												<Image source={{ uri: brandData.image }} style={styles.image} />
-											</NeomorphFlex>
-										</View>
-
-										<View style={styles.brandDetail}>
-											<BrandInfoWithOffer
-												name={brandData.name}
-												reward={brandData.reward}
-											/>
-
-											<View style={styles.actions}>
-												<ShareButton
-													style={styles.brandDetailActionButton}
-													onClick={handleShareClick}
-												/>
-												<FavouriteButton
-													style={styles.brandDetailActionButton}
-													onClick={handleFavouriteClick}
-													isSelected={isFavourite}
-													size={36}
-													iconSize={16}
-												/>
-											</View>
-										</View>
-
-										<View style={styles.brandInfo}>
-											<Text style={styles.title}>{brandData.title}</Text>
-											{renderSubText()}
-										</View>
-
-										{renderVouchers()}
-
-										<BrandDetailsCard brandDetails={brandData.detailsInJson} />
-									</View>
+									<ImageBackground
+										source={{ uri: 'https://res.cloudinary.com/dm5xyhl7v/image/upload/v1601829751/sats/pattern_n6dqxr.png'}}
+										style={{ width: logoContainerWidth, height: logoContainerHeight }}
+										resizeMode="cover"
+									/>
+									<Image source={{ uri: brandImageUrl }} style={styles.image} />
 								</NeomorphFlex>
 							</View>
 
-							<Button
-								btnText={getButtonText()}
-								onClick={onPurchanseClick}
-								btnContainerStyle={styles.purchaseButtonStyle}
-								disabled={submitDisabled}
-							/>
-						</React.Fragment>
-					)}
+							<View style={styles.brandDetail}>
+								<BrandInfoWithOffer name={brandName} reward={brandReward} />
 
-				</View>
-			</ScrollView>
+								<View style={styles.actions}>
+									<ShareButton
+										style={styles.brandDetailActionButton}
+										onClick={handleShareClick}
+									/>
+									<FavouriteButton
+										style={styles.brandDetailActionButton}
+										onClick={handleFavouriteClick}
+										isSelected={isFavourite}
+										size={36}
+										iconSize={16}
+									/>
+								</View>
+							</View>
+
+							<View style={styles.brandInfo}>
+								<Text style={styles.title}>{brandTitle}</Text>
+								{renderSubText()}
+							</View>
+
+							{renderVouchers()}
+
+							<BrandDetailsCard brandDetails={detailsInJson} />
+						</View>
+					</ScrollView>
+				</NeomorphFlex>
+			</View>
+
+			<Button
+				btnText={getButtonText()}
+				onClick={onPurchanseClick}
+				btnContainerStyle={styles.purchaseButtonStyle}
+				disabled={submitDisabled}
+			/>
 
 			<PageLoader showLoader={loading} />
 
@@ -301,25 +308,18 @@ const styles = StyleSheet.create({
 		paddingTop: StatusBarHeight,
 	},
 	header: {
-		paddingHorizontal: 10,
+		marginHorizontal: 10,
 		backgroundColor: colorConstants.PRIMARY,
 	},
 	container: {
-		flex: 1,
+		flexGrow: 1,
 		width: '100%',
 		position: 'relative',
-		paddingTop: 14,
-	},
-	content: {
-		flex: 1,
-		paddingHorizontal: 24,
-		alignSelf: 'stretch',
 	},
 	innerContent: {
 		minHeight: 250,
 		alignSelf: 'stretch',
 		flex: 1,
-		overflow: 'hidden',
 		position: 'relative',
 	},
 	image: {
@@ -333,25 +333,8 @@ const styles = StyleSheet.create({
 		paddingHorizontal: 20,
 		flexDirection: 'row',
 	},
-	brandNameAndOffer: {
-		flex: 1,
-	},
-	brandName: {
-		fontFamily: 'SFProText-Regular',
-		fontSize: 22,
-		lineHeight: 28,
-		color: colorConstants.FONT_COLOR,
-		marginBottom: 4,
-	},
 	rewardLine: {
 		flexDirection: 'row',
-	},
-	rewardLineText: {
-		color: colorConstants.DARK_GREY,
-		fontSize: 11,
-		lineHeight: 13,
-		marginTop: 1,
-		marginLeft: 7,
 	},
 	actions: {
 		flexDirection: 'row',
@@ -365,7 +348,8 @@ const styles = StyleSheet.create({
 	},
 	purchaseButtonStyle: {
 		marginHorizontal: 24,
-		marginVertical: 20,
+		marginTop: 8,
+		marginBottom: 20,
 	},
 	brandInfo: {
 		marginTop: 16,
