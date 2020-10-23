@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, ViewStyle, TouchableWithoutFeedback } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import colorConstants from '../constants/color';
 import Notepad from './common/icons/Notepad';
@@ -7,6 +7,7 @@ import { DetailJson } from '../types/MerchantDetail';
 
 interface BrandDetailsCardProps {
 	brandDetails: DetailJson[];
+	style?: ViewStyle;
 }
 
 export default function BrandDetailsCard(props: BrandDetailsCardProps) {
@@ -22,38 +23,40 @@ export default function BrandDetailsCard(props: BrandDetailsCardProps) {
 	};
 
 	return (
-		<View style={[styles.details, !collapsed && styles.expand]} onTouchEnd={handleCardClick}>
-			<View style={styles.detailsHeader}>
-				<Notepad />
-				<Text style={styles.detailsHeaderText}>Details</Text>
-			</View>
+		<TouchableWithoutFeedback onPress={handleCardClick}>
+			<View style={[styles.details, collapsed && props.style, !collapsed && styles.expand]}>
+				<View style={styles.detailsHeader}>
+					<Notepad />
+					<Text style={styles.detailsHeaderText}>Details</Text>
+				</View>
 
-			<View style={{ marginLeft: 30 }}>
-				{brandDetails && brandDetails.map(brandDetail => (
-					<View key={brandDetail.title}>
-						<Text style={{...styles.detailsTextColor, marginBottom: 4 }}>{brandDetail.title}</Text>
-						{brandDetail.description && brandDetail.description.map(desc => (
-							<View key={desc} style={{ flexDirection: 'row', marginBottom: 8 }}>
-								<Text style={styles.detailsTextColor}>{'\u2022'}</Text>
-								<Text style={{ ...styles.detailsTextColor, flex: 1 }}>{desc}</Text>
-							</View>
-						))}
-					</View>
-				))}
-			</View>
+				<View style={{ marginLeft: 30 }}>
+					{brandDetails && brandDetails.map(brandDetail => (
+						<View key={brandDetail.title}>
+							<Text style={{...styles.detailsTextColor, marginBottom: 4 }}>{brandDetail.title}</Text>
+							{brandDetail.description && brandDetail.description.map(desc => (
+								<View key={desc} style={{ flexDirection: 'row', marginBottom: 8 }}>
+									<Text style={styles.detailsTextColor}>{'\u2022'}</Text>
+									<Text style={{ ...styles.detailsTextColor, flex: 1 }}>{desc}</Text>
+								</View>
+							))}
+						</View>
+					))}
+				</View>
 
-			{collapsed && (
-				<LinearGradient
-					colors={[
-						'rgba(64, 57, 72, 0)',
-						'rgba(64, 57, 72, 0.6)',
-						'rgba(64, 57, 72, 1)',
-					]}
-					locations={[ 0, 0.1, 1 ]}
-					style={styles.detailsBottomGradientContainer}
-				/>
-			)}
-		</View>
+				{collapsed && (
+					<LinearGradient
+						colors={[
+							'rgba(64, 57, 72, 0)',
+							'rgba(64, 57, 72, 0.6)',
+							'rgba(64, 57, 72, 1)',
+						]}
+						locations={[ 0, 0.1, 1 ]}
+						style={styles.detailsBottomGradientContainer}
+					/>
+				)}
+			</View>
+		</TouchableWithoutFeedback>
 	);
 }
 
@@ -68,7 +71,6 @@ const styles = StyleSheet.create({
 		marginTop: 6,
 		marginBottom: 12,
 		overflow: 'hidden',
-		maxHeight: 120,
 	},
 	detailsHeader: {
 		flexDirection: 'row',
