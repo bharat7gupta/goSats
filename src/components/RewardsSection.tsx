@@ -8,6 +8,7 @@ import SpinWheelIcon from './common/icons/SpinWheelIcon';
 import UserBalance from '../types/UserBalance';
 import * as UtilityHelper from '../helpers/UtilityHelper';
 import LevelBadge from './common/LevelBadge';
+import { DEFAULT_TOUCHABLE_OPACITY } from '../constants/config';
 
 interface RewardsSectionProps {
 	balanceData: UserBalance;
@@ -24,7 +25,7 @@ export default function RewardsSection(props: RewardsSectionProps) {
 
 	return (
 		<View style={styles.root}>
-			<TouchableOpacity activeOpacity={0.7} onPress={props.onRewardsClick}>
+			<TouchableOpacity activeOpacity={DEFAULT_TOUCHABLE_OPACITY} onPress={props.onRewardsClick}>
 				<View style={styles.icon}>
 					<Image source={{ uri: levelImageUrl }} style={{ width: 60, height: 90 }} />
 				</View>
@@ -52,7 +53,7 @@ export default function RewardsSection(props: RewardsSectionProps) {
 						darkShadowColor={colorConstants.SHADOW_DARK}
 						lightShadowColor={colorConstants.ACTION_BUTTON_SHADOW}
 					>
-						<TouchableOpacity activeOpacity={0.7} style={styles.spinButton} onPress={props.onSpinClick}>
+						<TouchableOpacity activeOpacity={DEFAULT_TOUCHABLE_OPACITY} style={styles.spinButton} onPress={props.onSpinClick}>
 							<SpinWheelIcon />
 							<Text style={styles.spinButtonText}>Spin</Text>
 						</TouchableOpacity>

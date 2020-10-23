@@ -1,18 +1,30 @@
-import React from 'react';
-import { View, Text, StyleSheet, ViewStyle } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
 import { NeomorphFlex } from 'react-native-neomorph-shadows';
 import colorConstants from '../../constants/color';
-import India from './icons/flags/India';
-import { TextInput } from 'react-native-gesture-handler';
+import CountryPicker, { DARK_THEME } from 'react-native-country-picker-modal';
+import CaretDown from './icons/CaretDown';
+import { DEFAULT_TOUCHABLE_OPACITY } from '../../constants/config';
 
 interface PhoneInputBoxProps {
-	onChange: (text: string) => void;
+	onCountryChange: (code: string) => void;
+	onNumberChange: (text: string) => void;
 }
 
 export default function PhoneInputBox(props: PhoneInputBoxProps) {
+	const [ country, setCountry ] = useState({ cca2: 'IN', callingCode: ['91'] });
+	const [ countryModalVisibility, setCountryModalVisibility ] = useState(false);
+
+	let countryPickerRef;
+
 	const handleChange = (event) => {
 		const { text } = event.nativeEvent;
-		props.onChange(text);
+		props.onNumberChange(text);
+	};
+
+	const onCountryChange = (selectedCountry) => {
+		setCountry(selectedCountry);
+		props.onCountryChange(selectedCountry.callingCode[0]);
 	};
 
 	return (
@@ -22,11 +34,33 @@ export default function PhoneInputBox(props: PhoneInputBoxProps) {
 			darkShadowColor={colorConstants.SHADOW_DARK}
 			lightShadowColor={colorConstants.SHADOW_LIGHT}
 		>
-			<View style={styles.flag}>
-				<India />
-			</View>
+			<TouchableOpacity activeOpacity={DEFAULT_TOUCHABLE_OPACITY} onPress={() => setCountryModalVisibility(true)}>
+				<View style={styles.countryCodeContainer}>
+					<View style={styles.flagContainer}>
+						<View style={styles.flag}>
+							<CountryPicker
+								ref={(ref) => countryPickerRef = ref}
+								theme={DARK_THEME}
+								countryCode={country.cca2}
+								withFilter={true}
+								withFlag={true}
+								withAlphaFilter={true}
+								withEmoji={false}
+								withFlagButton={true}
+								onSelect={onCountryChange}
+								visible={countryModalVisibility}
+								onClose={() => setCountryModalVisibility(false)}
+								excludeCountries={['AQ']}
+							/>
+						</View>
 
-			<Text style={styles.countryCode}>(+91)</Text>
+					</View>
+
+					<Text style={styles.countryCode}>(+{country.callingCode[0]})</Text>
+
+					<CaretDown />
+				</View>
+			</TouchableOpacity>
 
 			<TextInput
 				style={styles.input}
@@ -54,21 +88,33 @@ const styles = StyleSheet.create({
 		paddingVertical: 10,
 		backgroundColor: colorConstants.PRIMARY_LIGHT,
 	},
-	flag: {
+	countryCodeContainer: {
+		flexDirection: 'row',
+		alignItems: 'center',
+		paddingRight: 10,
+		borderRightColor: 'rgba(255, 255, 255, 0.2)',
+		borderRightWidth: 1,
+	},
+	flagContainer: {
 		marginLeft: 14,
 		marginRight: 8,
+		marginTop: 2,
+		width: 20,
+		height: 20,
 		borderRadius: 10,
 		overflow: 'hidden',
+	},
+	flag: {
+		marginLeft: -5,
+		marginTop: -5,
 	},
 	countryCode: {
 		fontFamily: 'SFProText-Regular',
 		fontSize: 16,
 		lineHeight: 19,
 		color: colorConstants.WHITE,
-		paddingRight: 10,
+		paddingRight: 8,
 		paddingVertical: 8,
-		borderRightColor: 'rgba(255, 255, 255, 0.2)',
-		borderRightWidth: 1,
 	},
 	input: {
 		height: 56,

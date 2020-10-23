@@ -15,6 +15,7 @@ import AcitonButtonWithShadow from './common/ActionButtonWithShadow';
 import ShadowButton from './common/ShadowButton';
 import OtpInput from './common/OtpInput';
 import { ScrollView } from 'react-native-gesture-handler';
+import { DEFAULT_TOUCHABLE_OPACITY } from '../constants/config';
 
 const EMAIL_OTP_LENGTH = 6;
 const PHONE_OTP_LENGTH = 4;
@@ -140,7 +141,7 @@ export default function VerifyEmail(props) {
 				{resendOtpVisible && (
 					<View style={styles.resendContainer}>
 						<Text style={styles.codeNotReceivedText}>Didn’t receive the code?</Text>
-						<TouchableOpacity activeOpacity={0.6} onPress={onResendOtp}>
+						<TouchableOpacity activeOpacity={DEFAULT_TOUCHABLE_OPACITY} onPress={onResendOtp}>
 							<Text style={styles.resendCode}>Resend Code</Text>
 						</TouchableOpacity>
 					</View>

@@ -15,6 +15,7 @@ interface AccountLoginProps {
 }
 
 export default function AccountLogin(props: AccountLoginProps) {
+	const [ countryCode, setCountryCode ] = useState('+91'); // +91 for India calling code
 	const [ phoneNumber, setPhoneNumber ] = useState('');
 	const [ continueButtonHintText, setContinueButtonHintText ] = useState('');
 	const [ isValidPhoneNumber, setIsValidPhoneNumber ] = useState(false);
@@ -41,8 +42,6 @@ export default function AccountLogin(props: AccountLoginProps) {
 	};
 
 	const handleSubmit = async () => {
-		const countryCode = '+91';
-
 		if (!isValidPhoneNumber || submitDisabled) {
 			return;
 		}
@@ -78,7 +77,10 @@ export default function AccountLogin(props: AccountLoginProps) {
 
 			<KeyboardAwareScrollView contentContainerStyle={{ flexGrow: 1, justifyContent: 'center' }}>
 				<View style={styles.phoneInputBox}>
-					<PhoneInputBox onChange={handlePhoneNumberChange} />
+					<PhoneInputBox
+						onCountryChange={(code) => setCountryCode(`+${code}`)}
+						onNumberChange={handlePhoneNumberChange}
+					/>
 				</View>
 			</KeyboardAwareScrollView>
 

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Text, View, TextStyle, StyleProp, StyleSheet, TouchableOpacity } from 'react-native';
 import colorConstants from '../../constants/color';
 import { TouchableHighlight } from 'react-native-gesture-handler';
+import { DEFAULT_TOUCHABLE_OPACITY } from '../../constants/config';
 
 interface ButtonProps {
   onClick: () => void;
@@ -27,7 +28,7 @@ export default function Button(props: ButtonProps) {
 
 	return (
 		<View style={[styles.root, btnContainerStyle ]}>
-			<TouchableOpacity activeOpacity={0.7} style={actionButtonStyle} onPress={handleButtonClick}>
+			<TouchableOpacity activeOpacity={DEFAULT_TOUCHABLE_OPACITY} style={actionButtonStyle} onPress={handleButtonClick}>
 				<Text style={[ styles.actionButtonText, btnTextStyle ]}>{btnText}</Text>
 			</TouchableOpacity>
 		</View>

@@ -13,6 +13,7 @@ import RewardsHistoryIcon from './common/icons/RewardsHistoryIcon';
 import ReferAndEarnIcon from './common/icons/ReferAndEarnIcon';
 import ChevronLeft from './common/icons/ChevronLeft';
 import HowItWorksIcon from './common/icons/HowItWorksIcon';
+import { DEFAULT_TOUCHABLE_OPACITY } from '../constants/config';
 // import userBalanceMockData from '../mock_jsons/user-balance.json';
 
 export default function Rewards(props) {
@@ -95,17 +96,17 @@ export default function Rewards(props) {
 					</Text>
 				</View>
 
-				<TouchableOpacity activeOpacity={0.7} style={styles.menuButton}>
+				<TouchableOpacity activeOpacity={DEFAULT_TOUCHABLE_OPACITY} style={styles.menuButton}>
 					<RewardsHistoryIcon />
 					<Text style={styles.menuButtonText}>Rewards History</Text>
 				</TouchableOpacity>
 
-				<TouchableOpacity activeOpacity={0.7} style={styles.menuButton}>
+				<TouchableOpacity activeOpacity={DEFAULT_TOUCHABLE_OPACITY} style={styles.menuButton}>
 					<ReferAndEarnIcon />
 					<Text style={styles.menuButtonText}>Refer & Earn</Text>
 				</TouchableOpacity>
 
-				<TouchableOpacity activeOpacity={0.7} style={styles.menuButton}>
+				<TouchableOpacity activeOpacity={DEFAULT_TOUCHABLE_OPACITY} style={styles.menuButton}>
 					<HowItWorksIcon />
 					<Text style={styles.menuButtonText}>How It Works</Text>
 				</TouchableOpacity>
