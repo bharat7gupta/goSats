@@ -20,7 +20,13 @@ export const isReferralCode = (value: string) => {
 };
 
 export const getFormattedNumber = (number) => {
-	return number && !isNaN(number) ? Number(number).toLocaleString('en-IN') : 0;
+	if (!number || isNaN(number)) {
+		return '0';
+	}
+
+	// this works only for whole numbers. For numbers with decimal places it would fail
+	// also this only adds a comma after every 3 digits from last digit
+	return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 };
 
 export const getTimestampString = () => {
