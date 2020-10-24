@@ -1,5 +1,5 @@
-import React from 'react';
-import { View, Text, ScrollView, StyleSheet } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, ScrollView, StyleSheet, AppState } from 'react-native';
 import { StatusBarHeight } from '../helpers/UtilityHelper';
 import PageHeader from './PageHeader';
 import styleConstants from '../constants/style';
@@ -7,17 +7,60 @@ import colorConstants from '../constants/color';
 import LevelProgress from './LevelProgress';
 import NeoButton from './common/NeoButton';
 import { NeomorphFlex } from 'react-native-neomorph-shadows';
-import AcitonButtonWithShadow from './common/ActionButtonWithShadow';
+import * as StorageHelper from '../helpers/StorageHelper';
+import * as UtilityHelper from '../helpers/UtilityHelper';
+import * as ApiHelper from '../helpers/ApiHelper';
+import ShadowButton from './common/ShadowButton';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import { DEFAULT_TOUCHABLE_OPACITY } from '../constants/config';
+
+const WALLET_PAGE_FETCH_TIMESTAMP_KEY = 'walletDataFetchTimestamp';
+const SATS_WITHDRAW_LIMIT = 50000;
 
 interface WalletProps {
-
+	navigation?: any;
 }
 
 export default function Wallet(props: WalletProps) {
-	const level = {
-		progressBarBgColor: ['#2D8841', '#5BA94E'],
-		curMinSats: 0,
-		curMaxSats: 50000,
+	const [ balanceData, setBalanceData ] = useState(null);
+
+	useEffect(() => {
+		fetchUserBalance();
+
+		AppState.addEventListener('change', fetchPageDataOnResume);
+
+		return () => {
+			AppState.removeEventListener('change', fetchPageDataOnResume);
+		};
+	}, []);
+
+	const fetchPageDataOnResume = async (nextAppState: string) => {
+		const shouldRefresh = await UtilityHelper.shouldRefreshPageData(WALLET_PAGE_FETCH_TIMESTAMP_KEY);
+
+		if (nextAppState === 'active' && shouldRefresh) {
+			fetchUserBalance();
+		}
+	};
+
+	const fetchUserBalance = async () => {
+		const userBalance = await ApiHelper.fetchUserBalance();
+		// const userBalance = userBalanceMockData;
+
+		await StorageHelper.setItem(WALLET_PAGE_FETCH_TIMESTAMP_KEY, UtilityHelper.getTimestampString());
+
+		if (userBalance.error) {
+			return;
+		}
+
+		setBalanceData(userBalance.data);
+	};
+
+	const handleKeepShopping = () => {
+		props.navigation.navigate('Categories');
+	};
+
+	const handleWithdrawInit = () => {
+		props.navigation.navigate('Withdraw');
 	};
 
 	const withdrawalTerms = [
@@ -25,6 +68,16 @@ export default function Wallet(props: WalletProps) {
 		'Deposit is done every Tuesday.',
 		'0% withdrawl fee.',
 	];
+
+	const spendableSats = balanceData && balanceData.balance.spendableSats;
+	const formattedSpendableSats = UtilityHelper.getFormattedNumber(spendableSats);
+	const balanceInINR = balanceData && balanceData.balanceInINR;
+	const canWithdraw = spendableSats && spendableSats >= SATS_WITHDRAW_LIMIT;
+	const level = {
+		progressBarBgColor: ['#2D8841', '#5BA94E'],
+		curMinSats: balanceData && balanceData.level.curMinSats,
+		curMaxSats: balanceData && balanceData.level.curMaxSats,
+	};
 
 	return (
 		<ScrollView contentContainerStyle={styles.containerStyle} stickyHeaderIndices={[0]}>
@@ -39,9 +92,9 @@ export default function Wallet(props: WalletProps) {
 					</Text>
 				</View>
 
-				<View style={{ flexDirection: 'row' }}>
+				<View style={{ flexDirection: 'row', paddingHorizontal: 20 }}>
 					<Text style={styles.earningsText}>
-						10,000
+						{formattedSpendableSats}
 					</Text>
 					<Text style={styles.earningsSubText}>
 						sats
@@ -53,14 +106,14 @@ export default function Wallet(props: WalletProps) {
 						<Text style={styles.valueText}>INR Value</Text>
 					</View>
 
-					<Text style={styles.inrValue}>₹ 100.00</Text>
+					<Text style={styles.inrValue}>₹ {balanceInINR}</Text>
 				</View>
 
 				<LevelProgress
 					level={level}
-					earnedSats={10000}
+					earnedSats={spendableSats}
 					horizontalProgressBarGradient={true}
-					style={{ marginTop: 10 }}
+					style={{ marginTop: 10, paddingHorizontal: 20, }}
 				/>
 
 				<View style={styles.withdrawTermsContainer}>
@@ -76,18 +129,26 @@ export default function Wallet(props: WalletProps) {
 					))}
 				</View>
 
-				<NeomorphFlex
-					style={styleConstants.shadowStyles}
-					darkShadowColor={colorConstants.SHADOW_DARK}
-					lightShadowColor={colorConstants.SHADOW_LIGHT}
-				>
-					<Text style={styles.keepShopping}>Keep Shopping</Text>
-				</NeomorphFlex>
-
-				<AcitonButtonWithShadow
-					buttonText="Withdraw"
-					onClick={() => {}}
-				/>
+				{canWithdraw ? (
+					<ShadowButton
+						buttonText="Withdraw"
+						disabled={false}
+						onClick={handleWithdrawInit}
+						style={styles.withdrawButton}
+					/>
+				) : (
+					<TouchableOpacity activeOpacity={DEFAULT_TOUCHABLE_OPACITY} onPress={handleKeepShopping}>
+						<View style={styles.keepShopping}>
+							<NeomorphFlex
+								style={styleConstants.shadowStyles}
+								darkShadowColor={colorConstants.SHADOW_DARK}
+								lightShadowColor={colorConstants.SHADOW_LIGHT}
+							>
+								<Text style={styles.keepShoppingText}>Keep Shopping</Text>
+							</NeomorphFlex>
+						</View>
+					</TouchableOpacity>
+				)}
 			</View>
 		</ScrollView>
 	);
@@ -109,13 +170,14 @@ const styles = StyleSheet.create({
 	content: {
 		marginTop: 24,
 		marginHorizontal: 20,
-		padding: 20,
 		backgroundColor: colorConstants.PRIMARY_LIGHT,
 		borderRadius: 10,
 	},
 	mainHeader: {
 		flexDirection: 'row',
 		justifyContent: 'space-between',
+		paddingHorizontal: 20,
+		paddingTop: 20,
 	},
 	earningsHeaderText: {
 		fontFamily: 'SFProText-Regular',
@@ -141,6 +203,7 @@ const styles = StyleSheet.create({
 		flexDirection: 'row',
 		alignItems: 'center',
 		marginTop: 9,
+		paddingHorizontal: 20,
 	},
 	valueTextChip: {
 		flexDirection: 'row',
@@ -166,8 +229,10 @@ const styles = StyleSheet.create({
 	withdrawTermsContainer: {
 		padding: 16,
 		backgroundColor: '#242D33',
-		marginVertical: 26,
+		marginTop: 24,
+		marginBottom: 10,
 		borderRadius: 10,
+		marginHorizontal: 20,
 	},
 	withdrawTermsHeaderText: {
 		fontSize: 14,
@@ -188,10 +253,21 @@ const styles = StyleSheet.create({
 		flex: 1,
 	},
 	keepShopping: {
+		paddingHorizontal: 20,
+		paddingTop: 16,
+		paddingBottom: 20
+	},
+	keepShoppingText: {
 		color: colorConstants.YELLOW_GOLD,
 		fontFamily: 'SFProText-Bold',
 		fontSize: 16,
 		lineHeight: 19,
 		paddingVertical: 16,
+	},
+	withdrawButton: {
+		paddingHorizontal: 20,
+		paddingTop: 20,
+		paddingBottom: 20,
+		height: 98,
 	},
 });

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ViewStyle } from 'react-native';
 import { NeomorphFlex } from 'react-native-neomorph-shadows';
 import Toast from 'react-native-simple-toast';
 import colorConstants from '../../constants/color';
@@ -9,6 +9,7 @@ interface ShadowButtonProps {
 	disabled: boolean;
 	onClick: () => void;
 	hintText?: string;
+	style?: ViewStyle;
 }
 
 export default function ShadowButton(props: ShadowButtonProps) {
@@ -37,7 +38,7 @@ export default function ShadowButton(props: ShadowButtonProps) {
 
 	return (
 		<TouchableOpacity activeOpacity={touchableActiveOpacity} onPress={handleClick}>
-			<View style={styles.root}>
+			<View style={[styles.root, props.style]}>
 				<NeomorphFlex
 					style={{ ...styles.shadowContainer, backgroundColor }}
 					darkShadowColor={colorConstants.SHADOW_DARK}
