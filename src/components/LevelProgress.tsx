@@ -2,15 +2,17 @@ import React from 'react';
 import { View, Text, StyleSheet, ViewStyle } from 'react-native';
 import ProgressBar from './common/ProgressBar';
 import UserLevel from '../types/UserLevel';
+import * as UtilityHelper from '../helpers/UtilityHelper';
 
 interface LevelProgressProps {
 	earnedSats: number;
 	level: UserLevel;
+	horizontalProgressBarGradient?: boolean;
 	style?: ViewStyle;
 }
 
 export default function LevelProgress(props: LevelProgressProps) {
-	const { level, earnedSats, style } = props;
+	const { level, earnedSats, horizontalProgressBarGradient, style } = props;
 
 	if (!level) {
 		return null;
@@ -28,11 +30,16 @@ export default function LevelProgress(props: LevelProgressProps) {
 				maxValue={level.curMaxSats}
 				currValue={earnedSats}
 				gradientColors={level.progressBarBgColor}
+				horizontalGradient={horizontalProgressBarGradient}
 			/>
 
 			<View style={styles.bottomProgressMarkers}>
-				<Text style={styles.satsLimitText}>{level.curMinSats} sats</Text>
-				<Text style={styles.satsLimitText}>{level.curMaxSats} sats</Text>
+				<Text style={styles.satsLimitText}>
+					{UtilityHelper.getFormattedNumber(level.curMinSats)} sats
+				</Text>
+				<Text style={styles.satsLimitText}>
+					{UtilityHelper.getFormattedNumber(level.curMaxSats)} sats
+				</Text>
 			</View>
 		</View>
 	);

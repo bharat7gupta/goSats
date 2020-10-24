@@ -3,7 +3,7 @@ import { View, Text, ScrollView, StyleSheet, AppState } from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
 import HotDeals from './HotDeals';
 import colorConstants from '../constants/color';
-import ShopHeader from './ShopHeader';
+import PageHeader from './PageHeader';
 import BrandCarousel from './BrandCarousel';
 import * as ApiHelper from '../helpers/ApiHelper';
 import * as UtilityHelper from '../helpers/UtilityHelper';
@@ -123,7 +123,7 @@ export default function Shop(props) {
 		<View style={styles.root}>
 			<ScrollView ref={(ref) => scrollViewRef = ref} contentContainerStyle={styles.containerStyle} stickyHeaderIndices={[0]}>
 				<View style={styles.topSection}>
-					<ShopHeader />
+					<PageHeader title="Shop" />
 				</View>
 
 				{!loading && (
