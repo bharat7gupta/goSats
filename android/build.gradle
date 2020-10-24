@@ -3,7 +3,7 @@
 buildscript {
     ext {
         buildToolsVersion = "30.0.0"
-        minSdkVersion = 16
+        minSdkVersion = 21
         compileSdkVersion = 30
         targetSdkVersion = 30
         supportLibVersion = "30.0.0"
@@ -14,6 +14,7 @@ buildscript {
     }
     dependencies {
         classpath("com.android.tools.build:gradle:3.5.3")
+
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
@@ -29,6 +30,10 @@ allprojects {
         maven {
             // Android JSC is installed from npm
             url("$rootDir/../node_modules/jsc-android/dist")
+        }
+        maven {
+            // Smartlook analytics
+            url "https://sdk.smartlook.com/android/release"
         }
 
         google()

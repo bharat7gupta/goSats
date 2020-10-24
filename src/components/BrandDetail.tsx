@@ -25,6 +25,7 @@ import * as Config from '../constants/config';
 import { StatusBarHeight } from '../helpers/UtilityHelper';
 import ChevronLeft from './common/icons/ChevronLeft';
 import OrderStatusModal from './OrderStatusModal';
+import RazorpayCheckout from 'react-native-razorpay';
 // import merchantDetail from '../mock_jsons/merchant-detail.json';
 // import orderStatusWithCongrats from '../mock_jsons/order-status-with-congrats.json';
 // import orderStatusWithoutCongrats from '../mock_jsons/order-status-without-congrats.json';
@@ -111,7 +112,7 @@ export default function BrandDetail(props) {
 	};
 
 	const getButtonText = () => {
-		return brandData && brandData.isGiftCard ? 'Buy Gift Card' : brandData && `Go To ${brandData.name}`;
+		return brandData && brandData.isGiftCard ? 'Buy Voucher' : brandData && `Shop on ${brandData.name}`;
 	};
 
 	const calculateDetailsSectionHeight = () => {
@@ -160,7 +161,7 @@ export default function BrandDetail(props) {
 		const isGiftCard = brandData && brandData.isGiftCard;
 
 		if (isGiftCard && !currentDenomination) {
-			Toast.show('Please select an amount to continue buying giftcard');
+			Toast.show('Please select an amount to continue buying the voucher');
 		}
 
 		const amount = Number(currentDenomination);
@@ -170,13 +171,36 @@ export default function BrandDetail(props) {
 				id,
 				isGiftCard && !isNaN(amount) ? amount : 0,
 			);
-
+console.log(createOrderResponse);
 			if (createOrderResponse.error) {
 				Toast.show(createOrderResponse.message);
 				setSubmitDisabled(false);
 				return;
 			}
-
+			/*var options = {
+				description: 'RazorpayTest',
+				image: '',
+				currency: 'INR',
+				key: 'rzp_test_A81NrDeHP1VPLP',
+				amount: createOrderResponse.data.gatewayDetails.amount,
+				name: createOrderResponse.data.gatewayDetails.name,
+				order_id: '',//Replace this with an order_id created using Orders API. Learn more at https://razorpay.com/docs/api/orders.
+				prefill: {
+				  email: 'roshan@gosats.io',
+				  contact: '9739048608',
+				  name: ''
+				},
+				theme: {color: '#53a20e'}
+			  }*/
+			  
+			  RazorpayCheckout.open(createOrderResponse.data.gatewayDetails).then((data) => {
+				// handle success
+				alert(`Success: ${data.razorpay_payment_id}`);
+			  }).catch((error) => {
+				// handle failure
+				alert(`Error: ${error.code} | ${error.description}`);
+			  });
+			  
 			const { orderId, redirectURL } = createOrderResponse.data;
 
 			StorageHelper.setItem('orderId', orderId);

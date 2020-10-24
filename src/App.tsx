@@ -15,8 +15,11 @@ import SatsSpin from './components/SatsSpin';
 import AccountLogin from './components/AccountLogin';
 import CreateAccount from './components/CreateAccount';
 
+
 export const AuthStateContext = React.createContext({} as AuthState);
 export const AuthDispatchContext = React.createContext((payload) => {});
+
+
 
 LogBox.ignoreAllLogs();
 
