@@ -1,23 +1,25 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { View, Text, ScrollView, StyleSheet } from 'react-native';
+import { View, Text, ScrollView, StyleSheet, AppState } from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
 import HotDeals from './HotDeals';
 import colorConstants from '../constants/color';
 import ShopHeader from './ShopHeader';
 import BrandCarousel from './BrandCarousel';
 import * as ApiHelper from '../helpers/ApiHelper';
+import * as UtilityHelper from '../helpers/UtilityHelper';
+import * as StorageHelper from '../helpers/StorageHelper';
 import RewardsSection from './RewardsSection';
 import Strings from '../constants/strings';
 import ErrorModal from './common/ErrorModal';
-import PageLoader from './common/PageLoader';
 import { StatusBarHeight } from '../helpers/UtilityHelper';
-import masterDataSet from '../mock_jsons/master-data.json';
 import Brand from '../types/Brand';
-import BrandItem from '../types/BrandItem';
 import Toast from 'react-native-simple-toast';
+import masterDataSet from '../mock_jsons/master-data.json';
+import BrandItem from '../types/BrandItem';
 
 const spotLightHeightFactor = 0.5;
 const editorsPickHeightFactor = 0.764;
+const SHOP_PAGE_FETCH_TIMESTAMP_KEY = 'shopDataFetchTimestamp';
 
 export default function Shop(props) {
 	const [ spotlight, setSpotlight ] = useState([]);
@@ -28,25 +30,54 @@ export default function Shop(props) {
 	const [ errorMessage, setErrorMessage ] = useState<string>('');
 	const [ balanceData, setBalanceData ] = useState(null);
 
+	let scrollViewRef;
+
 	useEffect(() => {
 		fetchMasterData();
+		AppState.addEventListener('change', fetchPageDataOnResume);
+
+		const removeNavigationListener = props.navigation.addListener('tabPress', e => {
+			setTimeout(() => scrollToTop(), 10);
+		});
+
+		return () => {
+			AppState.removeEventListener('change', fetchPageDataOnResume);
+			removeNavigationListener();
+		};
 	}, []);
+
+	const fetchPageDataOnResume = async (nextAppState: string) => {
+		const shouldRefresh = await UtilityHelper.shouldRefreshPageData(SHOP_PAGE_FETCH_TIMESTAMP_KEY);
+
+		if (nextAppState === 'active' && shouldRefresh) {
+			fetchMasterData();
+		}
+	};
 
 	const fetchMasterData = async () => {
 		try {
 			setLoading(true);
 			const masterData = await ApiHelper.fetchMasterData();
 			const userBalance = await ApiHelper.fetchUserBalance();
+			await StorageHelper.setItem(SHOP_PAGE_FETCH_TIMESTAMP_KEY, UtilityHelper.getTimestampString());
+
 			// const masterData = masterDataSet;
 			// console.log(masterData);
 			// console.log(userBalance);
 			processData(masterData);
 			setBalanceData(userBalance.data);
 			setLoading(false);
+			scrollToTop();
 		} catch (e) {
 			setLoading(false);
 			setShowError(true);
 			setErrorMessage(Strings.SOMETHING_WENT_WRONG);
+		}
+	};
+
+	const scrollToTop = () => {
+		if (scrollViewRef) {
+			scrollViewRef.scrollTo({ x: 0, y: 0, animated: true });
 		}
 	};
 
@@ -84,9 +115,13 @@ export default function Shop(props) {
 		// props.navigation.navigate('SatsSpin');
 	};
 
+	const handleShopAllClick = () => {
+		props.navigation.navigate('Categories');
+	};
+
 	return (
 		<View style={styles.root}>
-			<ScrollView contentContainerStyle={styles.containerStyle} stickyHeaderIndices={[0]}>
+			<ScrollView ref={(ref) => scrollViewRef = ref} contentContainerStyle={styles.containerStyle} stickyHeaderIndices={[0]}>
 				<View style={styles.topSection}>
 					<ShopHeader />
 				</View>
@@ -108,6 +143,7 @@ export default function Shop(props) {
 
 						<HotDeals
 							merchants={merchants}
+							onShopAllClick={handleShopAllClick}
 							onItemClick={handleBrandItemClick}
 						/>
 

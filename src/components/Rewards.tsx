@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, Image, StyleSheet } from 'react-native';
+import { View, Text, Image, StyleSheet, AppState } from 'react-native';
 import colorConstants from '../constants/color';
 import Header from './common/Header';
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
+import Toast from 'react-native-simple-toast';
 import LevelBadge from './common/LevelBadge';
 import * as ApiHelper from '../helpers/ApiHelper';
 import WalletFilledIcon from './common/icons/WalletFilledIcon';
 import ProgressBar from './common/ProgressBar';
 import * as UtilityHelper from '../helpers/UtilityHelper';
+import * as StorageHelper from '../helpers/StorageHelper';
 import LevelProgress from './LevelProgress';
 import RewardsHistoryIcon from './common/icons/RewardsHistoryIcon';
 import ReferAndEarnIcon from './common/icons/ReferAndEarnIcon';
@@ -16,16 +18,35 @@ import HowItWorksIcon from './common/icons/HowItWorksIcon';
 import { DEFAULT_TOUCHABLE_OPACITY } from '../constants/config';
 // import userBalanceMockData from '../mock_jsons/user-balance.json';
 
+const REWARDS_PAGE_FETCH_TIMESTAMP_KEY = 'rewardsDataFetchTimestamp';
+
 export default function Rewards(props) {
 	const [ balanceData, setBalanceData ] = useState(null);
 
 	useEffect(() => {
 		fetchUserBalance();
+
+		AppState.addEventListener('change', fetchPageDataOnResume);
+
+		return () => {
+			AppState.removeEventListener('change', fetchPageDataOnResume);
+		};
 	}, []);
+
+	const fetchPageDataOnResume = async (nextAppState: string) => {
+		const shouldRefresh = await UtilityHelper.shouldRefreshPageData(REWARDS_PAGE_FETCH_TIMESTAMP_KEY);
+
+		if (nextAppState === 'active' && shouldRefresh) {
+			fetchUserBalance();
+		}
+	};
 
 	const fetchUserBalance = async () => {
 		const userBalance = await ApiHelper.fetchUserBalance();
 		// const userBalance = userBalanceMockData;
+
+		await StorageHelper.setItem(REWARDS_PAGE_FETCH_TIMESTAMP_KEY, UtilityHelper.getTimestampString());
+
 		if (userBalance.error) {
 			return;
 		}

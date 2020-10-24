@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, Platform } from 'react-native';
 import { NeomorphFlex } from 'react-native-neomorph-shadows';
 import colorConstants from '../../constants/color';
 import CountryPicker, { DARK_THEME } from 'react-native-country-picker-modal';
 import CaretDown from './icons/CaretDown';
-import { DEFAULT_TOUCHABLE_OPACITY } from '../../constants/config';
+import { DEFAULT_TOUCHABLE_OPACITY, ALLOWED_COUNTRIES_LIST } from '../../constants/config';
 
 interface PhoneInputBoxProps {
 	onCountryChange: (code: string) => void;
@@ -42,15 +42,13 @@ export default function PhoneInputBox(props: PhoneInputBoxProps) {
 								ref={(ref) => countryPickerRef = ref}
 								theme={DARK_THEME}
 								countryCode={country.cca2}
-								withFilter={true}
 								withFlag={true}
-								withAlphaFilter={true}
 								withEmoji={false}
 								withFlagButton={true}
 								onSelect={onCountryChange}
 								visible={countryModalVisibility}
 								onClose={() => setCountryModalVisibility(false)}
-								excludeCountries={['AQ']}
+								countryCodes={ALLOWED_COUNTRIES_LIST}
 							/>
 						</View>
 
@@ -99,14 +97,14 @@ const styles = StyleSheet.create({
 		marginLeft: 14,
 		marginRight: 8,
 		marginTop: 2,
-		width: 20,
-		height: 20,
-		borderRadius: 10,
+		width: Platform.OS === 'ios' ? 19 : 20,
+		height: Platform.OS === 'ios' ? 19 : 20,
+		borderRadius: 12,
 		overflow: 'hidden',
 	},
 	flag: {
-		marginLeft: -5,
-		marginTop: -5,
+		marginLeft: Platform.OS === 'ios' ? -5.5 : -5,
+		marginTop: Platform.OS === 'ios' ? -10 : -5,
 	},
 	countryCode: {
 		fontFamily: 'SFProText-Regular',

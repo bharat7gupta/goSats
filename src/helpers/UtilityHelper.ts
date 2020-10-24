@@ -1,6 +1,8 @@
 import { Dimensions, Platform, StatusBar } from 'react-native';
 import InAppBrowser from 'react-native-inappbrowser-reborn';
 import colorConstants from '../constants/color';
+import { PAGE_DATA_FETCH_TIME_GAP } from '../constants/config';
+import * as StorageHelper from './StorageHelper';
 
 export const isEmail = (value: string) => {
 	const emailRegEx = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/;
@@ -18,7 +20,23 @@ export const isReferralCode = (value: string) => {
 };
 
 export const getFormattedNumber = (number) => {
-	return number && !isNaN(number) ? Number(number).toLocaleString('en-IN') : 0;
+	if (!number || isNaN(number)) {
+		return '0';
+	}
+
+	// this works only for whole numbers. For numbers with decimal places it would fail
+	// also this only adds a comma after every 3 digits from last digit
+	return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+};
+
+export const getTimestampString = () => {
+	return new Date().getTime().toString();
+};
+
+export const shouldRefreshPageData = async (lastFetchKey) => {
+	const currentTimestamp = Number(getTimestampString());
+	const lastFetchTimestamp = await StorageHelper.getItem(lastFetchKey);
+	return currentTimestamp - Number(lastFetchTimestamp) > PAGE_DATA_FETCH_TIME_GAP;
 };
 
 export const openInAppBrowser = (url: string) => {
