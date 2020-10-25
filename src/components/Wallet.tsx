@@ -60,7 +60,10 @@ export default function Wallet(props: WalletProps) {
 	};
 
 	const handleWithdrawInit = () => {
-		props.navigation.navigate('Withdraw');
+		props.navigation.navigate('Withdraw', {
+			availableSats: (balanceData && balanceData.balance.spendableSats) || 0,
+			inrPerBTC: (balanceData && balanceData.inrPriceforOneBTC) || 1,
+		});
 	};
 
 	const withdrawalTerms = [
@@ -113,7 +116,7 @@ export default function Wallet(props: WalletProps) {
 					level={level}
 					earnedSats={spendableSats}
 					horizontalProgressBarGradient={true}
-					style={{ marginTop: 10, paddingHorizontal: 20, }}
+					style={{ marginTop: 10, paddingHorizontal: 20 }}
 				/>
 
 				<View style={styles.withdrawTermsContainer}>
@@ -164,12 +167,12 @@ const styles = StyleSheet.create({
 		backgroundColor: colorConstants.PRIMARY,
 	},
 	topSection: {
-		paddingTop: StatusBarHeight,
+		paddingTop: StatusBarHeight + 10,
 		backgroundColor: colorConstants.PRIMARY,
 	},
 	content: {
-		marginTop: 24,
-		marginHorizontal: 20,
+		marginTop: 12,
+		marginHorizontal: 18,
 		backgroundColor: colorConstants.PRIMARY_LIGHT,
 		borderRadius: 10,
 	},

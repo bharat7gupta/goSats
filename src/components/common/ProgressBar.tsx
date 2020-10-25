@@ -41,7 +41,7 @@ export default function ProgressBar(props: ProgressBarProps) {
 	Animated.timing(
 		slideValue,
 		{
-			toValue: finalWidth,
+			toValue: isNaN(finalWidth) ? 0 : finalWidth,
 			duration: 400,
 			easing: Easing.linear,
 			useNativeDriver: false,
