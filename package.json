@@ -43,8 +43,7 @@
     "react-native-snap-carousel": "3.9.1",
     "react-native-splash-screen": "3.2.0",
     "react-native-svg": "12.1.0",
-    "react-native-webview": "8.0.0",
-    "smartlook-react-native-wrapper": "^0.34.0"
+    "react-native-webview": "8.0.0"
   },
   "devDependencies": {
     "@babel/core": "7.10.5",

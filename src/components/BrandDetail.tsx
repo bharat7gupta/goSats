@@ -155,14 +155,15 @@ export default function BrandDetail(props) {
 			return;
 		}
 
-		setLoading(true);
-		setSubmitDisabled(true);
-
 		const isGiftCard = brandData && brandData.isGiftCard;
 
 		if (isGiftCard && !currentDenomination) {
 			Toast.show('Please select an amount to continue buying the voucher');
+			return;
 		}
+
+		setLoading(true);
+		setSubmitDisabled(true);
 
 		const amount = Number(currentDenomination);
 
@@ -171,52 +172,52 @@ export default function BrandDetail(props) {
 				id,
 				isGiftCard && !isNaN(amount) ? amount : 0,
 			);
-console.log(createOrderResponse);
+
 			if (createOrderResponse.error) {
 				Toast.show(createOrderResponse.message);
 				setSubmitDisabled(false);
 				return;
 			}
-			/*var options = {
-				description: 'RazorpayTest',
-				image: '',
-				currency: 'INR',
-				key: 'rzp_test_A81NrDeHP1VPLP',
-				amount: createOrderResponse.data.gatewayDetails.amount,
-				name: createOrderResponse.data.gatewayDetails.name,
-				order_id: '',//Replace this with an order_id created using Orders API. Learn more at https://razorpay.com/docs/api/orders.
-				prefill: {
-				  email: 'roshan@gosats.io',
-				  contact: '9739048608',
-				  name: ''
-				},
-				theme: {color: '#53a20e'}
-			  }*/
-			  
-			  RazorpayCheckout.open(createOrderResponse.data.gatewayDetails).then((data) => {
-				// handle success
-				alert(`Success: ${data.razorpay_payment_id}`);
-			  }).catch((error) => {
-				// handle failure
-				alert(`Error: ${error.code} | ${error.description}`);
-			  });
-			  
+
 			const { orderId, redirectURL } = createOrderResponse.data;
 
 			StorageHelper.setItem('orderId', orderId);
 
-			const result = await UtilityHelper.openInAppBrowser(redirectURL);
-			setSubmitDisabled(false);
+			if (isGiftCard) {
+				RazorpayCheckout.open(createOrderResponse.data.gatewayDetails).then(async (data) => {
+					const verifyPaymentResponse = await ApiHelper.giftCardVerifyPaymant(
+						data.razorpay_order_id,
+						data.razorpay_payment_id,
+						data.razorpay_signature,
+					);
 
-			if (result.type === 'cancel') {
-				const orderStatusResponse = await ApiHelper.getOrderStatus(orderId);
-				// const orderStatusResponse = orderStatusWithCongrats;
-				setOrderStatusData(orderStatusResponse.data);
-				setModalVisibility(true);
-				setLoading(false);
+					Toast.show(verifyPaymentResponse.message);
+
+					if (!verifyPaymentResponse.error) {
+						props.navigation.replace('Rewards');
+					}
+
+					setSubmitDisabled(false);
+					setLoading(false);
+				}).catch(() => {
+					Toast.show(Strings.SOMETHING_WENT_WRONG);
+					setSubmitDisabled(false);
+					setLoading(false);
+				});
 			} else {
-				Toast.show('Order not placed');
-				setLoading(false);
+				const result = await UtilityHelper.openInAppBrowser(redirectURL);
+				setSubmitDisabled(false);
+
+				if (result.type === 'cancel') {
+					const orderStatusResponse = await ApiHelper.getOrderStatus(orderId);
+					// const orderStatusResponse = orderStatusWithCongrats;
+					setOrderStatusData(orderStatusResponse.data);
+					setModalVisibility(true);
+					setLoading(false);
+				} else {
+					Toast.show('Order not placed');
+					setLoading(false);
+				}
 			}
 		} catch (e) {
 			Toast.show(Strings.SOMETHING_WENT_WRONG);
