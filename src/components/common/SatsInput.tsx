@@ -5,6 +5,7 @@ import { NeomorphFlex } from 'react-native-neomorph-shadows';
 import colorConstants from '../../constants/color';
 import * as UtilityHelper from '../../helpers/UtilityHelper';
 import WalletFilledIcon from './icons/WalletFilledIcon';
+import { DEFAULT_TOUCHABLE_OPACITY } from '../../constants/config';
 
 interface SatsInputProps {
 	spendableSats: number;
@@ -84,7 +85,7 @@ export default function SatsInput(props: SatsInputProps) {
 					<Text style={styles.balanceText}>{formattedSpendableSats}</Text>
 				</View>
 
-				<TouchableOpacity onPress={handleWithdrawAll}>
+				<TouchableOpacity onPress={handleWithdrawAll} activeOpacity={DEFAULT_TOUCHABLE_OPACITY}>
 					<Text style={styles.withdrawAllText}>Withdraw All</Text>
 				</TouchableOpacity>
 			</View>

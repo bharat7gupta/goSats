@@ -23,6 +23,7 @@ const API_URLS = {
 	SPIN_WHEEL: '/user/spin',
 	CREATE_ORDER: '/user/order/create',
 	ORDER_STATUS: '/user/order/status/',
+	WITHDRAW_SATS: '/user/withdraw/sats',
 };
 
 const baseHeaders = {
@@ -204,4 +205,11 @@ export async function createOrder(merchantId: string, giftCardDenomination?: num
 export async function getOrderStatus(orderId: string) {
 	const apiUrl = `${API_ROOT}${API_URLS.ORDER_STATUS}${orderId}`;
 	return await commonApiCall(apiUrl, null, null, true);
+}
+
+export async function withdrawSats(address: string, amount: number) {
+	const apiUrl = `${API_ROOT}${API_URLS.WITHDRAW_SATS}`;
+	const requestBody = { address, amount };
+
+	return await commonApiCall(apiUrl, requestBody, 'POST', true);
 }

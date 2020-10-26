@@ -8,16 +8,19 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { DEFAULT_TOUCHABLE_OPACITY } from '../../constants/config';
 
 interface BitcoinAddressInputProps {
+	bitcoinAddress: string;
+	onScanStart: () => void;
 	onChange: (text: string) => void;
 }
 
 export default function BitcoinAddressInput(props: BitcoinAddressInputProps) {
-	const handleAddressChange = () => {
-
+	const handleAddressChange = (event) => {
+		const { text } = event.nativeEvent;
+		props.onChange(text);
 	};
 
 	const handleScannerClick = () => {
-
+		props.onScanStart();
 	};
 
 	return (
@@ -34,6 +37,7 @@ export default function BitcoinAddressInput(props: BitcoinAddressInputProps) {
 					style={styles.input}
 					underlineColorAndroid="transparent"
 					onChange={handleAddressChange}
+					value={props.bitcoinAddress}
 				/>
 
 				<TouchableOpacity

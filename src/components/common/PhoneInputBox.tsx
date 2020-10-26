@@ -15,8 +15,6 @@ export default function PhoneInputBox(props: PhoneInputBoxProps) {
 	const [ country, setCountry ] = useState({ cca2: 'IN', callingCode: ['91'] });
 	const [ countryModalVisibility, setCountryModalVisibility ] = useState(false);
 
-	let countryPickerRef;
-
 	const handleChange = (event) => {
 		const { text } = event.nativeEvent;
 		props.onNumberChange(text);
@@ -39,7 +37,6 @@ export default function PhoneInputBox(props: PhoneInputBoxProps) {
 					<View style={styles.flagContainer}>
 						<View style={styles.flag}>
 							<CountryPicker
-								ref={(ref) => countryPickerRef = ref}
 								theme={DARK_THEME}
 								countryCode={country.cca2}
 								withFlag={true}

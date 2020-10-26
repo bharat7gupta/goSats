@@ -15,6 +15,7 @@ import SatsSpin from './components/SatsSpin';
 import AccountLogin from './components/AccountLogin';
 import CreateAccount from './components/CreateAccount';
 import Withdraw from './components/Withdraw';
+import QRScanner from './components/common/QRScanner';
 
 
 export const AuthStateContext = React.createContext({} as AuthState);
@@ -97,6 +98,7 @@ function App() {
 								<Stack.Screen name="Rewards" component={Rewards} />
 								<Stack.Screen name="SatsSpin" component={SatsSpin} />
 								<Stack.Screen name="Withdraw" component={Withdraw} />
+								<Stack.Screen name="QRScanner" component={QRScanner} />
 							</React.Fragment>
 						</Stack.Navigator>
 						) : (

@@ -1,10 +1,13 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import Toast from 'react-native-simple-toast';
+import QRCodeScanner from 'react-native-qrcode-scanner';
 import colorConstants from '../constants/color';
 import Header from './common/Header';
 import ChevronLeft from './common/icons/ChevronLeft';
 import * as UtilityHelper from '../helpers/UtilityHelper';
+import * as StorageHelper from '../helpers/StorageHelper';
+import * as ApiHelper from '../helpers/ApiHelper';
 import ShadowButton from './common/ShadowButton';
 import { KeyboardAwareScrollView } from '@codler/react-native-keyboard-aware-scroll-view';
 import BitcoinAddressInput from './common/BitcoinAddressInput';
@@ -22,11 +25,26 @@ export default function Withdraw(props: WithdrawProps) {
 	const [ satsToWithdraw, setSatsToWithdraw ] = useState(0);
 	const [ bitcoinToWithdraw, setBitcoinToWithdraw ] = useState('');
 	const [ inrValue, setInrValue ] = useState('');
-	const [ validations, setValidation ] = useState<any>({});
 	const [ submitDisabled, setSubmitDisabled ] = useState(false);
 
-	const handleBitcoinAddressChange = () => {
+	useEffect(() => {
+		const removeNavListener = props.navigation.addListener('focus', async () => {
+			const address = await StorageHelper.getItem('bitcoinAddress');
+			setBitcoinAddress(address);
+		});
 
+		return () => {
+			removeNavListener();
+		};
+	}, []);
+
+	const handleStartScan = () => {
+		props.navigation.navigate('QRScanner', { dataKey: 'bitcoinAddress' });
+	};
+
+	const handleBitcoinAddressChange = (address: string) => {
+		setBitcoinAddress(address);
+		StorageHelper.setItem('bitcoinAddress', address);
 	};
 
 	const handleSatsInputChange = (sats: string) => {
@@ -54,8 +72,28 @@ export default function Withdraw(props: WithdrawProps) {
 		return '';
 	};
 
-	const handleWithdraw = () => {
+	const handleWithdraw = async () => {
+		if (submitDisabled) {
+			return;
+		}
 
+		if (!bitcoinAddress || bitcoinAddress.trim().length === 0) {
+			Toast.show('Enter Bitcoin address');
+		} else if (!satsToWithdraw || isNaN(Number(satsToWithdraw))) {
+			Toast.show('Enter valid Sats amount');
+		} else if (satsToWithdraw > params.spendableSats) {
+			Toast.show('Entered Sats amount is greater than withdrawable sats');
+		} else {
+			setSubmitDisabled(true);
+			const withdrawSatsResponse = await ApiHelper.withdrawSats(bitcoinAddress, satsToWithdraw);
+
+			Toast.show(withdrawSatsResponse.message);
+			setSubmitDisabled(false);
+
+			if (!withdrawSatsResponse.error) {
+				props.navigation.replace('Rewards');
+			}
+		}
 	};
 
 	return (
@@ -70,7 +108,11 @@ export default function Withdraw(props: WithdrawProps) {
 
 			<KeyboardAwareScrollView contentContainerStyle={{ flexGrow: 1 }}>
 				<View style={styles.content}>
-					<BitcoinAddressInput onChange={handleBitcoinAddressChange} />
+					<BitcoinAddressInput
+						bitcoinAddress={bitcoinAddress}
+						onChange={handleBitcoinAddressChange}
+						onScanStart={handleStartScan}
+					/>
 
 					<SatsInput spendableSats={params.availableSats} onChange={handleSatsInputChange} />
 

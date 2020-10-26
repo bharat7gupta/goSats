@@ -1,21 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, ScrollView, StyleSheet, AppState } from 'react-native';
+import Toast from 'react-native-simple-toast';
 import { StatusBarHeight } from '../helpers/UtilityHelper';
 import PageHeader from './PageHeader';
-import styleConstants from '../constants/style';
 import colorConstants from '../constants/color';
 import LevelProgress from './LevelProgress';
-import NeoButton from './common/NeoButton';
-import { NeomorphFlex } from 'react-native-neomorph-shadows';
 import * as StorageHelper from '../helpers/StorageHelper';
 import * as UtilityHelper from '../helpers/UtilityHelper';
 import * as ApiHelper from '../helpers/ApiHelper';
 import ShadowButton from './common/ShadowButton';
-import { TouchableOpacity } from 'react-native-gesture-handler';
-import { DEFAULT_TOUCHABLE_OPACITY } from '../constants/config';
 
 const WALLET_PAGE_FETCH_TIMESTAMP_KEY = 'walletDataFetchTimestamp';
-const SATS_WITHDRAW_LIMIT = 50000;
 
 interface WalletProps {
 	navigation?: any;
@@ -23,14 +18,21 @@ interface WalletProps {
 
 export default function Wallet(props: WalletProps) {
 	const [ balanceData, setBalanceData ] = useState(null);
+	let scrollViewRef;
 
 	useEffect(() => {
 		fetchUserBalance();
 
 		AppState.addEventListener('change', fetchPageDataOnResume);
 
+		const removeNavigationListener = props.navigation.addListener('focus', e => {
+			fetchPageDataOnResume('active');
+			setTimeout(() => scrollToTop(), 10);
+		});
+
 		return () => {
 			AppState.removeEventListener('change', fetchPageDataOnResume);
+			removeNavigationListener();
 		};
 	}, []);
 
@@ -55,6 +57,12 @@ export default function Wallet(props: WalletProps) {
 		setBalanceData(userBalance.data);
 	};
 
+	const scrollToTop = () => {
+		if (scrollViewRef) {
+			scrollViewRef.scrollTo({ x: 0, y: 0, animated: true });
+		}
+	};
+
 	const handleKeepShopping = () => {
 		props.navigation.navigate('Categories');
 	};
@@ -73,17 +81,22 @@ export default function Wallet(props: WalletProps) {
 	];
 
 	const spendableSats = balanceData && balanceData.balance.spendableSats;
+	const minWithdrawSats = balanceData && balanceData.minWithdrawSats;
 	const formattedSpendableSats = UtilityHelper.getFormattedNumber(spendableSats);
 	const balanceInINR = balanceData && balanceData.balanceInINR;
-	const canWithdraw = spendableSats && spendableSats >= SATS_WITHDRAW_LIMIT;
+	const canWithdraw = spendableSats && minWithdrawSats && spendableSats >= minWithdrawSats;
 	const level = {
 		progressBarBgColor: ['#2D8841', '#5BA94E'],
-		curMinSats: balanceData && balanceData.level.curMinSats,
-		curMaxSats: balanceData && balanceData.level.curMaxSats,
+		curMinSats: 0,
+		curMaxSats: minWithdrawSats,
 	};
 
 	return (
-		<ScrollView contentContainerStyle={styles.containerStyle} stickyHeaderIndices={[0]}>
+		<ScrollView
+			contentContainerStyle={styles.containerStyle}
+			stickyHeaderIndices={[0]}
+			ref={(ref) => scrollViewRef = ref}
+		>
 			<View style={styles.topSection}>
 				<PageHeader title="Wallet" />
 			</View>
@@ -140,17 +153,12 @@ export default function Wallet(props: WalletProps) {
 						style={styles.withdrawButton}
 					/>
 				) : (
-					<TouchableOpacity activeOpacity={DEFAULT_TOUCHABLE_OPACITY} onPress={handleKeepShopping}>
-						<View style={styles.keepShopping}>
-							<NeomorphFlex
-								style={styleConstants.shadowStyles}
-								darkShadowColor={colorConstants.SHADOW_DARK}
-								lightShadowColor={colorConstants.SHADOW_LIGHT}
-							>
-								<Text style={styles.keepShoppingText}>Keep Shopping</Text>
-							</NeomorphFlex>
-						</View>
-					</TouchableOpacity>
+					<ShadowButton
+						buttonText="Keep Shopping"
+						disabled={false}
+						onClick={handleKeepShopping}
+						style={styles.keepShopping}
+					/>
 				)}
 			</View>
 		</ScrollView>
@@ -160,6 +168,7 @@ export default function Wallet(props: WalletProps) {
 const styles = StyleSheet.create({
 	root: {
 		flex: 1,
+		backgroundColor: colorConstants.PRIMARY,
 	},
 	containerStyle: {
 		flexGrow: 1,
