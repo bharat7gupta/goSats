@@ -10,7 +10,7 @@ import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.soloader.SoLoader;
-import com.smartlook.sdk.smartlook.Smartlook;
+//import com.smartlook.sdk.smartlook.Smartlook;
 import com.razorpay.rn.RazorpayPackage;
 
 import java.lang.reflect.InvocationTargetException;
@@ -49,7 +49,7 @@ public class MainApplication extends Application implements ReactApplication {
   @Override
   public void onCreate() {
     super.onCreate();
-    Smartlook.setupAndStartRecording("7526a170e404a90ae715b682606ce85f02d57857");
+    //Smartlook.setupAndStartRecording("7526a170e404a90ae715b682606ce85f02d57857");
     SoLoader.init(this, /* native exopackage */ false);
     initializeFlipper(this, getReactNativeHost().getReactInstanceManager());
   }

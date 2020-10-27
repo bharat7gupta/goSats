@@ -12,7 +12,7 @@
 #import <SKIOSNetworkPlugin/SKIOSNetworkAdapter.h>
 #import <FlipperKitReactPlugin/FlipperKitReactPlugin.h>
 #import <React/RCTLinkingManager.h>
-#import <Smartlook/Smartlook.h>
+//#import <Smartlook/Smartlook.h>
 
 static void InitializeFlipper(UIApplication *application) {
   FlipperClient *client = [FlipperClient sharedClient];
@@ -29,8 +29,8 @@ static void InitializeFlipper(UIApplication *application) {
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-  [Smartlook setupWithKey: @"7526a170e404a90ae715b682606ce85f02d57857"];
-  [Smartlook startRecording];
+  //[Smartlook setupWithKey: @"7526a170e404a90ae715b682606ce85f02d57857"];
+  //[Smartlook startRecording];
 #ifdef FB_SONARKIT_ENABLED
   InitializeFlipper(application);
 #endif
