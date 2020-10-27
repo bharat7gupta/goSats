@@ -75,9 +75,9 @@ export default function Wallet(props: WalletProps) {
 	};
 
 	const withdrawalTerms = [
-		'You need 50,000 sats to withdraw. keep shopping and stack the sats!',
-		'Deposit is done every Tuesday.',
-		'0% withdrawl fee.',
+		'You need to stack a minimum of 50,000 sats to withdraw.',
+		'Withdrawals are processed every Wednesday.',
+		'There are 0 fees for withdrawing!',
 	];
 
 	const spendableSats = balanceData && balanceData.balance.spendableSats;

@@ -8,7 +8,7 @@ export default function EarnedRewards() {
 		<View style={styles.root}>
 			<Cup />
 			<Text style={styles.earningsTitle}>
-				Total rewards earned
+				Total Bitcoin Earned
 			</Text>
 			<View style={styles.earningsTextContainer}>
 				<Text style={styles.earningsText}>

@@ -5,8 +5,8 @@ import { AuthActions } from '../reducers/AuthReducer';
 import { useContext } from 'react';
 import { AuthDispatchContext } from '../App';
 
-const API_ROOT = 'https://devapi.gosats.io/v1';
-//const API_ROOT = 'https://api.gosats.io/v1';
+//const API_ROOT = 'https://devapi.gosats.io/v1';
+const API_ROOT = 'https://api.gosats.io/v1';
 const API_URLS = {
 	SIGN_IN: '/auth/user/signin',
 	SIGN_OUT: '/auth/user/signout',
@@ -215,9 +215,9 @@ export async function withdrawSats(address: string, amount: number) {
 	return await commonApiCall(apiUrl, requestBody, 'POST', true);
 }
 
-export async function giftCardVerifyPaymant(razorpay_order_id: string, razorpay_payment_id: string, razorpay_signature: string) {
+export async function giftCardVerifyPaymant(razorpay_order_id: string, razorpay_payment_id: string, razorpay_signature: string, orderId: string) {
 	const apiUrl = `${API_ROOT}${API_URLS.GIFTCARD_VERIFY_PAYMENT}`;
-	const requestBody = { razorpay_order_id, razorpay_payment_id, razorpay_signature };
+	const requestBody = { razorpay_order_id, razorpay_payment_id, razorpay_signature, orderId };
 
 	return await commonApiCall(apiUrl, requestBody, 'POST', true);
 }

@@ -73,7 +73,7 @@ export default function Rewards(props) {
 				<View style={styles.main}>
 					<View style={styles.mainHeader}>
 						<Text style={styles.earningsHeaderText}>
-							Total Rewards Earrned
+							Total Bitcoin Earned
 						</Text>
 
 						<LevelBadge level={balanceData && balanceData.level} />
@@ -113,7 +113,7 @@ export default function Rewards(props) {
 					</View>
 
 					<Text style={styles.info}>
-						Withdraw sats wont affect your progress to the next level.
+						Withdrawing bitcoin will not affect your progress to the next level.
 					</Text>
 				</View>
 
@@ -129,7 +129,7 @@ export default function Rewards(props) {
 
 				<TouchableOpacity activeOpacity={DEFAULT_TOUCHABLE_OPACITY} style={styles.menuButton}>
 					<HowItWorksIcon />
-					<Text style={styles.menuButtonText}>How It Works</Text>
+					<Text style={styles.menuButtonText}> Levels</Text>
 				</TouchableOpacity>
 
 				<View style={{ marginBottom: 50 }} />

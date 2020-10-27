@@ -189,6 +189,7 @@ export default function BrandDetail(props) {
 						data.razorpay_order_id,
 						data.razorpay_payment_id,
 						data.razorpay_signature,
+						orderId
 					);
 
 					Toast.show(verifyPaymentResponse.message);
