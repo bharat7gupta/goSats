@@ -266,8 +266,8 @@ const styles = StyleSheet.create({
 	},
 	keepShopping: {
 		paddingHorizontal: 20,
-		paddingTop: 16,
-		paddingBottom: 20
+		paddingTop: 22,
+		paddingBottom: 20,
 	},
 	keepShoppingText: {
 		color: colorConstants.YELLOW_GOLD,
@@ -280,6 +280,6 @@ const styles = StyleSheet.create({
 		paddingHorizontal: 20,
 		paddingTop: 20,
 		paddingBottom: 20,
-		height: 98,
+		height: 90,
 	},
 });
