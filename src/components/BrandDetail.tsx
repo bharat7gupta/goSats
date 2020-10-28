@@ -338,6 +338,9 @@ export default function BrandDetail(props) {
 							<BrandDetailsCard
 								brandDetails={detailsInJson}
 								style={{ height: detailsSectionHeight }}
+								buttonText={getButtonText()}
+								submitDisabled={submitDisabled}
+								onPurchaseClick={onPurchanseClick}
 							/>
 						</View>
 					</ScrollView>
