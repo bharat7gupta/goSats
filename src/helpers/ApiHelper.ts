@@ -5,8 +5,8 @@ import { AuthActions } from '../reducers/AuthReducer';
 import { useContext } from 'react';
 import { AuthDispatchContext } from '../App';
 
-//const API_ROOT = 'https://devapi.gosats.io/v1';
-const API_ROOT = 'https://api.gosats.io/v1';
+const API_ROOT = 'https://devapi.gosats.io/v1';
+//const API_ROOT = 'https://api.gosats.io/v1';
 const API_URLS = {
 	SIGN_IN: '/auth/user/signin',
 	SIGN_OUT: '/auth/user/signout',
