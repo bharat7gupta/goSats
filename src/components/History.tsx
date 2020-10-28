@@ -9,6 +9,7 @@ import { NeomorphFlex } from 'react-native-neomorph-shadows';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { DEFAULT_TOUCHABLE_OPACITY } from '../constants/config';
 import HistoryItem from './HistoryItem';
+import ShadowButton from './common/ShadowButton';
 
 interface HistoryProps {
 	navigation?: any;
@@ -23,6 +24,7 @@ export default function History(props: HistoryProps) {
 	const [ currentHistoryItems, setCurrentHistoryItems ] = useState([]);
 	const [ currentCategory, setCurrentCategory ] = useState(CATEGORY_ALL);
 	const [ allHistoryItems, setAllHistoryItems ] = useState([]);
+	const [ loading, setLoading ] = useState(false);
 
 	let scrollViewRef;
 
@@ -63,15 +65,18 @@ export default function History(props: HistoryProps) {
 	};
 
 	const fetchHistory = async () => {
+		setLoading(true);
+
 		const history = await ApiHelper.fetchHistory();
 
 		await StorageHelper.setItem(HISTORY_PAGE_FETCH_TIMESTAMP_KEY, UtilityHelper.getTimestampString());
+		setLoading(false);
 
 		if (history.error) {
 			return;
 		}
 
-		processHistoryData(history);
+		processHistoryData({ data: [] });
 	};
 
 	const processHistoryData = (historyResponse) => {
@@ -104,6 +109,10 @@ export default function History(props: HistoryProps) {
 		if (scrollViewRef) {
 			scrollViewRef.scrollTo({ x: 0, y: 0, animated: true });
 		}
+	};
+
+	const handleStartShopping = () => {
+		props.navigation.navigate('Categories');
 	};
 
 	const renderCategoryTypes = () => {
@@ -140,6 +149,25 @@ export default function History(props: HistoryProps) {
 			</View>
 		);
 	};
+
+	if (!loading && allHistoryItems.length === 0) {
+		return (
+			<View style={styles.root}>
+				<View style={styles.topSection}>
+					<PageHeader title="History" />
+				</View>
+
+				<Text style={styles.emptyHistory}>Your History is clean!</Text>
+
+				<ShadowButton
+					buttonText="Start Shopping"
+					disabled={false}
+					onClick={handleStartShopping}
+					style={styles.keepShopping}
+				/>
+			</View>
+		);
+	}
 
 	return (
 		<View style={styles.root}>
@@ -207,5 +235,20 @@ const styles = StyleSheet.create({
 	containerStyle: {
 		flexGrow: 1,
 		paddingBottom: 30,
+	},
+	emptyHistory: {
+		flex: 1,
+		textAlign: 'center',
+		textAlignVertical: 'center',
+		padding: 20,
+		fontFamily: 'SFProText-Regular',
+		fontSize: 14,
+		lineHeight: 22,
+		color: '#737373',
+	},
+	keepShopping: {
+		paddingHorizontal: 20,
+		paddingTop: 22,
+		paddingBottom: 20,
 	},
 });
