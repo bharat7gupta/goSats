@@ -76,7 +76,7 @@ export default function History(props: HistoryProps) {
 			return;
 		}
 
-		processHistoryData({ data: [] });
+		processHistoryData(history);
 	};
 
 	const processHistoryData = (historyResponse) => {
