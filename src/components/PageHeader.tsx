@@ -35,7 +35,6 @@ const styles = StyleSheet.create({
 		flexDirection: 'row',
 		justifyContent: 'space-between',
 		alignItems: 'center',
-		// backgroundColor: 'rgba(21, 21, 21, 0.8)',
 	},
 	headerText: {
 		color: colorConstants.FONT_COLOR,

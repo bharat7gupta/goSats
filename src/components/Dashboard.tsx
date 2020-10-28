@@ -12,6 +12,8 @@ import { Platform } from 'react-native';
 import Settings from './Settings';
 import Wallet from './Wallet';
 import WalletFilledIcon from './common/icons/WalletFilledIcon';
+import HistoryIcon from './common/icons/HistoryIcon';
+import History from './History';
 
 const Tab = createBottomTabNavigator();
 
@@ -63,9 +65,9 @@ export default function Dashboard() {
 			/>
 			<Tab.Screen
 				name="Account"
-				component={Settings}
+				component={History}
 				options={{
-					tabBarIcon: ({ focused }) => <SettingsIcon isActive={focused} />,
+					tabBarIcon: ({ focused }) => <HistoryIcon isActive={focused} />,
 				}}
 			/>
 		</Tab.Navigator>

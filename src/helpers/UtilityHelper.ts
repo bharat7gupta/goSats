@@ -39,6 +39,17 @@ export const shouldRefreshPageData = async (lastFetchKey) => {
 	return currentTimestamp - Number(lastFetchTimestamp) > PAGE_DATA_FETCH_TIME_GAP;
 };
 
+export const getFormattedDate = (timestamp) => {
+	const dateObject = new Date(Number(timestamp));
+	const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+	const date = dateObject.getDate();
+	const month = months[dateObject.getMonth()];
+	const year = dateObject.getFullYear();
+
+	return `${month} ${date}, ${year}`;
+};
+
 export const openInAppBrowser = (url: string) => {
 	return InAppBrowser.open(url, {
 		// iOS Properties

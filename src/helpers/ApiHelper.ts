@@ -6,7 +6,8 @@ import { useContext } from 'react';
 import { AuthDispatchContext } from '../App';
 
 const API_ROOT = 'https://devapi.gosats.io/v1';
-//const API_ROOT = 'https://api.gosats.io/v1';
+// const API_ROOT = 'https://api.gosats.io/v1';
+
 const API_URLS = {
 	SIGN_IN: '/auth/user/signin',
 	SIGN_OUT: '/auth/user/signout',
@@ -25,6 +26,7 @@ const API_URLS = {
 	ORDER_STATUS: '/user/order/status/',
 	WITHDRAW_SATS: '/user/withdraw/sats',
 	GIFTCARD_VERIFY_PAYMENT: '/giftcard/payment/verify',
+	HISTORY: '/user/order/list/all',
 };
 
 const baseHeaders = {
@@ -220,4 +222,10 @@ export async function giftCardVerifyPaymant(razorpay_order_id: string, razorpay_
 	const requestBody = { razorpay_order_id, razorpay_payment_id, razorpay_signature, orderId };
 
 	return await commonApiCall(apiUrl, requestBody, 'POST', true);
+}
+
+export async function fetchHistory() {
+	const apiUrl = `${API_ROOT}${API_URLS.HISTORY}`;
+
+	return await commonApiCall(apiUrl, null, null, true);
 }

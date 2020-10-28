@@ -1,0 +1,36 @@
+{
+    "error": false,
+    "message": "Order Lists are",
+    "data": [
+        {
+            "merchantName": "Soch",
+            "createdOn": "1603721585254",
+            "orderId": "GSTXMSO7890",
+            "status": "Completed",
+            "type": "Shopping",
+            "totalSats": "1000"
+        },
+        {
+            "merchantName": "Swiggy",
+            "createdOn": "1603723435043",
+            "orderId": "GSTXMSW2242",
+            "status": "Pending",
+            "type": "Voucher",
+            "voucherDetails": {
+                "amount": 100,
+                "cardNumber": "8090920010037708",
+                "cardPin": "578393",
+                "websiteURL": "https://starbucks.com"
+            },
+            "totalSats": "~1000"
+        },
+        {
+			"merchantName": "NordVPN",
+            "createdOn": "1603720018527",
+            "orderId": "GSTXMNO2142",
+            "status": "Pending",
+            "type": "Shopping",
+            "totalSats": "~37"
+        }
+    ]
+}
