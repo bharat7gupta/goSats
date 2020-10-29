@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useContext } from 'react';
 import { View, Text, ScrollView, StyleSheet, AppState } from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
 import HotDeals from './HotDeals';
@@ -16,12 +16,16 @@ import Brand from '../types/Brand';
 import Toast from 'react-native-simple-toast';
 import masterDataSet from '../mock_jsons/master-data.json';
 import BrandItem from '../types/BrandItem';
+import { AuthDispatchContext } from '../App';
+import { AuthActions } from '../reducers/AuthReducer';
 
 const spotLightHeightFactor = 0.5;
 const editorsPickHeightFactor = 0.764;
 const SHOP_PAGE_FETCH_TIMESTAMP_KEY = 'shopDataFetchTimestamp';
 
 export default function Shop(props) {
+	const authDispatch = useContext(AuthDispatchContext);
+
 	const [ spotlight, setSpotlight ] = useState([]);
 	const [ merchants, setMerchants ] = useState([]);
 	const [ editorsPicks, setEditorsPicks ] = useState([]);
@@ -61,17 +65,22 @@ export default function Shop(props) {
 			const userBalance = await ApiHelper.fetchUserBalance();
 			await StorageHelper.setItem(SHOP_PAGE_FETCH_TIMESTAMP_KEY, UtilityHelper.getTimestampString());
 
-			// const masterData = masterDataSet;
-			// console.log(masterData);
-			// console.log(userBalance);
+			if (masterData.error || userBalance.error) {
+				setLoading(false);
+				setShowError(true);
+				setErrorMessage(Strings.SOMETHING_WENT_WRONG);
+				return;
+			}
+
 			processData(masterData);
 			setBalanceData(userBalance.data);
 			setLoading(false);
 			scrollToTop();
 		} catch (e) {
-			setLoading(false);
-			setShowError(true);
-			setErrorMessage(Strings.SOMETHING_WENT_WRONG);
+			authDispatch({
+				type: AuthActions.UPDATE_LOGIN_STATUS,
+				isLoggedIn: false,
+			});
 		}
 	};
 

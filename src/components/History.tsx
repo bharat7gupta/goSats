@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { View, Text, StyleSheet, ScrollView, AppState } from 'react-native';
 import colorConstants from '../constants/color';
 import PageHeader from './PageHeader';
@@ -11,6 +11,8 @@ import { DEFAULT_TOUCHABLE_OPACITY } from '../constants/config';
 import HistoryItem from './HistoryItem';
 import ShadowButton from './common/ShadowButton';
 import { HistoryItemModel } from '../types/HistoryItemModel';
+import { AuthDispatchContext } from '../App';
+import { AuthActions } from '../reducers/AuthReducer';
 
 interface HistoryProps {
 	navigation?: any;
@@ -21,6 +23,8 @@ const CATEGORY_ALL = 'All Type';
 const HISTORY_PAGE_FETCH_TIMESTAMP_KEY = 'historyDataFetchTimestamp';
 
 export default function History(props: HistoryProps) {
+	const authDispatch = useContext(AuthDispatchContext);
+
 	const { params } = props.route;
 
 	const [ historyMap, setHistoryMap ] = useState({});
@@ -70,18 +74,25 @@ export default function History(props: HistoryProps) {
 	};
 
 	const fetchHistory = async () => {
-		setLoading(true);
+		try {
+			setLoading(true);
 
-		const history = await ApiHelper.fetchHistory();
+			const history = await ApiHelper.fetchHistory();
 
-		await StorageHelper.setItem(HISTORY_PAGE_FETCH_TIMESTAMP_KEY, UtilityHelper.getTimestampString());
-		setLoading(false);
+			await StorageHelper.setItem(HISTORY_PAGE_FETCH_TIMESTAMP_KEY, UtilityHelper.getTimestampString());
+			setLoading(false);
 
-		if (history.error) {
-			return;
+			if (history.error) {
+				return;
+			}
+
+			processHistoryData(history);
+		} catch (e) {
+			authDispatch({
+				type: AuthActions.UPDATE_LOGIN_STATUS,
+				isLoggedIn: false,
+			});
 		}
-
-		processHistoryData(history);
 	};
 
 	const processHistoryData = (historyResponse) => {

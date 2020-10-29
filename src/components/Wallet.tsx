@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { View, Text, ScrollView, StyleSheet, AppState } from 'react-native';
 import Toast from 'react-native-simple-toast';
 import { StatusBarHeight } from '../helpers/UtilityHelper';
@@ -9,6 +9,8 @@ import * as StorageHelper from '../helpers/StorageHelper';
 import * as UtilityHelper from '../helpers/UtilityHelper';
 import * as ApiHelper from '../helpers/ApiHelper';
 import ShadowButton from './common/ShadowButton';
+import { AuthDispatchContext } from '../App';
+import { AuthActions } from '../reducers/AuthReducer';
 
 const WALLET_PAGE_FETCH_TIMESTAMP_KEY = 'walletDataFetchTimestamp';
 
@@ -17,6 +19,8 @@ interface WalletProps {
 }
 
 export default function Wallet(props: WalletProps) {
+	const authDispatch = useContext(AuthDispatchContext);
+
 	const [ balanceData, setBalanceData ] = useState(null);
 	let scrollViewRef;
 
@@ -45,16 +49,23 @@ export default function Wallet(props: WalletProps) {
 	};
 
 	const fetchUserBalance = async () => {
-		const userBalance = await ApiHelper.fetchUserBalance();
-		// const userBalance = userBalanceMockData;
+		try {
+			const userBalance = await ApiHelper.fetchUserBalance();
+			// const userBalance = userBalanceMockData;
 
-		await StorageHelper.setItem(WALLET_PAGE_FETCH_TIMESTAMP_KEY, UtilityHelper.getTimestampString());
+			await StorageHelper.setItem(WALLET_PAGE_FETCH_TIMESTAMP_KEY, UtilityHelper.getTimestampString());
 
-		if (userBalance.error) {
-			return;
+			if (userBalance.error) {
+				return;
+			}
+
+			setBalanceData(userBalance.data);
+		} catch (e) {
+			authDispatch({
+				type: AuthActions.UPDATE_LOGIN_STATUS,
+				isLoggedIn: false,
+			});
 		}
-
-		setBalanceData(userBalance.data);
 	};
 
 	const scrollToTop = () => {

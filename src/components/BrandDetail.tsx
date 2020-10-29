@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { View, Text, StyleSheet, Image, ImageBackground, ScrollView, Share, Dimensions } from 'react-native';
 import Toast from 'react-native-simple-toast';
 
@@ -26,6 +26,8 @@ import { StatusBarHeight } from '../helpers/UtilityHelper';
 import ChevronLeft from './common/icons/ChevronLeft';
 import OrderStatusModal from './OrderStatusModal';
 import RazorpayCheckout from 'react-native-razorpay';
+import { AuthDispatchContext } from '../App';
+import { AuthActions } from '../reducers/AuthReducer';
 // import merchantDetail from '../mock_jsons/merchant-detail.json';
 // import orderStatusWithCongrats from '../mock_jsons/order-status-with-congrats.json';
 // import orderStatusWithoutCongrats from '../mock_jsons/order-status-without-congrats.json';
@@ -36,6 +38,8 @@ const logoContainerWidth = width - 44; // 24: outer margin; 20: inner padding
 const logoContainerHeight = logoContainerWidth * 0.73;
 
 export default function BrandDetail(props) {
+	const authDispatch = useContext(AuthDispatchContext);
+
 	const { route } = props;
 	const { id }: { id: string } = route.params;
 	const [ loading, setLoading ] = useState<boolean>(false);
@@ -67,8 +71,10 @@ export default function BrandDetail(props) {
 
 			setBrandData(responseData.data);
 		} catch (e) {
-			setShowError(true);
-			setErrorMessage(Strings.SOMETHING_WENT_WRONG);
+			authDispatch({
+				type: AuthActions.UPDATE_LOGIN_STATUS,
+				isLoggedIn: false,
+			});
 		}
 	};
 
@@ -186,6 +192,11 @@ export default function BrandDetail(props) {
 		} catch (e) {
 			Toast.show(Strings.SOMETHING_WENT_WRONG);
 			setSubmitDisabled(false);
+
+			authDispatch({
+				type: AuthActions.UPDATE_LOGIN_STATUS,
+				isLoggedIn: false,
+			});
 		}
 	};
 

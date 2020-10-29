@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { View, Text, Image, StyleSheet, AppState } from 'react-native';
 import colorConstants from '../constants/color';
 import Header from './common/Header';
@@ -16,11 +16,15 @@ import ReferAndEarnIcon from './common/icons/ReferAndEarnIcon';
 import ChevronLeft from './common/icons/ChevronLeft';
 import HowItWorksIcon from './common/icons/HowItWorksIcon';
 import { DEFAULT_TOUCHABLE_OPACITY } from '../constants/config';
+import { AuthDispatchContext } from '../App';
+import { AuthActions } from '../reducers/AuthReducer';
 // import userBalanceMockData from '../mock_jsons/user-balance.json';
 
 const REWARDS_PAGE_FETCH_TIMESTAMP_KEY = 'rewardsDataFetchTimestamp';
 
 export default function Rewards(props) {
+	const authDispatch = useContext(AuthDispatchContext);
+
 	const [ balanceData, setBalanceData ] = useState(null);
 
 	useEffect(() => {
@@ -42,16 +46,23 @@ export default function Rewards(props) {
 	};
 
 	const fetchUserBalance = async () => {
-		const userBalance = await ApiHelper.fetchUserBalance();
-		// const userBalance = userBalanceMockData;
+		try {
+			const userBalance = await ApiHelper.fetchUserBalance();
+			// const userBalance = userBalanceMockData;
 
-		await StorageHelper.setItem(REWARDS_PAGE_FETCH_TIMESTAMP_KEY, UtilityHelper.getTimestampString());
+			await StorageHelper.setItem(REWARDS_PAGE_FETCH_TIMESTAMP_KEY, UtilityHelper.getTimestampString());
 
-		if (userBalance.error) {
-			return;
+			if (userBalance.error) {
+				return;
+			}
+
+			setBalanceData(userBalance.data);
+		} catch (e) {
+			authDispatch({
+				type: AuthActions.UPDATE_LOGIN_STATUS,
+				isLoggedIn: false,
+			});
 		}
-
-		setBalanceData(userBalance.data);
 	};
 
 	const earnedSats = balanceData && balanceData.balance.totalEarnedSats;

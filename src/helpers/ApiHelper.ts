@@ -116,12 +116,7 @@ function dispatchSignOutAction() {
 	StorageHelper.setItem('isLoggedIn', 'false');
 	Toast.show('You have been logged out!');
 
-	const authDispatch = useContext(AuthDispatchContext);
-
-	authDispatch({
-		type: AuthActions.UPDATE_LOGIN_STATUS,
-		isLoggedIn: false,
-	});
+	throw new Error('LoggedOut');
 }
 
 export async function signIn(phoneNumber: string) {

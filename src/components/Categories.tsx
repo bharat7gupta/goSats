@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableWithoutFeedback } from 'react-native';
 
 import * as ApiHelper from '../helpers/ApiHelper';
@@ -11,9 +11,13 @@ import Header from './common/Header';
 import Strings from '../constants/strings';
 import { StatusBarHeight } from '../helpers/UtilityHelper';
 import ChevronLeft from './common/icons/ChevronLeft';
+import { AuthDispatchContext } from '../App';
+import { AuthActions } from '../reducers/AuthReducer';
 // import brandList from '../mock_jsons/brand-list.json';
 
 export default function Categories(props) {
+	const authDispatch = useContext(AuthDispatchContext);
+
 	const [ brandData, setBrandData ] = useState<{key?: Brand[]}>({});
 	const [ categories, setCategories ] = useState<string[]>([]);
 	const [ currentCategory, setCurrentCategory ] = useState<string>(null);
@@ -29,13 +33,21 @@ export default function Categories(props) {
 		try {
 			setLoading(true);
 			const data = await ApiHelper.fetchBrands();
-			// const data = brandList;
+
+			if (data.error) {
+				setLoading(false);
+				setShowError(true);
+				setErrorMessage(Strings.SOMETHING_WENT_WRONG);
+				return;
+			}
+
 			processData(data);
 			setLoading(false);
 		} catch (e) {
-			setLoading(false);
-			setShowError(true);
-			setErrorMessage(Strings.SOMETHING_WENT_WRONG);
+			authDispatch({
+				type: AuthActions.UPDATE_LOGIN_STATUS,
+				isLoggedIn: false,
+			});
 		}
 	};
 

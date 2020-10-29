@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import Toast from 'react-native-simple-toast';
 import QRCodeScanner from 'react-native-qrcode-scanner';
@@ -13,6 +13,8 @@ import { KeyboardAwareScrollView } from '@codler/react-native-keyboard-aware-scr
 import BitcoinAddressInput from './common/BitcoinAddressInput';
 import SatsInput from './common/SatsInput';
 import { SATS_PER_BITCOIN } from '../constants/config';
+import { AuthActions } from '../reducers/AuthReducer';
+import { AuthDispatchContext } from '../App';
 
 interface WithdrawProps {
 	route?: any;
@@ -20,6 +22,8 @@ interface WithdrawProps {
 }
 
 export default function Withdraw(props: WithdrawProps) {
+	const authDispatch = useContext(AuthDispatchContext);
+
 	const { params } = props.route;
 	const [ bitcoinAddress, setBitcoinAddress ] = useState('');
 	const [ satsToWithdraw, setSatsToWithdraw ] = useState(0);
@@ -84,14 +88,21 @@ export default function Withdraw(props: WithdrawProps) {
 		} else if (satsToWithdraw > params.spendableSats) {
 			Toast.show('Entered Sats amount is greater than withdrawable sats');
 		} else {
-			setSubmitDisabled(true);
-			const withdrawSatsResponse = await ApiHelper.withdrawSats(bitcoinAddress, satsToWithdraw);
+			try {
+				setSubmitDisabled(true);
+				const withdrawSatsResponse = await ApiHelper.withdrawSats(bitcoinAddress, satsToWithdraw);
 
-			Toast.show(withdrawSatsResponse.message);
-			setSubmitDisabled(false);
+				Toast.show(withdrawSatsResponse.message);
+				setSubmitDisabled(false);
 
-			if (!withdrawSatsResponse.error) {
-				props.navigation.replace('History');
+				if (!withdrawSatsResponse.error) {
+					props.navigation.replace('History');
+				}
+			} catch (e) {
+				authDispatch({
+					type: AuthActions.UPDATE_LOGIN_STATUS,
+					isLoggedIn: false,
+				});
 			}
 		}
 	};
