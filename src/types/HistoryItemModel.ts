@@ -3,6 +3,8 @@ export interface HistoryItemModel {
 	createdOn: string;
 	orderId: string;
 	status: HistoryItemStatus;
+	statusColor: string;
+	statusBgColor: string;
 	type: string;
 	totalSats: string;
 	voucherDetails?: {

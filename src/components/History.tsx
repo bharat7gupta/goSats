@@ -10,21 +10,25 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { DEFAULT_TOUCHABLE_OPACITY } from '../constants/config';
 import HistoryItem from './HistoryItem';
 import ShadowButton from './common/ShadowButton';
+import { HistoryItemModel } from '../types/HistoryItemModel';
 
 interface HistoryProps {
 	navigation?: any;
+	route?: any;
 }
 
 const CATEGORY_ALL = 'All Type';
 const HISTORY_PAGE_FETCH_TIMESTAMP_KEY = 'historyDataFetchTimestamp';
 
 export default function History(props: HistoryProps) {
+	const { params } = props.route;
+
 	const [ historyMap, setHistoryMap ] = useState({});
 	const [ historyCategories, setHistoryCategories ] = useState([]);
 	const [ currentHistoryItems, setCurrentHistoryItems ] = useState([]);
-	const [ currentCategory, setCurrentCategory ] = useState(CATEGORY_ALL);
+	const [ currentCategory, setCurrentCategory ] = useState('');
 	const [ allHistoryItems, setAllHistoryItems ] = useState([]);
-	const [ loading, setLoading ] = useState(false);
+	const [ loading, setLoading ] = useState(true);
 
 	let scrollViewRef;
 
@@ -35,7 +39,7 @@ export default function History(props: HistoryProps) {
 
 		const removeNavigationListener = props.navigation.addListener('focus', e => {
 			fetchPageDataOnResume('active');
-			setTimeout(() => scrollToTop(), 10);
+			scrollToTop();
 		});
 
 		return () => {
@@ -46,6 +50,7 @@ export default function History(props: HistoryProps) {
 
 	useEffect(() => {
 		setHistoryItemsToShow();
+		scrollToTop();
 	}, [currentCategory]);
 
 	const setHistoryItemsToShow = () => {
@@ -102,13 +107,24 @@ export default function History(props: HistoryProps) {
 		setAllHistoryItems(historyData);
 		setHistoryCategories(types);
 		setHistoryMap(transformedHistoryData);
-		setCurrentHistoryItems(historyData);
+
+		if (currentCategory) {
+			setCurrentHistoryItems(transformedHistoryData[currentCategory]);
+		} else if (params && params.category && types.indexOf(params.category) > -1) {
+			setCurrentCategory(params.category);
+			setCurrentHistoryItems(transformedHistoryData[params.category]);
+		} else {
+			setCurrentCategory(CATEGORY_ALL);
+			setCurrentHistoryItems(historyData);
+		}
 	};
 
 	const scrollToTop = () => {
-		if (scrollViewRef) {
-			scrollViewRef.scrollTo({ x: 0, y: 0, animated: true });
-		}
+		setTimeout(() => {
+			if (scrollViewRef) {
+				scrollViewRef.scrollTo({ x: 0, y: 0, animated: true });
+			}
+		}, 10);
 	};
 
 	const handleStartShopping = () => {
@@ -150,7 +166,7 @@ export default function History(props: HistoryProps) {
 		);
 	};
 
-	if (!loading && allHistoryItems.length === 0) {
+	if (!loading && allHistoryItems && allHistoryItems.length === 0) {
 		return (
 			<View style={styles.root}>
 				<View style={styles.topSection}>
@@ -181,8 +197,8 @@ export default function History(props: HistoryProps) {
 				contentContainerStyle={styles.containerStyle}
 				ref={(ref) => scrollViewRef = ref}
 			>
-				{currentHistoryItems.map((historyItem) => (
-					<HistoryItem key={historyItem.merchantName} historyItem={historyItem} />
+				{currentHistoryItems.map((historyItem: HistoryItemModel) => (
+					<HistoryItem key={historyItem.createdOn + currentCategory} historyItem={historyItem} />
 				))}
 			</ScrollView>
 		</View>

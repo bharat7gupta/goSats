@@ -38,15 +38,15 @@ export default function HistoryItem(props: HistoryItemProps) {
 	};
 
 	const renderStatus = () => {
-		const { status } = historyItem;
+		const { status, statusColor, statusBgColor } = historyItem;
 
 		return (
 			<Text
-				style={[
-					styles.statusLabel,
-					status === HistoryItemStatus.PENDING && styles.pendingStatusLabel,
-					status === HistoryItemStatus.COMPLETED && styles.completedStatusLabel,
-				]}
+				style={{
+					...styles.statusLabel,
+					backgroundColor: statusBgColor,
+					color: statusColor,
+				}}
 			>
 				{status}
 			</Text>
@@ -112,7 +112,7 @@ export default function HistoryItem(props: HistoryItemProps) {
 				darkShadowColor={colorConstants.SHADOW_DARK}
 				lightShadowColor={colorConstants.SHADOW_LIGHT}
 			>
-				<View key={historyItem.merchantName} style={styles.content}>
+				<View style={styles.content}>
 					{renderHeader()}
 					{renderStatus()}
 					{renderDetails()}
@@ -179,14 +179,6 @@ const styles = StyleSheet.create({
 		fontSize: 10,
 		lineHeight: 12,
 		marginLeft: 14,
-	},
-	pendingStatusLabel: {
-		backgroundColor: 'rgba(255, 182, 39, 0.2)',
-		color: '#FFB627',
-	},
-	completedStatusLabel: {
-		backgroundColor: 'rgba(82, 175, 82, 0.2)',
-		color: '#52AF52',
 	},
 	details: {
 		marginHorizontal: 14,
