@@ -1,19 +1,18 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, ViewStyle, TouchableWithoutFeedback } from 'react-native';
+import React from 'react';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import colorConstants from '../constants/color';
-import Notepad from './common/icons/Notepad';
 import { DetailJson } from '../types/MerchantDetail';
 import { ScrollView } from 'react-native-gesture-handler';
 import Button from './common/Button';
+import { DEFAULT_TOUCHABLE_OPACITY } from '../constants/config';
 
 interface BrandDetailsCardProps {
 	brandDetails: DetailJson[];
 	buttonText: string;
 	submitDisabled: boolean;
 	onPurchaseClick: () => void;
-	style?: ViewStyle;
 }
 
 export default function BrandDetailsCard(props: BrandDetailsCardProps) {
@@ -36,7 +35,7 @@ export default function BrandDetailsCard(props: BrandDetailsCardProps) {
 			<View>
 				{brandDetails && brandDetails.map(brandDetail => (
 					<View key={brandDetail.title}>
-						<Text style={{...styles.detailsTextColor, marginBottom: 4 }}>{brandDetail.title}</Text>
+						<Text style={{...styles.detailsTextColor, marginTop: 12, marginBottom: 4 }}>{brandDetail.title}</Text>
 						{brandDetail.description && brandDetail.description.map(desc => (
 							<View key={desc} style={{ flexDirection: 'row', marginBottom: 8 }}>
 								<Text style={styles.detailsTextColor}>{'\u2022'}</Text>
@@ -51,7 +50,7 @@ export default function BrandDetailsCard(props: BrandDetailsCardProps) {
 
 	return (
 		<React.Fragment>
-			<TouchableWithoutFeedback onPress={handleCardClick}>
+			<TouchableOpacity activeOpacity={DEFAULT_TOUCHABLE_OPACITY} onPress={handleCardClick}>
 				<View style={styles.details}>
 					<View style={styles.detailsHeader}>
 						<Text style={styles.detailsHeaderText}>Details</Text>
@@ -69,7 +68,7 @@ export default function BrandDetailsCard(props: BrandDetailsCardProps) {
 						style={styles.detailsBottomGradientContainer}
 					/>
 				</View>
-			</TouchableWithoutFeedback>
+			</TouchableOpacity>
 
 			<RBSheet
 				height={400}
@@ -113,6 +112,7 @@ const styles = StyleSheet.create({
 		borderRadius: 10,
 		marginTop: 6,
 		marginBottom: 12,
+		maxHeight: 120,
 		overflow: 'hidden',
 	},
 	detailsHeader: {
@@ -123,7 +123,6 @@ const styles = StyleSheet.create({
 		lineHeight: 16,
 		fontFamily: 'SFProText-Bold',
 		color: '#838383',
-		marginBottom: 8,
 	},
 	detailsTextColor: {
 		color: '#838383',
@@ -131,14 +130,6 @@ const styles = StyleSheet.create({
 		lineHeight: 18,
 		fontFamily: 'SFProText-Regular',
 		marginRight: 6,
-	},
-	detailsLineItem: {
-		fontSize: 15,
-		lineHeight: 16,
-		fontFamily: 'SFProText-Regular',
-		color: colorConstants.FONT_COLOR,
-		opacity: 0.9,
-		marginBottom: 16,
 	},
 	detailsBottomGradientContainer: {
 		position: 'absolute',

@@ -47,10 +47,6 @@ export default function BrandDetail(props) {
 	const [ isModalVisible, setModalVisibility ] = useState(false);
 	const [ orderStatus, setOrderStatusData ] = useState(null);
 	const [ submitDisabled, setSubmitDisabled ] = useState(false);
-	const [ containerHeight, setContainerHeight ] = useState(0);
-	const [ contentHeight, setContentHeight ] = useState(0);
-	const [ detailsSectionHeight, setDetailsSectionHeight ] = useState(0);
-	const [ stopDetailsHeightCalculation, setStopDetailsHeightCalculation ] = useState(false);
 
 	useEffect(() => {
 		fetchBrandDetails();
@@ -113,41 +109,6 @@ export default function BrandDetail(props) {
 
 	const getButtonText = () => {
 		return brandData && brandData.isGiftCard ? 'Buy Voucher' : brandData && `Shop on ${brandData.name}`;
-	};
-
-	const calculateDetailsSectionHeight = () => {
-		const MIN_HEIGHT = 120;
-
-		if (stopDetailsHeightCalculation) {
-			return;
-		}
-
-		if (contentHeight > containerHeight) {
-			setDetailsSectionHeight(MIN_HEIGHT);
-		} else {
-			const heightDiff = containerHeight - contentHeight;
-
-			if (heightDiff > MIN_HEIGHT) {
-				setDetailsSectionHeight(heightDiff + MIN_HEIGHT - 32); // 32: details section top+bottom margin and padding
-				setStopDetailsHeightCalculation(true);
-			} else {
-				setDetailsSectionHeight(MIN_HEIGHT);
-			}
-		}
-	};
-
-	const handleContainerLayout = (event) => {
-		const { height } = event.nativeEvent.layout;
-		setContainerHeight(height);
-
-		calculateDetailsSectionHeight();
-	};
-
-	const handleContentLayout = (event) => {
-		const { height } = event.nativeEvent.layout;
-		setContentHeight(height);
-
-		calculateDetailsSectionHeight();
 	};
 
 	const onPurchanseClick = async () => {
@@ -299,8 +260,8 @@ export default function BrandDetail(props) {
 					darkShadowColor={colorConstants.SHADOW_DARK}
 					lightShadowColor={colorConstants.SHADOW_LIGHT}
 				>
-					<ScrollView contentContainerStyle={styles.container} onLayout={handleContainerLayout}>
-						<View style={styles.innerContent} onLayout={handleContentLayout}>
+					<ScrollView contentContainerStyle={styles.container}>
+						<View style={styles.innerContent}>
 							<View style={{ margin: 20, height: logoContainerHeight, overflow: 'hidden' }}>
 								<NeomorphFlex
 									inner={true}
@@ -344,7 +305,6 @@ export default function BrandDetail(props) {
 
 							<BrandDetailsCard
 								brandDetails={detailsInJson}
-								style={{ height: detailsSectionHeight }}
 								buttonText={getButtonText()}
 								submitDisabled={submitDisabled}
 								onPurchaseClick={onPurchanseClick}
