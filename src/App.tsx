@@ -16,12 +16,10 @@ import AccountLogin from './components/AccountLogin';
 import CreateAccount from './components/CreateAccount';
 import Withdraw from './components/Withdraw';
 import QRScanner from './components/common/QRScanner';
-
+import History from './components/History';
 
 export const AuthStateContext = React.createContext({} as AuthState);
 export const AuthDispatchContext = React.createContext((payload) => {});
-
-
 
 LogBox.ignoreAllLogs();
 
@@ -99,6 +97,7 @@ function App() {
 								<Stack.Screen name="SatsSpin" component={SatsSpin} />
 								<Stack.Screen name="Withdraw" component={Withdraw} />
 								<Stack.Screen name="QRScanner" component={QRScanner} />
+								<Stack.Screen name="History" component={History} />
 							</React.Fragment>
 						</Stack.Navigator>
 						) : (

@@ -176,6 +176,7 @@ export default function BrandDetail(props) {
 			if (createOrderResponse.error) {
 				Toast.show(createOrderResponse.message);
 				setSubmitDisabled(false);
+				setLoading(false);
 				return;
 			}
 
@@ -189,13 +190,14 @@ export default function BrandDetail(props) {
 						data.razorpay_order_id,
 						data.razorpay_payment_id,
 						data.razorpay_signature,
-						orderId
+						orderId,
 					);
 
 					Toast.show(verifyPaymentResponse.message);
 
 					if (!verifyPaymentResponse.error) {
-						props.navigation.replace('Rewards');
+						setOrderStatusData(verifyPaymentResponse.data);
+						setModalVisibility(true);
 					}
 
 					setSubmitDisabled(false);
@@ -224,6 +226,11 @@ export default function BrandDetail(props) {
 			Toast.show(Strings.SOMETHING_WENT_WRONG);
 			setSubmitDisabled(false);
 		}
+	};
+
+	const handleOrderStatusModalClose = () => {
+		setModalVisibility(false);
+		props.navigation.navigate('History', { category: 'Voucher' });
 	};
 
 	const renderSubText = () => {
@@ -365,7 +372,7 @@ export default function BrandDetail(props) {
 			<OrderStatusModal
 				isVisible={isModalVisible}
 				orderStatus={orderStatus}
-				onOkayClick={() => setModalVisibility(false)}
+				onOkayClick={handleOrderStatusModalClose}
 			/>
 		</View>
 	);
