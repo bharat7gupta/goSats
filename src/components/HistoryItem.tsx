@@ -16,6 +16,11 @@ export default function HistoryItem(props: HistoryItemProps) {
 	const { historyItem } = props;
 
 	const handleRedeemVoucher = (voucherDetails) => {
+		if (!voucherDetails.cardNumber || !voucherDetails.websiteURL) {
+			Toast.show('This voucher is unavailable currently. Please try again later!');
+			return;
+		}
+
 		const { websiteURL, cardNumber } = voucherDetails;
 
 		Clipboard.setString(cardNumber);
@@ -56,6 +61,14 @@ export default function HistoryItem(props: HistoryItemProps) {
 	const renderDetails = () => {
 		return (
 			<View style={styles.details}>
+				{historyItem.voucherDetails && (
+					<View style={styles.detailsRow}>
+						<Text style={styles.label}>Amount</Text>
+						<Text style={styles.detailsRowValue}>
+							{UtilityHelper.getFormattedNumber(historyItem.voucherDetails.amount)}
+						</Text>
+					</View>
+				)}
 				<View style={styles.detailsRow}>
 					<Text style={styles.label}>Date</Text>
 					<Text style={styles.detailsRowValue}>
@@ -97,7 +110,9 @@ export default function HistoryItem(props: HistoryItemProps) {
 						activeOpacity={DEFAULT_TOUCHABLE_OPACITY}
 						onPress={() => handleRedeemVoucher(voucherDetails)}
 					>
-						<Text style={styles.redeemButton}>Redeem</Text>
+						<Text style={{
+							...styles.redeemButton,
+							opacity: (!voucherDetails.cardNumber || !voucherDetails.websiteURL) ? 0.4 : 1 }}>Redeem</Text>
 					</TouchableOpacity>
 				</View>
 			</View>

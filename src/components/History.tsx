@@ -53,8 +53,10 @@ export default function History(props: HistoryProps) {
 	}, []);
 
 	useEffect(() => {
-		setHistoryItemsToShow();
-		scrollToTop();
+		setTimeout(() => {
+			setHistoryItemsToShow();
+			scrollToTop();
+		});
 	}, [currentCategory]);
 
 	const setHistoryItemsToShow = () => {
@@ -208,7 +210,7 @@ export default function History(props: HistoryProps) {
 				contentContainerStyle={styles.containerStyle}
 				ref={(ref) => scrollViewRef = ref}
 			>
-				{currentHistoryItems.map((historyItem: HistoryItemModel) => (
+				{currentHistoryItems && currentHistoryItems.map((historyItem: HistoryItemModel) => (
 					<HistoryItem key={historyItem.createdOn + currentCategory} historyItem={historyItem} />
 				))}
 			</ScrollView>
@@ -223,7 +225,7 @@ const styles = StyleSheet.create({
 	},
 	topSection: {
 		minHeight: 80,
-		paddingTop: UtilityHelper.StatusBarHeight,
+		paddingTop: UtilityHelper.StatusBarHeight + 10,
 	},
 	categoryContainer: {
 		flexDirection: 'row',
