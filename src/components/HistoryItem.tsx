@@ -65,7 +65,7 @@ export default function HistoryItem(props: HistoryItemProps) {
 					<View style={styles.detailsRow}>
 						<Text style={styles.label}>Amount</Text>
 						<Text style={styles.detailsRowValue}>
-							{UtilityHelper.getFormattedNumber(historyItem.voucherDetails.amount)}
+							{`₹ ${UtilityHelper.getFormattedNumber(historyItem.voucherDetails.amount)}`}
 						</Text>
 					</View>
 				)}
