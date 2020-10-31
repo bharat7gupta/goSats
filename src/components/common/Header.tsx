@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
 	},
 	buttonStyle: {
 		position: 'absolute',
-		left: 10,
+		left: 12,
 		top: 0,
 	},
 	headerText: {

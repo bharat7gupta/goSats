@@ -37,10 +37,13 @@ export default function VerifyEmail(props) {
 	const otpLength = email ? EMAIL_OTP_LENGTH : PHONE_OTP_LENGTH;
 
 	useEffect(() => {
-		if (email) {
+		if (email && totalSats) {
 			const formattedRewardSats = UtilityHelper.getFormattedNumber(totalSats);
 			setHeader('Verify Email');
 			setSubHeader(`You have won a total reward of ${formattedRewardSats} sats during the pre-launch phase! An OTP has been sent to your email ‘${email}’. Enter it below to verify and claim your reward.`);
+		} else if (email && totalSats === undefined) { // profile email verification case
+			setHeader('Verify Email');
+			setSubHeader(`A 6 digit code has been sent to ${email}. Please enter it below.`);
 		} else {
 			setHeader('Verify Number');
 			setSubHeader(`A 4 digit code has been sent to (${countryCode}) ${phoneNumber}. Please enter it below.`);
@@ -75,6 +78,8 @@ export default function VerifyEmail(props) {
 
 				if (phoneNumber && verificationData.data.isNewUser) {
 					props.navigation.replace('CreateAccount');
+				} else if (email && totalSats === undefined) {
+					props.navigation.replace('Profile');
 				} else {
 					StorageHelper.setItem('isLoggedIn', 'true');
 
