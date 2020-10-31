@@ -117,6 +117,20 @@ export default function BrandDetail(props) {
 		return brandData && brandData.isGiftCard ? 'Buy Voucher' : brandData && `Shop on ${brandData.name}`;
 	};
 
+	const handleOrderStatus = async (orderId) => {
+		const orderStatusResponse = await ApiHelper.getOrderStatus(orderId);
+
+		if (!orderStatusResponse.error) {
+			setOrderStatusData(orderStatusResponse.data);
+			setModalVisibility(true);
+		} else {
+			Toast.show(orderStatusResponse.message);
+		}
+
+		setSubmitDisabled(false);
+		setLoading(false);
+	};
+
 	const onPurchanseClick = async () => {
 		if (submitDisabled) {
 			return;
@@ -153,22 +167,7 @@ export default function BrandDetail(props) {
 
 			if (isGiftCard) {
 				RazorpayCheckout.open(createOrderResponse.data.gatewayDetails).then(async (data) => {
-					const verifyPaymentResponse = await ApiHelper.giftCardVerifyPaymant(
-						data.razorpay_order_id,
-						data.razorpay_payment_id,
-						data.razorpay_signature,
-						orderId,
-					);
-
-					Toast.show(verifyPaymentResponse.message);
-
-					if (!verifyPaymentResponse.error) {
-						setOrderStatusData(verifyPaymentResponse.data);
-						setModalVisibility(true);
-					}
-
-					setSubmitDisabled(false);
-					setLoading(false);
+					handleOrderStatus(orderId);
 				}).catch(() => {
 					Toast.show(Strings.SOMETHING_WENT_WRONG);
 					setSubmitDisabled(false);
@@ -179,11 +178,7 @@ export default function BrandDetail(props) {
 				setSubmitDisabled(false);
 
 				if (result.type === 'cancel') {
-					const orderStatusResponse = await ApiHelper.getOrderStatus(orderId);
-					// const orderStatusResponse = orderStatusWithCongrats;
-					setOrderStatusData(orderStatusResponse.data);
-					setModalVisibility(true);
-					setLoading(false);
+					handleOrderStatus(orderId);
 				} else {
 					Toast.show('Order not placed');
 					setLoading(false);
@@ -200,9 +195,14 @@ export default function BrandDetail(props) {
 		}
 	};
 
-	const handleOrderStatusModalClose = () => {
+	const handleOrderStatusModalClose = (orderStatus) => {
 		setModalVisibility(false);
-		props.navigation.navigate('Dashboard', { screen: 'History', params: { category: 'Voucher' }});
+
+		if (orderStatus.isGiftCard) {
+			props.navigation.navigate('Dashboard', { screen: 'History', params: { category: 'Voucher' }});
+		} else {
+			props.navigation.navigate('Dashboard', { screen: 'Categories' });
+		}
 	};
 
 	const renderSubText = () => {
@@ -343,7 +343,7 @@ export default function BrandDetail(props) {
 			<OrderStatusModal
 				isVisible={isModalVisible}
 				orderStatus={orderStatus}
-				onOkayClick={handleOrderStatusModalClose}
+				onOkayClick={() => handleOrderStatusModalClose(orderStatus)}
 			/>
 		</View>
 	);

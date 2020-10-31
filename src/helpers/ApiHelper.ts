@@ -25,7 +25,6 @@ const API_URLS = {
 	CREATE_ORDER: '/user/order/create',
 	ORDER_STATUS: '/user/order/status/',
 	WITHDRAW_SATS: '/user/withdraw/sats',
-	GIFTCARD_VERIFY_PAYMENT: '/giftcard/payment/verify',
 	HISTORY: '/user/order/list/all',
 };
 
@@ -208,13 +207,6 @@ export async function getOrderStatus(orderId: string) {
 export async function withdrawSats(address: string, amount: number) {
 	const apiUrl = `${API_ROOT}${API_URLS.WITHDRAW_SATS}`;
 	const requestBody = { address, amount };
-
-	return await commonApiCall(apiUrl, requestBody, 'POST', true);
-}
-
-export async function giftCardVerifyPaymant(razorpay_order_id: string, razorpay_payment_id: string, razorpay_signature: string, orderId: string) {
-	const apiUrl = `${API_ROOT}${API_URLS.GIFTCARD_VERIFY_PAYMENT}`;
-	const requestBody = { razorpay_order_id, razorpay_payment_id, razorpay_signature, orderId };
 
 	return await commonApiCall(apiUrl, requestBody, 'POST', true);
 }
