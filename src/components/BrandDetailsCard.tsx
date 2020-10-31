@@ -30,18 +30,28 @@ export default function BrandDetailsCard(props: BrandDetailsCardProps) {
 		}
 	};
 
-	const renderBrandDetails = () => {
+	const renderBrandDetails = (headerColor, contentColor) => {
 		return (
 			<View>
 				{brandDetails && brandDetails.map(brandDetail => (
 					<View key={brandDetail.title}>
-						<Text style={{...styles.detailsTextColor, marginTop: 12, marginBottom: 4 }}>{brandDetail.title}</Text>
+						{!!brandDetail.title && (
+							<Text style={{
+								...styles.detailsTextColor,
+								color: headerColor,
+								marginBottom: 4,
+							}}>
+								{brandDetail.title}
+							</Text>
+						)}
 						{brandDetail.description && brandDetail.description.map(desc => (
 							<View key={desc} style={{ flexDirection: 'row', marginBottom: 8 }}>
-								<Text style={styles.detailsTextColor}>{'\u2022'}</Text>
-								<Text style={{ ...styles.detailsTextColor, flex: 1 }}>{desc}</Text>
+								<Text style={{ ...styles.detailsTextColor, color: contentColor }}>{'\u2022'}</Text>
+								<Text style={{ ...styles.detailsTextColor, flex: 1, color: contentColor }}>{desc}</Text>
 							</View>
 						))}
+
+						<View style={{ marginBottom: 12 }} />
 					</View>
 				))}
 			</View>
@@ -56,7 +66,7 @@ export default function BrandDetailsCard(props: BrandDetailsCardProps) {
 						<Text style={styles.detailsHeaderText}>Details</Text>
 					</View>
 
-					{renderBrandDetails()}
+					{renderBrandDetails('#737373', '#939393')}
 
 					<LinearGradient
 						colors={[
@@ -87,7 +97,7 @@ export default function BrandDetailsCard(props: BrandDetailsCardProps) {
 
 					<ScrollView contentContainerStyle={{ flexGrow: 1, padding: 12 }}>
 						<Text style={styles.detailsHeaderText}>Details</Text>
-						{renderBrandDetails()}
+						{renderBrandDetails('#939393', colorConstants.FONT_COLOR)}
 					</ScrollView>
 
 					<Button
@@ -123,6 +133,7 @@ const styles = StyleSheet.create({
 		lineHeight: 16,
 		fontFamily: 'SFProText-Bold',
 		color: '#838383',
+		marginBottom: 12,
 	},
 	detailsTextColor: {
 		color: '#838383',
