@@ -109,7 +109,7 @@ export default function Wallet(props: WalletProps) {
 			ref={(ref) => scrollViewRef = ref}
 		>
 			<View style={styles.topSection}>
-				<PageHeader title="Wallet" />
+				<PageHeader title="Wallet" navigation={props.navigation} />
 			</View>
 
 			<View style={styles.content}>

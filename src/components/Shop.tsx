@@ -132,7 +132,7 @@ export default function Shop(props) {
 		<View style={styles.root}>
 			<ScrollView ref={(ref) => scrollViewRef = ref} contentContainerStyle={styles.containerStyle} stickyHeaderIndices={[0]}>
 				<View style={styles.topSection}>
-					<PageHeader title="Shop" />
+					<PageHeader title="Shop" navigation={props.navigation} />
 				</View>
 
 				{!loading && (

@@ -96,7 +96,7 @@ export default function Withdraw(props: WithdrawProps) {
 				setSubmitDisabled(false);
 
 				if (!withdrawSatsResponse.error) {
-					props.navigation.replace('History');
+					props.navigation.navigate('Dashboard', { screen: 'History' });
 				}
 			} catch (e) {
 				authDispatch({

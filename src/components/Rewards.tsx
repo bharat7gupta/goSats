@@ -1,21 +1,17 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { View, Text, Image, StyleSheet, AppState } from 'react-native';
+import { View, Text, Image, StyleSheet, AppState, ScrollView } from 'react-native';
 import colorConstants from '../constants/color';
 import Header from './common/Header';
-import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
-import Toast from 'react-native-simple-toast';
-import LevelBadge from './common/LevelBadge';
 import * as ApiHelper from '../helpers/ApiHelper';
-import WalletFilledIcon from './common/icons/WalletFilledIcon';
-import ProgressBar from './common/ProgressBar';
 import * as UtilityHelper from '../helpers/UtilityHelper';
 import * as StorageHelper from '../helpers/StorageHelper';
+import LevelBadge from './common/LevelBadge';
 import LevelProgress from './LevelProgress';
-import RewardsHistoryIcon from './common/icons/RewardsHistoryIcon';
+import WalletFilledIcon from './common/icons/WalletFilledIcon';
 import ReferAndEarnIcon from './common/icons/ReferAndEarnIcon';
 import ChevronLeft from './common/icons/ChevronLeft';
-import HowItWorksIcon from './common/icons/HowItWorksIcon';
-import { DEFAULT_TOUCHABLE_OPACITY } from '../constants/config';
+import Notepad from './common/icons/Notepad';
+import MenuButton from './common/MenuButton';
 import { AuthDispatchContext } from '../App';
 import { AuthActions } from '../reducers/AuthReducer';
 // import userBalanceMockData from '../mock_jsons/user-balance.json';
@@ -65,10 +61,22 @@ export default function Rewards(props) {
 		}
 	};
 
+	const handleRewardsHistoryClick = () => {
+		props.navigation.navigate('Dashboard', { screen: 'History' });
+	};
+
+	const handleReferAndEarnClick = () => {
+		if (balanceData) {
+			props.navigation.navigate('ReferAndEarn', { referralId: balanceData.referralId });
+		}
+	};
+
 	const earnedSats = balanceData && balanceData.balance.totalEarnedSats;
 	const spendableSats = balanceData && balanceData.balance.spendableSats;
 	const formattedEarnedSats = UtilityHelper.getFormattedNumber(earnedSats);
 	const formattedSpendableSats = UtilityHelper.getFormattedNumber(spendableSats);
+
+	console.log(balanceData);
 
 	return (
 		<View style={styles.root}>
@@ -128,20 +136,9 @@ export default function Rewards(props) {
 					</Text>
 				</View>
 
-				<TouchableOpacity activeOpacity={DEFAULT_TOUCHABLE_OPACITY} style={styles.menuButton}>
-					<RewardsHistoryIcon />
-					<Text style={styles.menuButtonText}>Rewards History</Text>
-				</TouchableOpacity>
+				<MenuButton icon={<Notepad />} text="Rewards History" onClick={handleRewardsHistoryClick} />
 
-				<TouchableOpacity activeOpacity={DEFAULT_TOUCHABLE_OPACITY} style={styles.menuButton}>
-					<ReferAndEarnIcon />
-					<Text style={styles.menuButtonText}>Refer & Earn</Text>
-				</TouchableOpacity>
-
-				<TouchableOpacity activeOpacity={DEFAULT_TOUCHABLE_OPACITY} style={styles.menuButton}>
-					<HowItWorksIcon />
-					<Text style={styles.menuButtonText}> Levels</Text>
-				</TouchableOpacity>
+				<MenuButton icon={<ReferAndEarnIcon />} text="Refer & Earn" onClick={handleReferAndEarnClick} />
 
 				<View style={{ marginBottom: 50 }} />
 			</ScrollView>
@@ -243,22 +240,5 @@ const styles = StyleSheet.create({
 		fontFamily: 'SFProText-Regular',
 		color: '#5A4927',
 		marginTop: 9,
-	},
-	menuButton: {
-		flexDirection: 'row',
-		alignItems: 'center',
-		marginTop: 10,
-		marginHorizontal: 20,
-		paddingHorizontal: 20,
-		paddingVertical: 16,
-		backgroundColor: colorConstants.PRIMARY_LIGHT,
-		borderRadius: 10,
-	},
-	menuButtonText: {
-		fontSize: 16,
-		lineHeight: 28,
-		fontFamily: 'SFProText-Regular',
-		color: '#D0D0D0',
-		marginLeft: 10,
 	},
 });

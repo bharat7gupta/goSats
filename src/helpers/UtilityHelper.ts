@@ -57,6 +57,7 @@ export const openInAppBrowser = (url: string) => {
 		preferredBarTintColor: 'gray',
 		preferredControlTintColor: 'white',
 		readerMode: false,
+
 		// Android Properties
 		showTitle: true,
 		toolbarColor: colorConstants.PRIMARY_DARK,
@@ -64,6 +65,7 @@ export const openInAppBrowser = (url: string) => {
 		enableUrlBarHiding: true,
 		enableDefaultShare: true,
 		forceCloseOnRedirection: false,
+
 		// Specify full animation resource identifier(package:anim/name)
 		// or only resource name(in case of animation bundled with app).
 		animations: {

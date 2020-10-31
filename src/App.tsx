@@ -17,6 +17,9 @@ import CreateAccount from './components/CreateAccount';
 import Withdraw from './components/Withdraw';
 import QRScanner from './components/common/QRScanner';
 import History from './components/History';
+import Profile from './components/Profile';
+import ReferAndEarn from './components/ReferAndEarn';
+import ProfileEdit from './components/ProfileEdit';
 
 export const AuthStateContext = React.createContext({} as AuthState);
 export const AuthDispatchContext = React.createContext((payload) => {});
@@ -41,19 +44,9 @@ function App() {
 	}), [authState, dispatch]);
 
 	const checkLoggedInState = async () => {
-		const isLoggedIn = await readBoolStorageValue('isLoggedIn');
-		setIsLoggedIn(isLoggedIn);
+		const isLoggedInString = await StorageHelper.getItem('isLoggedIn');
+		setIsLoggedIn(isLoggedInString === 'true');
 		setCheckedSignInState(true);
-	};
-
-	const readBoolStorageValue = async (key: string): Promise<boolean> => {
-		const value = await StorageHelper.getItem(key);
-
-		if (value === 'true') {
-			return true;
-		} else {
-			return false;
-		}
 	};
 
 	if (!checkedSignInState) {
@@ -98,6 +91,10 @@ function App() {
 								<Stack.Screen name="Withdraw" component={Withdraw} />
 								<Stack.Screen name="QRScanner" component={QRScanner} />
 								<Stack.Screen name="History" component={History} />
+								<Stack.Screen name="Profile" component={Profile} />
+								<Stack.Screen name="ProfileEdit" component={ProfileEdit} />
+								<Stack.Screen name="ReferAndEarn" component={ReferAndEarn} />
+								<Stack.Screen name="VerifyAccount" component={VerifyAccount} />
 							</React.Fragment>
 						</Stack.Navigator>
 						) : (

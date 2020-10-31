@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { View, Text, StyleSheet, ScrollView, AppState } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, AppState, ToastAndroid } from 'react-native';
+import Toast from 'react-native-simple-toast';
 import colorConstants from '../constants/color';
 import PageHeader from './PageHeader';
 import * as ApiHelper from '../helpers/ApiHelper';
@@ -85,6 +86,7 @@ export default function History(props: HistoryProps) {
 			setLoading(false);
 
 			if (history.error) {
+				Toast.show(history.message);
 				return;
 			}
 
@@ -183,7 +185,7 @@ export default function History(props: HistoryProps) {
 		return (
 			<View style={styles.root}>
 				<View style={styles.topSection}>
-					<PageHeader title="History" />
+					<PageHeader title="History" navigation={props.navigation} />
 				</View>
 
 				<Text style={styles.emptyHistory}>Your History is clean!</Text>
@@ -201,7 +203,7 @@ export default function History(props: HistoryProps) {
 	return (
 		<View style={styles.root}>
 			<View style={styles.topSection}>
-				<PageHeader title="History" />
+				<PageHeader title="History" navigation={props.navigation} />
 			</View>
 
 			{renderCategoryTypes()}

@@ -11,6 +11,7 @@ const API_ROOT = 'https://devapi.gosats.io/v1';
 const API_URLS = {
 	SIGN_IN: '/auth/user/signin',
 	SIGN_OUT: '/auth/user/signout',
+	USER_PROFILE: '/user/profile',
 	REFRESH_TOKEN: '/auth/user/token/renew',
 	VERIFY_PHONE: '/auth/user/verify/phone',
 	REQUEST_EMAIL_OTP: '/auth/user/request/email/code',
@@ -213,6 +214,12 @@ export async function withdrawSats(address: string, amount: number) {
 
 export async function fetchHistory() {
 	const apiUrl = `${API_ROOT}${API_URLS.HISTORY}`;
+
+	return await commonApiCall(apiUrl, null, null, true);
+}
+
+export async function fetchUserProfile() {
+	const apiUrl = `${API_ROOT}${API_URLS.USER_PROFILE}`;
 
 	return await commonApiCall(apiUrl, null, null, true);
 }

@@ -1,5 +1,5 @@
-import React from 'react';
-import { View, Text, TextInput, StyleSheet } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, TextInput, StyleSheet, ViewStyle } from 'react-native';
 import colorConstants from '../../constants/color';
 import { NeomorphFlex } from 'react-native-neomorph-shadows';
 
@@ -9,14 +9,23 @@ interface TextBoxProps {
 	maxLength?: number;
 	blurOnSubmit?: boolean;
 	errorText?: string;
+	value?: string;
+	inputStyles?: ViewStyle;
 	onChange: (text: string) => void;
 	setTextInputRef?: (ref: any) => void;
 	onSubmitEditing?: () => void;
 }
 
 export default function TextBox(props: TextBoxProps) {
+	const [ value, setValue ] = useState('');
+
+	useEffect(() => {
+		setValue(props.value || '');
+	}, []);
+
 	const handleChange = (event) => {
 		const { text } = event.nativeEvent;
+		setValue(text);
 		props.onChange(text);
 	};
 
@@ -29,7 +38,8 @@ export default function TextBox(props: TextBoxProps) {
 				lightShadowColor={colorConstants.SHADOW_LIGHT}
 			>
 				<TextInput
-					style={styles.input}
+					value={value}
+					style={[styles.input, props.inputStyles ]}
 					underlineColorAndroid="transparent"
 					placeholder={props.placeholder}
 					placeholderTextColor={colorConstants.TEXTBOX_PLACEHOLDER_TEXT_COLOR}
