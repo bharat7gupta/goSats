@@ -87,7 +87,7 @@ export default function Rewards(props) {
 							Total Bitcoin Earned
 						</Text>
 
-						<LevelBadge level={balanceData && balanceData.level} />
+						{balanceData && <LevelBadge level={balanceData.level} />}
 					</View>
 
 					<View style={{ flexDirection: 'row' }}>

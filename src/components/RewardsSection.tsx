@@ -1,7 +1,6 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { NeomorphFlex } from 'react-native-neomorph-shadows';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 import colorConstants from '../constants/color';
 import styleConstants from '../constants/style';
 import SpinWheelIcon from './common/icons/SpinWheelIcon';
@@ -24,43 +23,43 @@ export default function RewardsSection(props: RewardsSectionProps) {
 	const levelImageUrl = balanceData && balanceData.level.icon;
 
 	return (
-		<View style={styles.root}>
-			<TouchableOpacity activeOpacity={DEFAULT_TOUCHABLE_OPACITY} onPress={props.onRewardsClick}>
+		<TouchableOpacity activeOpacity={DEFAULT_TOUCHABLE_OPACITY} onPress={props.onRewardsClick}>
+			<View style={styles.root}>
 				<View style={styles.icon}>
 					<Image source={{ uri: levelImageUrl }} style={{ width: 60, height: 90 }} />
 				</View>
-			</TouchableOpacity>
 
-			<View style={styles.rewards}>
-				<Text style={styles.rewardsHeaderText}>
-					Total Bitcoin Earned
-				</Text>
-
-				<View style={styles.earningsTextContainer}>
-					<Text style={styles.earningsText}>
-						{formattedBalance}
+				<View style={styles.rewards}>
+					<Text style={styles.rewardsHeaderText}>
+						Total Bitcoin Earned
 					</Text>
-					<Text style={styles.earningsSubText}>
-						sats
-					</Text>
-				</View>
 
-				<View style={styles.bottomRow}>
-					{balanceData && <LevelBadge level={balanceData.level} onCLick={props.onRewardsClick} />}
+					<View style={styles.earningsTextContainer}>
+						<Text style={styles.earningsText}>
+							{formattedBalance}
+						</Text>
+						<Text style={styles.earningsSubText}>
+							sats
+						</Text>
+					</View>
 
-					<NeomorphFlex
-						style={{ ...styleConstants.shadowStyles, flex: 0, borderRadius: 20 }}
-						darkShadowColor={colorConstants.SHADOW_DARK}
-						lightShadowColor={colorConstants.ACTION_BUTTON_SHADOW}
-					>
-						<TouchableOpacity activeOpacity={DEFAULT_TOUCHABLE_OPACITY} style={styles.spinButton} onPress={props.onSpinClick}>
-							<SpinWheelIcon />
-							<Text style={styles.spinButtonText}>Spin</Text>
-						</TouchableOpacity>
-					</NeomorphFlex>
+					<View style={styles.bottomRow}>
+						{balanceData && <LevelBadge level={balanceData.level} />}
+
+						<NeomorphFlex
+							style={{ ...styleConstants.shadowStyles, flex: 0, borderRadius: 20 }}
+							darkShadowColor={colorConstants.SHADOW_DARK}
+							lightShadowColor={colorConstants.ACTION_BUTTON_SHADOW}
+						>
+							<TouchableOpacity activeOpacity={DEFAULT_TOUCHABLE_OPACITY} style={styles.spinButton} onPress={props.onSpinClick}>
+								<SpinWheelIcon />
+								<Text style={styles.spinButtonText}>Spin</Text>
+							</TouchableOpacity>
+						</NeomorphFlex>
+					</View>
 				</View>
 			</View>
-		</View>
+		</TouchableOpacity>
 	);
 }
 
