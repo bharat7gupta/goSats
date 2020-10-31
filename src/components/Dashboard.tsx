@@ -1,15 +1,12 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import colorConstants from '../constants/color';
-import ComingSoon from './common/ComingSoon';
 import Shop from './Shop';
 import ShopIcon from '../components/common/icons/Shop';
 import WalletIcon from './common/icons/WalletIcon';
 import CategoriesIcon from './common/icons/CategoriesIcon';
 import Categories from './Categories';
-import SettingsIcon from './common/icons/SettingsIcon';
 import { Platform } from 'react-native';
-import Settings from './Settings';
 import Wallet from './Wallet';
 import WalletFilledIcon from './common/icons/WalletFilledIcon';
 import HistoryIcon from './common/icons/HistoryIcon';
@@ -64,7 +61,7 @@ export default function Dashboard() {
 				}}
 			/>
 			<Tab.Screen
-				name="Account"
+				name="History"
 				component={History}
 				options={{
 					tabBarIcon: ({ focused }) => <HistoryIcon isActive={focused} />,

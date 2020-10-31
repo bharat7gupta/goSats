@@ -202,7 +202,7 @@ export default function BrandDetail(props) {
 
 	const handleOrderStatusModalClose = () => {
 		setModalVisibility(false);
-		props.navigation.navigate('History', { category: 'Voucher' });
+		props.navigation.navigate('Dashboard', { screen: 'History', params: { category: 'Voucher' }});
 	};
 
 	const renderSubText = () => {
