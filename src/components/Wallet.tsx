@@ -136,12 +136,14 @@ export default function Wallet(props: WalletProps) {
 					<Text style={styles.inrValue}>₹ {balanceInINR}</Text>
 				</View>
 
-				<LevelProgress
-					level={level}
-					earnedSats={spendableSats}
-					horizontalProgressBarGradient={true}
-					style={{ marginTop: 10, paddingHorizontal: 20 }}
-				/>
+				{!!minWithdrawSats && (
+					<LevelProgress
+						level={level}
+						earnedSats={spendableSats}
+						horizontalProgressBarGradient={true}
+						style={{ marginTop: 10, paddingHorizontal: 20 }}
+					/>
+				)}
 
 				<View style={styles.withdrawTermsContainer}>
 					<Text style={styles.withdrawTermsHeaderText}>
