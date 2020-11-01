@@ -163,14 +163,14 @@ export default function Wallet(props: WalletProps) {
 						buttonText="Withdraw"
 						disabled={false}
 						onClick={handleWithdrawInit}
-						style={styles.withdrawButton}
+						style={styles.bottomButton}
 					/>
 				) : (
 					<ShadowButton
 						buttonText="Keep Shopping"
 						disabled={false}
 						onClick={handleKeepShopping}
-						style={styles.keepShopping}
+						style={styles.bottomButton}
 					/>
 				)}
 			</View>
@@ -277,10 +277,9 @@ const styles = StyleSheet.create({
 		opacity: 0.6,
 		flex: 1,
 	},
-	keepShopping: {
-		paddingHorizontal: 20,
-		paddingTop: 22,
-		paddingBottom: 20,
+	bottomButton: {
+		padding: 20,
+		paddingTop: 28,
 	},
 	keepShoppingText: {
 		color: colorConstants.YELLOW_GOLD,
@@ -288,11 +287,5 @@ const styles = StyleSheet.create({
 		fontSize: 16,
 		lineHeight: 19,
 		paddingVertical: 16,
-	},
-	withdrawButton: {
-		paddingHorizontal: 20,
-		paddingTop: 20,
-		paddingBottom: 20,
-		height: 90,
 	},
 });
