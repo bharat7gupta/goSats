@@ -211,8 +211,12 @@ export async function withdrawSats(address: string, amount: number) {
 	return await commonApiCall(apiUrl, requestBody, 'POST', true);
 }
 
-export async function fetchHistory() {
-	const apiUrl = `${API_ROOT}${API_URLS.HISTORY}`;
+export async function fetchHistory(orderId?: string, createdOn?: string) {
+	let apiUrl = `${API_ROOT}${API_URLS.HISTORY}`;
+
+	if (orderId && createdOn) {
+		apiUrl = `${apiUrl}/${orderId}/${createdOn}`;
+	}
 
 	return await commonApiCall(apiUrl, null, null, true);
 }

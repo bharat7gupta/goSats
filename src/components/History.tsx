@@ -6,13 +6,14 @@ import * as ApiHelper from '../helpers/ApiHelper';
 import * as UtilityHelper from '../helpers/UtilityHelper';
 import * as StorageHelper from '../helpers/StorageHelper';
 import { NeomorphFlex } from 'react-native-neomorph-shadows';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { TouchableOpacity, FlatList } from 'react-native-gesture-handler';
 import { DEFAULT_TOUCHABLE_OPACITY } from '../constants/config';
 import HistoryItem from './HistoryItem';
 import ShadowButton from './common/ShadowButton';
 import { HistoryItemModel } from '../types/HistoryItemModel';
 import { AuthDispatchContext } from '../App';
 import { AuthActions } from '../reducers/AuthReducer';
+import PageLoader from './common/PageLoader';
 
 interface HistoryProps {
 	navigation?: any;
@@ -32,7 +33,9 @@ export default function History(props: HistoryProps) {
 	const [ currentHistoryItems, setCurrentHistoryItems ] = useState([]);
 	const [ currentCategory, setCurrentCategory ] = useState('');
 	const [ allHistoryItems, setAllHistoryItems ] = useState([]);
-	const [ loading, setLoading ] = useState(true);
+	const [ lastEvalId, setLastEvalId ] = useState(null);
+	const [ loading, setLoading ] = useState(false);
+	const [ loadMore, setLoadMore ] = useState(false);
 
 	let scrollViewRef;
 
@@ -75,14 +78,20 @@ export default function History(props: HistoryProps) {
 		}
 	};
 
-	const fetchHistory = async () => {
+	const fetchHistory = async (orderId?: string, createdOn?: string, loadMore?: boolean) => {
+		if (loading) {
+			return;
+		}
+
 		try {
 			setLoading(true);
+			loadMore && setLoadMore(true);
 
-			const history = await ApiHelper.fetchHistory();
+			const history = await ApiHelper.fetchHistory(orderId, createdOn);
 
 			await StorageHelper.setItem(HISTORY_PAGE_FETCH_TIMESTAMP_KEY, UtilityHelper.getTimestampString());
 			setLoading(false);
+			setLoadMore(false);
 
 			if (history.error) {
 				return;
@@ -99,7 +108,7 @@ export default function History(props: HistoryProps) {
 
 	const processHistoryData = (historyResponse) => {
 		const historyData = historyResponse.data || [];
-		const types = [CATEGORY_ALL];
+		const types = historyCategories.length > 1 ? historyCategories : [CATEGORY_ALL];
 
 		const transformedHistoryData = historyData.reduce((acc, current) => {
 			const { type } = current;
@@ -115,20 +124,22 @@ export default function History(props: HistoryProps) {
 			}
 
 			return acc;
-		}, {});
+		}, historyMap);
 
-		setAllHistoryItems(historyData);
+		const completeList = [ ...allHistoryItems, ...historyData ];
+		setAllHistoryItems(completeList);
 		setHistoryCategories(types);
 		setHistoryMap(transformedHistoryData);
+		setLastEvalId(historyResponse.lastEvalId);
 
-		if (currentCategory) {
+		if (currentCategory && currentCategory !== CATEGORY_ALL) {
 			setCurrentHistoryItems(transformedHistoryData[currentCategory]);
 		} else if (params && params.category && types.indexOf(params.category) > -1) {
 			setCurrentCategory(params.category);
 			setCurrentHistoryItems(transformedHistoryData[params.category]);
 		} else {
 			setCurrentCategory(CATEGORY_ALL);
-			setCurrentHistoryItems(historyData);
+			setCurrentHistoryItems(completeList);
 		}
 	};
 
@@ -141,7 +152,7 @@ export default function History(props: HistoryProps) {
 	};
 
 	const handleStartShopping = () => {
-		props.navigation.navigate('Categories');
+		props.navigation.navigate('Dashboard', { screen: 'Categories' });
 	};
 
 	const renderCategoryTypes = () => {
@@ -179,6 +190,25 @@ export default function History(props: HistoryProps) {
 		);
 	};
 
+	const isCloseToBottom = (nativeEvent) => {
+		const { layoutMeasurement, contentOffset, contentSize } = nativeEvent;
+		const paddingToBottom = 80;
+  		return layoutMeasurement.height + contentOffset.y >=
+			contentSize.height - paddingToBottom;
+	};
+
+	const loadMoreIfExists = () => {
+		if (lastEvalId) {
+			fetchHistory(lastEvalId.orderId, lastEvalId.createdOn, true);
+		}
+	};
+
+	const renderHistoryItem = ({ item: historyItem }) => {
+		return (
+			<HistoryItem historyItem={historyItem} />
+		);
+	};
+
 	if (!loading && allHistoryItems && allHistoryItems.length === 0) {
 		return (
 			<View style={styles.root}>
@@ -206,14 +236,21 @@ export default function History(props: HistoryProps) {
 
 			{renderCategoryTypes()}
 
-			<ScrollView
-				contentContainerStyle={styles.containerStyle}
+			<FlatList
+				data={currentHistoryItems || []}
+				renderItem={renderHistoryItem}
+				keyExtractor={historyItem => historyItem.createdOn + currentCategory}
 				ref={(ref) => scrollViewRef = ref}
-			>
-				{currentHistoryItems && currentHistoryItems.map((historyItem: HistoryItemModel) => (
-					<HistoryItem key={historyItem.createdOn + currentCategory} historyItem={historyItem} />
-				))}
-			</ScrollView>
+				contentContainerStyle={styles.containerStyle}
+				onScroll={({nativeEvent}) => {
+					if (isCloseToBottom(nativeEvent)) {
+						loadMoreIfExists();
+					}
+				}}
+				scrollEventThrottle={400}
+			/>
+
+			<PageLoader showLoader={loadMore} />
 		</View>
 	);
 }
