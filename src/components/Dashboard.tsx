@@ -52,11 +52,7 @@ export default function Dashboard() {
 				component={Wallet}
 				options={{
 					tabBarIcon: ({ focused }) => {
-						if (focused) {
-							return <WalletFilledIcon width={24} height={20}/>;
-						} else {
-							return <WalletIcon />;
-						}
+						return <WalletFilledIcon width={24} height={20} isActive={focused} />
 					},
 				}}
 			/>

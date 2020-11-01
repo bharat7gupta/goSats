@@ -25,6 +25,7 @@ enum Colors {
 	HEADER_TITLE = '#D0D0D0',
 	GREY_FONT_COLOR = '#737373',
 	YELLOW_GOLD = '#B58E37',
+	ICON_INACTIVE = '#5A5A5A',
 }
 
 export default Colors;

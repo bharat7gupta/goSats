@@ -9,7 +9,7 @@ interface CategoriesIconProps {
 
 export default function CategoriesIcon(props: CategoriesIconProps) {
 	const { size = 18, isActive = false } = props;
-	const fillColor = isActive ? colorConstants.FONT_COLOR : colorConstants.WARM_GREY;
+	const fillColor = isActive ? colorConstants.WHITE : colorConstants.ICON_INACTIVE;
 
 	return (
 		<Svg width={size} height={size} viewBox="0 0 18 18" fill="none">
