@@ -49,6 +49,10 @@ export default function Profile(props: ProfileProps) {
 		}
 	};
 
+	const handleInitiateEmailVerification = () => {
+		props.navigation.navigate('ProfileEdit', { ...profileData });
+	};
+
 	const handleProfileClick = () => {
 		props.navigation.navigate('ProfileEdit', { ...profileData });
 	};
@@ -78,7 +82,7 @@ export default function Profile(props: ProfileProps) {
 					type: AuthActions.UPDATE_LOGIN_STATUS,
 					isLoggedIn: false,
 				});
-			});
+			}, 100);
 		});
 	};
 
@@ -96,7 +100,18 @@ export default function Profile(props: ProfileProps) {
 					<View style={styles.topSection}>
 						<View style={styles.userDetails}>
 							<Text style={styles.username}>{profileData.name}</Text>
-							<Text style={styles.email}>{profileData.email}</Text>
+
+							{!!profileData.email && <Text style={styles.email}>{profileData.email}</Text>}
+
+							{!!profileData.email && !profileData.email_verified && (
+								<View style={{ flexDirection: 'row' }}>
+									<Text style={styles.notVerifiedText}>Not Verified. </Text>
+
+									<TouchableOpacity activeOpacity={Config.DEFAULT_TOUCHABLE_OPACITY} onPress={handleInitiateEmailVerification}>
+										<Text style={styles.verifyNow}>Verify Now</Text>
+									</TouchableOpacity>
+								</View>
+							)}
 						</View>
 
 						<Text style={styles.userLogo}>{profileData.name.substr(0, 1)}</Text>
@@ -158,6 +173,18 @@ const styles = StyleSheet.create({
 		borderRadius: 30,
 		backgroundColor: '#4D4475',
 		alignSelf: 'flex-start',
+	},
+	notVerifiedText: {
+		fontFamily: 'SFProText-Regular',
+		fontSize: 14,
+		lineHeight: 21,
+		color: colorConstants.VALIDATION_TEXT_COLOR,
+	},
+	verifyNow: {
+		fontFamily: 'SFProText-Bold',
+		fontSize: 14,
+		lineHeight: 20,
+		color: colorConstants.FONT_COLOR,
 	},
 	actions: {
 		marginTop: 20,

@@ -57,8 +57,10 @@ export default function VerifyEmail(props) {
 			let verificationData;
 			setSubmitDisabled(true);
 
-			if (email) {
+			if (email && totalSats) {
 				verificationData = await ApiHelper.verifyEmail(otp);
+			} else if (email && totalSats === undefined) { // profile email verification case
+				verificationData = await ApiHelper.verifyEmailChange(otp);
 			} else {
 				verificationData = await ApiHelper.verifyPhone(`${countryCode}${phoneNumber}`, otp);
 			}
@@ -110,8 +112,10 @@ export default function VerifyEmail(props) {
 		setResendOtpVisibility(false);
 		Toast.show('Trying to send OTP code');
 
-		if (email) {
+		if (email && totalSats) {
 			signInData = await ApiHelper.requestEmailOtp();
+		} else if (email && totalSats === undefined) { // profile email verification case
+			signInData = await ApiHelper.changeEmail(email);
 		} else {
 			signInData = await ApiHelper.signIn(`${countryCode}${phoneNumber}`);
 		}

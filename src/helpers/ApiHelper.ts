@@ -27,6 +27,8 @@ const API_URLS = {
 	ORDER_STATUS: '/user/order/status/',
 	WITHDRAW_SATS: '/user/withdraw/sats',
 	HISTORY: '/user/order/list/all',
+	CHANGE_EMAIL: '/auth/user/change/email',
+	VERIFY_EMAIL_CHANGE: '/auth/user/change/verify/email',
 };
 
 const baseHeaders = {
@@ -145,6 +147,20 @@ export async function requestEmailOtp() {
 
 export async function verifyEmail(code: string) {
 	const apiUrl = `${API_ROOT}${API_URLS.VERIFY_EMAIL}`;
+	const requestObj = { code };
+
+	return await commonApiCall(apiUrl, requestObj, 'POST', true);
+}
+
+export async function changeEmail(email: string) {
+	const apiUrl = `${API_ROOT}${API_URLS.CHANGE_EMAIL}`;
+	const requestObj = { email };
+
+	return await commonApiCall(apiUrl, requestObj, 'POST', true);
+}
+
+export async function verifyEmailChange(code: string) {
+	const apiUrl = `${API_ROOT}${API_URLS.VERIFY_EMAIL_CHANGE}`;
 	const requestObj = { code };
 
 	return await commonApiCall(apiUrl, requestObj, 'POST', true);

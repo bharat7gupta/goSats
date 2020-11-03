@@ -1,14 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import Toast from 'react-native-simple-toast';
 import Header from './common/Header';
 import ChevronLeft from './common/icons/ChevronLeft';
 import colorConstants from '../constants/color';
 import * as UtilityHelper from '../helpers/UtilityHelper';
+import * as ApiHelper from '../helpers/ApiHelper';
 import TextBox from './common/TextBox';
 import { KeyboardAwareScrollView } from '@codler/react-native-keyboard-aware-scroll-view';
 import { DEFAULT_TOUCHABLE_OPACITY } from '../constants/config';
 import Strings from '../constants/strings';
+import { AuthDispatchContext } from '../App';
+import { AuthActions } from '../reducers/AuthReducer';
 
 interface ProfileEditProps {
 	route?: any;
@@ -17,6 +20,7 @@ interface ProfileEditProps {
 
 export default function ProfileEdit(props: ProfileEditProps) {
 	const { params } = props.route;
+	const authDispatch = useContext(AuthDispatchContext);
 	const { name, email, phoneNumber, email_verified } = params || {};
 	const [ inputEmail, setInputEmail ] = useState(email);
 	const [ emailValidationText, setEmailValidationText ] = useState('');
@@ -26,13 +30,26 @@ export default function ProfileEdit(props: ProfileEditProps) {
 		setEmailValidationText('');
 	};
 
-	const handleVerifyClick = () => {
+	const handleVerifyClick = async () => {
 		if (!UtilityHelper.isEmail(inputEmail)) {
 			setEmailValidationText(Strings.ENTER_VALID_EMAIL);
 			return;
 		}
 
-		props.navigation.navigate('VerifyAccount', { email: inputEmail });
+		try {
+			const changeEmailResponse = await ApiHelper.changeEmail(inputEmail);
+
+			Toast.show(changeEmailResponse.message);
+
+			if (!changeEmailResponse.error) {
+				props.navigation.navigate('VerifyAccount', { email: inputEmail });
+			}
+		} catch (e) {
+			authDispatch({
+				type: AuthActions.UPDATE_LOGIN_STATUS,
+				isLoggedIn: false,
+			});
+		}
 	};
 
 	return (
