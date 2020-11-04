@@ -131,9 +131,7 @@ export default function Shop(props) {
 	return (
 		<View style={styles.root}>
 			<ScrollView ref={(ref) => scrollViewRef = ref} contentContainerStyle={styles.containerStyle} stickyHeaderIndices={[0]}>
-				<View style={styles.topSection}>
-					<PageHeader title="Shop" navigation={props.navigation} />
-				</View>
+				<PageHeader title="Shop" navigation={props.navigation} />
 
 				{!loading && (
 					<React.Fragment>
@@ -185,10 +183,6 @@ const styles = StyleSheet.create({
 	containerStyle: {
 		flexGrow: 1,
 		paddingBottom: 30,
-	},
-	topSection: {
-		paddingTop: StatusBarHeight + 10,
-		backgroundColor: colorConstants.PRIMARY,
 	},
 	editorsPickTitleText: {
 		fontFamily: 'SFProText-Regular',

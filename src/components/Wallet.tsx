@@ -101,78 +101,78 @@ export default function Wallet(props: WalletProps) {
 	};
 
 	return (
-		<ScrollView
-			contentContainerStyle={styles.containerStyle}
-			stickyHeaderIndices={[0]}
-			ref={(ref) => scrollViewRef = ref}
-		>
-			<View style={styles.topSection}>
+		<View style={styles.root}>
+			<ScrollView
+				contentContainerStyle={styles.containerStyle}
+				stickyHeaderIndices={[0]}
+				ref={(ref) => scrollViewRef = ref}
+			>
 				<PageHeader title="Wallet" navigation={props.navigation} />
-			</View>
 
-			<View style={styles.content}>
-				<View style={styles.mainHeader}>
-					<Text style={styles.earningsHeaderText}>
-						Available Sats
-					</Text>
-				</View>
-
-				<View style={{ flexDirection: 'row', paddingHorizontal: 20 }}>
-					<Text style={styles.earningsText}>
-						{formattedSpendableSats}
-					</Text>
-					<Text style={styles.earningsSubText}>
-						sats
-					</Text>
-				</View>
-
-				<View style={styles.inrValueTextContainer}>
-					<View style={styles.valueTextChip}>
-						<Text style={styles.valueText}>INR Value</Text>
+				<View style={styles.content}>
+					<View style={styles.mainHeader}>
+						<Text style={styles.earningsHeaderText}>
+							Available Sats
+						</Text>
 					</View>
 
-					<Text style={styles.inrValue}>₹ {balanceInINR}</Text>
-				</View>
+					<View style={{ flexDirection: 'row', paddingHorizontal: 20 }}>
+						<Text style={styles.earningsText}>
+							{formattedSpendableSats}
+						</Text>
+						<Text style={styles.earningsSubText}>
+							sats
+						</Text>
+					</View>
 
-				{!!minWithdrawSats && (
-					<LevelProgress
-						level={level}
-						earnedSats={spendableSats}
-						horizontalProgressBarGradient={true}
-						style={{ marginTop: 10, paddingHorizontal: 20 }}
-					/>
-				)}
-
-				<View style={styles.withdrawTermsContainer}>
-					<Text style={styles.withdrawTermsHeaderText}>
-						Withdraw Terms :
-					</Text>
-
-					{withdrawalTerms.map((term, index) => (
-						<View key={index} style={{ flexDirection: 'row', marginBottom: 8 }}>
-							<Text style={styles.bulletPoint}>{'\u2022'}</Text>
-							<Text style={styles.withdrawTermText}>{term}</Text>
+					<View style={styles.inrValueTextContainer}>
+						<View style={styles.valueTextChip}>
+							<Text style={styles.valueText}>INR Value</Text>
 						</View>
-					))}
-				</View>
 
-				{canWithdraw ? (
-					<ShadowButton
-						buttonText="Withdraw"
-						disabled={false}
-						onClick={handleWithdrawInit}
-						style={styles.bottomButton}
-					/>
-				) : (
-					<ShadowButton
-						buttonText="Keep Shopping"
-						disabled={false}
-						onClick={handleKeepShopping}
-						style={styles.bottomButton}
-					/>
-				)}
-			</View>
-		</ScrollView>
+						<Text style={styles.inrValue}>₹ {balanceInINR}</Text>
+					</View>
+
+					{!!minWithdrawSats && (
+						<LevelProgress
+							level={level}
+							earnedSats={spendableSats}
+							horizontalProgressBarGradient={true}
+							style={{ marginTop: 10, paddingHorizontal: 20 }}
+						/>
+					)}
+
+					<View style={styles.withdrawTermsContainer}>
+						<Text style={styles.withdrawTermsHeaderText}>
+							Withdraw Terms :
+						</Text>
+
+						{withdrawalTerms.map((term, index) => (
+							<View key={index} style={{ flexDirection: 'row', marginBottom: 8 }}>
+								<Text style={styles.bulletPoint}>{'\u2022'}</Text>
+								<Text style={styles.withdrawTermText}>{term}</Text>
+							</View>
+						))}
+					</View>
+
+					{canWithdraw ? (
+						<ShadowButton
+							buttonText="Withdraw"
+							disabled={false}
+							onClick={handleWithdrawInit}
+							style={styles.bottomButton}
+						/>
+					) : (
+						<ShadowButton
+							buttonText="Keep Shopping"
+							disabled={false}
+							onClick={handleKeepShopping}
+							style={styles.bottomButton}
+						/>
+					)}
+				</View>
+			</ScrollView>
+		</View>
 	);
 }
 
@@ -184,10 +184,6 @@ const styles = StyleSheet.create({
 	containerStyle: {
 		flexGrow: 1,
 		paddingBottom: 30,
-		backgroundColor: colorConstants.PRIMARY,
-	},
-	topSection: {
-		paddingTop: StatusBarHeight + 10,
 		backgroundColor: colorConstants.PRIMARY,
 	},
 	content: {

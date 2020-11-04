@@ -97,7 +97,7 @@ export default function History(props: HistoryProps) {
 				return;
 			}
 
-			processHistoryData(history);
+			processHistoryData(history, loadMore);
 		} catch (e) {
 			setLoading(false);
 			setLoadMore(false);
@@ -108,9 +108,9 @@ export default function History(props: HistoryProps) {
 		}
 	};
 
-	const processHistoryData = (historyResponse) => {
+	const processHistoryData = (historyResponse, fromLoadMore: boolean) => {
 		const historyData = historyResponse.data || [];
-		const types = historyCategories.length > 1 ? historyCategories : [CATEGORY_ALL];
+		const types = fromLoadMore ? historyCategories : [CATEGORY_ALL];
 
 		const transformedHistoryData = historyData.reduce((acc, current) => {
 			const { type } = current;
@@ -126,11 +126,9 @@ export default function History(props: HistoryProps) {
 			}
 
 			return acc;
-		}, historyMap);
+		}, fromLoadMore ? historyMap : {});
 
-		const completeList = [ ...allHistoryItems, ...historyData ];
-
-		console.log(historyData, completeList);
+		const completeList = fromLoadMore ? [ ...allHistoryItems, ...historyData ] : historyData;
 
 		setAllHistoryItems(completeList);
 		setHistoryCategories(types);
@@ -150,7 +148,7 @@ export default function History(props: HistoryProps) {
 
 	const scrollToTop = () => {
 		setTimeout(() => {
-			if (scrollViewRef) {
+			if (scrollViewRef && typeof scrollViewRef.scrollTo === 'function') {
 				scrollViewRef.scrollTo({ x: 0, y: 0, animated: true });
 			}
 		}, 10);
@@ -217,9 +215,7 @@ export default function History(props: HistoryProps) {
 	if (!loading && allHistoryItems && allHistoryItems.length === 0) {
 		return (
 			<View style={styles.root}>
-				<View style={styles.topSection}>
-					<PageHeader title="History" navigation={props.navigation} />
-				</View>
+				<PageHeader title="History" navigation={props.navigation} style={styles.topSection} />
 
 				<Text style={styles.emptyHistory}>Your History is clean!</Text>
 
@@ -233,13 +229,9 @@ export default function History(props: HistoryProps) {
 		);
 	}
 
-	console.log('currentHistoryItems', currentHistoryItems);
-
 	return (
 		<View style={styles.root}>
-			<View style={styles.topSection}>
-				<PageHeader title="History" navigation={props.navigation} />
-			</View>
+			<PageHeader title="History" navigation={props.navigation} style={{ flex: 0 }}/>
 
 			{renderCategoryTypes()}
 
@@ -257,19 +249,6 @@ export default function History(props: HistoryProps) {
 				scrollEventThrottle={400}
 			/>
 
-			{/* <ScrollView
-				contentContainerStyle={styles.containerStyle}
-				ref={(ref) => scrollViewRef = ref}
-				onScroll={({nativeEvent}) => {
-					if (isCloseToBottom(nativeEvent)) {
-						loadMoreIfExists();
-					}
-				}}
-				scrollEventThrottle={400}
-			>
-				{(currentHistoryItems || []).map(renderHistoryItem)}
-			</ScrollView> */}
-
 			<PageLoader showLoader={loadMore} />
 		</View>
 	);
@@ -279,10 +258,6 @@ const styles = StyleSheet.create({
 	root: {
 		flex: 1,
 		backgroundColor: colorConstants.PRIMARY,
-	},
-	topSection: {
-		minHeight: 80,
-		paddingTop: UtilityHelper.StatusBarHeight + 10,
 	},
 	categoryContainer: {
 		flexDirection: 'row',

@@ -13,6 +13,7 @@ import { StatusBarHeight } from '../helpers/UtilityHelper';
 import ChevronLeft from './common/icons/ChevronLeft';
 import { AuthDispatchContext } from '../App';
 import { AuthActions } from '../reducers/AuthReducer';
+import PageHeader from './PageHeader';
 // import brandList from '../mock_jsons/brand-list.json';
 
 export default function Categories(props) {
@@ -91,13 +92,7 @@ export default function Categories(props) {
 
 	return (
 		<View style={styles.root}>
-			<Header
-				title="Categories"
-				showBackButton={false}
-				backButtonContent={<ChevronLeft />}
-				navigation={props.navigation}
-				style={styles.header}
-			/>
+			<PageHeader title="Categories" navigation={props.navigation} style={{ flex: 0 }} />
 
 			<View style={styles.container}>
 				<View style={styles.categoryList}>
@@ -150,11 +145,6 @@ const styles = StyleSheet.create({
 		flex: 1,
 		backgroundColor: colorConstants.PRIMARY,
 		position: 'relative',
-		paddingTop: StatusBarHeight,
-	},
-	header: {
-		paddingHorizontal: 20,
-		paddingBottom: 16,
 	},
 	container: {
 		flex: 1,
