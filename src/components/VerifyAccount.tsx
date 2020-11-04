@@ -164,6 +164,7 @@ export default function VerifyEmail(props) {
 				disabled={!otpValid || submitDisabled}
 				hintText={continueButtonHintText}
 				onClick={onVerifyClick}
+				style={{ marginBottom: 16 }}
 			/>
 		</View>
 	);

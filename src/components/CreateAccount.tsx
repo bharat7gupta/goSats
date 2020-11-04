@@ -168,6 +168,7 @@ export default function CreateAccount(props) {
 				buttonText="Start Stacking!"
 				disabled={submitDisabled}
 				onClick={onSubmit}
+				style={{ marginBottom: 16 }}
 			/>
 		</View>
 	);

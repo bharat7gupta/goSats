@@ -93,6 +93,7 @@ export default function AccountLogin(props: AccountLoginProps) {
 					hintText={continueButtonHintText}
 					disabled={!isValidPhoneNumber || submitDisabled}
 					onClick={handleSubmit}
+					style={{ marginBottom: 16 }}
 				/>
 			</View>
 		</View>

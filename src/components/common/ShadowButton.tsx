@@ -44,7 +44,7 @@ export default function ShadowButton(props: ShadowButtonProps) {
 					darkShadowColor={colorConstants.SHADOW_DARK}
 					lightShadowColor={lightShadowColor}
 				>
-					<View style={{...styles.button, backgroundColor}}>
+					<View style={{ ...styles.button, backgroundColor }}>
 						<Text style={{ ...styles.disabledText, color: buttonTextColor }}>
 							{props.buttonText}
 						</Text>
@@ -58,16 +58,14 @@ export default function ShadowButton(props: ShadowButtonProps) {
 const styles = StyleSheet.create({
 	root: {
 		paddingHorizontal: 18,
-		paddingTop: 14,
-		paddingBottom: 30,
-		height: 100,
+		paddingVertical: 14,
 	},
 	shadowContainer: {
 		shadowRadius: 6,
 		shadowOpacity: 0.8,
 		flexDirection: 'row',
 		borderRadius: 10,
-		flex: 1,
+		height: 48,
 		justifyContent: 'center',
 		alignItems: 'center',
 		overflow: 'hidden',

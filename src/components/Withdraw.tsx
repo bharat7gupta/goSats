@@ -144,7 +144,6 @@ export default function Withdraw(props: WithdrawProps) {
 						buttonText="Proceed"
 						disabled={false}
 						onClick={handleWithdraw}
-						style={styles.withdrawButton}
 					/>
 				</View>
 			</KeyboardAwareScrollView>
@@ -216,8 +215,5 @@ const styles = StyleSheet.create({
 		lineHeight: 17,
 		opacity: 0.8,
 		marginLeft: 4,
-	},
-	withdrawButton: {
-		marginBottom: -20,
 	},
 });

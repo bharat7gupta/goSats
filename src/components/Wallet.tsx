@@ -274,6 +274,7 @@ const styles = StyleSheet.create({
 	bottomButton: {
 		padding: 20,
 		paddingTop: 28,
+		marginBottom: 12,
 	},
 	keepShoppingText: {
 		color: colorConstants.YELLOW_GOLD,
