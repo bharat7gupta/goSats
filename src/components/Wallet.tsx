@@ -25,12 +25,10 @@ export default function Wallet(props: WalletProps) {
 	let scrollViewRef;
 
 	useEffect(() => {
-		fetchUserBalance();
-
 		AppState.addEventListener('change', fetchPageDataOnResume);
 
 		const removeNavigationListener = props.navigation.addListener('focus', e => {
-			fetchPageDataOnResume('active');
+			fetchUserBalance();
 			setTimeout(() => scrollToTop(), 10);
 		});
 

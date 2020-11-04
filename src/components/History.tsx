@@ -41,12 +41,10 @@ export default function History(props: HistoryProps) {
 	let scrollViewRef;
 
 	useEffect(() => {
-		fetchHistory();
-
 		AppState.addEventListener('change', fetchPageDataOnResume);
 
 		const removeNavigationListener = props.navigation.addListener('focus', e => {
-			fetchPageDataOnResume('active');
+			fetchHistory();
 			scrollToTop();
 		});
 
@@ -101,6 +99,8 @@ export default function History(props: HistoryProps) {
 
 			processHistoryData(history);
 		} catch (e) {
+			setLoading(false);
+			setLoadMore(false);
 			authDispatch({
 				type: AuthActions.UPDATE_LOGIN_STATUS,
 				isLoggedIn: false,
@@ -129,6 +129,9 @@ export default function History(props: HistoryProps) {
 		}, historyMap);
 
 		const completeList = [ ...allHistoryItems, ...historyData ];
+
+		console.log(historyData, completeList);
+
 		setAllHistoryItems(completeList);
 		setHistoryCategories(types);
 		setHistoryMap(transformedHistoryData);
@@ -230,6 +233,8 @@ export default function History(props: HistoryProps) {
 		);
 	}
 
+	console.log('currentHistoryItems', currentHistoryItems);
+
 	return (
 		<View style={styles.root}>
 			<View style={styles.topSection}>
@@ -251,6 +256,19 @@ export default function History(props: HistoryProps) {
 				}}
 				scrollEventThrottle={400}
 			/>
+
+			{/* <ScrollView
+				contentContainerStyle={styles.containerStyle}
+				ref={(ref) => scrollViewRef = ref}
+				onScroll={({nativeEvent}) => {
+					if (isCloseToBottom(nativeEvent)) {
+						loadMoreIfExists();
+					}
+				}}
+				scrollEventThrottle={400}
+			>
+				{(currentHistoryItems || []).map(renderHistoryItem)}
+			</ScrollView> */}
 
 			<PageLoader showLoader={loadMore} />
 		</View>
