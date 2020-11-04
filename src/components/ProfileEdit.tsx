@@ -62,7 +62,10 @@ export default function ProfileEdit(props: ProfileEditProps) {
 				style={styles.header}
 			/>
 
-			<KeyboardAwareScrollView contentContainerStyle={{ flexGrow: 1, paddingVertical: 30 }}>
+			<KeyboardAwareScrollView
+				contentContainerStyle={{ flexGrow: 1, paddingVertical: 30 }}
+				keyboardShouldPersistTaps={true}
+			>
 				<View style={styles.row}>
 					<Text style={styles.label}>Name</Text>
 					<Text style={styles.value}>{name}</Text>
