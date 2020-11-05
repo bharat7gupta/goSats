@@ -218,9 +218,9 @@ export default function BrandDetail(props) {
 	};
 
 	const renderVouchers = () => {
-		const { price } = (brandData || {}) as GiftCardDetail;
+		const { priceDenomination } = (brandData || {}) as GiftCardDetail;
 
-		if (!price || !price.denominations) {
+		if (!priceDenomination) {
 			return null;
 		}
 
@@ -231,12 +231,12 @@ export default function BrandDetail(props) {
 				alwaysBounceHorizontal={true}
 				contentContainerStyle={styles.giftVoucherContainer}
 			>
-				{price.denominations.map((denomination, index) => (
+				{priceDenomination.map((denomination, index) => (
 					<GiftVoucher
-						key={denomination}
-						denomination={denomination}
-						isSelected={denomination === currentDenomination}
-						onClick={() => setCurrentDenomination(denomination)}
+						key={denomination.value}
+						denomination={denomination.displayVal}
+						isSelected={denomination.value === currentDenomination}
+						onClick={() => setCurrentDenomination(denomination.value)}
 						style={{
 							...styles.giftVoucher,
 							paddingLeft: index === 0 ? 0 : styles.giftVoucher.paddingHorizontal,
