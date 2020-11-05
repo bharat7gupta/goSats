@@ -42,7 +42,7 @@ export default function ProfileEdit(props: ProfileEditProps) {
 			Toast.show(changeEmailResponse.message);
 
 			if (!changeEmailResponse.error) {
-				props.navigation.navigate('VerifyAccount', { email: inputEmail });
+				props.navigation.navigate('ProfileEmailVerify', { email: inputEmail });
 			}
 		} catch (e) {
 			authDispatch({

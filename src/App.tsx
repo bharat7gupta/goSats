@@ -94,7 +94,7 @@ function App() {
 								<Stack.Screen name="Profile" component={Profile} />
 								<Stack.Screen name="ProfileEdit" component={ProfileEdit} />
 								<Stack.Screen name="ReferAndEarn" component={ReferAndEarn} />
-								<Stack.Screen name="VerifyAccount" component={VerifyAccount} />
+								<Stack.Screen name="ProfileEmailVerify" component={VerifyAccount} />
 							</React.Fragment>
 						</Stack.Navigator>
 						) : (

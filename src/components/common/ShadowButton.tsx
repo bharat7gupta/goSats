@@ -65,14 +65,14 @@ const styles = StyleSheet.create({
 		shadowOpacity: 0.8,
 		flexDirection: 'row',
 		borderRadius: 10,
-		height: 48,
-		justifyContent: 'center',
-		alignItems: 'center',
+		height: 54,
 		overflow: 'hidden',
 	},
 	button: {
 		width: '100%',
 		borderRadius: 10,
+		justifyContent: 'center',
+		alignItems: 'center',
 	},
 	disabledText: {
 		color: 'rgba(255, 255, 255, 0.5)',
