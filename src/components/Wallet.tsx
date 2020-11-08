@@ -85,8 +85,9 @@ export default function Wallet(props: WalletProps) {
 
 	const withdrawalTerms = [
 		'You need to stack a minimum of 50,000 sats to withdraw.',
-		'Withdrawals are processed every Wednesday.',
-		'There are 0 fees for withdrawing!',
+		'Withdrawals are processed every Wednesday at 6pm IST.',
+		'Any valid bitcoin address can be used for withdrawal.',
+		'There are absolutely NO fees for withdrawals! We absorb the bitcoin network fees ourselves.',
 	];
 
 	const spendableSats = balanceData && balanceData.balance.spendableSats;
@@ -144,7 +145,7 @@ export default function Wallet(props: WalletProps) {
 
 					<View style={styles.withdrawTermsContainer}>
 						<Text style={styles.withdrawTermsHeaderText}>
-							Withdraw Terms :
+							Withdrawal Terms :
 						</Text>
 
 						{withdrawalTerms.map((term, index) => (

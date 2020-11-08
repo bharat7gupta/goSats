@@ -47,9 +47,9 @@ export default function ReferAndEarn(props: ReferAndEarnProps) {
 						lightShadowColor={colorConstants.SHADOW_LIGHT}
 					>
 						<View style={styles.content}>
-							<Text style={styles.headerText}>Earn Free Sats</Text>
+							<Text style={styles.headerText}>Earn Free Bitcoin</Text>
 							<Text style={styles.subText}>
-								Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit.
+								Share the below referral code with your friends and family. When they sign up using your code, you both get 10,000 sats when they make their first purchase! 
 							</Text>
 
 							<View style={styles.referralCodeContainer}>

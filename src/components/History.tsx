@@ -21,7 +21,7 @@ interface HistoryProps {
 	route?: any;
 }
 
-const CATEGORY_ALL = 'All Type';
+const CATEGORY_ALL = 'All Types';
 const HISTORY_PAGE_FETCH_TIMESTAMP_KEY = 'historyDataFetchTimestamp';
 
 export default function History(props: HistoryProps) {
