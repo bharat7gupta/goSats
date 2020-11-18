@@ -18,6 +18,7 @@ import masterDataSet from '../mock_jsons/master-data.json';
 import BrandItem from '../types/BrandItem';
 import { AuthDispatchContext } from '../App';
 import { AuthActions } from '../reducers/AuthReducer';
+import analytics from '@segment/analytics-react-native';
 
 const spotLightHeightFactor = 0.5;
 const editorsPickHeightFactor = 0.764;
@@ -56,6 +57,10 @@ export default function Shop(props) {
 		if (nextAppState === 'active' && shouldRefresh) {
 			fetchMasterData();
 		}
+		/*analytics.identify("testID", {
+			email: "bitroshan7@gmail.com",
+			name: "Mohammed Roshan"
+		  })*/
 	};
 
 	const fetchMasterData = async () => {

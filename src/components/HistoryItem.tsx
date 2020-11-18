@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, Clipboard } from 'react-native';
+import { View, Text, StyleSheet, Clipboard, Linking } from 'react-native';
 import { NeomorphFlex } from 'react-native-neomorph-shadows';
 import Toast from 'react-native-simple-toast';
 import colorConstants from '../constants/color';
@@ -80,6 +80,22 @@ export default function HistoryItem(props: HistoryItemProps) {
 					<Text style={styles.label}>Order ID</Text>
 					<Text style={styles.detailsRowValue}>{historyItem.orderId}</Text>
 				</View>
+				{historyItem.voucherDetails && historyItem.voucherDetails.tcURL && (
+				<>
+					<View style={styles.detailsRow}>
+						<Text style={styles.label}>Expiry Date</Text>
+						<Text style={styles.detailsRowValue}>{UtilityHelper.getFormattedDate(historyItem.voucherDetails.expiryDate)}</Text>
+					</View>
+					<View style={styles.detailsRow}>
+						<TouchableOpacity
+							activeOpacity={DEFAULT_TOUCHABLE_OPACITY}
+							onPress={() => Linking.openURL(historyItem.voucherDetails.tcURL)}
+						>
+							<Text style={styles.label}>Click here for T&#x26;Cs</Text>
+						</TouchableOpacity>
+					</View>
+				</>
+				)}
 			</View>
 		);
 	};

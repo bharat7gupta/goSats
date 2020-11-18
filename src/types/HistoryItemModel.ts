@@ -12,6 +12,8 @@ export interface HistoryItemModel {
 		cardNumber: string;
 		cardPin: string;
 		websiteURL: string;
+		expiryDate: string;
+		tcURL: string;
 	};
 }
 
