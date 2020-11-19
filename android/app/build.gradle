@@ -189,7 +189,7 @@ dependencies {
    // implementation 'com.smartlook.recording:app:1.6.0-native'
     implementation project(':react-native-razorpay')
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
-
+    //implementation 'com.mixpanel.android:mixpanel-android:5.+'
     debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}") {
       exclude group:'com.facebook.fbjni'
     }

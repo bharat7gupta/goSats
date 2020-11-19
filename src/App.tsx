@@ -20,7 +20,7 @@ import History from './components/History';
 import Profile from './components/Profile';
 import ReferAndEarn from './components/ReferAndEarn';
 import ProfileEdit from './components/ProfileEdit';
-import analytics from '@segment/analytics-react-native';
+
 
 export const AuthStateContext = React.createContext({} as AuthState);
 export const AuthDispatchContext = React.createContext((payload) => {});
@@ -48,12 +48,7 @@ function App() {
 		const isLoggedInString = await StorageHelper.getItem('isLoggedIn');
 		setIsLoggedIn(isLoggedInString === 'true');
 		setCheckedSignInState(true);
-		await analytics.setup('dzH8k5sdtUoLV7C4XSiAfcbmv2nKuZix', {
-			// Record screen views automatically!
-			recordScreenViews: true,
-			// Record certain application events automatically!
-			trackAppLifecycleEvents: true
-		  })
+		
 	};
 
 	if (!checkedSignInState) {

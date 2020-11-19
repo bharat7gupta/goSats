@@ -10,6 +10,7 @@ import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.soloader.SoLoader;
+//import com.mixpanel.android.mpmetrics.MixpanelAPI;
 //import com.smartlook.sdk.smartlook.Smartlook;
 import com.razorpay.rn.RazorpayPackage;
 
@@ -49,10 +50,14 @@ public class MainApplication extends Application implements ReactApplication {
   @Override
   public void onCreate() {
     super.onCreate();
+
+
+
     //Smartlook.setupAndStartRecording("7526a170e404a90ae715b682606ce85f02d57857");
     SoLoader.init(this, /* native exopackage */ false);
     initializeFlipper(this, getReactNativeHost().getReactInstanceManager());
   }
+
 
   /**
    * Loads Flipper in React Native templates. Call this in the onCreate method with something like
@@ -63,6 +68,7 @@ public class MainApplication extends Application implements ReactApplication {
    */
   private static void initializeFlipper(
       Context context, ReactInstanceManager reactInstanceManager) {
+
     if (BuildConfig.DEBUG) {
       try {
         /*
