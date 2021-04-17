@@ -15,10 +15,10 @@ https://play.google.com/store/apps/details?id=io.gosats&hl=en_IN&gl=US
 
 ## App Screenshots
 Home Screen
-(https://github.com/bharat7gupta/goSats/blob/master/screenshots/gosats%20-%20home%20screen.jpg)
+![Home Screen](https://github.com/bharat7gupta/goSats/blob/master/screenshots/gosats%20-%20home%20screen.jpg)
 
 Refer & Earn screen
-(https://github.com/bharat7gupta/goSats/blob/master/screenshots/gosats%20-%20refer%20screen.jpg)
+![Refer & Earn](https://github.com/bharat7gupta/goSats/blob/master/screenshots/gosats%20-%20refer%20screen.jpg)
 
 Wallet screen
-(https://github.com/bharat7gupta/goSats/blob/master/screenshots/gosats%20-%20wallet%20screen.jpg)
+![Wallet](https://github.com/bharat7gupta/goSats/blob/master/screenshots/gosats%20-%20wallet%20screen.jpg)
