@@ -13,10 +13,20 @@ GoSats users get bitcoin, the greatest performing asset. Period.
 Download and start stacking bitcoin!
 https://play.google.com/store/apps/details?id=io.gosats&hl=en_IN&gl=US
 
+## App recordings
+App Overview
+
+![App](https://github.com/bharat7gupta/goSats/blob/master/screenrecordings/gosats-app-recording.gif)
+
+Category page
+
+![Category page](https://github.com/bharat7gupta/goSats/blob/master/screenrecordings/gosats-categories-screen.gif)
+
+
 ## App Screenshots
 Home Screen
 
-![Home Screen](https://github.com/bharat7gupta/goSats/blob/master/screenshots/gosats%20-%20home%20screen.jpg)
+![Home Screen](https://github.com/bharat7gupta/goSats/blob/master/screenshots/gosats%20-%20home%20screen.png)
 
 Refer & Earn screen
 
