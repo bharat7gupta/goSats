@@ -28,6 +28,7 @@ import OrderStatusModal from './OrderStatusModal';
 import RazorpayCheckout from 'react-native-razorpay';
 import { AuthDispatchContext } from '../App';
 import { AuthActions } from '../reducers/AuthReducer';
+import BrandDetailContent from './BrandDetailContent';
 // import merchantDetail from '../mock_jsons/merchant-detail.json';
 // import orderStatusWithCongrats from '../mock_jsons/order-status-with-congrats.json';
 // import orderStatusWithoutCongrats from '../mock_jsons/order-status-without-congrats.json';
@@ -325,6 +326,19 @@ export default function BrandDetail(props) {
 				</NeomorphFlex>
 			</View>
 
+			<View style={styles.bottomSheetRoot}>
+				<View style={styles.draggable} />
+
+				<ScrollView contentContainerStyle={{ flexGrow: 1, padding: 12 }}>
+					<Text style={styles.detailsHeaderText}>Details</Text>
+					<BrandDetailContent
+						brandDetails={detailsInJson}
+						headerColor={'#939393'}
+						contentColor={colorConstants.FONT_COLOR}
+					/>
+				</ScrollView>
+			</View>
+
 			<Button
 				btnText={getButtonText()}
 				onClick={onPurchanseClick}
@@ -363,12 +377,12 @@ const styles = StyleSheet.create({
 	container: {
 		flexGrow: 1,
 		width: '100%',
-		position: 'relative',
+		// position: 'relative',
 	},
 	innerContent: {
 		minHeight: 250,
 		alignSelf: 'stretch',
-		position: 'relative',
+		// position: 'relative',
 	},
 	image: {
 		position: 'absolute',
@@ -425,5 +439,34 @@ const styles = StyleSheet.create({
 	},
 	giftVoucher: {
 		paddingHorizontal: 10,
+	},
+
+
+
+	detailsHeaderText: {
+		fontSize: 14,
+		lineHeight: 16,
+		fontFamily: 'SFProText-Bold',
+		color: '#838383',
+		marginBottom: 12,
+	},
+	bottomSheetRoot: {
+		position: 'absolute',
+		backgroundColor: colorConstants.PRIMARY_LIGHT,
+		paddingHorizontal: 12,
+		height: 400,
+		padding: 16,
+		borderTopLeftRadius: 20,
+		borderTopRightRadius: 20,
+	},
+	draggable: {
+		alignSelf: 'center',
+		borderRadius: 2,
+		opacity: 0.2,
+		backgroundColor: '#A7ACB3',
+		width: 70,
+		height: 4,
+		marginTop: 8,
+		marginBottom: 36,
 	},
 });

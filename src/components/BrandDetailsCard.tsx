@@ -1,12 +1,13 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import RBSheet from 'react-native-raw-bottom-sheet';
+import BottomSheet from 'reanimated-bottom-sheet';
 import colorConstants from '../constants/color';
 import { DetailJson } from '../types/MerchantDetail';
 import { ScrollView } from 'react-native-gesture-handler';
 import Button from './common/Button';
 import { DEFAULT_TOUCHABLE_OPACITY } from '../constants/config';
+import BrandDetailContent from './BrandDetailContent';
 
 interface BrandDetailsCardProps {
 	brandDetails: DetailJson[];
@@ -18,7 +19,7 @@ interface BrandDetailsCardProps {
 export default function BrandDetailsCard(props: BrandDetailsCardProps) {
 	const { brandDetails } = props;
 
-	let bottomSheetRef;
+	const bottomSheetRef = React.useRef(null);
 
 	if (!brandDetails || brandDetails.length === 0) {
 		return null;
@@ -26,7 +27,7 @@ export default function BrandDetailsCard(props: BrandDetailsCardProps) {
 
 	const handleCardClick = () => {
 		if (bottomSheetRef) {
-			bottomSheetRef.open();
+			bottomSheetRef.current.snapTo(0);
 		}
 	};
 
@@ -58,6 +59,26 @@ export default function BrandDetailsCard(props: BrandDetailsCardProps) {
 		);
 	};
 
+	const renderBottomSheetContent = () => {
+		return (
+			<View style={styles.bottomSheetRoot}>
+				<View style={styles.draggable} />
+
+				<ScrollView contentContainerStyle={{ flexGrow: 1, padding: 12 }}>
+					<Text style={styles.detailsHeaderText}>Details</Text>
+					{renderBrandDetails('#939393', colorConstants.FONT_COLOR)}
+				</ScrollView>
+
+				<Button
+					btnText={props.buttonText}
+					onClick={props.onPurchaseClick}
+					btnContainerStyle={styles.purchaseButtonStyle}
+					disabled={props.submitDisabled}
+				/>
+			</View>
+		);
+	};
+
 	return (
 		<React.Fragment>
 			<TouchableOpacity activeOpacity={DEFAULT_TOUCHABLE_OPACITY} onPress={handleCardClick}>
@@ -66,7 +87,11 @@ export default function BrandDetailsCard(props: BrandDetailsCardProps) {
 						<Text style={styles.detailsHeaderText}>Details</Text>
 					</View>
 
-					{renderBrandDetails('#737373', '#939393')}
+					<BrandDetailContent
+						brandDetails={brandDetails}
+						headerColor={'#737373'}
+						contentColor={'#939393'}
+					/>
 
 					<LinearGradient
 						colors={[
@@ -80,41 +105,18 @@ export default function BrandDetailsCard(props: BrandDetailsCardProps) {
 				</View>
 			</TouchableOpacity>
 
-			<RBSheet
-				height={400}
-				dragFromTopOnly={true}
-				closeOnPressMask={true}
-				animationType="slide"
-				ref={(ref) => bottomSheetRef = ref}
-				customStyles={{
-					wrapper: {
-					  backgroundColor: 'rgba(0, 0, 0, 0.5)',
-					},
-				  }}
-			>
-				<View style={styles.bottomSheetRoot}>
-					<View style={styles.draggable} onTouchEnd={bottomSheetRef && bottomSheetRef.close()} />
-
-					<ScrollView contentContainerStyle={{ flexGrow: 1, padding: 12 }}>
-						<Text style={styles.detailsHeaderText}>Details</Text>
-						{renderBrandDetails('#939393', colorConstants.FONT_COLOR)}
-					</ScrollView>
-
-					<Button
-						btnText={props.buttonText}
-						onClick={props.onPurchaseClick}
-						btnContainerStyle={styles.purchaseButtonStyle}
-						disabled={props.submitDisabled}
-					/>
-				</View>
-			</RBSheet>
+			<BottomSheet
+				ref={bottomSheetRef}
+				snapPoints={[400, 0]}
+				borderRadius={10}
+				renderContent={renderBottomSheetContent}
+			/>
 		</React.Fragment>
 	);
 }
 
 const styles = StyleSheet.create({
 	details: {
-		position: 'relative',
 		marginHorizontal: 20,
 		paddingTop: 16,
 		paddingHorizontal: 10,
@@ -150,9 +152,11 @@ const styles = StyleSheet.create({
 		height: 40,
 	},
 	bottomSheetRoot: {
-		flex: 1,
+		// flex: 1,
 		backgroundColor: colorConstants.PRIMARY_LIGHT,
 		paddingHorizontal: 12,
+		height: 400,
+		padding: 16,
 	},
 	draggable: {
 		alignSelf: 'center',
